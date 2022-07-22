@@ -41,6 +41,8 @@ $nameField 	= "mname";
 
 $imgFolder = 'wav';
 
+$neu = $_REQUEST['new'];
+
 ///////////////////////////////////////////////////////////////////////////////////////
 
 // $new = '<a href="?neu=1" class="btn btn-info"><i class="fa fa-plus"></i> NEU</a>';
@@ -86,6 +88,7 @@ $arr_form = array(
 //		array("img1", "Foto 1", 'img'),
 		array("", "CONFIG", '</div></div>'),
 );
+
 ///////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////
 
@@ -248,7 +251,7 @@ function duplicate_time($dauer) {
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 
 function edit($edit) {
-	global $arr_form, $table, $tid, $imgFolder, $um_wen_gehts;
+	global $arr_form, $table, $tid, $imgFolder, $um_wen_gehts, $neu;
 
 	$sql = "SELECT * FROM $table WHERE $tid=".$edit."";
 	$res = safe_query($sql);
@@ -257,6 +260,7 @@ function edit($edit) {
 	$echo .= '
 		<input type="Hidden" name="edit" value="'.$edit.'">
 		<input type="Hidden" name="save" value="1">
+		<input type="Hidden" name="neu" value='.$neu.'>
 		<input type="hidden" value="0" name="back" id="back" />
 
 		<div class="row">
@@ -318,7 +322,7 @@ function edit($edit) {
 if ($save) {
 	$neu = isset($_POST["neu"]) ? $_POST["neu"] : 0;
 
-	//echo "save"; die();
+	//echo $new; die();
 	$edit = saveMorpheusForm($edit, $neu);
 
 	//echo 'dd'; die();

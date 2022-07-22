@@ -1001,13 +1001,14 @@ function saveMorpheusForm($edit, $neu, $row=0, $zusatz='', $duplicate='***') {
 				$res = safe_query($sql_set);					
 			}
 		}
-		else if ($tmp != "region") $sql .= "`".$tmp. "`='" .addslashes($val). "', ";
+		else if ($tmp != "region" && $arr[2] != 'file') $sql .= "`".$tmp. "`='" .addslashes($val). "', ";
 	}
 
 	$sql = substr($sql, 0, -2);
 
 	if ($neu) {
 		$sql  = "INSERT $table SET $sql $zusatz";
+		//echo $sql; die();
 		$res  = safe_query($sql);
 		$edit = mysqli_insert_id($mylink);
 		unset($neu);
