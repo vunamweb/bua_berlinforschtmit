@@ -1,0 +1,368 @@
+.mobileOn { }
+
+    @media (min-width: 1200px) {
+    .container {
+        max-width: 1200px;
+    }
+}
+
+@media (max-width: 1500px) {
+
+}
+@media (max-width: 1400px) {
+
+}
+@media (max-width: 1300px) {
+
+}
+@media (max-width: 1200px) {
+	.event_detail h2 {
+	    font-size: 1.5em;
+	    margin-bottom: 2em;
+	}
+	.event_detail h1 {
+	    font-size: 2em;
+	    line-height: 1.1em;
+	    margin-bottom: .5em;
+	}
+	.date_box_abs {
+	    margin-top: -39px;
+	}
+}
+@media (max-width: 1100px) {
+	.partner img { height: 80px; }
+}
+
+@media (max-width: 992px) {
+	.bsnav-dark .navbar-toggler .navbar-toggler-icon, .bsnav-dark .navbar-toggler .navbar-toggler-icon::after, .bsnav-dark .navbar-toggler .navbar-toggler-icon::before,
+	.navbar-toggler .navbar-toggler-icon::after, .bsnav-dark .navbar-toggler .navbar-toggler-icon::after, .bsnav-dark .navbar-toggler .navbar-toggler-icon::before
+	{
+    	background-color: #99cc00;
+	}
+    .bsnav {
+        padding-top: 15px;
+        padding-bottom: 15px;
+    }
+    .spacing {
+        height: 57px;
+    }
+    .bsnav-mobile.in .navbar {
+        width: 100%;
+    }
+	.date_box_abs {
+	    position: relative;
+	    right: inherit;
+	    display: block;
+	    width: 300px;
+	}
+	.event_detail:after {
+	    width: 290px;
+	}
+    .bsnav-mobile .navbar-nav {
+        padding: 0 15px;
+    }
+
+    .bsnav-mobile .navbar-nav .nav-item {
+        text-align: left;
+        border-bottom: solid 1px #666; font-family: Merriweather;
+    }
+    .bsnav-mobile .navbar-nav .nav-item .navbar-nav { 
+        display: block; 
+        margin-left: 0;
+        margin-right: -15px;
+        box-sizing: content-box;
+        padding-right: 0;
+        max-width: 96%;
+    }
+    /* .bsnav-mobile .navbar-nav .nav-item:nth-of-type(2) {
+        background: #544AD4;
+    }
+
+    .bsnav-mobile .navbar-nav .nav-item:nth-of-type(3) {
+        background: #EC2B77;
+    }
+
+    .bsnav-mobile .navbar-nav .nav-item:nth-of-type(5) {
+        background: #743CB4;
+    }
+
+    .bsnav-mobile .navbar-nav .nav-item:nth-of-type(6) {
+        background: #fff;
+    }
+
+    .bsnav-mobile .navbar-nav .nav-item:nth-of-type(6) .nav-link {
+        color: #181818;
+    } */
+
+    .bsnav-mobile .navbar-nav .nav-item:last-child {
+        margin-bottom: 0;
+    }
+
+    .bsnav-mobile .navbar-nav .nav-item .nav-link {
+        padding: 14px 45px 14px 15px;
+        display: block;
+        font-size: 1.25em;
+        font-weight: bold;
+        color: #fff;
+    }
+    .bsnav-mobile .navbar-nav .nav-item .nav-link::before {
+        position: absolute;
+        content: '';
+        right: 5%;
+        top: 18px;
+        /* background: url("../images/SVG/i_right_white.svg") no-repeat; */
+        width: 28px;
+        height: 20px;
+        display: block;
+        background-size: cover;
+    }
+    .bsnav-mobile .navbar {
+        flex-flow: revert;
+    }
+
+    .bsnav-mobile .navbar.bsnav-dark {
+        background: #999;
+    }
+    .navbar {
+        -ms-flex-align: inherit;
+        align-items: normal;
+        -ms-flex-pack: inherit;
+    }
+    .title {
+        font-size: 2.5em;
+    }
+    .title { text-align: left; }
+	.img-logo { margin-bottom: 2em; }
+    .navbar-nav .nav-item .navbar-nav .nav-item .nav-link { font-weight: 300; font-size: 1em; }
+    .navbar-nav .nav-item .navbar-nav .nav-item { border-bottom: none; }
+	
+	.partner img { height: 60px; }
+	
+	.grid-item {
+		width: 48%;
+		margin: 0 5px 15px; 
+	}
+	.grid-sizer {
+		width: 50%;
+	}
+	
+}
+
+@media (max-width: 768px) {
+    section {
+        padding: 30px 0;
+    }
+	.mehrspaltig {
+		column-count: 1;
+	}
+    .section_topbanner.topbanner_services h1 { line-height: 1.3em; }
+    .section_topbanner.topbanner_services { height: 200px;  }
+	.partner { display: block; text-align: center }
+	.partner img { display: inline-block; margin-bottom: 1em; margin-right: 2em; }
+    .title {
+    }
+    .title_sub {
+        margin-bottom: 30px;
+    }
+    .box_content_main h1 {
+        font-size: 1.5em;
+        margin-bottom: 2em;
+    }
+	.col-50 { width: 100%; margin-right: 0; }
+	.col-50+.col-50 { padding-left: 0; }
+    .navbar-brand {
+        margin-left: 15px;
+    }
+    .box_title_content {
+        padding-right: 0;
+    }
+    .box_content {
+        padding-left: 0;
+    }
+    .box_you .box_you_item {
+        padding: 30px;
+    }
+    .section_topbanner {
+        background-size: cover;
+        background-attachment: inherit;
+        /* padding-top: 45px;
+        height: 300px; */
+        position: relative;
+    }
+    .section_ourservices .list_services {
+        display: block;
+    }
+    .section_ourservices .list_services li {
+        width: 100%;
+        margin-right: 0;
+        margin-bottom: 15px;
+        padding: 30px;
+        min-height: auto;
+    }
+    .section_ourservices .list_services li .btnmore_info {
+        position: relative;
+        right: 0;
+        left: 0;
+        bottom: 0;
+    }
+    .box_services_content h1 {
+        font-size: 3em;
+        word-break: break-all;
+    }
+    .section_joboffers .box_joboffers .box_joboffers_item {
+        padding: 30px;
+        margin-right: 0;
+    }
+    .section_joboffers .box_joboffers .box_joboffers_item .btn_applynow {
+        margin-top: 15px;
+    }
+    .section_joboffers .box_joboffers .box_joboffers_item h3 {
+        min-height: auto;
+        margin-bottom: 15px;
+    }
+    .section_joboffers .box_joboffers h1 {
+        font-size: 1.8em;
+        margin-top: 30px;
+    }
+    .section_logo .carousel .carousel-cell {
+        width: 25%;
+    }
+    .section_contact .box_contactperson .box_contactperson_item {
+        margin-bottom: 30px;
+    }
+
+    footer .footer_top {
+        background: #fff;
+    }
+
+    footer .footer_bottom {
+        padding-bottom: 100px;
+    }
+
+    .box_content_main .heading_content h3 {
+        text-align: center;
+        padding: 15px 0;
+    }
+
+    .box_content_main .heading_content ul {
+        text-align: center;
+    }
+
+    .section_workshopseminars .w_workshop a {
+        font-size: 1em;
+        padding-right: 50px;
+    }
+    .box_you .box_you_item ul li {
+        font-size: 1.25em;
+        line-height: 1.5em;
+        margin-bottom: .5em;
+    }
+	.section_topbanner .top-left {
+	    height: 385px;
+	}
+	.copyr { display: block; margin-bottom: 1em; }
+	.date_box { max-width: 60%; margin-top: 2em; }
+	.date_box_abs .date_box { max-width: inherit; margin-top: 2em; }
+	.box_content_items { border-bottom: solid 1px #ccc; padding-bottom: 1em; }
+	footer .list_nav a {
+		font-size: 1em;
+	}
+	#die_phasen .subline {
+		width: 95px;
+		line-height: 1.25em;
+		font-size: .8em;
+	}
+}
+
+@media (max-width: 600px) {
+	.spacing {
+		height: 100px;
+	}
+	h1, h2.large {
+		font-size: 1.5em;
+		line-height: 1.25em;
+	}
+	.logo {
+	    width: 220px;
+	}
+	h1:after, h2.large:after {  width: 70px; height: 30px; }
+	.video-container { margin-bottom: 2em; }
+	footer { padding: 5em 0 0; }
+	.event_detail h2 {
+	    font-size: 1.25em;
+	    margin-bottom: 2em;
+	}
+	.section_topbanner .top-left {
+	    height: 300px;
+	}
+	.top-left { min-width: 120px !important; }
+	.section { padding: 0; }
+	.section_topbanner .top-right { height: 300px; }
+	.title_sub { margin-bottom: 0; }
+	.grid-item {
+		width: 30%;
+	}
+	.partner .flex-container { display: block; }
+	.date_box .monat {
+		font-size: 1.25em;
+		display: block;
+		line-height: 2em;
+	}
+	.date_box .tag {
+		font-size: 2.5em;
+		display: block;
+		line-height: 1em;
+	}
+	.date_box .jahr { font-size: 1.75em; }
+	.date_box {
+		max-width: 50%;
+	}
+	.date_box_abs {
+		margin-top: 0;
+	}
+	.date_box.db1 { margin-top: 0; }
+	a.btn-back {  font-size: .85em; }
+	.event_detail:after {
+		width: 190px;
+		top: 22%;
+	}
+	.event_detail {
+		padding-top: 20px;
+	}
+	.event_detail h1 {
+		font-size: 1.75em;
+	}
+	.event_detail h3 { font-size: 1.25em; }
+	a.btn-back:before {
+		margin-left: -24px;
+		margin-top: 0px;
+	}
+	.mobil-btn-pad { margin: 1em 0 0; }
+	.btn-regbig { font-size: 1em; margin: 2em 0 1em; }
+	#die_phasen .subline {
+		width: 50px;
+		top: 0;
+		margin-top: 0px;
+		line-height: 1.25em;
+		margin-left: 0;
+		font-size: .6em;
+	}
+	#die_phasen .subline, .percent {
+		width: 50px;
+		font-size: .6em;
+	}
+	.abs.subline:before {
+		content:"\f059";
+		font: normal normal normal 14px/1 FontAwesome;
+		position: absolute;
+		margin-top: -20px;
+		margin-left: 14px;
+	}
+	.grid-item {
+		width: 100%;
+		margin: 0 ; 
+	}
+	.grid-sizer {
+		width: 100%;
+	}
+}
