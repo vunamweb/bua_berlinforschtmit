@@ -7,28 +7,22 @@
 <header>
     <div class="navbar navbar-expand-lg bsnav bsnav-dark bsnav-sticky ">
         <div class="container">
-                <a class="navbar-brand" href="<?php echo $dir.($lang==1 ? 'de/':''); ?>"><img src="<?php echo $dir; ?>images/userfiles/image/berliner-universitaet-alliance_NEU.svg" alt="" class="logo" width="110" name="berliner universitaet alliance"></a>
+                <a class="navbar-brand" href="<?php echo $dir.($lang==1 ? 'de/':''); ?>"><img src="<?php echo $dir; ?>images/userfiles/image/berliner-universitaet-alliance_neu.svg" alt="" class="logo" width="110" name="berliner universitaet alliance"></a>
                 <button class="navbar-toggler toggler-spring" name="navbar"><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse justify-content-md-end">
                     <ul class="navbar-nav navbar-mobile mr-0">
 <?php 
-//echo $userIsLogIn . '/' . $checkLogSession; die();
-if((string) $userIsLogIn == $checkLogSession) {
-?>
-						<!-- <li class="nav-item"><a href="<?php echo $dir.($lang == 1 ? 'de/' : ''); ?>#about" class="nav-link<?php echo $cid == $morpheus["home_ID"][$lan] ? ' page-scroll' : ''; ?>"><?php echo $lang == 2 ? 'ABOUT' : 'Über uns'; ?></a></li> -->
-<?php 
 						echo $nav; 
 						echo '<li class="nav-item"><a href="'.$dir.$lan.'/'.$navID[$kontakt_id].'" class="nav-link profile"><i class="fa fa-envelope"></i></a></li>';
-						echo '<li class="nav-item"><a href="'.$dir.$lan.'/'.$navID[$profile_id].'" class="nav-link profile"><i class="fa fa-user"></i></a></li>';
-						echo '<li class="nav-item logout"><a href="'.$dir.'?logout=1" class="nav-link profile"><i class="fa fa-sign-out"></i></a></li>';
-} else { ?>
-						<li class="nav-item"><a href="<?php echo $dir.$lan.'/'.$navID[$loginid]; ?>" class="nav-link"><?php echo textvorlage(22); ?></a></li> 
-						<li class="nav-item"><a href="<?php echo $dir.$lan.'/'.$navID[$registerid]; ?>" class="nav-link"><?php echo textvorlage(35); ?></a></li> 
-<?php } ?>
+?>
+						<!-- <li class="nav-item"><a href="<?php echo $dir.$lan.'/'.$navID[$loginid]; ?>" class="nav-link"><?php echo textvorlage(22); ?></a></li> 
+						<li class="nav-item"><a href="<?php echo $dir.$lan.'/'.$navID[$registerid]; ?>" class="nav-link"><?php echo textvorlage(35); ?></a></li>  -->
                     </ul>
 					<ul class="language">
-						<!--<li class="lang"><a href="<?php echo $dir.($lan == "de" ? 'en/' : ''); ?>"><?php echo ($lan == "de" ? 'en' : 'de'); ?></a></li>-->
+						<!-- <li class="lang"><a href="<?php echo $dir.($lan == "de" ? 'en/' : ''); ?>"><?php echo ($lan == "de" ? 'en' : 'de'); ?></a></li> -->
 <?php if($userIsLogIn==$checkLogSession) { ?> 						
+						echo '<li class="nav-item"><a href="'.$dir.$lan.'/'.$navID[$profile_id].'" class="nav-link profile"><i class="fa fa-user"></i></a></li>';
+						echo '<li class="nav-item logout"><a href="'.$dir.'?logout=1" class="nav-link profile"><i class="fa fa-sign-out"></i></a></li>';
 <?php } ?>
 					</ul>					
                 </div>

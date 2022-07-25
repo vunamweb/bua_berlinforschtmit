@@ -30,9 +30,10 @@ function get_token() {
 	return md5(date("Ymd").'PiDu');
 }
 
+
 function formSearch() {
 	$select = '
-	<div class="col-md-2 col-filter"><select name="select" class="ui selection properties" multiple=""><option value="">Properties</option>';
+	<div class="col-md-2 col-filter"><select name="select" class="ui selection properties" multiple=""><option value="">Eigenschaften</option>';
 
 	$sql = "SELECT * FROM morp_intranet_user_properties WHERE 1 GROUP BY property ORDER BY property";
 	$res = safe_query($sql);
@@ -43,36 +44,68 @@ function formSearch() {
 	';
 	}
 	$select .= '</select></div>';
+
+	$select_interests = '
+	<div class="col-md-2 col-filter"><select name="select" class="ui selection interests" multiple=""><option value="">Interests</option>';
+
+	$sql = "SELECT * FROM morp_intranet_user_interests WHERE 1 GROUP BY interest ORDER BY interest";
+	$res = safe_query($sql);
+	while ($row = mysqli_fetch_object($res)) {
+		$property = $row->interest;
+		$mpid = $row->inID;
+		$select_interests .= '<option value="'.$mpid.'">'.$property.'</option>
+	';
+	}
+	$select_interests .= '</select></div>';
+
+	$checkbox = '<div class="col-md-2 col-filter mt06">
+	&nbsp;<input type="checkbox" id="GH">&nbsp;&nbsp;<label>GH</label>
+	&nbsp;<input type="checkbox" id="BC">&nbsp; &nbsp;<label>BC</label>
+    </div>';
 	
-	$selectGH = '<div class="col-md-2 col-filter">
-					 <select name="select" class="ui selection GH" multiple="">
-						<option value="">GH</option>
-						<option value="on">Yes</option>
-						<option value="noon">No</option>
-				';
-	$selectGH .= '</select></div>';			
-	
-	$selectBC = '<div class="col-md-2 col-filter">
-				<select name="select" class="ui selection BC" multiple="">
-				   <option value="">BC</option>
-				   <option value="on">Yes</option>
-				   <option value="noon">No</option>
-				';
-	$selectBC .= '</select></div>';		
-	 
 	$form = '<hr>';
 
 	$form .= '<div class="row"><form class="navbar-form" role="search" method="get">';
-	$form .= '<div class="col-md-2"><input type="text" class="form-control" name="suche" id="suche" placeholder="Suche nach Name"></div>';
+	$form .= '<div class="col-md-2 ui left icon input">
+	  <input type="text" name="suche" id="suche" placeholder="Suche nach Name">
+	</div>';
 	$form .= $select;
-	$form .= $selectGH;
-	$form .= $selectBC;
+	$form .= $select_interests;
+	$form .= $checkbox;
 	$form .= '<div class="col-md-2"><button type="submit" value="Suchen" class="btn btn-info btn-submit-search">Filter</button></div>';
 	$form .= '</form></div>';
 
 	$form .= '<hr class="mt2">';
 
 	return $form;
+}
+
+function getFormCancelEvent($idEvent) {
+	$sql = "SELECT * FROM `morp_cms_form_auswertung` WHERE aid = $idEvent";
+	//echo $sql; //die();
+	$rs = safe_query($sql);
+	$rw = mysqli_fetch_object($rs);
+
+	$confirm = $rw->confirm;
+
+	$fieldEmail = 'E-Mail';
+	$email = $rw->$fieldEmail;
+	
+    if($confirm)
+		return '
+		<p>Please write note below<br><br></p>
+		<form name="getlog" method="post">
+            <input type="hidden" name="submit" value="1" />
+			<input type="hidden" name="email" value="'.$email.'" />
+			<input type="hidden" name="cancelEvent" value="'.$idEvent.'" />
+			<div class="form-group">
+			<textarea class="form-control" name="note_cancel_event" id="note_cancel_event" spellcheck="false" placeholder="Beschreibung"></textarea>
+			</div>
+			<button type="submit" class="btn btn-info" />Absenden</button>
+		</form>
+		';
+	else 
+	   return 'you have not canceled this event'; 		
 }
 
 function replace_string($matches) {
@@ -153,8 +186,8 @@ function validEmail($email){
 	}
 	if (!preg_match("/^\[?[0-9\.]+\]?$/", $email_array[1])) { // Check if domain is IP. If not, it should be valid domain name
 		$domain_array = explode(".", $email_array[1]);
-		if (sizeof($domain_array) < 2) {
-			return false; // Not enough parts to domain
+		if (count($domain_array) < 2) {
+			return 0; // Not enough parts to domain
 		}
 		for ($i = 0; $i < sizeof($domain_array); $i++) {
 			if (!preg_match("/^(([A-Za-z0-9][A-Za-z0-9-]{0,61}[A-Za-z0-9])|([A-Za-z0-9]+))$/", $domain_array[$i])) {
@@ -984,6 +1017,57 @@ function saveMorpheusForm($edit, $neu, $row=0, $zusatz='', $duplicate='***') {
 		$res = safe_query($sql);
 	}
 
+	//echo $sql;
+	//die();
+	return $edit;
+}
+
+
+function saveMorpheusForm2($edit, $neu, $row=0, $zusatz='', $duplicate='***') {
+	global $arr_form, $table, $tid, $mylink;
+
+	$sql = '';
+
+	foreach($arr_form as $arr) {
+		$tmp = $arr[0];
+		if($row) 	$val = $row->$tmp;
+		else 		$val = $_POST[$tmp];
+
+		if($arr[0] == $duplicate) $sql .= "`".$tmp. "`='0000', ";
+		else if ($arr[3] == "date" || $arr[3] == "date2") {
+			if($arr[4] == "heute" && ($val == '00.00.0000' || !$val)) {
+				$sql .= "`".$tmp. "`='" .date("Y-m-d"). "', ";
+			}
+			else $sql .= "`".$tmp. "`='" .($val == '00.00.0000' || !$val ? '0000-00-00' : us_dat($val)). "', ";
+		}
+		else if ($arr[3] == "float") 	$sql .= "`".$tmp. "`='" .us_p($val). "', ";
+		else if ($arr[2] == "chk") 	$sql .= "`".$tmp. "`='" .($val == 'on' ? 1 : 0). "', ";
+		else if ($arr[2] == "multisel")  $sql .= "`".$tmp. "`='" .implode(',',$val). "', ";
+		else if ($arr[1] == "CONFIG" || $arr[2] == "img") {}
+		else if ($arr[2] == "radio_2_table") {
+			$sql_delete = "DELETE FROM $arr[6] WHERE $arr[8]=$arr[9]";
+			$res = safe_query2($sql_delete);
+			foreach($val as $key=>$id) {
+				$sql_set = "INSERT $arr[6] SET $arr[8]=$arr[9] , $arr[4]=$id";
+				$res = safe_query2($sql_set);					
+			}
+		}
+		else if ($tmp != "region") $sql .= "`".$tmp. "`='" .addslashes($val). "', ";
+	}
+
+	$sql = substr($sql, 0, -2);
+
+	if ($neu) {
+		$sql  = "INSERT $table SET $sql $zusatz";
+		$res  = safe_query2($sql);
+		$edit = mysqli_insert_id($mylink2);
+		unset($neu);
+	}
+	else {
+		$sql = "UPDATE $table SET $sql $zusatz WHERE $tid=$edit";
+		$res = safe_query2($sql);
+	}
+
 	// echo $sql;
 	// die();
 	return $edit;
@@ -1174,6 +1258,27 @@ function setMorpheusForm($row, $arr, $folder="", $edit, $from, $setid, $imgSize=
 
 	}
 
+	elseif ($arr[2] == "file") {
+			$echo .= '
+				<div class="fotoG">
+					<input type=hidden name='.$arr[0].' id='.$arr[0].' value="' .$row->$get.'">
+	
+					<a href="image_folder_upload.php?id='.$edit.'&tbl='.$table.'&from='.$from.'&imgid='.$arr[0].'&folder='.$folder.'&setid='.$setid.'">';
+	
+			if ($row->$get) $echo .=  '
+	FILE <i class="fa fa-file"></i></a>
+	
+						<div class="inner">
+							<a href="?delimg='.$arr[0].'&edit='.$edit.'" style="float:right; margin: 4px 0 0;"><i class="fa fa-trash-o"></i></a>
+						</div>
+	
+			';
+			else $echo .=  '<b>File '.$arr[1].'</b>: bitte wählen <i class="fa fa-file-audio-o"></i></a>';
+	
+			$echo .= '</div>';
+	
+		}
+		
 	elseif ($arr[2] == "fileUpl") {
 		$echo .= '
 			<div class="file">
@@ -1231,7 +1336,18 @@ function setMorpheusForm($row, $arr, $folder="", $edit, $from, $setid, $imgSize=
 	elseif ($arr[2] == "chk") {
 		$echo .= '
 		<div class="form-group">
-			<input type="checkbox" name="'.$arr[0].'"  id="'.$arr[0].'"'.($row->$get ? ' checked' : '').'  />
+			<label for="'.$arr[0].'" class="btn btn-default active">
+				<input type="checkbox" name="'.$arr[0].'"  id="'.$arr[0].'"'.($row->$get ? ' checked' : '').'  /> &nbsp; 
+				'.$arr[1].'
+			</label>
+		</div>
+';
+	} 
+
+	elseif ($arr[2] == "chk1") {
+		$echo .= '
+		<div class="form-group">
+			<input disabled type="checkbox" name="'.$arr[0].'"  id="'.$arr[0].'"'.($row->$get ? ' checked' : '').'  />
 			<div class="btn-group">
 				<label for="'.$arr[0].'" class="btn btn-success">
 					<span class="fa fa-check" style="padding:3px 0"></span>
@@ -1257,7 +1373,7 @@ function setMorpheusForm($row, $arr, $folder="", $edit, $from, $setid, $imgSize=
 	elseif ($arr[2] == "sel2") {
 		$echo .= '
 			<div class="form-group col">
-				<label for="'.$arr[0].'">'.$arr[1].'</label><select class="form-control" name="'.$arr[0].'" id="'.$arr[0].'">'.ƒ ($row->$get, $arr[3], $arr[4], $arr[0], $arr[5]).'</select>
+				<label for="'.$arr[0].'">'.$arr[1].'</label><select class="form-control" name="'.$arr[0].'" id="'.$arr[0].'">'.pulldown2($row->$get, $arr[3], $arr[4], $arr[0], $arr[5]).'</select>
 			</div>';
 		if ($arr[0] == "imgid") $image = pfad ($arr[0], $arr[3], $arr[4], $row->$get);
 	}
