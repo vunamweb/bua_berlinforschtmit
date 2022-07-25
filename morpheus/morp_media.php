@@ -66,8 +66,9 @@ echo '<div id=vorschau>
 
 $arr_form = array(
 		array("mname", "Dateiname WAV", '<input type="Text" value="#v#" class="form-control" name="#n#" disabled />'),
-		array("online", "Online schalten", 'chk'),
-		array("rubrik", "Ja, ich möchte über weitere Aktionen von Forschung von der Straße informiert werden", 'chk'),
+		array("ck01", "Ja, ich stimme der Nutzung meiner Daten gemäß", 'chk'),
+		array("ck02", "Ja, ich stimme der Veröffentlichung der obigen Tonaufnahme unter Abgabe", 'chk'),
+		array("ck03", "Ja, ich möchte über weitere Aktionen von Forschung von der Straße informiert werden", 'chk'),
 		array("mdesc", "Beschreibung", '<input type="Text" value="#v#" class="form-control" name="#n#" />'),
 		array("mdate", "Datum", '<input type="Text" value="#v#" class="form-control" name="#n#" />', 'date'),
 		array("name", "Name", '<input type="Text" value="#v#" class="form-control" name="#n#" />'),
@@ -321,6 +322,7 @@ function edit($edit) {
 
 if ($save) {
 	$neu = isset($_POST["neu"]) ? $_POST["neu"] : 0;
+	$_POST['mname'] = ($_POST['mname'] != '') ? $_POST['mname'] : 'No File ' . date("Y-m-d H:m:s");
 
 	//echo $new; die();
 	$edit = saveMorpheusForm($edit, $neu);

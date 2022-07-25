@@ -97,15 +97,15 @@ $output .= '
                                                         <input type="text" name="name" id="name" class="form-control" placeholder="name"/><br><br>
                                                         <input type="text" name="email" id="email" class="form-control" placeholder="email"/><br><br>
                                                         <div class="custom-control custom-checkbox">
-                                                                <input type="checkbox" class="custom-control-input" id="ck01" checked="">
+                                                                <input type="checkbox" class="custom-control-input" id="ck01">
                                                                 <label class="custom-control-label" for="ck01">Ja, ich stimme der Nutzung meiner Daten gemäß <a href="https://bua.morpheus-cms.de/berlinforschtmit/stimmen/datenschutz/">AGB und DSGVO</a> zu.</label>
                                                         </div>
                                                         <div class="custom-control custom-checkbox mt1">
-                                                                <input type="checkbox" class="custom-control-input" id="public">
+                                                                <input type="checkbox" class="custom-control-input" id="ck02">
                                                                 <label class="custom-control-label" for="public">Ja, ich stimme der Veröffentlichung der obigen Tonaufnahme unter Abgabe meiner Leistungsschutz- und Vervielfältigungsrechte zu. Die Veröffentlichung erfolgt ohne Namensnennung.</label>
                                                             </div>
                                                             <div class="custom-control custom-checkbox mt1">
-                                                            <input type="checkbox" class="custom-control-input" id="rubrik">
+                                                            <input type="checkbox" class="custom-control-input" id="ck03">
                                                             <label class="custom-control-label" for="public">Ja, ich möchte über weitere Aktionen von Forschung von der Straße informiert werden</label>
                                                             <a class="submit_form_audio" href="javascript:void(0)">Aufnahme senden</a>  
                                                             </div>

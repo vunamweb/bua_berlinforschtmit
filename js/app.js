@@ -249,9 +249,9 @@ function createDownloadLink(blob) {
 		var url = $('#url_home').val() + 'upload.php';
 		var fd = new FormData();
 		fd.append("audio_data", blob, filename);
-		fd.append("is_check", $("#ck01").is(':checked'));
-		fd.append("public", $("#public").is(':checked'));
-		fd.append("rubrik", $("#rubrik").is(':checked'));
+		fd.append("is_check_1", $("#ck01").is(':checked'));
+		fd.append("is_check_2", $("#ck02").is(':checked'));
+		fd.append("is_check_3", $("#ck03").is(':checked'));
 		fd.append("name", $("#name").val());
 		fd.append("email", $("#email").val());
 		//xhr.open("POST","../upload.php",true);

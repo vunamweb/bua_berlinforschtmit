@@ -239,6 +239,8 @@ span.fl100 { display: block; width: 170px; float: left; }
 
 .mb2 { margin-bottom: 2em; }
 
+.error { color: red; font-weight: 700; }
+
 .icons .fa { padding: 10px }
 .fl100 .fa { border: solid 1px #666; margin-left: 10px; }
 .icons li { display: block; width: 300px; float: left; padding: 5px 0; margin-right: 20px; overflow: hidden; height: 70px; }

@@ -133,7 +133,12 @@ if($_FILES) {
 
 	if ($query) {
 		//$result = safe_query($query);
-		safe_query($query);
+		if(safe_query($query) == '') {
+			echo '<p class="error">' . $fileName . ' exist, Please rename or choose other file' . '<p>';
+			die();
+		}
+		//if(!safe_query($query))
+		  
 		#unlink($tmp);
 	}
 
