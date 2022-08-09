@@ -7,9 +7,10 @@
 	<meta http-equiv="Cache-Control" content="no-cache">
 	<link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
 	<link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
+	<!-- <link rel="stylesheet" href="../css/bootstrap.min.css" type="text/css"> -->
 	<link rel="stylesheet" href="css/ekko-lightbox.css" type="text/css">
 	<link rel="stylesheet" href="css/multi-list.css" type="text/css">
-	<link rel="stylesheet" href="css/style_light.css" type="text/css">
+	<link rel="stylesheet" href="css/<?php echo $css; ?>" type="text/css">
 <?php if(!$ekko) { ?> 
 	<link rel="stylesheet" href="css/semantic.css" type="text/css">
 <?php } ?>

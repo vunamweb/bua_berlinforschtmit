@@ -1,5 +1,8 @@
 <?php
-	// print_r($_SESSION);
+// VU: add db2
+include("nogo/db2.php");
+dbconnect2();
+// END VU
 
 global $dir, $navID, $acceptCookie, $countLogins, $userIsLogIn, $mid, $js;
 
@@ -28,14 +31,14 @@ $_SESSION["cl"] = 0;
 
 if($sessMNR && $sessPASS) {
 	$sql = "SELECT * FROM `morp_intranet_user` WHERE pw='".$sessPASS."' AND uname='".$sessMNR."'";
-	$res = safe_query($sql);
+	$res = safe_query2($sql);
 	$x = mysqli_num_rows($res);
 	if($x > 0) { $haslogin = 0; $_SESSION["mIL"] = get_token(); $userIsLogIn = $_SESSION["mIL"]; }
 	else { $_SESSION["uname"]='';$_SESSION["pd"]='';}
 }
 elseif($setMeFree && $un) {
 	$sql = "SELECT * FROM `morp_intranet_user` WHERE setMeFree='".($setMeFree)."' AND uname='$un'";
-	$res = safe_query($sql);
+	$res = safe_query2($sql);
 	$x = mysqli_num_rows($res);
 	if($x>0) {
 		$_SESSION["cl"] = 0;
@@ -43,7 +46,7 @@ elseif($setMeFree && $un) {
 
 		$row = mysqli_fetch_object($res);
 	 	$sql = "UPDATE `morp_intranet_user` SET countLogins=0 WHERE mid='".$row->mid."'";
-		safe_query($sql);
+		safe_query2($sql);
 
 		$output_login .= '<p><br/><a href="?"><i class="fa fa-chevron-right"></i> Please log in again</a></p>';
 	}
@@ -63,7 +66,7 @@ else {
 			elseif(!$zeichen) $output_login .= '<h2>The password must contain at least one letter.</h2><p>&nbsp;</p>'.newPW($min, $mid);
 			else if($mid) {
 				$sql = "UPDATE `morp_intranet_user` set kontrolle='1', pass='".md5($pwA)."', newpass=0 WHERE mid='".$mid."'";
-				$res = safe_query($sql);
+				$res = safe_query2($sql);
 				#$sql = "SELECT mnr FROM `morp_intranet_user` WHERE `morp_intranet_user`=$mid";
 				#$res = safe_query($sql);
 				#$row = mysqli_fetch_object($res);
@@ -74,9 +77,8 @@ else {
 		}
 	}
 	elseif($pw && $un) {
-		// $sql = "SELECT * FROM `morp_intranet_user` WHERE pw='".md5($pw)."' AND uname='$un' AND kontrolle=1";
 		$sql = "SELECT * FROM `morp_intranet_user` WHERE pw='".md5($pw)."' AND uname='$un' AND BC = 1";
-		$res = safe_query($sql);
+		$res = safe_query2($sql);
 		$x = mysqli_num_rows($res);
 
 		if($x > 0) {
@@ -107,11 +109,11 @@ else {
 					$userIsLogIn = $_SESSION["mIL"]; 
 	                $firstLogin = 1;
 	                $sql = "INSERT morp_intranet_user_track SET mid=".$row->mid;
-					safe_query($sql);
+					safe_query2($sql);
 	
 					$lastlog = date("Y-m-d H:i");
 					$sql = "UPDATE `morp_intranet_user` SET lastlog='$lastlog' WHERE mid='".$row->mid."'";
-					safe_query($sql);
+					safe_query2($sql);
 					
 					$js = 'document.location.href="'.$dir.($lan=="de" ? '' : $lan.'/').'";';
 	
@@ -126,14 +128,14 @@ else {
 		else {
 			$_SESSION["cl"] = $countLogins+1;
 			$sql = "SELECT countLogins, mid FROM `morp_intranet_user` WHERE uname='$un'";
-			$res = safe_query($sql);
+			$res = safe_query2($sql);
 			$x = mysqli_num_rows($res);
 			if($x>0) {
 				$row = mysqli_fetch_object($res);
 				$a = $row->countLogins;
 				$a++;
 			 	$sql = "UPDATE `morp_intranet_user` SET countLogins=$a WHERE mid='".$row->mid."'";
-				safe_query($sql);
+				safe_query2($sql);
 			}
 			$warn = '<div class="alert alert-danger" role="alert">'.textvorlage(25).'</a></div>';
 		}

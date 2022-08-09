@@ -1182,6 +1182,86 @@ body {
 }
 /* END WAVE */
 
+/* VU ADD CSS */
+.mb-1 {
+    margin-left: 1rem;
+}
+.success {
+    color: green;
+}
+.btn-info {
+    background-color: #5bc0de;
+    border-color: #46b8da;
+}
+.width1 {
+    width: 200px;
+    display: inline-block;
+}
+.button_add {
+    display: inline-block;
+    margin-right: 10px;
+}
+.nav-tabs li {
+    margin-right: 10px;
+}
+.nav-tabs li a.active, .nav-tabs li a.active:focus, .nav-tabs li a.active:hover {
+    color: #555;
+    cursor: default;
+    /*background-color: #fff;*/
+    border: 1px solid #ddd;
+    border-bottom-color: transparent;
+}
+/* COMMENT */
+.edit_note, .add_note {
+    margin-left: 7px;
+}
+#add_note #message, #edit_note #message_edit, #show_note #message_comment, #edit_comment #message_edit_comment {
+    width: 100%;
+    height: 200px;
+    display: block;
+    margin: 30px 0;
+    position: relative;
+    left: 0;
+}
+#accordionShowComment .card {
+    height: auto;
+}
+#accordionShowComment a.btn-link {
+    color: #000 !important;
+    font-size: 0.5em;
+    text-decoration: none;
+}
+#accordionShowComment a.btn-link-1 {
+    font-size: 0.5em;
+    display: none;
+    text-align: left;
+}
+.message_comment{
+    width: 100%;
+    height: 100px;
+    display: block;
+    margin: 30px 0;
+}
+#accordionShowComment .fa {
+    color: #000 !important;
+}
+.block_comment {
+    display: none;
+    margin-bottom: 20px;
+}
+.block_comment.open {
+    display: block;
+}
+
+.title_comment {
+    font-size: 0.5em;
+}
+.title_comment .name_user {
+    display: inline-block;
+}
+/* END COMMENT */
+/*  END */
+
 .option-input {
   -webkit-appearance: none;
   -moz-appearance: none;

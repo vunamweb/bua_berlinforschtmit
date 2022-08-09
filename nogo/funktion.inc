@@ -1015,6 +1015,7 @@ function saveMorpheusForm($edit, $neu, $row=0, $zusatz='', $duplicate='***') {
 	}
 	else {
 		$sql = "UPDATE $table SET $sql $zusatz WHERE $tid=$edit";
+		//echo $sql; die();
 		$res = safe_query($sql);
 	}
 

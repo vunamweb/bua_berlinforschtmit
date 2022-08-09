@@ -902,6 +902,17 @@ function get_nav($getid, $aktiv, $giveClass, $ul, $parent_arr, $getebene) {
 	return $ret;
 }
 
+/* VU: if there are menu all entries, category, then get css form morpheus */
+function getCssMorpheus() {
+	global $hn;
+
+	if($hn == 'all-entries' || $hn == 'categories')
+	 return true;
+   
+   return false; 	  
+}
+/* END */
+
 /* *************************** NEW ENDE *****************************/
 /* *************************** NEW ENDE *****************************/
 /* *************************** NEW ENDE *****************************/
@@ -1182,7 +1193,7 @@ else 			include("design/design-1.php");
 
 // if ($haslogin) {
 if ($cid==15) {
-	// include("design/login.php");
+	include("design/login.php");
 } else if($_GET['hn'] == 'ihre-stimme') {
 	// include("page/audio.php");
 }

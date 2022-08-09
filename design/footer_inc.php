@@ -88,7 +88,6 @@ if($morpheus_edit) include("design/edit.php");
 <script src="<?php echo $dir; ?>js/siriwave/dist/siriwave.umd.js"></script>
 <script type="text/javascript" src="<?php echo $dir; ?>js/siriwave/etc/dat.gui.js"></script>
 <script type="text/javascript" src="<?php echo $dir; ?>js/wavesurfer.js"></script>
-
 <!-- <script src="https://unpkg.com/wavesurfer.js"></script> !-->
 <?php 
 global $audio;
@@ -100,9 +99,52 @@ if($morpheus_edit) {
 <script src="<?php echo $dir; ?>js/functions_edit.js?v=<?php echo $rand; ?>"></script>
 <?php } ?>
 
+<!-- VU: add js for category !-->
+<?php if(getCssMorpheus()) { ?>
+    <script src="https://unpkg.com/hammerjs@2.0.8/hammer.min.js"></script>
+	<script type="text/javascript" src="<?php echo $dir; ?>morpheus/js/muuri.js"></script>
+
+	<script>
+	new Muuri('.grid', {
+		dragEnabled: true,
+		dragAxis: 'y',
+		threshold: 10,
+		action: 'swap',
+		distance: 0,
+		delay: 100,
+		layoutOnResize: true,
+		setWidth: true,
+		setHeight: true,
+		sortData: {
+			foo: function (item, element) {
+				//console.log(item);
+			},
+			bar: function (item, element) {
+				//console.log(77);
+			}
+  		}
+	});
+	</script>
+<?php } ?>
+<!-- END !-->
+
 <script>
 // Create a WaveSurfer instance
 var wavesurfer;
+
+showChildren = (parent) => {
+	$('.btn-link-1').each(function(){
+		if($(this).attr('parent') == parent)
+		  $(this).show();
+	})
+}
+
+hideChildren = (parent) => {
+	$('.btn-link-1').each(function(){
+		if($(this).attr('parent') == parent)
+		  $(this).hide();
+	})
+}
   
   // Init on DOM ready
   if($('#waveform').length > 0) {
@@ -182,6 +224,181 @@ $(document).ready(function() {
 			$('#imgModal').modal('show')
 		});
 	});
+
+	// VU: add script for deleting and adding audio
+	$('.add_properties').click(function(){
+        var data = '';
+
+        $('.td_checkbox').each(function(){
+            if($(this).is(':checked')) {
+               data = data + $(this).attr('value') + ';';
+            }
+        })
+
+        $('#list').val(data);
+
+        request = $.ajax({
+            url: "./",
+            type: "get",
+            data: "add_properties=1",
+            success: function(data) {
+              $('#myModal .modal-body').html(data)
+            }
+          });
+	})
+	
+	$('.save_properties').click(function(){
+        var data = '';
+
+        var userList = $('#list').val();
+
+        $('.modal_checkbox_properties').each(function(){
+            if($(this).is(':checked')) {
+               data = data + $(this).attr('value') + ';';
+            }
+        })
+
+        request = $.ajax({
+            url: "./",
+            type: "get",
+            data: "list_properties="+data+"&list="+userList+"",
+            success: function(data) {
+              $('.message_info').removeClass('hide');
+              $('.message_info').css('color', 'green');
+              $('.message_info').html('Add successfully');
+            }
+          });
+	})
+
+	$('.delete_properties').click(function(){
+        var data = '';
+
+        var userList = $('#list').val();
+
+        $('.modal_checkbox_properties').each(function(){
+            if($(this).is(':checked')) {
+               data = data + $(this).attr('value') + ';';
+            }
+        })
+
+        request = $.ajax({
+            url: "./",
+            type: "get",
+            data: "list_properties="+data+"&list="+userList+"&delete=1",
+            success: function(data) {
+              $('.message_info').removeClass('hide');
+              $('.message_info').css('color', 'green');
+              $('.message_info').html('Delete successfully');
+            }
+          });
+    })
+	// END
+
+	// VU: script for saving comment of comment
+	$("#accordionShowComment a.btn-link").on("click", function() {
+		var idComment = $(this).attr("data-target");
+        idComment = idComment.replace('#collapse', '');
+        $('#parent_comment').val(idComment);
+
+		var parent = $(this).attr("parent");
+		
+        // if already open
+		if($(this).parent().find('.btn-link .fa').hasClass('fa-minus')) {
+			$(this).parent().find('.btn-link .fa').removeClass('fa-minus');
+			$(this).parent().find('.btn-link .fa').addClass('fa-plus');
+
+			// hide comment of comment
+			hideChildren(idComment);
+
+			// hide all comment save form
+			$('.block_comment').hide();
+			// open parent's comment save form
+			$('#block_comment_'+parent+'').show();
+		} 
+		// if not open
+		else {
+			$(this).parent().find('.btn-link .fa').removeClass('fa-plus');
+			$(this).parent().find('.btn-link .fa').addClass('fa-minus');
+
+			// show comment of comment
+			showChildren(idComment);
+
+			// hide all comment save form
+			$('.block_comment').hide();
+			//show this comment save form
+			$('#block_comment_'+idComment+'').show();
+        }
+	});
+
+	$(".message_comment").on("change keyup paste", function() {
+		var message = $(this).val();
+
+		$('#message_comment').val(message);
+	});
+	// END 
+
+	// VU: add script for button savebtn2
+	$("#savebtn2").on("click", function() {
+	  	$("#back").val(1);
+	});
+	// END
+	
+	// VU: add script for comment
+	$(".add_note").click(function() {
+       var mediaID = $(this).attr("href");
+       mediaID = mediaID.replace('#', '');
+
+       $('#save_note').attr('ref', mediaID);
+       $('#message').val('');
+	})
+	
+	$("#save_note").click(function() {
+      var mediaId = $(this).attr("ref");
+      var message = $('#message').val();
+      var date_note = $('#date_note').val();
+
+      request = $.ajax({
+            url: "./",
+            type: "get",
+            data: "myNote=" + message + "&mediaId=" +mediaId+"",
+            success: function(data) {
+              // close modal note
+			  $('#add_note .close').click();
+
+			  $('.message_info').html('Add comment successful');
+			  $('.message_info').addClass('success');
+            },
+            error: function(data){
+              data = JSON.stringify(data);
+              console.log(data);
+            }
+          });
+	})
+	
+	$(".show_note").click(function() {
+      var idNote = $(this).attr("href");
+      idNote = idNote.replace('#', '');
+      $('#id_show_note').val(idNote);
+
+      $('.body2').html('');
+
+      request = $.ajax({
+        url: "./",
+        type: "get",
+        data: "idNote="+idNote+"",
+        success: function(data) {
+    		  // update note value on the list
+          $('#show_note .body1').html(data);
+
+          //setEventClickEditComment();
+        },
+		    error: function(data){
+			    data = JSON.stringify(data);
+    		  console.log(data);
+  		  }
+      });
+    })
+	// END
 	
 	// target = window.location.hash;
 	// if(target) {
