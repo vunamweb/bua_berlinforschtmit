@@ -68,7 +68,7 @@ if ($myNote) {
 $output = '<div id=vorschau>
 	<h2>' . $titel . '</h2>
 
-	' . ($edit || $neu ? '<p><a href="?">&laquo; zur&uuml;ck</a></p>' : '') . '
+	' . ($edit || $neu || $show_comment ? '<p><a href="?">&laquo; zur&uuml;ck</a></p><br>' : '') . '
 	<form action="" onsubmit="" name="verwaltung" method="post">
 ' . ($edit || $neu ? '' : '') . '
 ' . (!$edit && !$neu ? '' : '') . '
@@ -366,6 +366,24 @@ function duplicate_time($dauer)
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 
+function countComment($idNote) {
+	$sql = "SELECT * FROM morp_note WHERE parent = " . $idNote . "";
+	$res = safe_query($sql);
+	
+	return mysqli_num_rows($res);
+}
+
+function getNameFromID($mid) {
+	require_once "nogo/db2.php";
+	dbconnect2();
+
+	$sql = "SELECT * FROM morp_intranet_user WHERE mid = " . $mid . "";
+    $res = safe_query2($sql);
+	$row = mysqli_fetch_object($res);
+	
+	return $row->vname . ' ' . $row->nname;
+}
+
 function edit($edit)
 {
     global $arr_form, $table, $tid, $imgFolder, $um_wen_gehts, $neu;
@@ -405,14 +423,17 @@ function showComments($show_comment)
 	$echo = '<form method="post" action="' . $url . '"><div class="accordion" id="accordionShowComment">';
 
     $sql = "SELECT * FROM morp_note WHERE mediaID = $show_comment and parent = 0 ORDER BY date_time";
-    $res = safe_query($sql);
+	$res = safe_query($sql);
+	
+	if(mysqli_num_rows($res) == 0)
+	  return 'No comments';
     //echo mysqli_num_rows($res); die();
 
     while ($row = mysqli_fetch_object($res)) {
-        $comment = $row->message;
 		$idNote = $row->idNote;
+		$comment = $row->message . '('.countComment($idNote).')';
 		
-		$name = $_SESSION["vname"] . ' ' . $_SESSION["nname"] = $row->nname;
+		$name = getNameFromID($row->uid); //$_SESSION["vname"] . ' ' . $_SESSION["nname"] = $row->nname;
 
         $echo .= '<div class="card">
 	   <div class="card-header" id="headingThree">
@@ -425,7 +446,7 @@ function showComments($show_comment)
 				   class="btn btn-link collapsed"
 				   data-toggle="collapse"
 				   data-target="#collapse' . $idNote . '">
-				   <i class="fa fa-plus"></i>
+				   <i class="fa fa-plus fa1"></i>
 				   ' . $comment . '
 			   </a>
 		   </h2>
@@ -459,12 +480,8 @@ function showCommentOfComment($show_comment, $parent, $level)
 {
     $response = '';
 
-    $space = '';
-    $count = 3;
-
-    for ($i = 0; $i <= ($count * $level); $i++) {
-        $space .= '&nbsp';
-    }
+	$defaultMarginLeft = 40;
+	$marginLeft = $defaultMarginLeft * $level;
 
     $level++;
 
@@ -476,15 +493,15 @@ function showCommentOfComment($show_comment, $parent, $level)
     while ($row = mysqli_fetch_object($res)) {
 		$parentChild = $row->idNote;
 		
-		$name = $_SESSION["vname"] . ' ' . $_SESSION["nname"] = $row->nname;
+		$name = $name = getNameFromID($row->uid);
 
-        $comment = $row->message . '(' . $row->date_time . ')';
-		$response .= '<h2 class="mb-0 mb-1">
-		               <div class="title_comment">
-		                 <i class="fa fa-user" aria-hidden="true"></i>
-		                 <p class="name_user">'.$name.' &nbsp; &nbsp; &nbsp;'.$row->date_time.'</p>
-	                   </div> 	
-		               <a class="btn btn-link btn-link-1" parent="' . $parent . '" data-target="#collapse' . $parentChild . '">' . $space . ' <i class="fa fa-plus"></i> ' . $comment . '</a>
+		$comment = $row->message . '('.countComment($parentChild).')';
+		
+		$response .= '<h2 class="mb-0 mb-1" style="margin-left:'.$marginLeft.'px">
+		               <a class="btn btn-link btn-link-1" parent="' . $parent . '" data-target="#collapse' . $parentChild . '"><div class="title_comment">
+					   <i class="fa fa-user" aria-hidden="true"></i>
+					   <p class="name_user">'.$name.' &nbsp; &nbsp; &nbsp;'.$row->date_time.'</p>
+					 </div> <i class="fa fa-plus fa1"></i> ' . $comment . '</a>
 					  </h2>';
 
         $response .= showCommentOfComment($show_comment, $parentChild, $level);
@@ -503,17 +520,16 @@ if ($save) {
     $date = date('y-m-d');
 
     $sql = 'insert into morp_note(uid, parent, mediaID, message, date_time)values(' . $uid . ', ' . $parent_comment . ', ' . $mediaId . ', "' . $message_comment . '", "' . $date . '")';
-    //echo $sql; die();
     safe_query($sql);
 
-    $output = list_comment();
+    $output = showComments($show_comment);
 } else if ($edit) {
-    $output = edit($edit);
+    $output .= edit($edit);
 }
 
 // VU: change design to show comment
 else if ($show_comment) {
-    $output = showComments($show_comment);
+    $output .= showComments($show_comment);
 } else {
     $output = list_comment();
 }

@@ -304,8 +304,8 @@ $(document).ready(function() {
 		
         // if already open
 		if($(this).parent().find('.btn-link .fa').hasClass('fa-minus')) {
-			$(this).parent().find('.btn-link .fa').removeClass('fa-minus');
-			$(this).parent().find('.btn-link .fa').addClass('fa-plus');
+			$(this).parent().find('.btn-link .fa1').removeClass('fa-minus');
+			$(this).parent().find('.btn-link .fa1').addClass('fa-plus');
 
 			// hide comment of comment
 			hideChildren(idComment);
@@ -317,8 +317,8 @@ $(document).ready(function() {
 		} 
 		// if not open
 		else {
-			$(this).parent().find('.btn-link .fa').removeClass('fa-plus');
-			$(this).parent().find('.btn-link .fa').addClass('fa-minus');
+			$(this).parent().find('.btn-link .fa1').removeClass('fa-plus');
+			$(this).parent().find('.btn-link .fa1').addClass('fa-minus');
 
 			// show comment of comment
 			showChildren(idComment);
