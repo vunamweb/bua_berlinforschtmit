@@ -127,6 +127,9 @@ $arr_form = array(
 	array("", "CONFIG", '</div><div class="col-md-3 mb3 mt2">'),
 	array("ebene", "Ebene", '<input type="Text" value="#v#" class="form-control" name="#n#"  style="width:120px" />', 'GET'),
 	array("parent", "Parent", '<input type="Text" value="#v#" class="form-control" name="#n#"  style="width:120px" />', 'GET'),
+	// VU: add mid
+	array("mid", "mid", '<input type="hidden" value="#v#" class="form-control" name="#n#" />'),
+	// END
 
 #	array("word", "Buchstabe", '<input type="Text" value="#v#" class="form-control" name="#n#" />'),
 
@@ -177,8 +180,10 @@ function liste() {
 	$anz = $nameField;
 
 	////////////////////
-	
 	$where = "ebene=$ebene".($parent ? " AND parent=$parent " : "");
+	// VU: select category of log in user
+	$where .= ' AND mid = '.$_SESSION["mid"].'';
+	// END
 
 	$echo .= '<p>&nbsp;</p>
 
@@ -223,7 +228,11 @@ function liste() {
 
 	$sql = "SELECT * FROM $table WHERE $where ORDER BY ".$ord."";
 	$res = safe_query($sql);
-	// echo mysqli_num_rows($res);
+	
+	// VU: if not categories
+	if(mysqli_num_rows($res) == 0)
+	  return '<br><br>No Categories';
+	// END 
 
 	while ($row = mysqli_fetch_object($res)) {
 		$edit = $row->$tid;
@@ -270,7 +279,9 @@ function liste() {
 	<ul class="liste">';
 	
 		  
-		$sql = "SELECT * FROM $table WHERE ebene=1 ORDER BY $sortField";
+		// VU: select category of log in user
+		$sql = "SELECT * FROM $table WHERE ebene=1 AND mid = ".$_SESSION['mid']." ORDER BY $sortField";
+		// END
 		$res = safe_query($sql);
 		$n = mysqli_num_rows($res);
 		$percent = 100 / $n;
@@ -542,7 +553,10 @@ if ($save) {
     // VU: if parent, wert is null, then set value 0
 	$_POST['parent'] = ($_POST['parent'] == '') ? 0 : $_POST['parent'];
 	$_POST['wert'] = ($_POST['wert'] == '') ? 0 : $_POST['parent'];
-    // END
+	// END
+	// VU: set value for mid
+	$_POST['mid'] = $_SESSION['mid'];
+	// END
 
     $edit = saveMorpheusForm($edit, $neu, 0, $zusatz);
 

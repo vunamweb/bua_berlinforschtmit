@@ -217,7 +217,9 @@ else {
 		}
 
 		elseif ($art == "Mitteilungsfeld") {
-			$data .= '<textarea id="'.$feld.'" name="'.$feld.'"'.$pflicht.' placeholder="'.$desc.'" class="form-control h100"></textarea>';
+			// VU: change maxlength of textarea to 80
+			$data .= '<textarea maxlength="80" id="'.$feld.'" name="'.$feld.'"'.$pflicht.' placeholder="'.$desc.'" class="form-control h100"></textarea>';
+			//END
 			$form .= str_replace(array('#cont#', '#desc#', '#style#', '#zeile2#'), array($data, $desc, $style, ''), $designFull);
 		}
 

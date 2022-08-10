@@ -607,7 +607,7 @@ if($isForm==6) { ?>
 		        data: 'mystring=<?php echo md5("pd?x".date("ymd")); ?>&data='+data,
 		        success: function(msg) {
 	                console.log(msg);
-	                // if(msg == "Mail sent") $('#kontaktformular').html("<div class='alert alert-primary' role='alert'><?php echo str_replace("\n", "", $formMailAntwort); ?></div>");
+	                if(msg == "Mail sent") $('#kontaktformular').html("<div class='alert alert-primary' role='alert'><?php echo str_replace("\n", "", $formMailAntwort); ?></div>");
 	                 //else if(msg == "Captcha") $('#kontaktformular').html("Die Anfrage wurde nicht gesendet. Es gab einen Fehler.");
 	                // else $('#kontaktformular').html("The request was not sent. There was an error: "+msg+". Please contact us directly.<br/><br/>Die Anfrage wurde nicht gesendet. Es gab einen Fehler: "+msg+". Bitte nehmen Sie direkt Kontakt zu uns auf.");
 	            }
