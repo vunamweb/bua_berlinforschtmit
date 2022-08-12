@@ -906,7 +906,7 @@ function get_nav($getid, $aktiv, $giveClass, $ul, $parent_arr, $getebene) {
 function getCssMorpheus() {
 	global $hn;
 
-	if($hn == 'all-entries' || $hn == 'categories')
+	if($hn == 'all-entries' || $hn == 'categories' || $hn == 'hashtag' || $hn == 'diary')
 	 return true;
    
    return false; 	  
