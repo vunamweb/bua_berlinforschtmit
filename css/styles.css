@@ -1262,6 +1262,17 @@ body {
     font-style: normal;
 }
 /* END COMMENT */
+
+/* HASHTAG */
+.show_hashtag {
+    display: inline-block;
+    margin-left: 10px;
+}
+.edit_note {
+    margin-left: 20px;
+    font-size: .7em;
+}
+/* */
 /*  END */
 
 .option-input {
