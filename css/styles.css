@@ -1188,6 +1188,7 @@ body {
 }
 .success {
     color: green;
+    margin-bottom: 10px;
 }
 .btn-info {
     background-color: #5bc0de;
@@ -1214,6 +1215,7 @@ body {
 /* COMMENT */
 .edit_note, .add_note {
     margin-left: 7px;
+    display: inline-block;
 }
 #add_note #message, #edit_note #message_edit, #show_note #message_comment, #edit_comment #message_edit_comment {
     width: 100%;
@@ -1260,6 +1262,13 @@ body {
 .title_comment .name_user {
     display: inline-block;
     font-style: normal;
+}
+.area_comment {
+    background: #ccc;
+    padding: 5px;
+}
+.text_comment {
+    display: inline-block;
 }
 /* END COMMENT */
 

@@ -132,6 +132,7 @@ if($morpheus_edit) {
 // Create a WaveSurfer instance
 var wavesurfer;
 
+// VU: add function comment
 showChildren = (parent) => {
 	$('.btn-link-1').each(function(){
 		if($(this).attr('parent') == parent)
@@ -145,6 +146,11 @@ hideChildren = (parent) => {
 		  $(this).hide();
 	})
 }
+
+updateComment = (noteId, message) => {
+	$('#data_'+noteId+'').html(message);
+}
+// END
   
   // Init on DOM ready
   if($('#waveform').length > 0) {
@@ -345,28 +351,34 @@ $(document).ready(function() {
 	
 	// VU: add script for comment
 	$(".add_note").click(function() {
-       var mediaID = $(this).attr("href");
-       mediaID = mediaID.replace('#', '');
+       var noteID = $(this).attr("id");
+	   var message = $(this).attr('data');
 
-       $('#save_note').attr('ref', mediaID);
-       $('#message').val('');
+       $('#save_note').attr('ref', noteID);
+
+       // if is first time, then set value of field message
+	   if($('#message').val() == '')
+	     $('#message').val(message);
 	})
 	
 	$("#save_note").click(function() {
-      var mediaId = $(this).attr("ref");
+      var noteId = $(this).attr("ref");
       var message = $('#message').val();
-      var date_note = $('#date_note').val();
 
       request = $.ajax({
             url: "./",
             type: "get",
-            data: "myNote=" + message + "&mediaId=" +mediaId+"",
+            data: "myNote=" + message + "&noteId=" +noteId+"",
             success: function(data) {
               // close modal note
 			  $('#add_note .close').click();
 
-			  $('.message_info').html('Add comment successful');
+			  // show successfuly message
+			  $('.message_info').html('Update comment successful');
 			  $('.message_info').addClass('success');
+
+			  // update this comment text
+			  updateComment(noteId, message);
             },
             error: function(data){
               data = JSON.stringify(data);

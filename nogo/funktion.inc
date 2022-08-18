@@ -3313,3 +3313,421 @@ function br($anzahl=1) {
 	for($i=1; $i<=$anzahl; $i++) { $br .= '<br/>'; }
 	return $br;
 }
+
+/* VU ADD COMMENT FUNCTION */
+
+// show comment
+function getSqlComment($mediaID = 0, $category = 0) {
+	if($category == 0)
+	  $sql = ($mediaID == 0) ? "SELECT * FROM morp_note WHERE parent = 0 ORDER BY date_time desc" : "SELECT * FROM morp_note WHERE parent = 0 and mediaID = ".$mediaID." ORDER BY date_time desc";
+	else {
+		$in = '(';
+
+		$sql = "SELECT * FROM morp_stimmen_media WHERE stID = ".$category."";
+		$res = safe_query($sql);
+
+		$count = 0;
+
+		while ($row = mysqli_fetch_object($res)) {
+		   if($count < mysqli_num_rows($res) - 1)
+			 $in .= $row->mediaID . ',';
+		   else
+		     $in .= $row->mediaID ;
+		      
+		    $count++; 
+		}
+
+		$in .= ')';
+
+		$sql = "SELECT * FROM morp_note WHERE parent = 0 and mediaID in ".$in." ORDER BY date_time desc";
+	}
+
+	return $sql;
+}
+
+function showComments($mediaID = 0, $category = 0)
+{
+    global $morpheus;
+
+	$url = $morpheus['url'] . 'de/' . $_REQUEST['hn'] . '/?show_comment=' . $show_comment . '';
+	
+	$echo = '<form method="post" action="' . $url . '"><div class="accordion" id="accordionShowComment">';
+
+    //$sql = ($mediaID == 0) ? "SELECT * FROM morp_note WHERE parent = 0 ORDER BY date_time desc" : "SELECT * FROM morp_note WHERE parent = 0 and mediaID = ".$mediaID." ORDER BY date_time desc";
+	$sql = getSqlComment($mediaID, $category);
+	$res = safe_query($sql);
+	
+	if(mysqli_num_rows($res) == 0)
+	  return 'No comments';
+    //echo mysqli_num_rows($res); die();
+
+    while ($row = mysqli_fetch_object($res)) {
+		$idNote = $row->idNote;
+		$comment = $row->message . '('.countComment($idNote).')';
+		
+		$name = getNameFromID($row->uid); //$_SESSION["vname"] . ' ' . $_SESSION["nname"] = $row->nname;
+
+        $echo .= '<div class="card">
+	   <div class="card-header" id="headingThree">
+		   <h2 class="mb-0">
+			  <div class="title_comment">
+				 <i class="fa fa-user" aria-hidden="true"></i>
+				 <p class="name_user">'.$name.' &nbsp; &nbsp; &nbsp;'.$row->date_time.'</p>
+			  </div> 
+		      <a type="button"
+				   class="btn btn-link collapsed"
+				   data-toggle="collapse"
+				   data-target="#collapse' . $idNote . '">
+				   <i class="fa fa-plus fa1"></i>
+				   ' . $comment . '
+				</a>
+				<a class="edit_note" href="?edit='.$idNote.'"><i class="fa fa-pencil-square-o"></i></a>
+		   </h2>
+	   </div>
+	   <div id="collapse' . $idNote . '" class="collapse"
+		   aria-labelledby="headingThree"
+		   data-parent="#accordionShowComment">
+		   <div class="card-body">
+				' . showCommentOfComment($idNote, 1) . '
+			   <div class="block_comment open" id="block_comment_' . $idNote . '"><textarea class="message_comment" placeholder="Comment"></textarea>
+			   <input type="submit" class="btn btn-info" value="Save"></div>
+		   </div>
+	   </div>
+   </div>';
+    }
+
+    $echo .= '</div><input type="hidden" name="save_note" value="1"><input type="hidden" name="mediaId" value="'.$mediaID.'"><input type="hidden" name="parent_comment" id="parent_comment"><input type="hidden" name="message_comment" id="message_comment"></form>';
+
+	//modal
+    $echo .= '<div class="modal" id="add_note" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<!-- Modal Header -->
+			<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">×</button>
+			</div>
+			<!-- Modal body -->
+			<div class="modal-body">
+				<textarea name="message" id="message" placeholder="Comment"></textarea>
+				<input type="hidden" id="date_note" value="' . date('Y-m-d') . '" />
+				<input type="button" ref="" class="btn btn-info" id="save_note" value="Update"/>
+				<input type="button" class="btn btn-info hide" name="cancel_note" id="cancel_note" value="Cancel"/>
+			</div>
+		</div>
+	</div>
+</div>';
+
+	if ($parent_comment > 0) {
+        $echo .= '<script>
+	                alert("ddd");
+			      </script>';
+    }
+
+    return $echo;
+}
+// END
+
+// show comment of comment
+function showCommentOfComment($parent, $level)
+{
+    $response = '';
+
+	$defaultMarginLeft = 40;
+	$marginLeft = $defaultMarginLeft * $level;
+
+    $level++;
+
+    $sql = "SELECT * FROM morp_note WHERE parent = " . $parent . " ORDER BY date_time desc";
+    //echo $sql . '////';
+    $res = safe_query($sql);
+    //echo mysqli_num_rows($res); die();
+
+    while ($row = mysqli_fetch_object($res)) {
+		$parentChild = $row->idNote;
+		
+		$name = $name = getNameFromID($row->uid);
+
+		$comment = $row->message;
+		
+		$response .= '<h2 class="mb-0 mb-1" style="margin-left:'.$marginLeft.'px">
+					   <a class="btn btn-link btn-link-1" parent="' . $parent . '" data-target="#collapse' . $parentChild . '">
+					      <div class="title_comment">
+					        <i class="fa fa-user" aria-hidden="true"></i>
+					        <p class="name_user">'.$name.' &nbsp; &nbsp; &nbsp;'.$row->date_time.'</p>
+						  </div>
+						  <i class="fa fa-plus fa1"></i> <p class="text_comment" id="data_'.$parentChild.'">' . $comment . '</p><p class="text_comment">('.countComment($parentChild).')</p>
+						  <div id="'.$parentChild.'" data="'.$row->message.'" class="add_note '.showEdit($parentChild).'" data-toggle="modal" data-target="#add_note"><i class="fa fa-pencil-square-o"></i></div>
+				        </a>
+					 </h2>';
+
+        $response .= showCommentOfComment($parentChild, $level);
+
+        $response .= '<div class="block_comment" id="block_comment_' . $parentChild . '"><textarea class="message_comment" placeholder="Comment"></textarea>
+		              <input type="submit" class="btn btn-info" value="Save"></div>
+	                 ';
+    }
+
+    return $response;
+}
+// END
+
+// if is owner, then show edit pencil
+function showEdit($idNote) {
+	$sql = "SELECT * FROM morp_note WHERE idNote = " . $idNote . "";
+	$res = safe_query($sql);
+	$row = mysqli_fetch_object($res);
+	$uid = $row->uid;
+
+	$mid = $_SESSION['mid'];
+
+	if($uid == $mid)
+	  return '';
+	
+	return 'hide';  
+}
+// END
+
+// form add comment
+function addComment($showCategory) {
+	global $arr_form;
+
+	$x = 0;
+
+	$echo .= '<a onclick="history.back()"><i class="fa fa-arrow-circle-left"></i> zurück</a><br><br>';
+
+    $echo .= '<input type="Hidden" name="neu" value="1"><input type="Hidden" name="save" value="1">
+    <table cellspacing="6" style="width:100%;">';
+
+	foreach($arr_form as $arr) {
+		$echo .= '<tr>
+			<td>'.$arr[1].'</td>
+			<td>'. str_replace(array("#v#", "#n#", "#s#"), array($get, $arr[0], 'width:400px;'), $arr[2]).'</td>
+		</tr>';
+		$x++;
+	}
+
+	$echo .= '<tr>
+		<td>HashTag</td>
+		<td>
+			'.showHashTag(0).'
+		</td>
+	</tr>
+	';
+	
+	if($showCategory)
+		$echo .= '<tr>
+		<td>Category</td>
+		<td>
+			'.showCategory().'
+		</td>
+	</tr>
+	';
+
+  $echo .= '<tr>
+		<td></td>
+		<td>
+			<br>
+			<button type="submit" id="savebtn" class="btn btn-success"><i class="fa fa-save"></i> &nbsp; '.$um_wen_gehts.' speichern</button>
+		</td>
+	</tr>
+</table>';
+
+  return $echo;
+}
+// END
+
+// update hashtag
+function updateHashtagNote($listHashtag, $idNote)
+{
+	// delete all hashtag of this note
+	$sql = 'delete from morp_note_hashtag where idNote = ' . $idNote . '';
+	safe_query($sql);
+	
+	foreach ($listHashtag as $item) {
+        if ($item != '') {
+			// delete if exist
+            $sql = 'delete from morp_note_hashtag where idNote = ' . $idNote . ' and idHashtag = ' . $item . '';
+            //echo $sql; die();
+            safe_query($sql);
+            // insert
+            $sql = 'insert into morp_note_hashtag(idNote, idHashtag)values(' . $idNote . ', ' . $item . ')';
+            //echo $sql . '<br>';
+            safe_query($sql);
+        }
+    }
+}
+// END
+
+// show hashtag
+function showHashTag($idNote)
+{
+    $response = '';
+    $array_properties = array();
+
+    $query = "SELECT idHashtag FROM morp_note_hashtag where idNote = " . $idNote . "";
+    $result = safe_query($query);
+
+    while ($row = mysqli_fetch_object($result)) {
+        $array_properties[] = $row->idHashtag;
+    }
+
+    $query = "SELECT * FROM morp_hashtag";
+    $result = safe_query($query);
+
+    while ($row = mysqli_fetch_object($result)) {
+        $check = (in_array($row->htID, $array_properties)) ? "checked" : '';
+        $response .= '<div class="show_hashtag"><input ' . $check . ' type="checkbox" value=' . ($row->htID) . ' name="listHashTag[]">&nbsp; &nbsp; &nbsp;<label>' . ($row->name) . '</label></div>';
+    }
+
+    return $response;
+}
+// END
+
+// show categories
+function showCategory() {
+	global $morpheus;
+
+	$sql = "SELECT * FROM morp_stimmen WHERE parent = 0 ORDER BY name desc";
+	$res = safe_query($sql);
+
+	$echo = '<br><br><div class="accordion" id="accordionShowComment">';
+	
+	while ($row = mysqli_fetch_object($res)) {
+		$stID = $row->stID;
+		$name = $row->name;
+		
+		$echo .= '<div class="card">
+	   <div class="card-header" id="headingThree">
+		   <h2 class="mb-0">
+			  <a type="button"
+				   class="btn btn-link collapsed"
+				   data-toggle="collapse"
+				   data-target="#collapse' . $stID . '">
+				   <input type="checkbox">
+				   <i class="fa fa-plus fa1"></i>
+				   ' . $name . '
+				</a>
+			</h2>
+	   </div>
+	   <div id="collapse' . $stID . '" class="collapse"
+		   aria-labelledby="headingThree"
+		   data-parent="#accordionShowComment">
+		   <div class="card-body">
+				' . showCategoryOfCategory($stID, 1) . '
+			</div>
+	   </div>
+   </div>';
+	}
+	
+	$echo .= '</div>';
+
+    return $echo;
+}
+// END
+
+// show category of category
+function showCategoryOfCategory($parent, $level)
+{
+    $response = '';
+
+	$defaultMarginLeft = 40;
+	$marginLeft = $defaultMarginLeft * $level;
+
+    $level++;
+
+    $sql = "SELECT * FROM morp_stimmen WHERE parent = " . $parent . " ORDER BY name desc";
+    //echo $sql . '////';
+    $res = safe_query($sql);
+    //echo mysqli_num_rows($res); die();
+
+    while ($row = mysqli_fetch_object($res)) {
+		$parentChild = $row->stID;
+		
+		$name = $row->name;
+
+		$response .= '<h2 class="mb-0 mb-1" style="margin-left:'.$marginLeft.'px">
+					   <a class="btn btn-link btn-link-1" parent="' . $parent . '" data-target="#collapse' . $parentChild . '">
+					      <input type="checkbox">
+					      <i class="fa fa-plus fa1"></i> <p class="text_comment" id="data_'.$parentChild.'">' . $name . '</p>
+						</a>
+					 </h2>';
+
+        $response .= showCategoryOfCategory($parentChild, $level);
+    }
+
+    return $response;
+}
+// END
+
+// edit comment
+function editComment($edit, $showCategory)
+{
+    global $arr_form, $table, $tid, $imgFolderShort;
+
+    $sql = "SELECT * FROM $table WHERE $tid=" . $edit . "";
+    $res = safe_query($sql);
+    $row = mysqli_fetch_object($res);
+
+    //$echo = '<form action="" onsubmit="" name="verwaltung" method="post">';
+
+    $echo .= '<a onclick="history.back()"><i class="fa fa-arrow-circle-left"></i> zurück</a><br><br>';
+
+    $echo .= '
+		<input type="Hidden" name="edit" value="' . $edit . '">
+		<input type="Hidden" name="save" value="1">
+		<input type="hidden" value="0" name="back" id="back" />
+
+		<div class="row">
+			<div class="col-md-9">
+
+	';
+
+    foreach ($arr_form as $arr) {
+        $echo .= setMorpheusForm($row, $arr, $imgFolderShort, $edit, 'morp_referenzen', $tid);
+	}
+	
+	$echo .= '<p> HashTag: '.showHashTag($edit).'</p><br><br>';
+
+	if($showCategory)
+		$echo .= '<p>Category</p>'.showCategory().'<br><br>';
+
+    $echo .= '</div>
+		</div>
+ 			<button type="submit" id="savebtn" class="btn btn-success"><i class="fa fa-save"></i> &nbsp; ' . $um_wen_gehts . ' speichern / aktualisieren</button>
+			<button type="submit" id="savebtn2" value="hier" class="btn btn-success"><i class="fa fa-save"></i> &nbsp; ' . $um_wen_gehts . ' speichern und zurück</button>
+		<div class="row mt3">
+	';
+
+    $echo .= '
+		</div>
+    </div>
+    </form>
+';
+
+    return $echo;
+}
+// END
+
+// count comment
+function countComment($idNote) {
+	$sql = "SELECT * FROM morp_note WHERE parent = " . $idNote . "";
+	$res = safe_query($sql);
+	
+	return mysqli_num_rows($res);
+}
+// END
+
+// get name from id
+function getNameFromID($mid) {
+	require_once "nogo/db2.php";
+	dbconnect2();
+
+	$sql = "SELECT * FROM morp_intranet_user WHERE mid = " . $mid . "";
+    $res = safe_query2($sql);
+	$row = mysqli_fetch_object($res);
+	
+	return $row->vname . ' ' . $row->nname;
+}
+// END
+
+/* END */

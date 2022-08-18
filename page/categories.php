@@ -497,6 +497,10 @@ function edit($edit) {
     </form>	
 ';
 
+   // VU: show comment list of this category
+   $echo .= '<div class="row"><div class="col-md-12"><h5>Comments</h5><hr>'.showComments(0, $edit).'</div></div>'; 
+   // END
+
 	return $echo;
 }
 
