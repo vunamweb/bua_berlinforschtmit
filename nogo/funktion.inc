@@ -3518,7 +3518,7 @@ function addComment($showCategory) {
 		$echo .= '<tr>
 		<td>Category</td>
 		<td>
-			'.showCategory().'
+			'.showCategory(0).'
 		</td>
 	</tr>
 	';
@@ -3558,6 +3558,30 @@ function updateHashtagNote($listHashtag, $idNote)
 }
 // END
 
+// update hashtag
+function updateCategoriesNote($listCategories, $idNote)
+{
+	$table = 'morp_note_stimmen';
+
+	// delete all categories of this note
+	$sql = 'delete from '.$table.' where idNote = ' . $idNote . '';
+	safe_query($sql);
+	
+	foreach ($listCategories as $item) {
+        if ($item != '') {
+			// delete if exist
+            $sql = 'delete from '.$table.' where idNote = ' . $idNote . ' and idStimmen = ' . $item . '';
+            //echo $sql; die();
+            safe_query($sql);
+            // insert
+            $sql = 'insert into '.$table.'(idNote, idStimmen)values(' . $idNote . ', ' . $item . ')';
+            //echo $sql . '<br>';
+            safe_query($sql);
+        }
+    }
+}
+// END
+
 // show hashtag
 function showHashTag($idNote)
 {
@@ -3584,8 +3608,17 @@ function showHashTag($idNote)
 // END
 
 // show categories
-function showCategory() {
+function showCategory($idNote) {
 	global $morpheus;
+
+	$array_properties = array();
+
+    $query = "SELECT idStimmen FROM morp_note_stimmen where idNote = " . $idNote . "";
+    $result = safe_query($query);
+
+    while ($row = mysqli_fetch_object($result)) {
+        $array_properties[] = $row->idStimmen;
+    }
 
 	$sql = "SELECT * FROM morp_stimmen WHERE parent = 0 ORDER BY name desc";
 	$res = safe_query($sql);
@@ -3595,15 +3628,17 @@ function showCategory() {
 	while ($row = mysqli_fetch_object($res)) {
 		$stID = $row->stID;
 		$name = $row->name;
+
+		$check = (in_array($row->stID, $array_properties)) ? "checked" : '';
 		
 		$echo .= '<div class="card">
 	   <div class="card-header" id="headingThree">
 		   <h2 class="mb-0">
-			  <a type="button"
+		        <input '.$check.' type="checkbox" value="'.$stID.'" name="listCategories[]">
+		        <a type="button"
 				   class="btn btn-link collapsed"
-				   data-toggle="collapse"
+				   data-toggle="collapse" 
 				   data-target="#collapse' . $stID . '">
-				   <input type="checkbox">
 				   <i class="fa fa-plus fa1"></i>
 				   ' . $name . '
 				</a>
@@ -3613,7 +3648,7 @@ function showCategory() {
 		   aria-labelledby="headingThree"
 		   data-parent="#accordionShowComment">
 		   <div class="card-body">
-				' . showCategoryOfCategory($stID, 1) . '
+				' . showCategoryOfCategory($array_properties, $stID, 1) . '
 			</div>
 	   </div>
    </div>';
@@ -3626,7 +3661,7 @@ function showCategory() {
 // END
 
 // show category of category
-function showCategoryOfCategory($parent, $level)
+function showCategoryOfCategory($array_properties, $parent, $level)
 {
     $response = '';
 
@@ -3645,14 +3680,16 @@ function showCategoryOfCategory($parent, $level)
 		
 		$name = $row->name;
 
+		$check = (in_array($row->stID, $array_properties)) ? "checked" : '';
+
 		$response .= '<h2 class="mb-0 mb-1" style="margin-left:'.$marginLeft.'px">
 					   <a class="btn btn-link btn-link-1" parent="' . $parent . '" data-target="#collapse' . $parentChild . '">
-					      <input type="checkbox">
+					      <input '.$check.' type="checkbox" value="'.$parentChild.'" name="listCategories[]">
 					      <i class="fa fa-plus fa1"></i> <p class="text_comment" id="data_'.$parentChild.'">' . $name . '</p>
 						</a>
 					 </h2>';
 
-        $response .= showCategoryOfCategory($parentChild, $level);
+        $response .= showCategoryOfCategory($array_properties, $parentChild, $level);
     }
 
     return $response;
@@ -3689,7 +3726,7 @@ function editComment($edit, $showCategory)
 	$echo .= '<p> HashTag: '.showHashTag($edit).'</p><br><br>';
 
 	if($showCategory)
-		$echo .= '<p>Category</p>'.showCategory().'<br><br>';
+		$echo .= '<p>Category</p>'.showCategory($edit).'<br><br>';
 
     $echo .= '</div>
 		</div>

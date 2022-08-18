@@ -88,6 +88,7 @@ if($morpheus_edit) include("design/edit.php");
 <script src="<?php echo $dir; ?>js/siriwave/dist/siriwave.umd.js"></script>
 <script type="text/javascript" src="<?php echo $dir; ?>js/siriwave/etc/dat.gui.js"></script>
 <script type="text/javascript" src="<?php echo $dir; ?>js/wavesurfer.js"></script>
+<script type="text/javascript" src="<?php echo $dir; ?>js/semantic.js"></script>
 <!-- <script src="https://unpkg.com/wavesurfer.js"></script> !-->
 <?php 
 global $audio;
@@ -150,6 +151,22 @@ hideChildren = (parent) => {
 updateComment = (noteId, message) => {
 	$('#data_'+noteId+'').html(message);
 }
+
+function getHashtags() {
+    var result = '';
+    $('.hashtag a.ui.label').each(function() {
+      result = result + $(this).attr('data-value') + ',';
+    })
+    return result;
+  }
+
+function getCategories() {
+    var result = '';
+    $('.categories a.ui.label').each(function() {
+      result = result + $(this).attr('data-value') + ',';
+    })
+    return result;
+}  
 // END
   
   // Init on DOM ready
@@ -212,7 +229,7 @@ updateComment = (noteId, message) => {
         });
 		wavesurfer.on('error', function(e) {
 			//  console.warn(e);
-		});
+		})
       // Go to the next track on finish
 		wavesurfer.on('finish', function() {
 			setCurrentSong((currentTrack + 1) % links.length);
@@ -230,6 +247,50 @@ $(document).ready(function() {
 			$('#imgModal').modal('show')
 		});
 	});
+
+	// VU: display select by simantic
+	$('.selection.hashtag').dropdown({
+      maxSelections: 3
+	});
+	
+	$('.selection.categories').dropdown({
+      maxSelections: 3
+    });
+	// END
+
+	// VU: search form
+	$('.navbar-form').submit(function(e) {
+        e.preventDefault();
+
+        var search = $('#suche').val();
+
+        $('#waitbg').removeClass('hide');
+        $('#wave1').removeClass('hide');
+
+        //call ajax to change content
+        $.ajax({
+          url: '/',
+          type: 'get',
+          data: {
+            search_value: search,
+            hashtags: getHashtags(),
+            categories: getCategories(),
+            search_combine: 'search',
+          },
+          dataType: 'json',
+          beforeSend: function beforeSend() {},
+          complete: function complete(obj) {
+            $('#list_comment').html(obj.responseText);
+
+            $('#waitbg').addClass('hide');
+            $('#wave1').addClass('hide');
+          },
+          success: function success(result) {
+            //$('#list_user_search').html(result);
+          }
+        });
+      })
+	// END
 
 	// VU: add script for deleting and adding audio
 	$('.add_properties').click(function(){
