@@ -2529,6 +2529,31 @@ function get_raw_text_morp ($text, $lang="de") 	{
 
 	return $t;
 }
+
+// VU
+function get_raw_text_morp_comment ($text, $lang="de") 	{
+	global $no_str, $nw_str, $search_str, $startseite_l, $startseite_r;
+
+	$tx = explode("##", strip_tags($text));
+	# print_r($tx);
+
+	for($i=0; $i <= count($tx); $i++) {
+		$txt 	= $tx[$i];
+		$txt 	= explode("@@", $txt);
+		$text 	= $txt[1];
+		$brick 	= $txt[0];
+		$brick  = explode("__", $brick);
+
+		# echo "bricks/" .$txt[0] .".php";
+
+		if(file_exists("bricks/" .$txt[0] .".php") && !preg_match("/page/", $brick[1])) { include("bricks/" .$txt[0] .".php"); }
+
+		if ($brick[1]) $t .= $morp.' &nbsp; ';
+	}
+
+	return $t;
+}
+// END
 # # # # # # # # # # # # # # # # # # # # # # # # # # #
 # # # # # # # # # # # # # # # # # # # # # # # # # # #
 
@@ -3394,16 +3419,18 @@ function showComments($mediaID = 0, $category = 0, $que = null)
 		   data-parent="#accordionShowComment">
 		   <div class="card-body">
 				' . showCommentOfComment($idNote, 1) . '
-			   <div class="block_comment open" id="block_comment_' . $idNote . '"><textarea class="message_comment" placeholder="Comment"></textarea>
-			   <input type="submit" class="btn btn-info" value="Save"></div>
+			   <div class="block_comment open" id="block_comment_' . $idNote . '">
+				 <textarea class="message_comment" placeholder="Comment"></textarea>
+				 <a href="#" data-toggle="modal" data-target="#show_link">Add link</a><br><br>
+			     <input type="submit" class="btn btn-info" value="Save"></div>
 		   </div>
 	   </div>
    </div>';
     }
 
-    $echo .= '</div><input type="hidden" name="save_note" value="1"><input type="hidden" name="mediaId" value="'.$mediaID.'"><input type="hidden" name="parent_comment" id="parent_comment"><input type="hidden" name="message_comment" id="message_comment"></form>';
+    $echo .= '</div><input type="hidden" id="cid" name="cid"><input type="hidden" name="save_note" value="1"><input type="hidden" name="mediaId" value="'.$mediaID.'"><input type="hidden" name="parent_comment" id="parent_comment"><input type="hidden" name="message_comment" id="message_comment"></form>';
 
-	//modal
+	//modal add note
     $echo .= '<div class="modal" id="add_note" aria-hidden="true">
 	<div class="modal-dialog">
 		<div class="modal-content">
@@ -3415,11 +3442,30 @@ function showComments($mediaID = 0, $category = 0, $que = null)
 			<div class="modal-body">
 				<textarea name="message" id="message" placeholder="Comment"></textarea>
 				<input type="hidden" id="date_note" value="' . date('Y-m-d') . '" />
-				<input type="button" ref="" class="btn btn-info" id="save_note" value="Update"/>
+				<input type="button" ref="" class="btn btn-info" id="save_note" value="Add"/>
 				<input type="button" class="btn btn-info hide" name="cancel_note" id="cancel_note" value="Cancel"/>
 			</div>
 		</div>
 	</div>
+</div>';
+
+  //modal show link
+  $echo .= '<div class="modal" id="show_link" aria-hidden="true">
+  <div class="modal-dialog">
+	  <div class="modal-content">
+		  <!-- Modal Header -->
+		  <div class="modal-header">
+				  <button type="button" class="close" data-dismiss="modal">×</button>
+		  </div>
+		  <!-- Modal body -->
+		  <div class="modal-body">
+			  '.showLink().'
+			  <input type="hidden" id="navid" />
+			  <input type="button" ref="" class="btn btn-info" id="save_link" value="Add"/>
+			  <input type="button" class="btn btn-info hide" name="cancel_note" id="cancel_note" value="Cancel"/>
+		  </div>
+	  </div>
+  </div>
 </div>';
 
 	if ($parent_comment > 0) {
@@ -3435,7 +3481,9 @@ function showComments($mediaID = 0, $category = 0, $que = null)
 // show comment of comment
 function showCommentOfComment($parent, $level)
 {
-    $response = '';
+	global $morpheus;
+
+	$response = '';
 
 	$defaultMarginLeft = 40;
 	$marginLeft = $defaultMarginLeft * $level;
@@ -3453,6 +3501,16 @@ function showCommentOfComment($parent, $level)
 		$name = $name = getNameFromID($row->uid);
 
 		$comment = $row->message;
+
+		$addLink = $row->add_link;
+		$addLink = explode(',', $addLink);
+
+		$href = $morpheus['url'] . 'de' . '/' . $addLink[1] . '?cidValue='.$addLink[2].'';
+
+		$nameLink = $addLink[3];
+		$nameLink = substr(strip_tags($nameLink), 0, 200);
+
+
 		
 		$response .= '<h2 class="mb-0 mb-1" style="margin-left:'.$marginLeft.'px">
 					   <a class="btn btn-link btn-link-1" parent="' . $parent . '" data-target="#collapse' . $parentChild . '">
@@ -3462,17 +3520,86 @@ function showCommentOfComment($parent, $level)
 						  </div>
 						  <i class="fa fa-plus fa1"></i> <p class="text_comment" id="data_'.$parentChild.'">' . $comment . '</p><p class="text_comment">('.countComment($parentChild).')</p>
 						  <div id="'.$parentChild.'" data="'.$row->message.'" class="add_note '.showEdit($parentChild).'" data-toggle="modal" data-target="#add_note"><i class="fa fa-pencil-square-o"></i></div>
-				        </a>
+						  <div class="area_show_link"><a href='.$href.' target="_blank">'.$nameLink.'</a></div> 
+						</a>
 					 </h2>';
 
         $response .= showCommentOfComment($parentChild, $level);
 
-        $response .= '<div class="block_comment" id="block_comment_' . $parentChild . '"><textarea class="message_comment" placeholder="Comment"></textarea>
-		              <input type="submit" class="btn btn-info" value="Save"></div>
+		$response .= '<div class="block_comment" id="block_comment_' . $parentChild . '">
+						 <textarea class="message_comment" placeholder="Comment"></textarea>
+						 <a href="#" data-toggle="modal" data-target="#show_link">Add link</a><br><br>
+					     <input type="submit" class="btn btn-info" value="Save">
+					  </div>
 	                 ';
     }
 
     return $response;
+}
+// END
+
+// show link
+function showLink() {
+	global $morpheus;
+
+	$sql = "SELECT * FROM morp_cms_content mc, morp_cms_nav mn WHERE mc.navid = mn.navid GROUP BY mn.navid ORDER BY mn.sort";
+	$res = safe_query($sql);
+
+	$echo = '<div class="accordion" id="accordionShowLink">';
+	
+	while ($row = mysqli_fetch_object($res)) {
+		$navid = $row->navid;
+		$name = $row->name;
+		$setlink = $row->setlink;
+
+        $echo .= '<div class="card">
+	   <div class="card-header" id="headingThree">
+		   <h2 class="mb-0">
+			  <a type="button"
+				   class="navid btn btn-link"
+				   href="#'.$navid.'"
+				   data ="'.$setlink.'"
+				   data-toggle="collapse"
+				   data-target="#collapse' . $navid . '">
+				   <i class="fa fa-plus fa1"></i>
+				   ' . $name . '
+				</a>
+			</h2>
+	   </div>
+	   <div id="collapse' . $navid . '" class="collapse"
+		   aria-labelledby="headingThree"
+		   data-parent="#accordionShowLink">
+		   <div class="card-body">
+				' . showCidOfNavid($navid) . '
+			</div>
+	   </div>
+   </div>';
+    }
+
+    $echo .= '</div>';
+
+	return $echo;
+}
+// END
+
+// show cid of navid
+function showCidOfNavid($navid) {
+	$echo = '';
+
+	$sql = "SELECT * FROM morp_cms_content mc, morp_cms_nav mn WHERE mc.navid = mn.navid and mn.navid = ".$navid." ORDER BY mn.sort desc";
+	$res = safe_query($sql);
+
+	while ($row = mysqli_fetch_object($res)) {
+		$content = $row->content;
+		$cid = $row->cid;
+
+		$name = get_raw_text_morp_comment($content);
+		$name = substr(strip_tags($name), 0, 200);
+
+		$echo .= '<a data="'.$name.'" href="#'.$cid.'" class="cid">'.$name.'</a>';
+	}
+
+	return $echo;
 }
 // END
 

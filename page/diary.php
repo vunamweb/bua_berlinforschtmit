@@ -59,6 +59,7 @@ $search_combine = $_REQUEST['search_combine'];
 $search_value = $_REQUEST['search_value'];
 $hashtags = $_REQUEST['hashtags'];
 $categories = $_REQUEST['categories'];
+$cid = $_REQUEST['cid'];
 
 // VU: update comment text
 if ($myNote) {
@@ -227,7 +228,8 @@ elseif($save_note) {
 	$uid = $_SESSION['mid'];
     $date = date('y-m-d');
 
-    $sql = 'insert into morp_note(uid, parent, mediaID, message, date_time)values(' . $uid . ', ' . $parent_comment . ', ' . $mediaId . ', "' . $message_comment . '", "' . $date . '")';
+    $sql = 'insert into morp_note(uid, parent, mediaID, message, add_link, date_time)values(' . $uid . ', ' . $parent_comment . ', ' . $mediaId . ', "' . $message_comment . '", "'.$cid.'", "' . $date . '")';
+    //echo $sql; die();
     safe_query($sql);
 
     $output = $new . liste();

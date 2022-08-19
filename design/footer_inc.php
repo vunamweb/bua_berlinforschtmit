@@ -166,7 +166,13 @@ function getCategories() {
       result = result + $(this).attr('data-value') + ',';
     })
     return result;
-}  
+}
+
+removeBg = (parent) => {
+	$('.cid').each(function(){
+		$(this).removeClass('bg_link');
+	})
+}
 // END
   
   // Init on DOM ready
@@ -468,6 +474,47 @@ $(document).ready(function() {
     		  console.log(data);
   		  }
       });
+    })
+	// END
+
+	// VU: save navid when click navid on modal
+	$(".navid").click(function() {
+      var navid = $(this).attr("href");
+	  navid = navid.replace('#', '');
+	  
+	  var setlink = $(this).attr('data');
+
+	  var value = navid + ',' + setlink;
+	  
+	  $('#navid').val(value);
+    })
+	// END
+
+	// VU: save cid when click cid on modal
+	$(".cid").click(function() {
+      var cid = $(this).attr("href");
+	  cid = cid.replace('#', '');
+	  
+	  var name = $(this).attr('data');
+
+	  var navid = $('#navid').val();
+	  
+	  // save value of cid
+	  //var value = $('#cid').val();
+	  value = navid + ',' +  cid + ',' + name + '@@///';
+	  $('#cid').val(value);
+
+	  // remove all selected
+	  removeBg();
+
+	  // make selected
+	  $(this).addClass('bg_link')
+    })
+	// END
+
+	// VU: click save link
+	$("#save_link").click(function() {
+      $('#show_link .close').click();
     })
 	// END
 	

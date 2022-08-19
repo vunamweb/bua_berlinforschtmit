@@ -315,6 +315,7 @@ if ($cont5) $set_uri .= eliminiere($cont5)."/";
 
 // ID dieser Seite auswerten
 $cid = $set_uri ? $id_arr[$set_uri] : 0;
+$cidValue = $_REQUEST['cidValue'];
 // hauptnaviagtion ID auswerten
 $hn_id 	= $hn ? $id_arr[eliminiere($hn)."/"] : 0;
 
@@ -1038,7 +1039,12 @@ if ($cid) {
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-	$query = "SELECT * FROM `morp_cms_content` c LEFT JOIN morp_cms_image i ON i.imgid=c.img1, `morp_cms_nav` n WHERE c.navid=".$cid." AND n.navid=c.navid AND ton=1 ORDER BY tpos";
+	// VU: change sql to show link from comment
+	if(!$cidValue)
+	  $query = "SELECT * FROM `morp_cms_content` c LEFT JOIN morp_cms_image i ON i.imgid=c.img1, `morp_cms_nav` n WHERE c.navid=".$cid." AND n.navid=c.navid AND ton=1 ORDER BY tpos";
+	else 
+	  $query = 'SELECT * FROM `morp_cms_content` c LEFT JOIN morp_cms_image i ON i.imgid=c.img1, `morp_cms_nav` n WHERE c.navid=1 AND n.navid=c.navid AND ton=1 and c.cid = '.$cidValue.' ORDER BY tpos';
+	// END
 	$result 	= safe_query($query);
 
 	while ($row = mysqli_fetch_object($result)) {

@@ -53,6 +53,7 @@ $message_comment = $_REQUEST['message_comment'];
 $listHashtag = $_POST['listHashTag'];
 $edit_entry = isset($_REQUEST["edit_entry"]) ? $_REQUEST["edit_entry"] : 0;
 $edit = isset($_REQUEST["edit"]) ? $_REQUEST["edit"] : 0;
+$cid = $_REQUEST['cid'];
 
 // VU: add code for comment
 // add comment for media
@@ -348,7 +349,8 @@ elseif($save_note) {
     $uid = $_SESSION['mid'];
     $date = date('y-m-d');
 
-    $sql = 'insert into morp_note(uid, parent, mediaID, message, date_time)values(' . $uid . ', ' . $parent_comment . ', ' . $mediaId . ', "' . $message_comment . '", "' . $date . '")';
+    //$sql = 'insert into morp_note(uid, parent, mediaID, message, date_time)values(' . $uid . ', ' . $parent_comment . ', ' . $mediaId . ', "' . $message_comment . '", "' . $date . '")';
+    $sql = 'insert into morp_note(uid, parent, mediaID, message, add_link, date_time)values(' . $uid . ', ' . $parent_comment . ', ' . $mediaId . ', "' . $message_comment . '", "'.$cid.'", "' . $date . '")';
     safe_query($sql);
 
     $output = showComments($mediaId);

@@ -1225,10 +1225,10 @@ body {
     position: relative;
     left: 0;
 }
-#accordionShowComment .card {
+#accordionShowComment .card, #accordionShowLink .card {
     height: auto;
 }
-#accordionShowComment a.btn-link {
+#accordionShowComment a.btn-link, #accordionShowLink a.btn-link  {
     color: #000 !important;
     font-size: 0.5em;
     text-decoration: none;
@@ -1269,6 +1269,18 @@ body {
 }
 .text_comment {
     display: inline-block;
+}
+.cid {
+    display: block;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #ccc;
+}
+.bg_link {
+    background: #ccc;
+}
+.area_show_link {
+    font-size: 0.5em;
+    line-height: 1em;
 }
 /* END COMMENT */
 
