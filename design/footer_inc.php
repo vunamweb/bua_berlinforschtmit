@@ -259,9 +259,7 @@ $(document).ready(function() {
 	// END
 
 	// VU: search form
-	$('.navbar-form').submit(function(e) {
-        e.preventDefault();
-
+	$('.navbar-form').click(function(e) {
         var search = $('#suche').val();
 
         $('#waitbg').removeClass('hide');
@@ -269,7 +267,7 @@ $(document).ready(function() {
 
         //call ajax to change content
         $.ajax({
-          url: '/',
+          url: './',
           type: 'get',
           data: {
             search_value: search,

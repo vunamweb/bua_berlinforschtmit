@@ -11,7 +11,7 @@
 ini_set('display_startup_errors', '1');
 error_reporting(E_ALL);*/
 
-include "morpheus/_tinymce.php";
+//include "morpheus/_tinymce.php";
 
 global $arr_form, $table, $tid, $filter, $nameField, $sortField, $imgFolderShort, $ebene, $parent, $morpheus;
 
@@ -56,6 +56,7 @@ $message_comment = $_REQUEST['message_comment'];
 $myNote = $_REQUEST['myNote'];
 $noteId = $_REQUEST['noteId'];
 $search_combine = $_REQUEST['search_combine'];
+$search_value = $_REQUEST['search_value'];
 $hashtags = $_REQUEST['hashtags'];
 $categories = $_REQUEST['categories'];
 
@@ -74,14 +75,15 @@ if($search_combine) {
 	$hashtags = explode(',', $hashtags);
     $categories = explode(',', $categories);
 
-    $sql = "select mid from morp_intranet_user_allocation where ( ";
+    // hashtag
+    $sql = "select idNote from morp_note_hashtag where ( ";
     if (count($hashtags) > 1) {
         for ($count = 0; $count < count($hashtags); $count++) {
             if ($hashtags[$count]) {
                 if ($count < (count($hashtags) - 2)) {
-                    $sql .= 'property = ' . $hashtags[$count] . ' or ';
+                    $sql .= 'idHashtag = ' . $hashtags[$count] . ' or ';
                 } else {
-                    $sql .= 'property = ' . $hashtags[$count] . '';
+                    $sql .= 'idHashtag = ' . $hashtags[$count] . '';
                 }
 
             }
@@ -89,28 +91,46 @@ if($search_combine) {
     }
 
     $sql .= ')';
-    $sql .= ' group by mid';
-    $sql .= ' having count(mid) = ' . (count($hashtags) - 1) . ' ';
+    $sql .= ' group by idNote';
+    $sql .= ' having count(idNote) = ' . (count($hashtags) - 1) . ' ';
+    // end
 
-    $where = '';
+    // category
+    $sql1 = "select idNote from morp_note_stimmen where ( ";
+    if (count($categories) > 1) {
+        for ($count = 0; $count < count($categories); $count++) {
+            if ($categories[$count]) {
+                if ($count < (count($categories) - 2)) {
+                    $sql1 .= 'idHashtag = ' . $categories[$count] . ' or ';
+                } else {
+                    $sql1 .= 'idHashtag = ' . $categories[$count] . '';
+                }
 
-    // if search for both GH AND BC 
-    //echo $BC . '/' . $GH; die();
-	$search_project = "";
-	if($BC && $GH) $search_project = " AND (BC=$BC AND GH=$GH )";
-	else if($BC) $search_project = " AND BC=$BC ";
-	else if($GH) $search_project = " AND GH=$GH ";
-	
-    //if((string) $GH != 'null' && (string) $BC != 'null')
-    $que = "SELECT * FROM `morp_intranet_user` g WHERE
-			(g.nname like '%" . $search_value . "%' OR g.vname like '%" . $search_value . "%')
-            " . $search_project . "
-            ";
-    if (count($hashtags) > 1) {
-        $que .= " AND g.mid in ($sql)";
+            }
+        }
     }
 
-    $que .= 'ORDER BY g.mid DESC';
+    $sql1 .= ')';
+    $sql1 .= ' group by idNote';
+    $sql1 .= ' having count(idNote) = ' . (count($categories) - 1) . ' ';
+    // end
+
+
+    //if((string) $GH != 'null' && (string) $BC != 'null')
+    $que = "SELECT * FROM `morp_note` g WHERE
+			(g.title like '%" . $search_value . "%' OR g.message like '%" . $search_value . "%')
+            ";
+    if (count($hashtags) > 1) {
+        $que .= " AND g.idNote in ($sql)";
+    }
+
+    if (count($categories) > 1) {
+        $que .= " AND g.idNote in ($sql1)";
+    }
+
+    $que .= 'ORDER BY g.date_time DESC';
+
+    echo showComments(0, 0, $que); die();
 }
 // END
 
@@ -154,7 +174,7 @@ function search()
 
     $form = '<hr>';
 
-    $form .= '<div class="row"><form class="navbar-form" role="search" method="get">';
+    $form .= '<div class="row">';
     $form .= '<div class="col-md-2 ui left icon input">
 	  <input type="text" name="suche" id="suche" placeholder="Suche nach Name">
 	</div>';
@@ -163,8 +183,8 @@ function search()
 	$form .= $categories;
 
     //$form .= $select_interests;
-    $form .= '<div class="col-md-2"><button type="submit" value="Suchen" class="btn btn-info btn-submit-search">Filter</button></div>';
-    $form .= '</form></div>';
+    $form .= '<div class="col-md-2"><input value="Filter" class="btn btn-info btn-submit-search navbar-form"></div>';
+    $form .= '</div>';
 
     $form .= '<hr class="mt2">';
 
@@ -231,7 +251,7 @@ elseif ($del) {
 } elseif ($edit) {
     $output .= editComment($edit, true);
 } else
-    $output .= $new . search() . '<p class="message_info"></p>' . liste();
+    $output .= $new . search() . '<p class="message_info"></p>' . '<div id="list_comment">' . liste() . '</div>';
 
 $output .= '
 </form>

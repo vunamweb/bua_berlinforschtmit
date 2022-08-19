@@ -3317,9 +3317,14 @@ function br($anzahl=1) {
 /* VU ADD COMMENT FUNCTION */
 
 // show comment
-function getSqlComment($mediaID = 0, $category = 0) {
-	if($category == 0)
+function getSqlComment($mediaID = 0, $category = 0, $que = null) {
+	// if show comment of seach
+	if($que != null)
+	  $sql = $que;
+	// if show comment of category
+	elseif($category == 0)
 	  $sql = ($mediaID == 0) ? "SELECT * FROM morp_note WHERE parent = 0 ORDER BY date_time desc" : "SELECT * FROM morp_note WHERE parent = 0 and mediaID = ".$mediaID." ORDER BY date_time desc";
+	// if show comment of audio
 	else {
 		$in = '(';
 
@@ -3345,7 +3350,7 @@ function getSqlComment($mediaID = 0, $category = 0) {
 	return $sql;
 }
 
-function showComments($mediaID = 0, $category = 0)
+function showComments($mediaID = 0, $category = 0, $que = null)
 {
     global $morpheus;
 
@@ -3354,7 +3359,7 @@ function showComments($mediaID = 0, $category = 0)
 	$echo = '<form method="post" action="' . $url . '"><div class="accordion" id="accordionShowComment">';
 
     //$sql = ($mediaID == 0) ? "SELECT * FROM morp_note WHERE parent = 0 ORDER BY date_time desc" : "SELECT * FROM morp_note WHERE parent = 0 and mediaID = ".$mediaID." ORDER BY date_time desc";
-	$sql = getSqlComment($mediaID, $category);
+	$sql = getSqlComment($mediaID, $category, $que);
 	$res = safe_query($sql);
 	
 	if(mysqli_num_rows($res) == 0)
