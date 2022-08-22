@@ -174,6 +174,46 @@ removeBg = (parent) => {
 	})
 }
 // END
+
+// VU: script for saving comment of comment
+eventComment = () => {
+	$("#accordionShowComment a.btn-link").on("click", function() {
+		var idComment = $(this).attr("data-target");
+        idComment = idComment.replace('#collapse', '');
+        $('#parent_comment').val(idComment);
+
+		var parent = $(this).attr("parent");
+		
+        // if already open
+		if($(this).parent().find('.btn-link .fa').hasClass('fa-minus')) {
+			$(this).parent().find('.btn-link .fa1').removeClass('fa-minus');
+			$(this).parent().find('.btn-link .fa1').addClass('fa-plus');
+
+			// hide comment of comment
+			hideChildren(idComment);
+
+			// hide all comment save form
+			$('.block_comment').hide();
+			// open parent's comment save form
+			$('#block_comment_'+parent+'').show();
+		} 
+		// if not open
+		else {
+			$(this).parent().find('.btn-link .fa1').removeClass('fa-plus');
+			$(this).parent().find('.btn-link .fa1').addClass('fa-minus');
+
+			// show comment of comment
+			showChildren(idComment);
+
+			// hide all comment save form
+			$('.block_comment').hide();
+			//show this comment save form
+			$('#block_comment_'+idComment+'').show();
+        }
+	});
+}
+// END
+
   
   // Init on DOM ready
   if($('#waveform').length > 0) {
@@ -284,7 +324,9 @@ $(document).ready(function() {
           dataType: 'json',
           beforeSend: function beforeSend() {},
           complete: function complete(obj) {
-            $('#list_comment').html(obj.responseText);
+			$('#list_comment').html(obj.responseText);
+			
+			eventComment();
 
             $('#waitbg').addClass('hide');
             $('#wave1').addClass('hide');
@@ -365,43 +407,12 @@ $(document).ready(function() {
     })
 	// END
 
-	// VU: script for saving comment of comment
-	$("#accordionShowComment a.btn-link").on("click", function() {
-		var idComment = $(this).attr("data-target");
-        idComment = idComment.replace('#collapse', '');
-        $('#parent_comment').val(idComment);
+	// VU: call event click comment
+	eventComment();
+	// END
 
-		var parent = $(this).attr("parent");
-		
-        // if already open
-		if($(this).parent().find('.btn-link .fa').hasClass('fa-minus')) {
-			$(this).parent().find('.btn-link .fa1').removeClass('fa-minus');
-			$(this).parent().find('.btn-link .fa1').addClass('fa-plus');
-
-			// hide comment of comment
-			hideChildren(idComment);
-
-			// hide all comment save form
-			$('.block_comment').hide();
-			// open parent's comment save form
-			$('#block_comment_'+parent+'').show();
-		} 
-		// if not open
-		else {
-			$(this).parent().find('.btn-link .fa1').removeClass('fa-plus');
-			$(this).parent().find('.btn-link .fa1').addClass('fa-minus');
-
-			// show comment of comment
-			showChildren(idComment);
-
-			// hide all comment save form
-			$('.block_comment').hide();
-			//show this comment save form
-			$('#block_comment_'+idComment+'').show();
-        }
-	});
-
-	$(".message_comment").on("change keyup paste", function() {
+	// VU: show comment
+    $(".message_comment").on("change keyup paste", function() {
 		var message = $(this).val();
 
 		$('#message_comment').val(message);
@@ -516,6 +527,14 @@ $(document).ready(function() {
 	$("#save_link").click(function() {
       $('#show_link .close').click();
     })
+	// END
+
+	// VU: click input search
+	$('#suche').keypress(function(e){
+	   e.preventDefault()
+	   
+	   $('.navbar-form').click();
+	})
 	// END
 	
 	// target = window.location.hash;
