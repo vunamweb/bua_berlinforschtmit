@@ -7,6 +7,10 @@
 # post@pixel-dusche.de                              #
 # frankfurt am main, germany                        #
 # # # # # # # # # # # # # # # # # # # # # # # # # # #
+/*ini_set('display_errors', '1');
+ini_set('display_startup_errors', '1');
+error_reporting(E_ALL);*/
+
 global $arr_form, $table, $tid, $filter, $nameField, $sortField, $imgFolderShort, $ebene, $parent, $morpheus;
 
 $myauth = 10;

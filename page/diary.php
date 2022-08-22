@@ -198,7 +198,7 @@ if ($save) {
 
 	$_POST['uid'] = $_SESSION['mid'];
 	$_POST['parent'] = 0;
-	$_POST['date_time'] = date("Y-m-d");
+	$_POST['date_time'] = date("Y-m-d H:i:s");
 
 	$edit = saveMorpheusForm($edit, $neu, 0);
 

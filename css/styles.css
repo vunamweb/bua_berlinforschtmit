@@ -1232,7 +1232,6 @@ body {
     color: #000 !important;
     font-size: 0.5em;
     text-decoration: none;
-    font-style: italic;
 }
 #accordionShowComment a.btn-link-1 {
     font-size: 0.5em;
@@ -1269,6 +1268,7 @@ body {
 }
 .text_comment {
     display: inline-block;
+    font-style: italic;
 }
 .cid {
     display: block;
@@ -1278,9 +1278,16 @@ body {
 .bg_link {
     background: #ccc;
 }
-.area_show_link {
+.area_show_message {
     font-size: 0.5em;
     line-height: 1em;
+    padding-left: 35px;
+    font-style: italic;
+}
+.area_show_sub_message {
+    font-size: 0.8em;
+    padding-left: 20px;
+    font-style: italic;
 }
 /* END COMMENT */
 

@@ -3369,7 +3369,8 @@ function getSqlComment($mediaID = 0, $category = 0, $que = null) {
 
 		$in .= ')';
 
-		$sql = "SELECT * FROM morp_note WHERE parent = 0 and mediaID in ".$in." ORDER BY date_time desc";
+		$sql = ($in != '()') ? "SELECT * FROM morp_note WHERE parent = 0 and mediaID in ".$in." ORDER BY date_time desc" : "SELECT * FROM morp_note WHERE parent = 0 and mediaID in (null) ORDER BY date_time desc";
+		//echo $sql;
 	}
 
 	return $sql;
@@ -3393,7 +3394,8 @@ function showComments($mediaID = 0, $category = 0, $que = null)
 
     while ($row = mysqli_fetch_object($res)) {
 		$idNote = $row->idNote;
-		$comment = $row->message . '('.countComment($idNote).')';
+		$title = ($row->title != '') ? $row->title . '('.countComment($idNote).')' : 'No Title' . '('.countComment($idNote).')';
+		$message = substr(strip_tags($row->message), 0, 80);
 		
 		$name = getNameFromID($row->uid); //$_SESSION["vname"] . ' ' . $_SESSION["nname"] = $row->nname;
 
@@ -3409,9 +3411,10 @@ function showComments($mediaID = 0, $category = 0, $que = null)
 				   data-toggle="collapse"
 				   data-target="#collapse' . $idNote . '">
 				   <i class="fa fa-plus fa1"></i>
-				   ' . $comment . '
-				</a>
-				<a class="edit_note" href="?edit='.$idNote.'"><i class="fa fa-pencil-square-o"></i></a>
+				   ' . $title . '
+			  </a>
+			  <a class="edit_note" href="?edit='.$idNote.'"><i class="fa fa-pencil-square-o"></i></a>
+			  <div class="area_show_message">'.$message.'</div>
 		   </h2>
 	   </div>
 	   <div id="collapse' . $idNote . '" class="collapse"
@@ -3500,15 +3503,14 @@ function showCommentOfComment($parent, $level)
 		
 		$name = $name = getNameFromID($row->uid);
 
-		$comment = $row->message;
+		$message = substr(strip_tags($row->message), 0, 80);
 
 		$addLink = $row->add_link;
 		$addLink = explode(',', $addLink);
 
-		$href = $morpheus['url'] . 'de' . '/' . $addLink[1] . '?cidValue='.$addLink[2].'';
-
-		$nameLink = $addLink[3];
-		$nameLink = substr(strip_tags($nameLink), 0, 200);
+		/*$href = $morpheus['url'] . 'de' . '/' . $addLink[1] . '?cidValue='.$addLink[2].'';
+        $nameLink = $addLink[3];
+		$nameLink = substr(strip_tags($nameLink), 0, 200);*/
 
 
 		
@@ -3518,9 +3520,8 @@ function showCommentOfComment($parent, $level)
 					        <i class="fa fa-user" aria-hidden="true"></i>
 					        <p class="name_user">'.$name.' &nbsp; &nbsp; &nbsp;'.$row->date_time.'</p>
 						  </div>
-						  <i class="fa fa-plus fa1"></i> <p class="text_comment" id="data_'.$parentChild.'">' . $comment . '</p><p class="text_comment">('.countComment($parentChild).')</p>
+						  <i class="fa fa-plus fa1"></i> <p class="text_comment" id="data_'.$parentChild.'">' . $message . '</p><p class="text_comment">('.countComment($parentChild).')</p>
 						  <div id="'.$parentChild.'" data="'.$row->message.'" class="add_note '.showEdit($parentChild).'" data-toggle="modal" data-target="#add_note"><i class="fa fa-pencil-square-o"></i></div>
-						  <div class="area_show_link"><a href='.$href.' target="_blank">'.$nameLink.'</a></div> 
 						</a>
 					 </h2>';
 
