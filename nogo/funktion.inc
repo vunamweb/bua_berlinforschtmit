@@ -3413,7 +3413,7 @@ function showComments($mediaID = 0, $category = 0, $que = null)
 				   <i class="fa fa-plus fa1"></i>
 				   ' . $title . '
 			  </a>
-			  <a class="edit_note" href="?edit='.$idNote.'"><i class="fa fa-pencil-square-o"></i></a>
+			  <a class="edit_note '.showEdit($idNote).'" href="?edit='.$idNote.'"><i class="fa fa-pencil-square-o"></i></a>
 			  <div class="area_show_message">'.$message.'</div>
 		   </h2>
 	   </div>
