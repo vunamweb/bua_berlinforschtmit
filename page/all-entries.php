@@ -353,6 +353,8 @@ elseif($save_note) {
     $sql = 'insert into morp_note(uid, parent, mediaID, message, add_link, date_time)values(' . $uid . ', ' . $parent_comment . ', ' . $mediaId . ', "' . $message_comment . '", "'.$cid.'", "' . $date . '")';
     safe_query($sql);
 
+    updateDateComment($parent_comment);
+
     $output = showComments($mediaId);
 }
 elseif ($edit_entry) {

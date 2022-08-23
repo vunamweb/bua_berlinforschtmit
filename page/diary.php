@@ -232,6 +232,8 @@ elseif($save_note) {
     //echo $sql; die();
     safe_query($sql);
 
+    updateDateComment($parent_comment);
+
     $output = $new . liste();
 } 
 elseif ($delete) {

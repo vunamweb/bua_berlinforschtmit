@@ -3341,6 +3341,27 @@ function br($anzahl=1) {
 
 /* VU ADD COMMENT FUNCTION */
 
+// update date of comment
+function updateDateComment($parent) {
+	if($parent != 0) {
+		$date = date("Y-m-d H:i:s");
+
+		// update date of parent
+		$sql = 'update morp_note set date_time = "'.$date.'" where idNote = '.$parent.'';
+		safe_query($sql);
+
+		// get id of parent of parent
+		$sql = "SELECT * FROM morp_note WHERE idNote = ".$parent."";
+		$res = safe_query($sql);
+        $row = mysqli_fetch_object($res);
+		$parent = $row->parent;
+
+		// update date of parent of parent
+		updateDateComment($parent);
+    }
+}
+// END
+
 // show comment
 function getSqlComment($mediaID = 0, $category = 0, $que = null) {
 	// if show comment of seach
