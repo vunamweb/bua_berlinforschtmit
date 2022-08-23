@@ -3514,7 +3514,7 @@ function showCommentOfComment($parent, $level)
 
     $level++;
 
-    $sql = "SELECT * FROM morp_note WHERE parent = " . $parent . " ORDER BY date_time desc";
+    $sql = "SELECT * FROM morp_note WHERE parent = " . $parent . " ORDER BY date_time";
     //echo $sql . '////';
     $res = safe_query($sql);
     //echo mysqli_num_rows($res); die();

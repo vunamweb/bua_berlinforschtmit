@@ -914,6 +914,17 @@ function getCssMorpheus() {
 }
 /* END */
 
+/* VU: check check login */
+function checkLogin() {
+	global $dir;
+
+	//print_r($_REQUEST);
+	
+	if ($_SESSION["mid"] == '' && $_REQUEST['hn'] != '' && $_REQUEST['hn'] != 'home' && $_REQUEST['hn'] != 'login' && $_REQUEST['hn'] != 'register')
+	 redirect($dir . '/de/login');
+}
+/* END */ 
+
 /* *************************** NEW ENDE *****************************/
 /* *************************** NEW ENDE *****************************/
 /* *************************** NEW ENDE *****************************/
@@ -1189,6 +1200,8 @@ $zufall=rand(0,999);
 
 // if($mobile && $design == 2) $design = 3;
 
+checkLogin();
+
 include("design/header_inc.php");
 include("design/top.php");
 if($_GET['hn'] == 'home' || $_GET['hn'] == '') 
@@ -1197,14 +1210,9 @@ if($_GET['hn'] == 'home' || $_GET['hn'] == '')
 if ($design) 	include("design/design-".$design.".php");
 else 			include("design/design-1.php");
 
-// if ($haslogin) {
 if ($cid==15) {
 	include("design/login.php");
-} else if($_GET['hn'] == 'ihre-stimme') {
-	// include("page/audio.php");
 }
-
-//print_r($_GET);
 
 include("design/footer_inc.php");
 include("design/footer-tracking.php");

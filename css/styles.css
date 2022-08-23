@@ -1232,6 +1232,9 @@ body {
     color: #000 !important;
     font-size: 0.5em;
     text-decoration: none;
+    text-transform: none;
+    letter-spacing: 0;
+    font-size: 0.6em;
 }
 #accordionShowComment a.btn-link-1 {
     font-size: 0.5em;
@@ -1261,6 +1264,9 @@ body {
 .title_comment .name_user {
     display: inline-block;
     font-style: normal;
+    text-transform: none;
+    letter-spacing: 0;
+    font-size: 1.3em;
 }
 .area_comment {
     background: #ccc;
@@ -1279,10 +1285,12 @@ body {
     background: #ccc;
 }
 .area_show_message {
-    font-size: 0.5em;
+    font-size: 0.6em;
     line-height: 1em;
     padding-left: 35px;
     font-style: italic;
+    text-transform: none;
+    letter-spacing: 0;
 }
 .area_show_sub_message {
     font-size: 0.8em;

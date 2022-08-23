@@ -347,7 +347,7 @@ if ($save) {
 } 
 elseif($save_note) {
     $uid = $_SESSION['mid'];
-    $date = date('y-m-d');
+    $date = date("Y-m-d H:i:s");
 
     //$sql = 'insert into morp_note(uid, parent, mediaID, message, date_time)values(' . $uid . ', ' . $parent_comment . ', ' . $mediaId . ', "' . $message_comment . '", "' . $date . '")';
     $sql = 'insert into morp_note(uid, parent, mediaID, message, add_link, date_time)values(' . $uid . ', ' . $parent_comment . ', ' . $mediaId . ', "' . $message_comment . '", "'.$cid.'", "' . $date . '")';
