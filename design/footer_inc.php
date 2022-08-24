@@ -225,8 +225,10 @@ eventComment = () => {
 
 			// hide all comment save form
 			$('.block_comment').hide();
-			//show this comment save form
-			//$('#block_comment_'+idComment+'').show();
+
+			//if is parent, then show this comment save form
+			if(!$(this).hasClass('btn-link-1'))
+			  $('#block_comment_'+idComment+'').show();
         }
 	});
 
