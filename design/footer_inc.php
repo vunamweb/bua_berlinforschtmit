@@ -136,15 +136,33 @@ var wavesurfer;
 // VU: add function comment
 showChildren = (parent) => {
 	$('.btn-link-1').each(function(){
-		if($(this).attr('parent') == parent)
-		  $(this).show();
+		if($(this).hasClass('root_'+parent+'')) {
+			$(this).parent().find('.btn-link .fa1').removeClass('fa-plus');
+			$(this).parent().find('.btn-link .fa1').addClass('fa-minus');
+
+			$(this).show();
+		}
+	})
+
+	$('.show_comment').each(function(){
+		$(this).show();
 	})
 }
 
 hideChildren = (parent) => {
 	$('.btn-link-1').each(function(){
-		if($(this).attr('parent') == parent)
-		  $(this).hide();
+		if($(this).hasClass('root_'+parent+'')) {
+			$(this).parent().find('.btn-link .fa1').removeClass('fa-minus');
+			$(this).parent().find('.btn-link .fa1').addClass('fa-plus');
+
+			$(this).hide();
+		}
+	})
+
+	$('.show_comment').each(function(){
+		if($(this).hasClass('root_'+parent+'')) {
+			$(this).hide();
+		}
 	})
 }
 
@@ -195,7 +213,7 @@ eventComment = () => {
 			// hide all comment save form
 			$('.block_comment').hide();
 			// open parent's comment save form
-			$('#block_comment_'+parent+'').show();
+			//$('#block_comment_'+parent+'').show();
 		} 
 		// if not open
 		else {
@@ -208,9 +226,18 @@ eventComment = () => {
 			// hide all comment save form
 			$('.block_comment').hide();
 			//show this comment save form
-			$('#block_comment_'+idComment+'').show();
+			//$('#block_comment_'+idComment+'').show();
         }
 	});
+
+	$('.show_comment').click(function(){
+		$('.block_comment').hide();
+
+		var id = $(this).attr("data");
+		$('#block_comment_'+id+'').show();
+
+		$('#parent_comment').val(id);
+    })
 }
 // END
 

@@ -3420,6 +3420,8 @@ function showComments($mediaID = 0, $category = 0, $que = null)
 		
 		$name = getNameFromID($row->uid); //$_SESSION["vname"] . ' ' . $_SESSION["nname"] = $row->nname;
 
+		$class = 'root_' . $idNote;
+
         $echo .= '<div class="card">
 	   <div class="card-header" id="headingThree">
 		   <h2 class="mb-0">
@@ -3430,6 +3432,7 @@ function showComments($mediaID = 0, $category = 0, $que = null)
 		      <a type="button"
 				   class="btn btn-link collapsed"
 				   data-toggle="collapse"
+				   parent="'.$idNote.'"
 				   data-target="#collapse' . $idNote . '">
 				   <i class="fa fa-plus fa1"></i>
 				   ' . $title . '
@@ -3442,7 +3445,7 @@ function showComments($mediaID = 0, $category = 0, $que = null)
 		   aria-labelledby="headingThree"
 		   data-parent="#accordionShowComment">
 		   <div class="card-body">
-				' . showCommentOfComment($idNote, 1) . '
+				' . showCommentOfComment($class, $idNote, 1) . '
 			   <div class="block_comment open" id="block_comment_' . $idNote . '">
 				 <textarea class="message_comment" placeholder="Comment"></textarea>
 				 <a href="#" data-toggle="modal" data-target="#show_link">Add link</a><br><br>
@@ -3503,7 +3506,7 @@ function showComments($mediaID = 0, $category = 0, $que = null)
 // END
 
 // show comment of comment
-function showCommentOfComment($parent, $level)
+function showCommentOfComment($class, $parent, $level)
 {
 	global $morpheus;
 
@@ -3515,19 +3518,23 @@ function showCommentOfComment($parent, $level)
     $level++;
 
     $sql = "SELECT * FROM morp_note WHERE parent = " . $parent . " ORDER BY date_time";
-    //echo $sql . '////';
-    $res = safe_query($sql);
-    //echo mysqli_num_rows($res); die();
+	$res = safe_query($sql);
+	
+	/*if(mysqli_num_rows($res) == 0)
+	  $class = '';*/
 
     while ($row = mysqli_fetch_object($res)) {
 		$parentChild = $row->idNote;
 		
-		$name = $name = getNameFromID($row->uid);
+		$name = getNameFromID($row->uid);
 
 		$message = substr(strip_tags($row->message), 0, 80);
 
 		$addLink = $row->add_link;
 		$addLink = explode(',', $addLink);
+
+		/*if($class == '')
+		  $class = 'root_' . $parent;*/
 
 		/*$href = $morpheus['url'] . 'de' . '/' . $addLink[1] . '?cidValue='.$addLink[2].'';
         $nameLink = $addLink[3];
@@ -3536,7 +3543,7 @@ function showCommentOfComment($parent, $level)
 
 		
 		$response .= '<h2 class="mb-0 mb-1" style="margin-left:'.$marginLeft.'px">
-					   <a class="btn btn-link btn-link-1" parent="' . $parent . '" data-target="#collapse' . $parentChild . '">
+					   <a class="btn btn-link btn-link-1 '.$class.'" parent="' . $parentChild . '" data-target="#collapse' . $parentChild . '">
 					      <div class="title_comment">
 					        <i class="fa fa-user" aria-hidden="true"></i>
 					        <p class="name_user">'.$name.' &nbsp; &nbsp; &nbsp;'.$row->date_time.'</p>
@@ -3544,9 +3551,11 @@ function showCommentOfComment($parent, $level)
 						  <i class="fa fa-plus fa1"></i> <p class="text_comment" id="data_'.$parentChild.'">' . $message . '</p><p class="text_comment">('.countComment($parentChild).')</p>
 						  <div id="'.$parentChild.'" data="'.$row->message.'" class="add_note '.showEdit($parentChild).'" data-toggle="modal" data-target="#add_note"><i class="fa fa-pencil-square-o"></i></div>
 						</a>
-					 </h2>';
+						<div data="'.$parentChild.'" class="show_comment '.$class.'"><i class="fa fa-reply"></i></div>
+					</h2>';
 
-        $response .= showCommentOfComment($parentChild, $level);
+		//$class .= ' root_' . $parentChild;
+		$response .= showCommentOfComment($class . ' root_' . $parentChild, $parentChild, $level);
 
 		$response .= '<div class="block_comment" id="block_comment_' . $parentChild . '">
 						 <textarea class="message_comment" placeholder="Comment"></textarea>
