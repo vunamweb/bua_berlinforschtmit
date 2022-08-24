@@ -13,7 +13,7 @@ error_reporting(E_ALL);*/
 
 //include "morpheus/_tinymce.php";
 
-global $arr_form, $table, $tid, $filter, $nameField, $sortField, $imgFolderShort, $ebene, $parent, $morpheus;
+global $arr_form, $table, $tid, $filter, $nameField, $sortField, $imgFolderShort, $ebene, $parent, $morpheus, $show;
 
 $titel = "Diary";
 ///////////////////////////////////////////////////////////////////////////////////////
@@ -60,6 +60,7 @@ $search_value = $_REQUEST['search_value'];
 $hashtags = $_REQUEST['hashtags'];
 $categories = $_REQUEST['categories'];
 $cid = $_REQUEST['cid'];
+$show = $_REQUEST['show'];
 
 // VU: update comment text
 if ($myNote) {
@@ -138,6 +139,15 @@ if($search_combine) {
 ///////////////////////////////////////////////////////////////////////////////////////
 function liste()
 {
+    global $show;
+
+    if($show) {
+        $sql = 'select * from morp_note where parent = 0 and idNote = '.$show.'';
+        //echo $sql;
+
+        return showComments(0, 0, $sql);
+    }
+
     return showComments(0);
 }
 
@@ -194,7 +204,7 @@ function search()
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 if ($save) {
-	$neu = isset($_POST["neu"]) ? $_POST["neu"] : 0;
+    $neu = isset($_POST["neu"]) ? $_POST["neu"] : 0;
 
 	$_POST['uid'] = $_SESSION['mid'];
 	$_POST['parent'] = 0;

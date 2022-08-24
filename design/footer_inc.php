@@ -89,6 +89,9 @@ if($morpheus_edit) include("design/edit.php");
 <script type="text/javascript" src="<?php echo $dir; ?>js/siriwave/etc/dat.gui.js"></script>
 <script type="text/javascript" src="<?php echo $dir; ?>js/wavesurfer.js"></script>
 <script type="text/javascript" src="<?php echo $dir; ?>js/semantic.js"></script>
+<!-- VU add tinymce !-->
+<script type="text/javascript" src="<?php echo $dir ?>morpheus/tinymce/tinymce.min.js"></script>
+<!-- END !-->
 <!-- <script src="https://unpkg.com/wavesurfer.js"></script> !-->
 <?php 
 global $audio;
@@ -129,10 +132,57 @@ if($morpheus_edit) {
 <?php } ?>
 <!-- END !-->
 
+<!-- VU: add script for tinymce !-->
+<script type="text/javascript">
+  tinymce.init({
+    selector: '.summernote',
+	width: '100%',
+	max_width: '100%',
+	/*menubar: false,
+	statusbar: false,
+	toolbar: false,
+	//inline: 'true',
+	 skin: 'tinymce-5-dark',
+    toolbar_mode: 'floating',
+	// plugins: 'autoresize advlist link image lists',
+	plugins: 'autoresize link lists charmap table code ',*/
+	toolbar: 
+    	 'customInsertButton customDateButton', 
+	setup: (editor) => {
+		editor.ui.registry.addButton('customInsertButton', {
+      text: 'Insert comment',
+      onAction: (_) => addLink(editor)//editor.insertContent(`&nbsp;<strong>It's my button!</strong>&nbsp;`)
+    
+	})
+   },	 
+    
+	
+//		outdent indent |   
+//  	{ name: 'alignment', items: [ 'alignleft', 'aligncenter', 'alignright', 'alignjustify' ] },
+  });
+  </script>
+<!-- END !-->
+
 <script>
 // Create a WaveSurfer instance
 var wavesurfer;
+var ed;
 
+// VU: add link comment 
+addLink = (editor) => {
+   //alert(editor.selection.getContent());
+   $('#show_list_comment').click();
+
+   ed = editor;
+
+   /*var value = editor.selection.getContent();
+   value = '<b>' + value + '</b>';
+   
+   editor.selection.setContent(value);*/
+
+   //editor.insertContent(`&nbsp;<strong>It's my button!</strong>&nbsp;`);
+}
+// END
 // VU: add function comment
 showChildren = (parent) => {
 	$('.btn-link-1').each(function(){
@@ -530,25 +580,20 @@ $(document).ready(function() {
     })
 	// END
 
-	// VU: save cid when click cid on modal
+	// VU: add link when click comment on modal
 	$(".cid").click(function() {
       var cid = $(this).attr("href");
 	  cid = cid.replace('#', '');
+
+	  var url = '<?php echo $dir; ?>' + 'de/diary/?show='+cid+''; 
 	  
-	  var name = $(this).attr('data');
-
-	  var navid = $('#navid').val();
+	  var value = ed.selection.getContent();
+	  value = '<a href='+url+' target="_blank">' + value + '</a>';
 	  
-	  // save value of cid
-	  //var value = $('#cid').val();
-	  value = navid + ',' +  cid + ',' + name + '@@///';
-	  $('#cid').val(value);
+	  $('#show_link .close').click();
+   
+      ed.selection.setContent(value);
 
-	  // remove all selected
-	  removeBg();
-
-	  // make selected
-	  $(this).addClass('bg_link')
     })
 	// END
 

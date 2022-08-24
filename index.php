@@ -210,7 +210,7 @@ if (($_GET || $_POST)) {
 				// echo "($check != $chk)<br>";
 				if ($check != $chk) {
 					$nosend = 1;
-					redirect ($dir);
+					//redirect ($dir);
 				}				
 			}
 		}
@@ -223,7 +223,7 @@ if (($_GET || $_POST)) {
 			else 				$chk = no_injection($val);
 			if ($check != $chk) {
 				$nosend = 1;
-				redirect ($dir);
+				//redirect ($dir);
 			}
 		}
 	}

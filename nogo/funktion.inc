@@ -3416,7 +3416,7 @@ function showComments($mediaID = 0, $category = 0, $que = null)
     while ($row = mysqli_fetch_object($res)) {
 		$idNote = $row->idNote;
 		$title = ($row->title != '') ? $row->title . '('.countComment($idNote).')' : 'No Title' . '('.countComment($idNote).')';
-		$message = substr(strip_tags($row->message), 0, 80);
+		$message = substr($row->message, 0, 200);
 		
 		$name = getNameFromID($row->uid); //$_SESSION["vname"] . ' ' . $_SESSION["nname"] = $row->nname;
 
@@ -3572,36 +3572,34 @@ function showCommentOfComment($class, $parent, $level)
 // show link
 function showLink() {
 	global $morpheus;
+	$anz = 'mname';
 
-	$sql = "SELECT * FROM morp_cms_content mc, morp_cms_nav mn WHERE mc.navid = mn.navid GROUP BY mn.navid ORDER BY mn.sort";
+	$sql = "SELECT * FROM morp_media ORDER BY ".$anz."";
 	$res = safe_query($sql);
 
 	$echo = '<div class="accordion" id="accordionShowLink">';
 	
 	while ($row = mysqli_fetch_object($res)) {
-		$navid = $row->navid;
-		$name = $row->name;
-		$setlink = $row->setlink;
+		$name = (substr($row->$anz, 0, strlen($row->$anz) - 4) != '') ? substr($row->$anz, 0, strlen($row->$anz) - 4) : 'file '.$row->mdate.'' ;
+		$mediaID = $row->mediaID;
 
         $echo .= '<div class="card">
 	   <div class="card-header" id="headingThree">
 		   <h2 class="mb-0">
 			  <a type="button"
 				   class="navid btn btn-link"
-				   href="#'.$navid.'"
-				   data ="'.$setlink.'"
 				   data-toggle="collapse"
-				   data-target="#collapse' . $navid . '">
+				   data-target="#collapse' . $mediaID . '">
 				   <i class="fa fa-plus fa1"></i>
-				   ' . $name . '
+				   ' . $name . '('.countCommentOfMedia($mediaID).')
 				</a>
 			</h2>
 	   </div>
-	   <div id="collapse' . $navid . '" class="collapse"
+	   <div id="collapse' . $mediaID . '" class="collapse"
 		   aria-labelledby="headingThree"
 		   data-parent="#accordionShowLink">
 		   <div class="card-body">
-				' . showCidOfNavid($navid) . '
+				' . showCommentOfMedia($mediaID) . '
 			</div>
 	   </div>
    </div>';
@@ -3613,24 +3611,31 @@ function showLink() {
 }
 // END
 
-// show cid of navid
-function showCidOfNavid($navid) {
+// show comment of meida
+function showCommentOfMedia($meidaID) {
 	$echo = '';
 
-	$sql = "SELECT * FROM morp_cms_content mc, morp_cms_nav mn WHERE mc.navid = mn.navid and mn.navid = ".$navid." ORDER BY mn.sort desc";
+	$sql = "SELECT * FROM morp_note WHERE mediaID = ".$meidaID." and parent = 0 ORDER BY date_time desc";
 	$res = safe_query($sql);
 
 	while ($row = mysqli_fetch_object($res)) {
-		$content = $row->content;
-		$cid = $row->cid;
+		$idNote = $row->idNote;
 
-		$name = get_raw_text_morp_comment($content);
-		$name = substr(strip_tags($name), 0, 200);
+		$name = ($row->title != '') ? $row->title : $row->message;
 
-		$echo .= '<a data="'.$name.'" href="#'.$cid.'" class="cid">'.$name.'</a>';
+		$echo .= '<a href="#'.$idNote.'" class="cid">'.$name.'</a>';
 	}
 
 	return $echo;
+}
+// END
+
+// show comment of meida
+function countCommentOfMedia($meidaID) {
+	$sql = "SELECT * FROM morp_note WHERE mediaID = ".$meidaID." and parent = 0 ORDER BY date_time desc";
+	$res = safe_query($sql);
+
+	return mysqli_num_rows($res);
 }
 // END
 
@@ -3903,6 +3908,27 @@ function editComment($edit, $showCategory)
     </div>
     </form>
 ';
+   
+	//modal show link
+	$echo .= '<div class="modal" id="show_link" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<!-- Modal Header -->
+			<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">×</button>
+			</div>
+			<!-- Modal body -->
+			<div class="modal-body">
+				'.showLink().'
+				<input type="hidden" id="navid" />
+				<input type="button" class="btn btn-info hide" name="cancel_note" id="cancel_note" value="Cancel"/>
+			</div>
+		</div>
+	</div>
+  </div>';
+
+  // click this button to show above modal  
+  $echo .= '<a href="#" data-toggle="modal" data-target="#show_link" id="show_list_comment" class="hide">Add link</a><br><br>'; 
 
     return $echo;
 }
