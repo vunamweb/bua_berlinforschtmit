@@ -3700,6 +3700,28 @@ function addComment($showCategory) {
 	</tr>
 </table>';
 
+//modal show link
+$echo .= '<div class="modal" id="show_link" aria-hidden="true">
+<div class="modal-dialog">
+	<div class="modal-content">
+		<!-- Modal Header -->
+		<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">×</button>
+		</div>
+		<!-- Modal body -->
+		<div class="modal-body">
+			'.showLink().'
+			<input type="hidden" id="navid" />
+			<input type="button" class="btn btn-info hide" name="cancel_note" id="cancel_note" value="Cancel"/>
+		</div>
+	</div>
+</div>
+</div>';
+
+// click this button to show above modal  
+$echo .= '<a href="#" data-toggle="modal" data-target="#show_link" id="show_list_comment" class="hide">Add link</a><br><br>'; 
+
+
   return $echo;
 }
 // END
