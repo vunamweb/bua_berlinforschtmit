@@ -19,6 +19,7 @@
 	<link rel="stylesheet" href="css/style_light_edit.css" type="text/css">
 <?php } ?>
 	<link rel="stylesheet" href="css/jquery.Jcrop.min.css" type="text/css" />
+	<link rel="stylesheet" href="css/selectize.css" type="text/css" />
 	<script src="js/jquery.js"></script>
 	<script src="js/jquery.Jcrop.min.js"></script>
  	<script src="js/jquery-ui.js"></script>
@@ -30,6 +31,7 @@
 
 	<script src="js/muuri.js"></script>
 
+	<script type="text/javascript" src="js/selectize.js"></script>
 	<script type="text/javascript" src="js/pixeldusche.js"></script>
 	<script type="text/javascript" src="js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="js/ekko-lightbox.min.js"></script>

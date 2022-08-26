@@ -165,6 +165,7 @@ $auths_arr = array(
 					<!--	<li><a href="morp_team.php" title="PDF\'s verwalten"><i class="fa fa-th"></i> Team</a></li>-->
 					 <li><a href="formular.php" title="Formulare verwalten"><i class="fa fa-tasks "></i> Formulare</a></li>
 					 <li><a href="morp_media.php" title="media"><i class="fa fa-tasks "></i> Media</a></li>
+					 <li><a href="morp_hashtag.php" title="media"><i class="fa fa-tasks "></i> HashTags</a></li>
 				<?php	} ?>
 
 

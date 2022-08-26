@@ -3775,8 +3775,74 @@ function updateCategoriesNote($listCategories, $idNote)
 // show hashtag
 function showHashTag($idNote)
 {
-    $response = '';
-    $array_properties = array();
+	global $js, $dir;
+
+	$response = '<select multiple id="hashtags" name="listHashTag[]" placeholder="HashTags"></select>';
+
+	$setOptions .= '
+					 var control = $select[0].selectize;
+					 control.addOption({
+					 	value: data,
+					 	title: value
+					 });
+    ';
+
+	$query = "SELECT * FROM morp_hashtag";
+	$res = safe_query($query);
+
+	$tag_list = '';
+	while ($row = mysqli_fetch_object($res)) {
+		$tag_list .= '{value:'.$row->htID.' , title: "'.$row->name.'" },
+	';
+	}
+
+	$query = "SELECT * FROM morp_hashtag mh, morp_note_hashtag mnh where mnh.idNote = " . $idNote . " and mh.htID = mnh.idHashtag";
+	$res = safe_query($query);
+	
+	$tagList = array();
+	while ($rw = mysqli_fetch_object($res)) {
+		$tagList[]=$rw->htID;
+	}
+	$tagList = implode(",", $tagList);
+	
+	$js = '
+	function setOptions(data, value) {
+		'.$setOptions.'
+	}
+
+	var options = [
+		 {id:\'\' , title: \'All\' },
+	'.$tag_list.'
+		];
+	
+		var $select = $(\'#hashtags\').selectize({
+			plugins: [\'remove_button\'],
+			labelField: \'title\',
+			searchField: \'title\',
+			sortField: \'title\',
+			options: options,
+			create:  function(value, callback) {
+				 console.log(value);
+				request = $.ajax({
+					url: "'.$dir.'page/hashtag.php",
+					type: "post",
+					data: "name="+value+"",
+					success: function(data) {
+						 console.log(data);
+						 callback({ value: data, title: value });
+						 setOptions(data, value);
+	
+					}
+				});
+			},
+		});
+
+		$select[0].selectize.setValue(['.$tagList.'])
+	';
+
+	//$response .= $jsFunc;
+	
+    /*$array_properties = array();
 
     $query = "SELECT idHashtag FROM morp_note_hashtag where idNote = " . $idNote . "";
     $result = safe_query($query);
@@ -3791,7 +3857,7 @@ function showHashTag($idNote)
     while ($row = mysqli_fetch_object($result)) {
         $check = (in_array($row->htID, $array_properties)) ? "checked" : '';
         $response .= '<div class="show_hashtag"><input ' . $check . ' type="checkbox" value=' . ($row->htID) . ' name="listHashTag[]">&nbsp; &nbsp; &nbsp;<label>' . ($row->name) . '</label></div>';
-    }
+    }*/
 
     return $response;
 }

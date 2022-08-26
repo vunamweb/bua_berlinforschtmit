@@ -14,7 +14,7 @@ error_reporting(E_ALL);*/
 
 require_once 'morpheus/getid3/getid3.php';
 
-global $arr_form, $table, $tid, $filter, $nameField;
+global $arr_form, $table, $tid, $filter, $nameField, $js;
 
 $myauth = 10;
 $stimmen_in = 'in';
@@ -362,8 +362,7 @@ elseif ($edit_entry) {
     $_SESSION['entry'] = $edit_entry;
 }
 elseif($edit)
-  $output .= editComment($edit, false);
-
+    $output .= editComment($edit, false);
 // VU: change design to show comment
 else if ($neu) {
     $output .= addComment(false);

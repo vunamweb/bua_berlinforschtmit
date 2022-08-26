@@ -249,7 +249,7 @@ if (($edit || $neu) && $ngid) {
 		$tagCount = count($tagList);
 		$tagList = implode(",", $tagList);
 
-		// $tagSelect = '<tr><td># Hashtags</td><td><select multiple id="tags'.$edit.'" name="tags[]" class="tags form-control" ref="'.$edit.'" placeholder="Tags / Kategorien"></select></td></tr>';
+		 $tagSelect = '<tr><td># Hashtags</td><td><select multiple id="tags'.$edit.'" name="tags[]" class="tags form-control" ref="'.$edit.'" placeholder="Tags / Kategorien"></select></td></tr>';
 
 		$sql = "SELECT * FROM morp_tags WHERE 1 ORDER BY tag";
 		$res = safe_query($sql);
