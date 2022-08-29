@@ -3569,6 +3569,191 @@ function showCommentOfComment($class, $parent, $level)
 }
 // END
 
+// VU: show export
+function showExport() {
+	global $morpheus;
+
+	$sql = "SELECT * FROM morp_stimmen WHERE parent = 0 ORDER BY name desc";
+	$res = safe_query($sql);
+
+	$echo = '<br><br><div class="accordion" id="accordionShowComment">';
+	
+	while ($row = mysqli_fetch_object($res)) {
+		$stID = $row->stID;
+		$name = $row->name;
+
+		$echo .= '<div class="card">
+	   <div class="card-header" id="headingThree">
+		   <h2 class="mb-0">
+		        <a type="button"
+				   href="#'.$stID.'"
+				   class="btn btn-link show_category collapsed"
+				   data-toggle="collapse" 
+				   data-target="#collapse' . $stID . '">
+				   <i class="fa fa-plus fa1"></i>
+				   ' . $name . '
+				</a>
+				<a href="#" class="btn btn-info show_list_media" data-toggle="modal" data-target="#show_list_media">Select Media</a>
+			</h2>
+	   </div>
+	   <div id="collapse' . $stID . '" class="collapse"
+		   aria-labelledby="headingThree"
+		   data-parent="#accordionShowComment">
+		   <div class="card-body">
+				' . showexportOfExport($stID, 1) . '
+			</div>
+	   </div>
+   </div>';
+	}
+	
+	$echo .= '</div>';
+
+    return $echo;
+}
+
+function showexportOfExport($parent, $level) {
+	$response = '';
+
+	$defaultMarginLeft = 40;
+	$marginLeft = $defaultMarginLeft * $level;
+
+    $level++;
+
+    $sql = "SELECT * FROM morp_stimmen WHERE parent = " . $parent . " ORDER BY name desc";
+	$res = safe_query($sql);
+	
+	/*// if has not child, then show file 
+	if(mysqli_num_rows($res) == 0) {
+		$sql = "SELECT * FROM morp_media mm, morp_stimmen_media msm WHERE mm.mediaID = msm.mediaID and msm.stID = ".$parent."  ORDER BY mm.mdate desc";
+		$res = safe_query($sql);
+
+		while ($row = mysqli_fetch_object($res)) {
+			$name = $row->mname . '(Media)';
+
+			$response .= '<h2 class="mb-0 mb-1" style="margin-left:'.$marginLeft.'px">
+					   <a class="btn btn-link btn-link-1 show_media">'.$name.'</a>
+					   <a href="#" class="btn btn-info show_list_media" data-toggle="modal" data-target="#show_list_media">Select Media</a>
+			        </h2>';
+		}
+		
+		$response .= '<a class=""></a>';
+	}*/
+
+    while ($row = mysqli_fetch_object($res)) {
+		$parentChild = $row->stID;
+		
+		$name = $row->name . '(Category)';
+
+		$response .= '<h2 class="mb-0 mb-1" style="margin-left:'.$marginLeft.'px">
+					   <a href="#'.$parentChild.'" class="btn btn-link btn-link-1 show_category">
+					      <p class="text_comment">' . $name . '</p>
+					   </a>
+					   <a href="#" class="btn btn-info show_list_media" data-toggle="modal" data-target="#show_list_media">Select Media</a>
+			        </h2>';
+
+        $response .= showexportOfExport($parentChild, $level);
+    }
+
+    return $response;
+}
+// END
+
+// VU: show comment export
+function showCommentExport($mediaID = 0, $category = 0, $que = null)
+{
+    $sql = getSqlComment($mediaID, $category, $que);
+	$res = safe_query($sql);
+	
+	if(mysqli_num_rows($res) == 0)
+	  return 'No comments';
+    //echo mysqli_num_rows($res); die();
+
+    while ($row = mysqli_fetch_object($res)) {
+		$idNote = $row->idNote;
+		$title = ($row->title != '') ? $row->title . '('.countComment($idNote).')' : 'No Title' . '('.countComment($idNote).')';
+		$message = substr($row->message, 0, 200);
+		
+		$name = getNameFromID($row->uid); //$_SESSION["vname"] . ' ' . $_SESSION["nname"] = $row->nname;
+
+		$class = 'root_' . $idNote;
+
+        $echo .= '<div class="card">
+	   <div class="card-header" id="headingThree">
+		   <h2 class="mb-0">
+			  <div class="title_comment">
+				 <p class="name_user">'.$name.' &nbsp; &nbsp; &nbsp;'.$row->date_time.'</p>
+			  </div> 
+		      <a type="button"
+				   ' . $title . '
+			  </a>
+			  <div class="area_show_message">'.$message.'</div>
+		   </h2>
+	   </div>
+	   <div>
+		   <div class="card-body">
+				' . showCommentOfCommentOfExport($class, $idNote, 1) . '
+			</div>
+	   </div>
+   </div>';
+	}
+	
+    return $echo;
+}
+// END
+
+// show comment of comment of export
+function showCommentOfCommentOfExport($class, $parent, $level)
+{
+	global $morpheus;
+
+	$response = '';
+
+	$defaultMarginLeft = 40;
+	$marginLeft = $defaultMarginLeft * $level;
+
+    $level++;
+
+    $sql = "SELECT * FROM morp_note WHERE parent = " . $parent . " ORDER BY date_time";
+	$res = safe_query($sql);
+	
+	/*if(mysqli_num_rows($res) == 0)
+	  $class = '';*/
+
+    while ($row = mysqli_fetch_object($res)) {
+		$parentChild = $row->idNote;
+		
+		$name = getNameFromID($row->uid);
+
+		$message = substr(strip_tags($row->message), 0, 80);
+
+		$addLink = $row->add_link;
+		$addLink = explode(',', $addLink);
+
+		/*if($class == '')
+		  $class = 'root_' . $parent;*/
+
+		/*$href = $morpheus['url'] . 'de' . '/' . $addLink[1] . '?cidValue='.$addLink[2].'';
+        $nameLink = $addLink[3];
+		$nameLink = substr(strip_tags($nameLink), 0, 200);*/
+
+
+		
+		$response .= '<h2 class="mb-0 mb-1" style="margin-left:'.$marginLeft.'px">
+					   <a >
+					      <div class="title_comment">
+					        <p class="name_user">'.$name.' &nbsp; &nbsp; &nbsp;'.$row->date_time.'</p>
+						  </div>
+						  <p>' . $message . '</p><p>('.countComment($parentChild).')</p>
+						</a>
+					</h2>';
+
+		$response .= showCommentOfCommentOfExport($class . ' root_' . $parentChild, $parentChild, $level);
+    }
+
+    return $response;
+}
+// END
+
 // show link
 function showLink() {
 	global $morpheus;

@@ -22,7 +22,9 @@ $tid = 'idNote';
 $nameField = "title";
 $sortField = 'title';
 
-$new = '<a href="?neu=1" class="btn btn-info"><i class="fa fa-plus"></i> NEU</a><br><br>';
+$new = '<a href="?neu=1" class="btn btn-info"><i class="fa fa-plus"></i> NEU</a>
+        <a href="#" class="btn btn-info" data-toggle="modal" data-target="#show_export">EXPORT</a><br><br>
+       ';
 
 $output = '<div id=vorschau>
    <h2>' . $titel . ' &nbsp; <img src="images/flag-de.jpg" style="height:30px;"></h2>
@@ -61,6 +63,11 @@ $hashtags = $_REQUEST['hashtags'];
 $categories = $_REQUEST['categories'];
 $cid = $_REQUEST['cid'];
 $show = $_REQUEST['show'];
+$show_list_media = $_REQUEST['show_list_media'];
+$idCategory = $_REQUEST['idCategory'];
+$action_export = $_REQUEST['action_export'];
+$category_select = $_REQUEST['category_select'];
+$media_select = $_REQUEST['media_select'];
 
 // VU: update comment text
 if ($myNote) {
@@ -103,9 +110,9 @@ if($search_combine) {
         for ($count = 0; $count < count($categories); $count++) {
             if ($categories[$count]) {
                 if ($count < (count($categories) - 2)) {
-                    $sql1 .= 'idHashtag = ' . $categories[$count] . ' or ';
+                    $sql1 .= 'idStimmen = ' . $categories[$count] . ' or ';
                 } else {
-                    $sql1 .= 'idHashtag = ' . $categories[$count] . '';
+                    $sql1 .= 'idStimmen = ' . $categories[$count] . '';
                 }
 
             }
@@ -136,19 +143,122 @@ if($search_combine) {
 }
 // END
 
+// VU: show list media of category
+if($show_list_media) {
+    $response = '';
+
+    $sql = "SELECT * FROM morp_media mm, morp_stimmen_media msm WHERE mm.mediaID = msm.mediaID and msm.stID = ".$idCategory."  ORDER BY mm.mdate desc";
+    $res = safe_query($sql);
+    
+    if(mysqli_num_rows($res) == 0) {
+        echo 'No Media';
+        die();
+    }
+
+    while ($row = mysqli_fetch_object($res)) {
+		$date = ' (' . $row->mdate . ')';
+		$description = ($row->text != '') ? $row->text . $date  : 'No description' . $date;
+		$response .= '<div><input type="checkbox" value=' . ($row->mediaID) . ' class="modal_checkbox_properties">&nbsp; &nbsp; &nbsp;<label>' . $description . '</label></div>';
+    }
+
+    echo $response;die();
+}
+// END
+
+// VU: export 
+if($action_export) {
+   
+    $sql = ($media_select != '') ? getSqlMediaExport($media_select) : getSqlCategoryExport($category_select);
+    //echo $sql;
+
+    header("Content-type: application/vnd.ms-word");
+    header("Content-Disposition: attachment;Filename=detail_comment.doc");
+
+    echo '<html>' . '<meta http-equiv=\"Content-Type\" content=\"text/html; charset=Windows-1252\">' . '<body>' . showCommentExport(0, 0, $sql) . '</body>' . '</html>';
+    die();
+}
+// END
+
+// VU: get sql if select media of export
+function getSqlMediaExport($media_select) {
+    $media_select = explode(',', $media_select);
+    $in = '(';
+
+    for($i = 0; $i < count($media_select); $i++)
+        if($i < count($media_select) -2)
+        $in .= $media_select[$i] . ',';
+    else
+        $in .= $media_select[$i];
+
+    $in .= ')';    
+        
+    $sql = ($in != '()') ? "SELECT * FROM morp_note WHERE parent = 0 and mediaID in ".$in." ORDER BY date_time desc" : "SELECT * FROM morp_note WHERE parent = 0 and mediaID in (null) ORDER BY date_time desc";
+		    
+    return $sql;
+}
+// END
+
+// VU: get sql category of export
+function getSqlCategoryExport($category_select) {
+   $sql = "SELECT * FROM morp_note mn, morp_note_stimmen mns WHERE mn.parent = 0 and mns.idStimmen = ".$category_select."
+   and mns.idNote = mn.idNote";
+
+   return $sql;
+}
+// END
+
 ///////////////////////////////////////////////////////////////////////////////////////
 function liste()
 {
     global $show;
 
-    if($show) {
+    // modal show media
+  $modal = '<div class="modal" id="show_list_media" aria-hidden="true">
+  <div class="modal-dialog">
+      <div class="modal-content">
+          <!-- Modal Header -->
+          <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal">×</button>
+          </div>
+          <!-- Modal body -->
+          <div class="modal-body">
+              <div class="data"></div>
+              <br><br>
+              <input type="button" class="btn btn-info" name="add_media_category" id="add_media_category" value="ADD"/>
+          </div>
+      </div>
+  </div>
+</div>';
+
+    // modal show category
+    $modal .= '<div class="modal" id="show_export" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<!-- Modal Header -->
+			<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">×</button>
+			</div>
+			<!-- Modal body -->
+			<div class="modal-body">
+                '.showExport().'
+                <br><br>
+                <input type="hidden" id="category_select" name="category_select" />
+                <input type="hidden" id="media_select" name="media_select" />
+                <input type="hidden" name="action_export" value="1" />
+                <input type="submit" class="btn btn-info" name="export_list" id="export_list" value="Export"/>
+			</div>
+		</div>
+	</div>
+  </div>';
+
+  if($show) {
         $sql = 'select * from morp_note where parent = 0 and idNote = '.$show.'';
         //echo $sql;
 
-        return showComments(0, 0, $sql);
+        return showComments(0, 0, $sql) . $modal;
     }
 
-    return showComments(0);
+    return showComments(0) . $modal;
 }
 
 function search()

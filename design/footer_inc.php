@@ -384,6 +384,18 @@ $(document).ready(function() {
     });
 	// END
 
+	// VU: make hightlight category of export
+	$('.show_category').click(function(){
+		$('.show_category').each(function(){
+			$(this).removeClass('bg_link');
+			$(this).parent().find('.show_list_media').removeClass('show');
+		})
+		
+		$(this).addClass('bg_link');
+		$(this).parent().find('.show_list_media').addClass('show');
+	})
+	// END
+
 	// VU: search form
 	$('.navbar-form').click(function(e) {
         var search = $('#suche').val();
@@ -416,6 +428,46 @@ $(document).ready(function() {
           }
         });
       })
+	// END
+
+	// VU: show media list of category
+	$('.show_list_media').click(function(){
+		var idCategory = $('#category_select').val();
+
+		request = $.ajax({
+            url: "./",
+            type: "get",
+            data: "show_list_media=1&idCategory="+idCategory+"",
+            success: function(data) {
+              $('#show_list_media .modal-body .data').html(data)
+            }
+          });
+	})
+	// END
+
+	// VU: click of category of export
+	$('.show_category').click(function(){
+		var idCategory = $(this).attr("href");
+		idCategory = idCategory.replace('#', '');
+		
+		$('#category_select').val(idCategory);
+	})
+	// END
+
+	// VU: click of add media of category
+	$('#add_media_category').click(function(){
+		$('.modal_checkbox_properties').each(function(){
+            if($(this).is(':checked')) {
+			  var data = $('#media_select').val();
+
+			  data = data + $(this).attr('value') + ',';
+
+			  $('#media_select').val(data);			  
+            }
+		})
+		
+		$('#show_list_media .close').click();
+	})
 	// END
 
 	// VU: add script for deleting and adding audio

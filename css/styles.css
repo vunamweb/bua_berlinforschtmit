@@ -1318,6 +1318,27 @@ body {
 /* */
 /*  END */
 
+/* EXPORT */
+.show_category, .show_media {
+    display: inline-block !important;
+}
+
+.show_list_media {
+    display: none;
+    font-size: 0.5em;
+}
+.show_list_media.show {
+    display: inline-block !important;
+}
+
+#show_list_media {
+    z-index: 999999999;
+}
+#show_list_media .modal-dialog {
+    max-width: 70%;
+}
+/* END */
+
 .option-input {
   -webkit-appearance: none;
   -moz-appearance: none;
