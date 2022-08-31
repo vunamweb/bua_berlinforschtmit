@@ -30,7 +30,7 @@ elseif ($delete) {
 }
 
 elseif ($save) {
-	$set 	= "fname='".$_POST["fname"]."', post='".$_POST["post"]."', betreff='".$_POST["betreff"]."', antwort='".$_POST["antwort"]."', extended='". ($_POST["extended"] ? 1 : 0) ."'";
+	$set 	= "fname='".$_POST["fname"]."', post='".$_POST["post"]."', betreff='".$_POST["betreff"]."', button='".$_POST["button"]."', mailcopy='".$_POST["mailcopy"]."', antwort='".$_POST["antwort"]."', extended='". ($_POST["extended"] ? 1 : 0) ."'";
 
 	if ($neu) 	$query = "INSERT morp_cms_form set $set, edit=1";
 	else		$query = "UPDATE morp_cms_form set $set, edit=1 WHERE fid=$edit";
@@ -48,12 +48,12 @@ elseif ($dupl) {
 	$result = safe_query($query);
 	$num 	= mysqli_num_fields($result);
 	$row 	= mysqli_fetch_array($result);
-    $sql 	= "INSERT INTO `morp_cms_form` VALUES('',";
+	$sql 	= "INSERT INTO `morp_cms_form` VALUES('',";
 
-    for ($i=2;$i<=$num;$i++) {
-     	$sql .= "'".(stripslashes($row[$i-1]))."', ";
-    }
-   	$sql = substr($sql, 0, -2);
+	for ($i=2;$i<=$num;$i++) {
+		 $sql .= "'".(stripslashes($row[$i-1]))."', ";
+	}
+	   $sql = substr($sql, 0, -2);
 	$res = safe_query($sql.')');
 
 	$c = mysqli_insert_id($mylink);
@@ -81,6 +81,8 @@ if ($neu || $edit) {
 		$fname 		= $row->fname;
 		$post 		= $row->post;
 		$betreff 	= $row->betreff;
+		$button 	= $row->button;
+		$mailcopy 	= $row->mailcopy;
 		$antwort	= $row->antwort;
 		$check 		= $row->extended;
 	}
@@ -95,11 +97,18 @@ if ($neu || $edit) {
 		<p><input type="text" name="fname" size="50" value="'.$fname.'"></p>
 
 		<p><input type="checkbox" name="extended" value="1" '. ($check ? 'checked' : '') .'> &nbsp;&nbsp; Erweitertes Formular - Einstellm&ouml;glichkeiten / Datenbankauswertung</p>
+		
+		<p><input type="checkbox" name="mailcopy" value="1" '. ($mailcopy ? 'checked' : '') .'> &nbsp;&nbsp; Copy an Besucher senden</p>
 
 		<p>Empf&auml;nger E-Mail</p>
 		<p><input type="text" name="post" size="50" value="'.$post.'"></p>
+		
 		<p>Betreff</p>
 		<p><input type="text" name="betreff" size="50" value="'.$betreff.'"></p>
+		
+		<p>Bezeichnung absenden Button</p>
+		<p><input type="text" name="button" size="50" value="'.($button ? $button : 'Absenden').'"></p>
+		
 		<p>Antwort, nachdem das Formular abgesendet worden ist.</p>
 		<p><textarea cols="80" rows="5" name="antwort">'.$antwort.'</textarea></p>
 		<p>&nbsp;</p>

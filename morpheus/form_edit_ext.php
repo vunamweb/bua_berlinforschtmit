@@ -75,16 +75,16 @@ elseif ($ffidsav) {
 elseif ($setdb = $_GET["setdb"]) {
 	$query 	= "SELECT feld FROM $db WHERE fid=" .$edit;
 	$res	= safe_query($query);
-    $arr1	= array();
-    $arr2	= array();
+	$arr1	= array();
+	$arr2	= array();
 	while ($row = mysqli_fetch_object($res)) {
-        if ($row->feld) $arr1[] = $row->feld;
-    }
+		if ($row->feld) $arr1[] = $row->feld;
+	}
 
 	$res 	= safe_query("SHOW COLUMNS FROM morp_cms_form_auswertung");
-    while ($row = mysqli_fetch_object($res)) {
-        $arr2[] = $row->Field;
-    }
+	while ($row = mysqli_fetch_object($res)) {
+		$arr2[] = $row->Field;
+	}
 
 	$arr = array_diff($arr1, $arr2);
 
@@ -306,7 +306,7 @@ $select_brick = '<select name="brickname" class="form-control" >
 	<option value="">Bitte Formularfeld w&auml;hlen</option>
 ';
 
-$dir_arr = array("Eingabefeld", "Mitteilungsfeld", "Dropdown", "Checkbox", "Radiobutton", "Freitext", "Freitext Fett", );
+$dir_arr = array("Eingabefeld", "Mitteilungsfeld", "Dropdown", "Checkbox", "Radiobutton", "Upload", "Freitext", "Freitext Fett", );
 
 foreach($dir_arr as $name) {
 	$select_brick .= "<option value='$name'>$name</option>\n";
@@ -391,34 +391,34 @@ include("footer.php");
 
   <script>
   $( function() {
-    $( "#sortable" ).sortable({
+	$( "#sortable" ).sortable({
 		start: function(e, ui) {
-		    // var old_position = ui.item.index();
-		    // console.log(old_position);
+			// var old_position = ui.item.index();
+			// console.log(old_position);
 		},
 		update: function(event, ui) {
 			var data = $(this).sortable('serialize');
-		    // grabs the new positions now that we've finished sorting
-		    var new_position = ui.item.index();
-		    console.log(data);
+			// grabs the new positions now that we've finished sorting
+			var new_position = ui.item.index();
+			console.log(data);
 
 			pos = "reihenfolge";
 			feld = "ffid";
 			table = "morp_cms_form_field";
 
-		    request = $.ajax({
-		        url: "UpdatePos.php",
-		        type: "post",
-		        data: "data="+data+"&pos="+pos+"&feld="+feld+"&table="+table+"&id=<?php echo $edit; ?>",
-		        success: function(msg) {
-	                 console.log(msg);
-	            }
-		    });
+			request = $.ajax({
+				url: "UpdatePos.php",
+				type: "post",
+				data: "data="+data+"&pos="+pos+"&feld="+feld+"&table="+table+"&id=<?php echo $edit; ?>",
+				success: function(msg) {
+					 console.log(msg);
+				}
+			});
 
 		}
 	});
 
-    $( "#sortable" ).disableSelection();
+	$( "#sortable" ).disableSelection();
 
 
   });
