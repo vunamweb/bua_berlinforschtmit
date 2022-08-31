@@ -49,4 +49,3 @@ $navarrayFULL = array("0"=>""';
 	include("sitemap_create_footer.php");
 	include("set_nav.php");
 
-?>

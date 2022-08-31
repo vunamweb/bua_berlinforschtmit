@@ -75,7 +75,7 @@ $morpheus["templ_conf2"]	= array(1=>"1/2 Spalten", 2=>"3/4 Spalten",  3=>"1/4 Sp
 // $morpheus["templ_conf2"]		= array(1=>"1/3 Spalten", 2=>"1/4 Spalten", 3=>"1/2 Spalten", 4=>"2/3 Spalten", 5=>"1/6 Spalten", 6=>"1/2 Spalten linker Abstand", 7=>"1/2 Spalten rechten Abstand",8=>"1/2 Spalten mit großem linken Abstand",9=>"1/2 Spalten mit extra großem linken Abstand", 10=>"1 Spalter", 11=>"leer", 12=>"1/2 Spalten für Parallax ohne Abstand");
 //$morpheus["templ_conf3"]		= array(1=>"Logo // w=200 h=200", 2=>"Screens w=500");
 $morpheus["templ_conf6"]		= array(1=>"1/2 Bild / 1/2 Text Management", 2=>"1/2 Text / 1/2 Bild Management", 3=>"1/2 Bild / 1/2 Text", 4=>"1/2 Text / 1/2 Bild", 5=>"Header Bild mit Text", 6=>"Header Startseite / Homepage");
-$morpheus["templ_conf7"]		= array(1=>"Bild links / Text rechts", 2=>"Text links / Bild rechts");
+// $morpheus["templ_conf7"]		= array(1=>"Bild links / Text rechts", 2=>"Text links / Bild rechts");
 
 
 $morpheus["template_ende"]	= array(2,);

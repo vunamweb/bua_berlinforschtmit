@@ -1,12 +1,10 @@
 <?php
-global $img_pfad, $ausrichtung, $ausrichtungArray, $dir, $imgGal, $morpheus, $headerImgCt, $imageFolder;
+global $img_pfad, $ausrichtung, $ausrichtungArray, $dir, $imgTop, $morpheus, $headerImgCt, $imageFolder;
 global $fliesstext, $headline, $tref;
-
 
 $data = explode("|", $text); $imgid = $data[0]; $ausrichtung = $data[1]; if(!$ausrichtung) $ausrichtung = 1;
 
 $w = 1500;
-
 
 if(!$headerImgCt) $headerImgCt=1;
 else $headerImgCt++;
@@ -23,11 +21,13 @@ if($imgid) {
 	$altText = $itext ? $itext : $ltext; if(!$altText) $altText = $morpheus["client"].' '.$inm;
 	$folder	= str_replace(array(";", " / ", "/", "  ", " "), array("","-","-", "-", "-"), $rw->name);
 
-	$slogan = explode("\n", $ltext);
-	$output .= '
-<div class="carousel-cell">
-	<a '.($itext ? $itext : 'href="#"').'><img src="'.$img_pfad.''.($inm).'" alt="'.$altText.'" class="img-fluid" /></a>
-</div>';
+	$imgTop = $img_pfad.$inm;
+	
+// 	$output .= '
+// <div class="carousel-cell">
+// 	<a '.($itext ? $itext : 'href="#"').'><img src="'.$img_pfad.''.($inm).'" alt="'.$altText.'" class="img-fluid" /></a>
+// </div>';
+
 }
 
 $morp = $inm;

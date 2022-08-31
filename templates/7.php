@@ -13,47 +13,19 @@ $edit_mode_class = 'container_edit ';
 
 if($tref == 1 || !$tref) {
 	$template = '
-			<section class="section_psychotherapie">
-               <div class="'.$edit_mode_class.'"> 
-                    <div class="row g-0">
-                            <div class="col-12 col-lg-6 align-self-center">
-                                <div class="box_psychotherapie_img">
-                                '.$imgTop.'
-                                    '.$hl.'            
-                                </div>
-                            </div>
-                            <div class="col-12 col-lg-6 align-self-center">
-                                <div class="box_psychotherapie_content">
-                                   <div id="'.$uniqueID.'" class="directeditmode">#cont#</div>
-                                </div>
-                            </div>
-                    </div>
+			<section class="headerIMG" style="background:url('.$imgTop.') no-repeat; background-size: cover; background-position: center;">
+			   <div class="container '.$edit_mode_class.' h-100"> 
+					<div class="row g-0 h-100">
+						<div class="col-12 align-self-center text-center">
+							<div id="'.$uniqueID.'" class="directeditmode">#cont#</div>
+						</div>
+					</div>
 				'.edit_bar($content_id,"abst_top edit_class").'
-                </div>
-            </section>
+				</div>
+			</section>
 ';
 
-} else 	$template = '
-			<section class="section_psychotherapie">
-               <div class="'.$edit_mode_class.'"> 
-                	<div class="row g-0">
-                    	<div class="col-12 col-lg-6 align-self-center order-2 order-lg-1">
-                        	<div class="box_psychotherapie_content">
-	<div id="'.$uniqueID.'" class="directeditmode">#cont#</div>
-                        	</div>
-                    	</div>
-                    	<div class="col-12 col-lg-6 align-self-center order-1 order-lg-2">
-                        	<div class="box_psychotherapie_img">
-		            	'.$imgTop.'
-		            	'.$hl.'            
-                        	</div>
-                    	</div>
-                	</div>
-				'.edit_bar($content_id,"abst_top edit_class").'
-                </div>
-            </section>
-';
-
+} 
 
 $imgTop = '';
 $hl = '';

@@ -48,7 +48,7 @@ if($lastUsedTemplateID && $lastUsedTemplateID != $fileID && !$templateIsClosed) 
 
 
 if($template2count == 1 || $templateIsClosed) { $template .= '
-<section class="section_multi '.($klasse ? $klasse : ' ').($tclass ? $tclass.' ' : '').($tabstand ? ' pt0 ' : '').($tabstand_bottom? ' pb0 ' : '').'"'.($farbe ? ' style="background:#'.$farbe.';"' : '').($anker ? ' id="'.$anker.'"' : '').'>
+<section class="section_multi '.($tclass ? $tclass.' ' : '').($tabstand ? ' pt0 ' : '').($tabstand_bottom? ' pb0 ' : '').'"'.($farbe ? ' style="background:#'.$farbe.';"' : '').($anker ? ' id="'.$anker.'"' : '').'>
 '.($parallax ? '<div class="parallax " style="background: url('.$parallax.') no-repeat top center fixed; -webkit-background-size: cover; background-size: cover;">' : '').'
     <div class="container">
         <div class="row'.($tref == 5 ? ' h-100' : '').'">';

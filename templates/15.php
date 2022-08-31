@@ -15,13 +15,13 @@ $edit_mode_class = 'container_edit ';
 
 if($tref == 1)
 $template = '
-    <section' . ($anker ? ' id="' . $anker . '"' : '') . '>
-    <div class="container record_audio">
-      <img src="' . $dir . 'images/image_1.png" class="img-bg-audio">
-      <div class="row">
-        <div class="col-12 col-lg-6 ">
-           #cont#
-        </div>
+<section class="record_audio" ' . ($anker ? ' id="' . $anker . '"' : '') . '>
+    <div class="container">
+     
+		<div class="row">
+			<div class="col-12 col-lg-6 ">
+#cont#
+			</div>
       ';
 else 
   $template = '#cont#';      

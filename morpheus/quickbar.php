@@ -108,28 +108,11 @@ foreach ($morpheus["lan_arr"] as $key=>$lang) {
 		else $smap .= $site_start.$url.($multilangXML ? $lang.'/' : '').$path.$addDatum;
 	}
 
-	#print_r($n_arr);
-	# sort($arr);
-
-// falls drop down menu gewuenscht
-/*
-	$sel = "<select name=\"search\" style=\"width:150px;\" class=\"qf\" onchange='qb(this.options[this.selectedIndex].value)'><option value='.'>Index</option>\n";
-	foreach ($arr as $val) {
-		$val = explode("|", $val);
-		$nmXML  = repl('\+', " ", $val[0]);
-		$na  = $val[1];
-
-		$sel .= "<option value='$na'>$nmXML</option>\n";
-	}
-	$sel .= "</select>";
-*/
-	# saveData("../quickbar".$lang.".php",$sel,"w");
-
 	if ($lang == "de") 	saveData("../sitemap.xml",$smap."</urlset>","w");
 	else				saveData("../sitemap_".$lang.".xml",$smap."</urlset>","w");
-#echo $smap;
+
+	// echo $smap;
 
 	saveData("../nogo/navID_".$lang.".inc", '<?php $navID = array('.implode(", ", $navarr_ID).'); ?>', "w");
 }
 #die();
-?>
