@@ -29,16 +29,13 @@
     <link rel="manifest" href="<?php echo $dir; ?>favicon_package_v0.16/site.webmanifest">
     <link rel="stylesheet" href="<?php echo $dir; ?>css/bootstrap.min.css">
     <link rel="stylesheet" href="<?php echo $dir; ?>css/bootstrap-popover-x.css">
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.css"> 
-    <!-- <link rel="stylesheet" href="<?php echo $dir; ?>css/animate.min.css" type="text/css">-->
+    <!-- <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.css">   -->
+    <link rel="stylesheet" href="<?php echo $dir; ?>css/animate.min.css" type="text/css">
     <link rel="stylesheet" type="text/css" href="<?php echo $dir; ?>css/bsnav.min.css">
     <link rel="stylesheet" href="<?php echo $dir; ?>css/styles.css?v=<?php echo $zufall; ?>" type="text/css">
     <link rel="stylesheet" href="<?php echo $dir; ?>css/mobile.css?v=<?php echo $zufall; ?>" type="text/css">
-	<link rel="stylesheet" href="<?php echo $dir; ?>css/css.css?v=<?php echo $zufall; ?>" type="text/css">
+	<!-- <link rel="stylesheet" href="<?php echo $dir; ?>css/css.css?v=<?php echo $zufall; ?>" type="text/css"> -->
 	<link rel="stylesheet" href="<?php echo $dir; ?>css/font-awesome.min.css?v=<?php echo $rand; ?>" type="text/css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Merriweather+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="<?php echo $dir; ?>css/semantic.css" type="text/css">
     <link rel="stylesheet" href="<?php echo $dir; ?>morpheus/css/selectize.css" type="text/css">
     <!-- VU ADD CSS !-->

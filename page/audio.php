@@ -6,69 +6,70 @@ $rubrik = $_POST["rubrik"] ? $_POST["rubrik"] : '';
 $output .= '
 <div class="col-12 col-lg-6 position-relative">
     <div class="count_time hide"><label id="minutes">00</label>:<label id="seconds">00</label></div>
-    <br>
-    <p class="text-center w_bntmic">
-    <a class="bntmic start" id="recordButton">
-        <span></span>
-    </a>
-    <div id="display_wave"></div>
-    <a class="bntmic stop hide" role="button" href="#myPopover1" data-toggle="popover-x" data-placement="top top-right" id="stopButton">
-        <span></span>
-    </a><br>
-    <a class="bntmic restart hide" role="button" id="restartButton">
-        <span></span>
-    </a><br>
-    </p>
-  </div>
-  </div>
+    	<br>
+    	<p class="text-center w_bntmic">
+    	<a class="bntmic start" id="recordButton">
+        	<span></span>
+    	</a>
+    	<div id="display_wave"></div>
+    	<a class="bntmic stop hide" role="button" href="#myPopover1" data-toggle="popover-x" data-placement="top top-right" id="stopButton">
+        	<span></span>
+    	</a><br>
+    	<a class="bntmic restart hide" role="button" id="restartButton">
+        	<span></span>
+    	</a><br>
+    	</p>
+  	</div>
+ </div>
   
-  <div class="row waveform_player">
-        <div class="col-sm-9">
-            <div id="waveform">
-                <!-- Here be waveform -->
-            </div>
-        </div>
-        <div class="col-sm-3 align-self-center">
-            <button class="btn btn-berlin btn-block" id="playPause">
-                <span id="play">                                                        
-                    Play
-                </span>                        
-                <span id="pause" style="display: none">
-                    Pause
-                </span>
-            </button>
+ <div class="row waveform_player">
+    <div class="col-sm-9">
+        <div id="waveform">
+            <!-- Here be waveform -->
         </div>
     </div>
+    <div class="col-sm-3 align-self-center">
+        <button class="btn btn-berlin btn-block" id="playPause">
+            <span id="play">                                                        
+                Play
+            </span>                        
+            <span id="pause" style="display: none">
+                Pause
+            </span>
+        </button>
+    </div>
+</div>
 
 
 <div class="slider_2">
     <div class="slider__wrapper">';
-    $query  = "SELECT * FROM morp_media WHERE mtyp='wav' AND public='true'";
-	$query  = "SELECT * FROM morp_media WHERE mtyp='wav'";
-	$result = safe_query($query);
-	while ($row = mysqli_fetch_object($result)) {
-        $name = $row->name;
-        $date = $row->email;
-        $url_media = 'wav/' . $row->mname; 
-
-        $output .= '<div class="slider__item">
-        <a class="play_audio playme play1" href="'.$dir.''.$url_media.'">
-          <img src="'.$dir.'images/wave.svg"/>
-        </a>
-        <div class="border_top">
-          <p> '.$name.' // '.$date.'</p>
-        </div>
-     </div>';
-    }    
+    	$query  = "SELECT * FROM morp_media WHERE mtyp='wav' AND public='true'";
+		$query  = "SELECT * FROM morp_media WHERE mtyp='wav'";
+		$query  = "SELECT * FROM morp_media WHERE 1";
+		$result = safe_query($query);
+		while ($row = mysqli_fetch_object($result)) {
+        	$name = $row->name;
+        	$date = $row->email;
+        	$url_media = 'wav/' . $row->mname; 
+	
+        	$output .= '
+			<div class="slider__item">
+        		<a class="play_audio playme play1" href="'.$dir.''.$url_media.'">
+          	  		<img src="'.$dir.'images/wave.svg"/>
+        		</a>
+        		<div class="border_top">
+          	  		<p> '.$name.' // '.$date.'</p>
+        		</div>
+     		</div>';
+    	}    
       
-    $output .= '</div>
-    <a class="slider__control slider__control_left" href="#" role="button"></a>
+    $output .= '
+	</div>
+    	
+	<a class="slider__control slider__control_left" href="#" role="button"></a>
     <a class="slider__control slider__control_right slider__control_show" href="#" role="button"></a>
-  </div>
-</div>
 </div>
 </section>
-
 
 
 <div id="myPopover1" class="popover popover-default popover-x">
@@ -87,7 +88,7 @@ $output .= '
 					<button id="pauseButton" disabled="" class="hide">Pause</button> 
 					<div id="formats" class="hide"></div>
 					<ol id="recordingsList"></ol>
-                    <p><a href="#" class="btn btn_audio"><img src="'.$dir.'stimmen/images/SVG/i_btn_audio.svg" alt="" class="img-fluid" width="150"> <span>0.12</span></a></p> 
+                    <p><a href="#" class="btn btn_audio"><img src="'.$dir.'images/SVG/i_btn_audio.svg" alt="" class="img-fluid" width="150"> <span>0.12</span></a></p> 
                 </div>
                 <div class="col-12 col-lg-6 mt2">
                     <a href="<?php echo $dir.$navID[3]; ?>" class="btn btnRecord recordagain">Erneut aufnehmen</a>
@@ -99,7 +100,7 @@ $output .= '
                 	<div class="custom-control custom-checkbox">
                     	<label class="custom-control-label" for="ck01">
                     		<input type="checkbox" class="custom-control-input" id="ck01">
-							Ja, ich stimme der Nutzung meiner Daten gemäß <a href="'.$dir.'stimmen/datenschutz/">AGB und DSGVO</a> zu
+							Ja, ich stimme der Nutzung meiner Daten gemäß <a href="'.$dir.'datenschutz/">AGB und DSGVO</a> zu
 						</label>
                 	</div>
                 	<div class="custom-control custom-checkbox mt1">

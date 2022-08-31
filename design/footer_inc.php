@@ -78,9 +78,9 @@ if($morpheus_edit) include("design/edit.php");
 <script src="<?php echo $dir; ?>js/bootstrap.min.js"></script>
 <script src="<?php echo $dir; ?>js/bootstrap-popover-x.js"></script>
 <script src="<?php echo $dir; ?>js/bsnav.min.js"></script>
-<script src="<?php echo $dir; ?>js/ekko-lightbox.min.js"></script>
+<!-- <script src="<?php echo $dir; ?>js/ekko-lightbox.min.js"></script> -->
 <script src="<?php echo $dir; ?>js/imagesloaded.pkgd.min.js"></script>
-<script src="<?php echo $dir; ?>js/isotope.pkgd.js" type="text/javascript"></script>
+<!-- <script src="<?php echo $dir; ?>js/isotope.pkgd.js" type="text/javascript"></script> -->
 <script src="<?php echo $dir; ?>js/functions.js?version=<?php echo rand(); ?>"></script>
 <script src="<?php echo $dir; ?>js/recorder.js"></script>
 <script src="<?php echo $dir; ?>js/app.js"></script>
