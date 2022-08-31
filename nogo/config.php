@@ -5,15 +5,17 @@
 global $morpheus, $sign_gruppe, $lan;
 $morpheus = array();
 
+$morpheus["dbname"] 		= "d039f7ed";
+$morpheus["user"]			= "d039f7ed";
+$morpheus["password"]		= "JcsMBVhCqm8Vurru";
+
 $morpheus["dbname2"] 		= "d039d371";
 $morpheus["user2"]			= "d039d371";
 $morpheus["password2"]		= "AzzXfHZpATC2zeUM";
-$morpheus["dbname"] 		= "d039f7ed";
+
 $morpheus["dfile"]			= "morpheus_db.sql";
-$morpheus["user"]			= "d039f7ed";
-$morpheus["password"]		= "JcsMBVhCqm8Vurru";
 $morpheus["server"]			= "85.13.164.136";
-$morpheus["url"]			= "https://bua.morpheus-cms.de/berlinforschtmit/";
+$morpheus["url"]			= "http://localhost/berlinforscht/bua_berlinforschtmit/";
 $morpheus["search_ID"]		= array("de"=>14, "en"=>"200" );
 
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
