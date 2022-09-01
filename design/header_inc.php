@@ -40,8 +40,8 @@
     <link rel="stylesheet" href="<?php echo $dir; ?>morpheus/css/selectize.css" type="text/css">
     <!-- VU ADD CSS !-->
     <?php if(getCssMorpheus()) { ?>
-    <link rel="stylesheet" href="<?php echo $dir; ?>morpheus/css/style_light.css" type="text/css">
-    <link rel="stylesheet" href="<?php echo $dir; ?>morpheus/css/style_blue.css" type="text/css">
+    <link rel="stylesheet" href="<?php echo $dir; ?>css/style_light.css" type="text/css">
+
     <?php } ?>
     <!-- END !-->
 <?php if($morpheus_edit) { ?>
