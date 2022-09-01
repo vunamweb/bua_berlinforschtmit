@@ -997,7 +997,7 @@ $rb_headl = '';
 
 $hashtag_search = $_GET["ht"] ? $_GET["ht"] : '';
 
-global $anker, $tref, $tabstand, $tende, $tclass, $klasse, $tabstand_bottom, $position, $uniqueID, $tschmal;
+global $anker, $tref, $tabstand, $tende, $tclass, $klasse, $tabstand_bottom, $position, $uniqueID, $tschmal, $animation, $animation_time;
 
 global $replace_string;
 $replace_string = 'anker:';
@@ -1092,6 +1092,8 @@ if ($cid) {
 		$tclass		=$throw->tclass;
 		$klasse		=$throw->klasse;
 		$tschmal	= $throw->tschmal;
+		$animation	= $throw->animation;
+		$animation_time	= $throw->animation_time;
 		$content_id	=$throw->cid;
 		$uniqueID	= 'edit_'.$content_id;
 		$position	=$throw->tpos;
