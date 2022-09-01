@@ -3,7 +3,7 @@
 global $hl,$uniqueID, $design, $itext, $startDIV, $anker, $h1, $bgIMG;
 global $fileID, $lastUsedTemplateID, $tabstand, $tabstand_bottom, $anker, $anzahlOffenerDIV, $templateIsClosed, $parallaxText;
 global $video, $accordion, $klasse, $imgGal;
-global $class_inner, $farbe_inner, $tclass, $farbe, $position, $date_box;
+global $class_inner, $farbe_inner, $tclass, $farbe, $position, $date_box, $animation, $animation_time;
 
 $fileID = basename(__FILE__, '.php');
 $lastUsedTemplateID = $fileID;
@@ -27,7 +27,7 @@ if($tref == 1 || !$tref) $template = '
 
   <div class="'.$edit_mode_class.'container '.($class_inner ? $class_inner.' col-inner ' : '').($tabstand ? ' pt0 ' : '').''.($tabstand_bottom? ' pb0 ' : '').'"'.($bgIMG ? ' style="background:url('.$bgIMG.') no-repeat fixed; background-size: cover; padding-top:2em; padding-bottom:2em;"' : '').'>
         <div class="row">
-            <div class="col-12">
+            <div class="col-12'.($animation ? ' wow '.$animation : '').($animation_time ? ' animate__delay-'.$animation_time.'s' : '').'">
 <div id="'.$uniqueID.'" class="directeditmode">
 '.($date_box ? '#HL#' : '').'
 #cont#
@@ -42,7 +42,7 @@ elseif($tref == 2) $template = '
 <section'.($anker ? ' id="'.$anker.'"' : '').' class="section '.$klasse.' '.($tabstand ? ' pt0 ' : '').($tabstand_bottom? ' pb0 ' : '').($tclass ? $tclass.' bg-color' : '').'"'.($farbe ? ' style="background:#'.$farbe.'"' : $video_special).'>
 	<div class="'.$edit_mode_class.'container '.($tabstand ? ' pt0 ' : '').''.($tabstand_bottom? ' pb0 ' : '').'"'.($bgIMG ? ' style="background:url('.$bgIMG.') no-repeat fixed; background-size: cover; padding-top:2em; padding-bottom:2em;"' : '').'>
         <div class="row">
-            <div class="col-12 text-center">
+            <div class="col-12 text-center'.($animation ? ' wow '.$animation : '').($animation_time ? ' animate__delay-'.$animation_time.'s' : '').'">
 <div id="'.$uniqueID.'" class="directeditmode">#cont#</div>
 	        </div>
         </div>
@@ -54,7 +54,7 @@ elseif($tref == 3) $template = '
 <section'.($anker ? ' id="'.$anker.'"' : '').' class="section '.$klasse.' '.($tabstand ? ' pt0 ' : '').($tabstand_bottom? ' pb0 ' : '').($tclass ? $tclass.' bg-color' : '').'"'.($farbe ? ' style="background:#'.$farbe.'"' : $video_special).'>
 	<div class="'.$edit_mode_class.'container-fluid '.($tabstand ? ' pt0 ' : '').''.($tabstand_bottom? ' pb0 ' : '').'"'.($bgIMG ? ' style="background:url('.$bgIMG.') no-repeat fixed; background-size: cover; padding-top:2em; padding-bottom:2em;"' : '').'>
         <div class="row">
-            <div class="col-12">
+            <div class="col-12'.($animation ? ' wow '.$animation : '').($animation_time ? ' animate__delay-'.$animation_time.'s' : '').'">
 <div id="'.$uniqueID.'" class="directeditmode">#cont#</div>
             </div>
         </div>
@@ -66,7 +66,7 @@ elseif($tref == 4) $template = '
 <section'.($anker ? ' id="'.$anker.'"' : '').' class="'.$klasse.' '.($tabstand ? ' pt0 ' : '').($tabstand_bottom? ' pb0 ' : '').($class ? $class.' bg-color' : '').'"'.($farbe ? ' style="background:#'.$farbe.'"' : '').'>
 	<div class="'.$edit_mode_class.'container content '.($tabstand ? ' pt0 ' : '').''.($tabstand_bottom? ' pb0 ' : '').'"'.($bgIMG ? ' style="background:url('.$bgIMG.') no-repeat fixed; background-size: cover; padding-top:2em; padding-bottom:2em;"' : '').'>
         <div class="row">
-            <div class="col-12 flex space-between">
+            <div class="col-12 flex space-between'.($animation ? ' wow '.$animation : '').($animation_time ? ' animate__delay-'.$animation_time.'s' : '').'">
 <div id="'.$uniqueID.'" class="directeditmode">#cont#</div>
             </div>
         </div>
@@ -79,7 +79,7 @@ elseif($tref == 5) $template = '
 <div class="'.$edit_mode_class.'container-fluid '.($tabstand ? ' pt0 ' : '').''.($tabstand_bottom? ' pb0 ' : '').'"'.($bgIMG ? ' style="background:url('.$bgIMG.') no-repeat fixed; background-size: cover; padding-top:6em; padding-bottom:6em;"' : '').'>
         <div class="container">
         	<div class="row">
-            	<div class="col-12 col-lg-6 offset-lg-6 col-md-8 offset-md-4 bg-text">
+            	<div class="col-12 col-lg-6 offset-lg-6 col-md-8 offset-md-4 bg-text'.($animation ? ' wow '.$animation : '').($animation_time ? ' animate__delay-'.$animation_time.'s' : '').'">
 	<div id="'.$uniqueID.'" class="directeditmode">#cont#</div>
             	</div>
         	</div>
@@ -93,7 +93,7 @@ elseif($tref == 8) $template = '
 	<div class="'.$edit_mode_class.'container-fluid '.($tabstand ? ' pt0 ' : '').''.($tabstand_bottom? ' pb0 ' : '').'"'.($bgIMG ? ' style="background:url('.$bgIMG.') no-repeat fixed; background-size: cover; padding-top:6em; padding-bottom:6em;"' : '').'>
         <div class="container">
         	<div class="row">
-            	<div class="col-12 col-lg-6 col-md-8 bg-text">
+            	<div class="col-12 col-lg-6 col-md-8 bg-text'.($animation ? ' wow '.$animation : '').($animation_time ? ' animate__delay-'.$animation_time.'s' : '').'">
 	<div id="'.$uniqueID.'" class="directeditmode">#cont#</div>
             	</div>
         	</div>
@@ -107,7 +107,7 @@ elseif($tref == 6) $template = '
 	<div class="'.$edit_mode_class.'container-fluid '.($tabstand ? ' pt0 ' : '').''.($tabstand_bottom? ' pb0 ' : '').'"'.($bgIMG ? ' style="background:url('.$bgIMG.') no-repeat fixed; background-size: cover; padding-top:6em; padding-bottom:6em;"' : '').'>
         <div class="container">
         	<div class="row">
-            	<div class="col-12 bg-text">
+            	<div class="col-12 bg-text'.($animation ? ' wow '.$animation : '').($animation_time ? ' animate__delay-'.$animation_time.'s' : '').'">
 	<div id="'.$uniqueID.'" class="directeditmode">#cont#</div>
             	</div>
         	</div>

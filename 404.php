@@ -1,4 +1,6 @@
 <?php
+die("HEY");
+
 include("nogo/config.php");
 $lan = "de";
 $dir = $morpheus["url"];

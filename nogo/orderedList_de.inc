@@ -1,2 +1,2 @@
 <?php
-$orderedList = array(1=>"1", 2=>"4", 3=>"2", 4=>"18", ); ?>
+$orderedList = array(1=>"1", 2=>"4", 3=>"2", ); ?>

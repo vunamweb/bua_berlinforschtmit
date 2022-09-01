@@ -2,7 +2,7 @@
 /* pixel-dusche.de */
 
 global $emotional, $headerImg;
-global $uniqueID, $fileID, $lastUsedTemplateID, $anzahlOffenerDIV, $templateIsClosed, $slCt;
+global $uniqueID, $fileID, $lastUsedTemplateID, $anzahlOffenerDIV, $templateIsClosed, $slCt, $klasse, $tabstand;
 
 $fileID = basename(__FILE__, '.php');
 $lastUsedTemplateID = $fileID;
@@ -25,7 +25,7 @@ for($i=1; $i<=$slCt; $i++) {
 }
 
 $template = '
-<section class="'.$edit_mode_class.'sectionbanner">
+<section class="'.$edit_mode_class.($tabstand ? ' pt0 ' : '').($klasse ? ' '.$klasse : '').'">
 	<div class="carousel slide" data-bs-ride="carousel" id="BUASlider">
 		<div class="carousel-indicators">
 			'.$indicator.'		

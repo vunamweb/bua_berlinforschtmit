@@ -11,15 +11,16 @@
                 <button class="navbar-toggler toggler-spring" name="navbar"><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse justify-content-md-end">
                     <ul class="navbar-nav navbar-mobile mr-0">
-<?php 
-// VU: IF IS LOG IN, THEN SHOW OWN MENU
-if((string) $userIsLogIn == $checkLogSession) {
-?>
-						<!-- <li class="nav-item"><a href="<?php echo $dir.($lang == 1 ? 'de/' : ''); ?>#about" class="nav-link<?php echo $cid == $morpheus["home_ID"][$lan] ? ' page-scroll' : ''; ?>"><?php echo $lang == 2 ? 'ABOUT' : 'Über uns'; ?></a></li> -->
 						<li class="nav-item"><a class="nav-link" href="<?php echo $dir.($lang==1 ? '':'en/'); ?>"><i class="fa fa-home"></i></a></li>
 <?php 
-						echo $nav; 
+						echo $nav_h; 
 						echo '<li class="nav-item"><a href="'.$dir.$lan.'/'.$navID[$kontakt_id].'" class="nav-link profile"><i class="fa fa-envelope"></i></a></li>';
+
+// VU: IF IS LOG IN, THEN SHOW OWN MENU
+if($userIsLogIn == $checkLogSession) {
+?>
+<?php 
+						echo $nav_logged_in;
 						echo '<li class="nav-item"><a href="'.$dir.$lan.'/'.$navID[$profile_id].'" class="nav-link profile"><i class="fa fa-user"></i></a></li>';
 						echo '<li class="nav-item logout"><a href="'.$dir.'?logout=1" class="nav-link profile"><i class="fa fa-sign-out"></i></a></li>';
 } 

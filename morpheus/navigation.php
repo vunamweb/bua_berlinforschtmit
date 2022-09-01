@@ -468,7 +468,7 @@ while ($row = mysqli_fetch_object($result)) {
 
 		<div class=\"col-md-4 col-sm-4 col-xs-6 mobileOff\">
 			".$edit_lnk."<i class=\"fa fa-cogs\"></i></a>  &nbsp; | &nbsp;
-			".($nocontent ? '' : "<a href=\"content.php?edit=$id&db=content&$edit_back&sprache=$sprache\" title=\"Content/Inhalt bearbeiten\">".($parent == 1 && $ebene == 2 ? '<i style="text-transform:uppercase;">'.$but.'</i> | ' : '<i class="fa fa-pencil"></i> &nbsp; '))."$nm <!--| <u style=\"color:red;\">$oldlnk</u></a>-->
+			".($nocontent ? '' : "<a href=\"content.php?edit=$id&db=content&$edit_back&sprache=$sprache\" title=\"Content/Inhalt bearbeiten\">".($parent == 1 && $ebene == 2 ? '<i style="text-transform:uppercase;">'.$but.'</i> | ' : '<i class="fa fa-pencil"></i> &nbsp; ')).($lock ? '<span style="color:red;font-weight:600;">'.$nm.' &nbsp; <i class="fa fa-lock"></i></span>' : $nm)." <!--| <u style=\"color:red;\">$oldlnk</u></a>--> 
 		</div>
 
 		<div class=\"col-md-1 col-sm-1 col-xs-2\">

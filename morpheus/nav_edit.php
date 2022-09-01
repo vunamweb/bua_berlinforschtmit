@@ -399,7 +399,7 @@ echo '
 				        </div>
 					  	<div class="funkyradio-primary">
 				            <input type="checkbox" name="lock" id="lock"  value="1" '.($lock ? ' checked' : '').' />
-				            <label for="lock">Nicht bearbeiten</label>
+				            <label for="lock">Nur mit Login</label>
 				        </div>
 					</div>
 
@@ -409,7 +409,7 @@ echo '
 ';
 
 
-// if ($lock) echo "<strong>Diese Seite geh&ouml;rt zu einem gesch&uuml;tzten Kundenaccount</strong>";
+if ($lock) echo "<strong>Diese Seite geh&ouml;rt zu einem gesch&uuml;tzten Kundenaccount</strong>";
 
 echo "
 

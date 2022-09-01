@@ -442,7 +442,7 @@ if (isset($_GET["vs"]) && isset($_GET["cid"])) {
 
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 // hauptnavigation
-$sql  	= "SELECT name, n.navid, bereich, button, imgname, lnk, design, sichtbar, emotional, fbimage, setlink FROM `morp_cms_nav` n LEFT JOIN morp_cms_image i ON i.imgid=n.emotional WHERE n.ebene=1 AND lang=$lang ORDER BY `sort` ASC";
+$sql  	= "SELECT name, n.navid, bereich, button, imgname, lnk, design, sichtbar, emotional, fbimage, setlink, `lock` FROM `morp_cms_nav` n LEFT JOIN morp_cms_image i ON i.imgid=n.emotional WHERE n.ebene=1 AND lang=$lang ORDER BY `sort` ASC";
 
 $res 	= safe_query($sql);
 $anz	= mysqli_num_rows($res);
@@ -454,6 +454,7 @@ $nav_footer = '';
 $nav_h = '';
 $nav_meta = '';
 $nav_meta_mobile = '';
+$nav_logged_in = '';
 $fbimage = '';
 $nav_log = '';
 // print_r($navID);
@@ -474,6 +475,7 @@ while ($row = mysqli_fetch_object($res)) {
 		$button 	= $row->button;
 		$sichtbar	= $row->sichtbar;
 		$setlink	= $row->setlink;
+		$lock		= $row->lock;
 
 
 		if ($id == $morpheus["home_ID"][$lan] && $lang == 1)  		$index = "";
@@ -501,13 +503,20 @@ while ($row = mysqli_fetch_object($res)) {
 		}
 
 		if ($sichtbar) {
-			if ($bereich == 1) 	{
+			if ($bereich == 1 && $lock<1) 	{
 				$m++;
-				$nav_h .= '						<li><a href="'. ($extern ? $index : $dir.$index) .'" title="'.$name.'"'. ($extern ? ' target="_blank"' : '') .''.$li_class.'>'.$name.'</a>'.$split.'</li>
+				$nav_h .= '						<li class="nav-item"><a href="'. ($extern ? $index : $dir.$index) .'" title="'.$name.'"'. ($extern ? ' target="_blank"' : '') .' class="nav-link'.$class.'">'.$name.'</a>'.$split.'</li>
 ';
 			}
+			
+			else if ($bereich == 1) 	{
+				$m++;
+				$nav_logged_in .= '						<li class="nav-item"><a href="'. ($extern ? $index : $dir.$index) .'" title="'.$name.'"'. ($extern ? ' target="_blank"' : '') .' class="nav-link'.$class.'">'.$name.'</a>'.$split.'</li>
+			';
+						}
 
-			elseif ($bereich == 2) 	{
+
+			elseif ($bereich == 2 && $lock<1) 	{
 				$n++;
 
 				$nav_meta .= '						<li><a href="'. ($extern ? $index : $dir.$index) .'" title="'.$name.'"'. ($extern ? ' target="_blank"' : '') .'>'.$name.'</a></li>'.$split.'
@@ -517,7 +526,7 @@ while ($row = mysqli_fetch_object($res)) {
 				$nav_meta_mobile .= '					<li class="mobileOn"><a href="'. ($extern ? $index : $dir.$index) .'" title="'.$name.'"'. ($extern ? ' target="_blank"' : '') .' class="nav-link meta-nav'.$class.'">'.$name.'</a></li>
 ';
 			}
-			elseif ($bereich == 3) 	{
+			elseif ($bereich == 3 && $lock<1) 	{
 				$nav_footer .= '		    <div class="col-2">
 				<a href="'.$dir.$index.'" class="nav-link'.($id == $cid ? ' active' : '').'">'.$name.'</a>
 		    </div>
@@ -567,11 +576,7 @@ if($optin) {
 	include("design/empty.php");
 	die('</body></html>');
 }
-	
-	
-	
-	
-	
+
 
 /////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////
@@ -579,23 +584,19 @@ if($optin) {
 /////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////
 
-$haslogin = 0; // $hn_id == 600 ? 1 : 0;
+ 
 $firstLogin = 0;
-// !!!! Datenschutz und Impressum freigeben, oder per modal einbinden //
-// print_r($_SESSION);
 $checkLogSession = get_token();
 $userIsLogIn = isset($_SESSION["mIL"]) ? $_SESSION["mIL"] : '';
-// $userIsLogIn = 1;
-// $checkLogSession = 1;
 
-if($checkLogSession == $userIsLogIn) {
-	$mid = $_SESSION["mid"];
-	$haslogin = 0;
-}
-else {
-	$userIsLogIn=0;
-	$haslogin=1;
-	include("page/login.php");
+$haslogin = get_db_field($cid, 'lock', 'morp_cms_nav', 'navid');
+if($haslogin) {
+	// checkLogin($haslogin);
+	if ($_SESSION["mid"] == '' || $checkLogSession != $userIsLogIn) redirect($dir . '/de/login');
+	else if($checkLogSession == $userIsLogIn) {
+		$haslogin = 0;
+		$mid = $_SESSION["mid"];
+	}
 }
 
 // print_r($_GET);
@@ -915,7 +916,7 @@ function getCssMorpheus() {
 /* END */
 
 /* VU: check check login */
-function checkLogin() {
+function checkLogin($haslogin) {
 	global $dir;
 
 	//print_r($_REQUEST);
@@ -1014,8 +1015,8 @@ $pattern = '/(anker:+)\d/';
 // $loginid = $lan == "de" ? 15 : 100;
 // $registerid = $lan == "de" ? 14 : 100;
 // $eventlist_id = $lan == "de" ? 8 : 100;
-// $profile_id = $lan == "de" ? 7 : 100;
-// $kontakt_id = $lan == "de" ? 18 : 100;
+$profile_id = $lan == "de" ? 7 : 100;
+$kontakt_id = $lan == "de" ? 18 : 100;
 // $event_url_id = $lang == 1 ? 2 : 130;
 // $event_register_id = $lang == 1 ? 21 : 150;
 // 	
@@ -1202,19 +1203,17 @@ $zufall=rand(0,999);
 
 // if($mobile && $design == 2) $design = 3;
 
-checkLogin();
-
 include("design/header_inc.php");
 include("design/top.php");
 if($_GET['hn'] == 'home' || $_GET['hn'] == '') 
-  include("design/top-triangles.php");
+	include("design/top-triangles.php");
 
 if ($design) 	include("design/design-".$design.".php");
 else 			include("design/design-1.php");
 
-if ($cid==15) {
-	include("design/login.php");
-}
+// if ($cid==15) {
+// 	include("design/login.php");
+// }
 
 include("design/footer_inc.php");
 include("design/footer-tracking.php");

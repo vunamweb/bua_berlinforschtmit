@@ -48,29 +48,29 @@ elseif($setMeFree && $un) {
 	 	$sql = "UPDATE `morp_intranet_user` SET countLogins=0 WHERE mid='".$row->mid."'";
 		safe_query2($sql);
 
-		$output_login .= '<p><br/><a href="?"><i class="fa fa-chevron-right"></i> Please log in again</a></p>';
+		$output .= '<p><br/><a href="?"><i class="fa fa-chevron-right"></i> Please log in again</a></p>';
 	}
 }
 else {
 	if($pwA && $pwB) {
 		$mid = holeID($sec);
 		$nolog = 0;
-		if($pwA != $pwB) $output_login .= '<h2>The passwords do not match</h2><p>&nbsp;</p>'.newPW($min, $mid);
-		elseif(strlen($pwA) < $min) $output_login .= '<h2>The password must contain at least '.$min.' characters.</h2><p>&nbsp;</p>'.newPW($min, $mid);
+		if($pwA != $pwB) $output .= '<h2>The passwords do not match</h2><p>&nbsp;</p>'.newPW($min, $mid);
+		elseif(strlen($pwA) < $min) $output .= '<h2>The password must contain at least '.$min.' characters.</h2><p>&nbsp;</p>'.newPW($min, $mid);
 		else {
 			$zahl = 0;
 			$zeichen = 0;
 			if(preg_match("/\d/", $pwA)) $zahl = 1;
 			if(preg_match("/[a-zA-Z]/", $pwA)) $zeichen = 1;
-			if(!$zahl) $output_login .= '<h2>The password must contain at least one number.</h2><p>&nbsp;</p>'.newPW($min, $mid);
-			elseif(!$zeichen) $output_login .= '<h2>The password must contain at least one letter.</h2><p>&nbsp;</p>'.newPW($min, $mid);
+			if(!$zahl) $output .= '<h2>The password must contain at least one number.</h2><p>&nbsp;</p>'.newPW($min, $mid);
+			elseif(!$zeichen) $output .= '<h2>The password must contain at least one letter.</h2><p>&nbsp;</p>'.newPW($min, $mid);
 			else if($mid) {
 				$sql = "UPDATE `morp_intranet_user` set kontrolle='1', pass='".md5($pwA)."', newpass=0 WHERE mid='".$mid."'";
 				$res = safe_query2($sql);
 				#$sql = "SELECT mnr FROM `morp_intranet_user` WHERE `morp_intranet_user`=$mid";
 				#$res = safe_query($sql);
 				#$row = mysqli_fetch_object($res);
-				$output_login .= '<h2>The password was changed successfully.</h2><p>&nbsp;</p>';
+				$output .= '<h2>The password was changed successfully.</h2><p>&nbsp;</p>';
 				$_SESSION["custname"] = $mid;
 				$_SESSION["pd"] = md5($pwA);
 			}
@@ -91,7 +91,7 @@ else {
 				if($row->newpass) {
 					$nolog = 0;
 					$newpass=1;
-					$output_login .= newPW($min, $row->mid);
+					$output .= newPW($min, $row->mid);
 				}
 				else {
 					$haslogin = 0;
@@ -115,7 +115,7 @@ else {
 					$sql = "UPDATE `morp_intranet_user` SET lastlog='$lastlog' WHERE mid='".$row->mid."'";
 					safe_query2($sql);
 					
-					$js = 'document.location.href="'.$dir.($lan=="de" ? '' : $lan.'/').'";';
+					$js = 'document.location.href="'.$dir.($lan=="de" ? $lan.'/'.$navID[19] : $lan.'/').'";';
 	
 					// $_SESSION["account"] = $row->testaccount ? 11 : 1;
 					// $sprung = $_SESSION["wherefrom"];
@@ -143,13 +143,14 @@ else {
 
 }
 
+
 if($newpass) { 
 	
 }
 
 else if($haslogin && $countLogins > $maxVersuche)
 
-		$output_login .= '
+	$output .= '
 
 <form name="golog" method="post">
 	<div class="form-group">
@@ -165,8 +166,8 @@ else if($haslogin && $countLogins > $maxVersuche)
 </form>
 	';
 
-else if($haslogin)
-		$output_login .= '
+else 
+	$output .= '
 <form name="golog" method="post" class="text-center">
 	<div class="form-group">
 		<input type="text" class="form-control" id="unr" name="unr" placeholder="'.textvorlage(10).'">
@@ -180,5 +181,5 @@ else if($haslogin)
 	';
 
 
-	$output_login = $warn.$output_login;
-	//echo $warn.$output_login;
+	$output = $warn.$output;
+	// echo $warn.$output;

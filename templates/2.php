@@ -67,7 +67,7 @@ if($tref == 1 || !$tref) $template .= '
 ';
 
 elseif($tref == 2) $template .= '
-            <div class="'.$edit_mode_class.'col-12 col-lg-9'.($klasse ? ' '.$klasse : ' ').'"'.($linkbox ? ' ref="'.$linkbox.'"' : '').'">
+            <div class="'.$edit_mode_class.'col-12 col-lg-9'.($klasse ? ' '.$klasse : ' ').($animation ? ' wow '.$animation : '').($animation_time ? ' animate__delay-'.$animation_time.'s' : '').'"'.($linkbox ? ' ref="'.$linkbox.'"' : '').'">
             '.($class_inner ? '<div class="text-center inner '.$class_inner .'">' : '').'
 <div id="'.$uniqueID.'" class="directeditmode">#cont#</div>
             '.($class_inner ? '</div>' : '').'
@@ -76,7 +76,7 @@ elseif($tref == 2) $template .= '
 ';
 
 elseif($tref == 3) $template .= '
-            <div class="'.$edit_mode_class.'col-12 col-lg-3 "'.($linkbox ? ' ref="'.$linkbox.'"' : '').'>'
+            <div class="'.$edit_mode_class.'col-12 col-lg-3'.($animation ? ' wow '.$animation : '').($animation_time ? ' animate__delay-'.$animation_time.'s' : '').'"'.($linkbox ? ' ref="'.$linkbox.'"' : '').'>'
             .($needBG ? '<div class="text-center">' : '').
             ($class_inner ? '<div class="text-center inner '.$class_inner .'">' : '').'
 <div id="'.$uniqueID.'" class="directeditmode">#cont#</div>
@@ -87,7 +87,7 @@ elseif($tref == 3) $template .= '
 ';
 
 elseif($tref == 4) $template .= '
-            <div class="'.$edit_mode_class.'col-12 col-md-8  "'.($linkbox ? ' ref="'.$linkbox.'"' : '').'>
+            <div class="'.$edit_mode_class.'col-12 col-md-8'.($animation ? ' wow '.$animation : '').($animation_time ? ' animate__delay-'.$animation_time.'s' : '').'"'.($linkbox ? ' ref="'.$linkbox.'"' : '').'>
             '.($class_inner ? '<div class="inner '.$class_inner .'">' : '').'
 <div id="'.$uniqueID.'" class="directeditmode">#cont#</div>
             '.($class_inner ? '</div>' : '').'
@@ -96,7 +96,7 @@ elseif($tref == 4) $template .= '
 ';
 
 elseif($tref == 5) $template .= '
-            <div class="'.$edit_mode_class.'col-12 col-md-6 col-lg-4 h-100 "'.($linkbox ? ' ref="'.$linkbox.'"' : '').'>
+            <div class="'.$edit_mode_class.'col-12 col-md-6 col-lg-4 h-100'.($animation ? ' wow '.$animation : '').($animation_time ? ' animate__delay-'.$animation_time.'s' : '').'"'.($linkbox ? ' ref="'.$linkbox.'"' : '').'>
             '.($class_inner ? '<div class="inner h-100 '.$class_inner .'">' : '').'
 <div id="'.$uniqueID.'" class="directeditmode">#cont#</div>
             '.($class_inner ? '</div>' : '').'
@@ -105,7 +105,7 @@ elseif($tref == 5) $template .= '
 ';
 
 elseif($tref == 6) $template .= '
-            <div class="'.$edit_mode_class.'col-12 col-md-6 col-lg-6  "'.($linkbox ? ' ref="'.$linkbox.'"' : '').'>
+            <div class="'.$edit_mode_class.'col-12 col-md-6 col-lg-6'.($animation ? ' wow '.$animation : '').($animation_time ? ' animate__delay-'.$animation_time.'s' : '').'"'.($linkbox ? ' ref="'.$linkbox.'"' : '').'>
 				<div id="sturm'.$template_page_count.'" class="carousel carousel-std slide" data-bs-ride="carousel">
 					<div class="carousel-inner">
 
@@ -126,7 +126,7 @@ elseif($tref == 6) $template .= '
 ';
 
 elseif($tref == 7) $template .= '
-            <div class="'.$edit_mode_class.'col-12 col-md-6 col-lg-6"'.($linkbox ? ' ref="'.$linkbox.'"' : '').'">
+            <div class="'.$edit_mode_class.'col-12 col-md-6 col-lg-6'.($animation ? ' wow '.$animation : '').($animation_time ? ' animate__delay-'.$animation_time.'s' : '').'"'.($linkbox ? ' ref="'.$linkbox.'"' : '').'">
 				<div class="card-service">
 					<div class="body">
 <div id="'.$uniqueID.'" class="directeditmode">#cont#</div>

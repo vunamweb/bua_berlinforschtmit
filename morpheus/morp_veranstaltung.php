@@ -16,8 +16,8 @@ ini_set('display_startup_errors', '1');
 error_reporting(E_ALL);*/
 
 $myauth = 60;
-$event_in = 'in';
-$event1_active = ' class="active"';
+$events_in = 'in';
+$events_active = ' class="active"';
 
 //echo $_REQUEST["search_value"] . 'ddd'; die();
 

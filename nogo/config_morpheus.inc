@@ -79,8 +79,8 @@ $morpheus["templ_conf6"]		= array(1=>"1/2 Bild / 1/2 Text Management", 2=>"1/2 T
 
 
 $morpheus["template_ende"]	= array(2,);
-$morpheus["template_abstand"]= array(1,2,);
-$morpheus["template_pad"]	= array(1,2,);
+$morpheus["template_abstand"]= array(1,2,11);
+$morpheus["template_pad"]	= array(1,2);
 $morpheus["template_schmal"]	= array();
 
 

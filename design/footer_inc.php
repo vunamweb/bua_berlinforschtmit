@@ -1,5 +1,5 @@
 	
-	<footer>
+	<footer class="sitzend">
 		<div class="footer_bottom">
 			<div class="container">
 				<div class="row">					

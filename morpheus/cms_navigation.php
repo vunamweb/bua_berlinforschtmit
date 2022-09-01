@@ -111,20 +111,20 @@ $auths_arr = array(
 				<?php	} ?>
 				<?php if(in_array(21,$auths) || $admin) { ?>
 
-					<!-- <li class="panel panel-default <?php global $event_in; echo $event_in; ?>" id="dropdown">
-						<a data-toggle="collapse" href="#dropdown-lvl16">
+					<li class="panel panel-default <?php global $events_in; echo $events_in; ?>" id="dropdown">
+						<a data-toggle="collapse" href="#dropdown-lvl161">
 							<i class="fa fa-mortar-board "></i> Veranstaltungen <span class="caret"></span>
 						</a>
-						<div id="dropdown-lvl16" class="panel-collapse collapse <?php global $event_in; echo $event_in; ?>">
+						<div id="dropdown-lvl161" class="panel-collapse collapse <?php global $events_in; echo $events_in; ?>">
 							<div class="panel-body">
 								<ul class="nav navbar-nav">
 									<li><a href="morp_veranstaltung.php" title=""><i class="fa fa-calendar"></i> Veranstaltungen</a></li>
-									<li><a href="morp_veranstaltung_bookings.php" title=""><i class="fa fa-calendar"></i> Bookings</a></li>
-									<li><a href="morp_veranstaltungs_kategorien.php" title=""><i class="fa fa-calendar"></i> Event Phasen</a></li>
+									<!-- <li><a href="morp_veranstaltung_bookings.php" title=""><i class="fa fa-calendar"></i> Bookings</a></li> -->
+									<!-- <li><a href="morp_veranstaltungs_kategorien.php" title=""><i class="fa fa-calendar"></i> Event Phasen</a></li> -->
 								</ul>
 							</div>
 						</div>
-					</li> -->
+					</li> 
 					
 					<li class="panel panel-default <?php global $aktuere_in; echo $aktuere_in; ?>">
 						<a data-toggle="collapse" href="#dropdown-lvl2a">

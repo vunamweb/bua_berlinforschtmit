@@ -12,7 +12,7 @@ session_start();
 
 $myauth = 10;
 $redaktion_in = 'in';
-$box = $_REQUEST["box"];
+$box = isset($_REQUEST["box"]) ? $_REQUEST["box"] : 0;
 if(isset($_GET["navbar"])) $box = 1;
 $nav_active = ' class="active"';
 
@@ -30,7 +30,7 @@ if(isset($_GET["muuri"])) {
 	$muuri = $_GET["muuri"] == "off" ? 0 : 1;
 	$_SESSION["muuri"] = $muuri;
 }
-$muuri = $_SESSION["muuri"];
+$muuri = isset($_SESSION["muuri"]) ? $_SESSION["muuri"] : 0;
 # # # # # # # # # # # # # # # # # # # # # # # # # # #
 # # # # # # # # # # # # # # # # # # # # # # # # # # #
 

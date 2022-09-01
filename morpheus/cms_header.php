@@ -11,7 +11,7 @@
 	<link rel="stylesheet" href="css/ekko-lightbox.css" type="text/css">
 	<link rel="stylesheet" href="css/multi-list.css" type="text/css">
 	<link rel="stylesheet" href="css/<?php echo $css; ?>" type="text/css">
-<?php if(!$ekko) { ?> 
+<?php if(isset($ekko)) {} else { ?> 
 	<link rel="stylesheet" href="css/semantic.css" type="text/css">
 <?php } ?>
 	<link rel="stylesheet" href="css/jquery-ui.css" type="text/css">
@@ -35,7 +35,7 @@
 	<script type="text/javascript" src="js/pixeldusche.js"></script>
 	<script type="text/javascript" src="js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="js/ekko-lightbox.min.js"></script>
-<?php if(!$ekko) { ?> 
+<?php if(isset($ekko)) {} else { ?> 
 	<script type="text/javascript" src="js/semantic.js"></script>
 <?php } ?>
 	<link href="js/skins/square/aero.css" rel="stylesheet">

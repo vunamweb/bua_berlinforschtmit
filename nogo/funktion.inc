@@ -885,7 +885,7 @@ function set_nav($string, $id=0, $ebene=1, $setLang=0) {
 }
 
 function get_db_field($id, $field, $table, $tid) {
-	$sql = "SELECT $field FROM $table WHERE $tid=".$id;
+	$sql = "SELECT `$field` FROM `$table` WHERE $tid=".$id;
 	$res = safe_query($sql);
 	$row = mysqli_fetch_object($res);
 
@@ -1076,7 +1076,7 @@ function saveMorpheusForm2($edit, $neu, $row=0, $zusatz='', $duplicate='***') {
 }
 
 
-function setMorpheusFormFrontend($row, $arr, $folder="", $edit, $from, $setid, $imgSize='800x800', $placeholder='') {
+function setMorpheusFormFrontend($row, $arr, $folder="", $edit=0, $from='', $setid='', $imgSize='800x800', $placeholder='') {
 	global $morpheus, $table, $dir, $navID, $cid, $js;
 
 	$echo = '';
@@ -1184,7 +1184,7 @@ function setMorpheusFormFrontend($row, $arr, $folder="", $edit, $from, $setid, $
 	return $echo;
 }
 
-function setMorpheusForm($row, $arr, $folder="", $edit, $from, $setid, $imgSize='800x800', $placeholder='') {
+function setMorpheusForm($row, $arr, $folder="", $edit=0, $from='', $setid='', $imgSize='800x800', $placeholder='') {
 	global $morpheus, $table, $dir, $navID, $cid, $js;
 
 	$echo = '';
@@ -1509,7 +1509,7 @@ $("#'.$arr[0].'").daterangepicker({
 	return $echo;
 }
 
-function setMorpheusFormTable($row, $arr, $folder="", $edit, $from, $setid) {
+function setMorpheusFormTable($row, $arr, $folder="", $edit=0, $from='', $setid='') {
 	global $morpheus, $table;
 
 	$echo = '';
@@ -2349,7 +2349,7 @@ function getPdf ($pid) {
 
 # # # # bricks einfuegen
 # # # # auswertung text startet
-function get_cms_text ($text, $lang="de", $dir, $video_page="") 	{
+function get_cms_text ($text, $lang="de", $dir='', $video_page="") 	{
 
 	// echo "$text, $lang, $dir";
 	global $navarray, $navarrayFULL, $hn;
@@ -2440,7 +2440,7 @@ function get_raw_text ($text, $lang="de") 	{
 # # # # # # # # # # # # # # # # # # # # # # # # # # #
 # # # # # # # # # # # # # # # # # # # # # # # # # # #
 
-function get_raw_text_BR ($tx, $lang="de", $fbimage) 	{
+function get_raw_text_BR ($tx, $lang="de", $fbimage='') 	{
 	global $no_str, $nw_str, $search_str, $startseite_l, $startseite_r, $socialImage, $fbAuswahl;
 
 	$tx = explode("##", strip_tags($tx));
@@ -4230,3 +4230,108 @@ function getNameFromID($mid) {
 // END
 
 /* END */
+
+function get_animations() {
+	
+	return $animations = array(
+"fadeInLeft",
+"fadeInRight",
+"fadeOutLeft",
+"fadeOutRight",
+"bounceInLeft",
+"bounceInRight",
+"bounceOutLeft",
+"bounceOutRight",
+"bounceIn",
+"bounceInDown",
+"bounceInUp",
+"bounceOut",
+"bounceOutDown",
+"bounceOutUp",
+"fadeIn",
+"fadeInDown",
+"fadeInDownBig",
+"fadeInLeftBig",
+"fadeInRightBig",
+"fadeInUp",
+"fadeInUpBig",
+"fadeInTopLeft",
+"fadeInTopRight",
+"fadeInBottomLeft",
+"fadeInBottomRight",
+"fadeOut",
+"fadeOutDown",
+"fadeOutDownBig",
+"fadeOutLeftBig",
+"fadeOutRightBig",
+"fadeOutUp",
+"fadeOutUpBig",
+"fadeOutTopLeft",
+"fadeOutTopRight",
+"fadeOutBottomRight",
+"fadeOutBottomLeft",
+"bounce",
+"flash",
+"pulse",
+"rubberBand",
+"shakeX",
+"shakeY",
+"headShake",
+"swing",
+"tada",
+"wobble",
+"jello",
+"heartBeat",
+"Back entrances",
+"backInDown",
+"backInLeft",
+"backInRight",
+"backInUp",
+"backOutDown",
+"backOutLeft",
+"backOutRight",
+"backOutUp",
+"flip",
+"flipInX",
+"flipInY",
+"flipOutX",
+"flipOutY",
+"lightSpeedInRight",
+"lightSpeedInLeft",
+"lightSpeedOutRight",
+"lightSpeedOutLeft",
+"rotateIn",
+"rotateInDownLeft",
+"rotateInDownRight",
+"rotateInUpLeft",
+"rotateInUpRight",
+"rotateOut",
+"rotateOutDownLeft",
+"rotateOutDownRight",
+"rotateOutUpLeft",
+"rotateOutUpRight",
+"hinge",
+"jackInTheBox",
+"rollIn",
+"rollOut",
+"zoomIn",
+"zoomInDown",
+"zoomInLeft",
+"zoomInRight",
+"zoomInUp",
+"zoomOut",
+"zoomOutDown",
+"zoomOutLeft",
+"zoomOutRight",
+"zoomOutUp",
+"slideInDown",
+"slideInLeft",
+"slideInRight",
+"slideInUp",
+"slideOutDown",
+"slideOutLeft",
+"slideOutRight",
+"slideOutUp	",
+
+);
+}

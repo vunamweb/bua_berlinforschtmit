@@ -15,7 +15,7 @@ global $mylink, $auditor;
 
 			include("cms_header.php");
 			
-			if($useUserDB) {
+			if(isset($useUserDB)) {
 				//echo 'dd'; die();
 				include("../nogo/db2.php");
 				dbconnect2();
