@@ -57,7 +57,7 @@ if($template2count == 1 || $templateIsClosed) { $template .= '
 
         
 if($tref == 1 || !$tref) $template .= '
-           <div class="'.$edit_mode_class.'col-12 col-lg-6'.($klasse ? ' '.$klasse : ' ').'"'.($linkbox ? ' ref="'.$linkbox.'"' : '').'">
+           <div class="'.$edit_mode_class.'col-12 col-lg-6 wow '.($klasse ? ' '.$klasse : ' ').'"'.($linkbox ? ' ref="'.$linkbox.'"' : '').'">
 		     '.($class_inner ? '<div class="text-center inner '.$class_inner .'">' : '').'
 <div id="'.$uniqueID.'" class="directeditmode">#cont#</div>
             '.($class_inner ? '</div>' : '').'

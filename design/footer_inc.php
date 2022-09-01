@@ -95,6 +95,11 @@ if($morpheus_edit) include("design/edit.php");
 <!-- VU add tinymce !-->
 <script type="text/javascript" src="<?php echo $dir ?>morpheus/tinymce/tinymce.min.js"></script>
 <!-- END !-->
+<!-- Bjorn add for animation on scroll -->
+<script src="<?php echo $dir ?>js/wow.min.js"></script>
+<script>
+ new WOW().init();
+</script>
 <!-- <script src="https://unpkg.com/wavesurfer.js"></script> !-->
 <?php 
 global $audio;
