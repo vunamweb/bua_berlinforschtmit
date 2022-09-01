@@ -88,7 +88,9 @@ if($morpheus_edit) include("design/edit.php");
 <script src="<?php echo $dir; ?>js/siriwave/dist/siriwave.umd.js"></script>
 <script type="text/javascript" src="<?php echo $dir; ?>js/siriwave/etc/dat.gui.js"></script>
 <script type="text/javascript" src="<?php echo $dir; ?>js/wavesurfer.js"></script>
+<?php if($_REQUEST['hn'] == 'diary') { ?>
 <script type="text/javascript" src="<?php echo $dir; ?>js/semantic.js"></script>
+<?php } ?>
 <script type="text/javascript" src="<?php echo $dir; ?>morpheus/js/selectize.js"></script>
 <!-- VU add tinymce !-->
 <script type="text/javascript" src="<?php echo $dir ?>morpheus/tinymce/tinymce.min.js"></script>

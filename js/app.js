@@ -21,6 +21,8 @@ var timeSecond = 30;
 
 var auto = true;
 
+var runSetInterval = true;
+
 //add events to those 2 buttons
 recordButton.addEventListener("click", startRecording);
 stopButton.addEventListener("click", stopRecording);
@@ -30,24 +32,25 @@ pauseButton.addEventListener("click", pauseRecording);
 function showCountTime() {
 	var minutesLabel = document.getElementById("minutes");
 	var secondsLabel = document.getElementById("seconds");
-	//var totalSeconds = 0;
-
+	
 	$('.count_time').removeClass('hide');
 
 	setInterval(setTime, 1000);
 	
 	function setTime() {
-	  ++totalSeconds;
-	  if(auto && parseInt(totalSeconds / 60) >= timeMinutes && (totalSeconds % 60) >= timeSecond) {
-		  $('#stopButton').click();
-		  $('.count_time').addClass('hide');
+		if(runSetInterval) {
+			++totalSeconds;
+			if(auto && parseInt(totalSeconds / 60) >= timeMinutes && (totalSeconds % 60) >= timeSecond) {
+				$('#stopButton').click();
+				$('.count_time').addClass('hide');
 
-		  auto = false;
-	  }
-	  else {
-		secondsLabel.innerHTML = pad(totalSeconds % 60);
-		minutesLabel.innerHTML = pad(parseInt(totalSeconds / 60));
-	  }
+				auto = false;
+			}
+			else {
+				secondsLabel.innerHTML = pad(totalSeconds % 60);
+				minutesLabel.innerHTML = pad(parseInt(totalSeconds / 60));
+			}
+		}
 	}
 	
 	function pad(val) {
@@ -71,15 +74,17 @@ function showWave() {
 }
 
 function setPosition() {
-	var top = $('.record_audio').position().top + 900;
+	/*var top = $('.record_audio').position().top + 900;
 
 	$('#myPopover1').css('top', ''+top+'px');
-	//$('#myPopover1').css('top', 0);
-	
+	//$('#myPopover1').css('top', 0);*/
+	$(window).scrollTop(200);
 }
 
 function startRecording() {
 	console.log("recordButton clicked");
+
+	runSetInterval = true;
 
 	/*
 		Simple constraints object, for more advanced audio features see
@@ -184,7 +189,19 @@ function stopRecording() {
 	$('.bntmic.stop').hide();
 	$('.bntmic.restart').hide();
 	$('.count_time').addClass('hide');
-	//setPosition();
+
+	//$("#recordButton").removeClass("hide");
+	$("#stopButton").addClass("hide");
+	$("#restartButton").addClass("hide");
+	$('#display_wave').hide();
+	//$('.count_time').addClass('hide');
+
+	runSetInterval = false;
+	totalSeconds = 0;
+	$('#minutes').val('00');
+	$('#seconds').val('00');
+	
+    setPosition();
 	//	$("#recordButton").removeClass("hide");
 
 }
