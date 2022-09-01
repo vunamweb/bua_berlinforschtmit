@@ -7,7 +7,7 @@ global $lasttref, $linkbox;
 global $containerLink, $containerLinkText, $template2count, $templateTotal, $lastUsedTemplateID, $templateIsClosed, $templateCloseNow;
 global $design, $cid, $tref, $farbe, $class, $tende, $tabstand, $tpos, $DoNotCloseTemplate, $anzahlOffenerDIV, $anker, $klasse;
 global $class_inner, $farbe_inner, $kontaktCount, $icon, $tclass, $portrait;
-global $parallax, $needBG, $needBGCounter, $interner_link, $position;
+global $parallax, $needBG, $needBGCounter, $interner_link, $position, $animation, $animation_time;
 
 $edit_mode_class = 'container_edit ';
 $template = '';
@@ -57,7 +57,7 @@ if($template2count == 1 || $templateIsClosed) { $template .= '
 
         
 if($tref == 1 || !$tref) $template .= '
-           <div class="'.$edit_mode_class.'col-12 col-lg-6 wow '.($klasse ? ' '.$klasse : ' ').'"'.($linkbox ? ' ref="'.$linkbox.'"' : '').'">
+           <div class="'.$edit_mode_class.'col-12 col-lg-6'.($klasse ? ' '.$klasse : '').($animation ? ' wow '.$animation : '').($animation_time ? ' animate__delay-'.$animation_time.'s' : '').'"'.($linkbox ? ' ref="'.$linkbox.'"' : '').'">
 		     '.($class_inner ? '<div class="text-center inner '.$class_inner .'">' : '').'
 <div id="'.$uniqueID.'" class="directeditmode">#cont#</div>
             '.($class_inner ? '</div>' : '').'

@@ -33,7 +33,7 @@ $navid = $_SESSION["navid"];
 ///////////////////////////////////////////////////////////////////////////
 
 if ($save) {
-	$arr = array("tlink", "tbackground", "timage", "theadl", "tcolor", "klasse");
+	$arr = array("tlink", "tbackground", "timage", "theadl", "tcolor", "klasse", "animation", "animation_time");
 	foreach ($arr as $val) {
 		$set[] = $val."='".$_POST[$val]."'";
 	}
@@ -105,7 +105,8 @@ $tabstand = $row->tabstand;
 $tschmal = $row->tschmal;
 $tabstand_bottom = $row->tabstand_bottom;
 $klasse = $row->klasse;
-
+$animation = $row->animation;
+$animation_time = $row->animation_time;
 
 echo '<form method="post" class="form-inline">
 	<div class="row">
@@ -147,6 +148,7 @@ echo '<input type="Hidden" name="edit" value="'.$cid.'">
 
  echo '<p class="mb1 mt1">Anker Link: &nbsp; <input type="Text" name="tlink" value="'.$lnk.'"></p>';
  echo '<p class="mb1 mt1">Klasse / Class: &nbsp; <input type="Text" name="klasse" value="'.$klasse.'"></p>';
+ 
 
 # # # # # # # # # # # # # # # # # # # # # # # # #
 # # # # # # # # # # # # # # # # # # # # # # # # #
@@ -166,6 +168,20 @@ echo '</select>
 ';
 }
 
+ // NEW NEW * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * 
+ // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * 
+ 
+ $animations = get_animations();
+ 
+ echo '<select name="animation" class="form-control mb1 mt1"><option>Animation wählen</option>';
+ foreach($animations as $val) {
+	 echo '<option value="animate__animated animate__'.$val.'"'. ('animate__animated animate__'.$val == $animation ? ' selected' : '') .'>'.$val.'</option>';
+ }
+ echo '</select>';
+ 
+ echo '<p class="mb1 mt1">Animation Verzögerung: &nbsp; <input type="Text" name="animation_time" value="'.$animation_time.'"></p>';
+ // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * 
+ // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * 
 
 echo '</p><p>&nbsp;</p>
 
@@ -260,3 +276,109 @@ $(function () {
 
     });
 </script>
+
+<?php
+function get_animations() {
+	
+	return $animations = array(
+"fadeInLeft",
+"fadeOutRight",
+"bounceIn",
+"bounceInDown",
+"bounceInLeft",
+"bounceInRight",
+"bounceInUp",
+"bounceOut",
+"bounceOutDown",
+"bounceOutLeft",
+"bounceOutRight",
+"bounceOutUp",
+"fadeIn",
+"fadeInDown",
+"fadeInDownBig",
+"fadeInLeftBig",
+"fadeInRight",
+"fadeInRightBig",
+"fadeInUp",
+"fadeInUpBig",
+"fadeInTopLeft",
+"fadeInTopRight",
+"fadeInBottomLeft",
+"fadeInBottomRight",
+"fadeOut",
+"fadeOutDown",
+"fadeOutDownBig",
+"fadeOutLeft",
+"fadeOutLeftBig",
+"fadeOutRightBig",
+"fadeOutUp",
+"fadeOutUpBig",
+"fadeOutTopLeft",
+"fadeOutTopRight",
+"fadeOutBottomRight",
+"fadeOutBottomLeft",
+"bounce",
+"flash",
+"pulse",
+"rubberBand",
+"shakeX",
+"shakeY",
+"headShake",
+"swing",
+"tada",
+"wobble",
+"jello",
+"heartBeat",
+"Back entrances",
+"backInDown",
+"backInLeft",
+"backInRight",
+"backInUp",
+"backOutDown",
+"backOutLeft",
+"backOutRight",
+"backOutUp",
+"flip",
+"flipInX",
+"flipInY",
+"flipOutX",
+"flipOutY",
+"lightSpeedInRight",
+"lightSpeedInLeft",
+"lightSpeedOutRight",
+"lightSpeedOutLeft",
+"rotateIn",
+"rotateInDownLeft",
+"rotateInDownRight",
+"rotateInUpLeft",
+"rotateInUpRight",
+"rotateOut",
+"rotateOutDownLeft",
+"rotateOutDownRight",
+"rotateOutUpLeft",
+"rotateOutUpRight",
+"hinge",
+"jackInTheBox",
+"rollIn",
+"rollOut",
+"zoomIn",
+"zoomInDown",
+"zoomInLeft",
+"zoomInRight",
+"zoomInUp",
+"zoomOut",
+"zoomOutDown",
+"zoomOutLeft",
+"zoomOutRight",
+"zoomOutUp",
+"slideInDown",
+"slideInLeft",
+"slideInRight",
+"slideInUp",
+"slideOutDown",
+"slideOutLeft",
+"slideOutRight",
+"slideOutUp	",
+
+);
+}
