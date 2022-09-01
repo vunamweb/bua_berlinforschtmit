@@ -101,7 +101,7 @@ var multiItemSlider = (function () {
   }
 }());
 
-if(('.slider').length > 0)
-  multiItemSlider('.slider');
-if(('.slider_2').length > 0)  
+/*if(('.slider .slider__wrapper').length > 0)
+  multiItemSlider('.slider');*/
+if(('.slider_2 .slider__wrapper').length > 0)
   multiItemSlider('.slider_2');
