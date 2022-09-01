@@ -12,7 +12,7 @@ $output .= '
         	<span></span>
     	</a>
     	<div id="display_wave"></div>
-    	<a class="bntmic stop hide" role="button" href="#myPopover1" data-toggle="popover-x" data-placement="top top-right" id="stopButton">
+    	<a class="bntmic stop hide" role="button" data-bs-toggle="modal" data-bs-target="#myPopover1"  id="stopButton">
         	<span></span>
     	</a><br>
     	<a class="bntmic restart hide" role="button" id="restartButton">
@@ -72,14 +72,16 @@ $output .= '
 </section>
 
 
-<div id="myPopover1" class="popover popover-default popover-x">
-    <div class="popover-header popover-title">
-        <button class="close reload" data-dismiss="popover-x">
-            <img src="'.$dir.'images/SVG/i_close.svg" alt="" class="img-fluid" width="20">
-        </button>
-        <div id="hl">Haben wir Sie richtig verstanden?</div>
+<div id="myPopover1" class="modal fade">
+<div class="modal-dialog" style="max-width: 80%">
+<div class="modal-content">
+
+    <div class="modal-header">
+	  <div id="hl">Haben wir Sie richtig verstanden?</div>	
+	  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
     </div>
-    <div class="popover-body popover-content" id="danke">
+	
+    <div class="modal-body">
         <form action="" class="frm_questions" method="post">
         <input type="hidden" id="url_home" value="'.$dir.'">
         '.($rubrik ? '<input type="hidden" name="rubrik" id="rubrik" value="'.$rubrik.'">' : '').'
@@ -119,7 +121,9 @@ $output .= '
                 </div>
             </div>
         </form>
-    </div>
+	</div>
+	</div>
+	</div>
 </div>
 <div id="myPopover2" class="popover psmall popover-x popover-default">
     <div class="popover-header popover-title">

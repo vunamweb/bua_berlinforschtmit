@@ -23,7 +23,7 @@ $nameField = "title";
 $sortField = 'title';
 
 $new = '<a href="?neu=1" class="btn btn-info"><i class="fa fa-plus"></i> NEU</a>
-        <a href="#" class="btn btn-info" data-toggle="modal" data-target="#show_export">EXPORT</a><br><br>
+        <a href="#" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#show_export">EXPORT</a><br><br>
        ';
 
 $output = '<div id=vorschau>
@@ -236,7 +236,7 @@ function liste()
 		<div class="modal-content">
 			<!-- Modal Header -->
 			<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal">×</button>
+					<button type="button" class="close" data-bs-dismiss="modal">×</button>
 			</div>
 			<!-- Modal body -->
 			<div class="modal-body">
