@@ -16,7 +16,7 @@ if($text) {
 	$altText = $itext ? $itext : $ltext; if(!$altText) $altText = $morpheus["client"].' '.$inm;
 	$folder	= str_replace(array(";", " / ", "/", "  ", " "), array("","-","-", "-", "-"), $rw->name);
 
-	$image = '		<img src="'.$dir.$imageFolder.urlencode($folder).'/'.($inm).'?w='.$w.'" class="img-fluid" alt="'.$itext.'" />';
+	$image = '<img src="'.$img_pfad.$inm.'" class="img-fluid" alt="'.$itext.'" />';
 }
 
 $morp = $inm;
