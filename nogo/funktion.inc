@@ -1015,7 +1015,7 @@ function saveMorpheusForm($edit, $neu, $row=0, $zusatz='', $duplicate='***') {
 	}
 	else {
 		$sql = "UPDATE $table SET $sql $zusatz WHERE $tid=$edit";
-		//echo $sql; die();
+		// echo $sql; die();
 		$res = safe_query($sql);
 	}
 
@@ -1029,7 +1029,7 @@ function saveMorpheusForm2($edit, $neu, $row=0, $zusatz='', $duplicate='***') {
 	global $arr_form, $table, $tid, $mylink;
 
 	$sql = '';
-
+echo "start save";
 	foreach($arr_form as $arr) {
 		$tmp = $arr[0];
 		if($row) 	$val = $row->$tmp;
@@ -1057,7 +1057,7 @@ function saveMorpheusForm2($edit, $neu, $row=0, $zusatz='', $duplicate='***') {
 		else if ($tmp != "region") $sql .= "`".$tmp. "`='" .addslashes($val). "', ";
 	}
 
-	$sql = substr($sql, 0, -2);
+	echo $sql = substr($sql, 0, -2);
 
 	if ($neu) {
 		$sql  = "INSERT $table SET $sql $zusatz";
@@ -1067,10 +1067,10 @@ function saveMorpheusForm2($edit, $neu, $row=0, $zusatz='', $duplicate='***') {
 	}
 	else {
 		$sql = "UPDATE $table SET $sql $zusatz WHERE $tid=$edit";
+	 echo $sql;
 		$res = safe_query2($sql);
 	}
 
-	// echo $sql;
 	// die();
 	return $edit;
 }

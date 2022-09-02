@@ -88,7 +88,7 @@ $output .= '
 					<button id="pauseButton" disabled="" class="hide">Pause</button> 
 					<div id="formats" class="hide"></div>
 					<ol id="recordingsList"></ol>
-                    <p><a href="#" class="btn btn_audio"><img src="'.$dir.'images/SVG/i_btn_audio.svg" alt="" class="img-fluid" width="150"> <span>0.12</span></a></p> 
+                    <!--<p><a href="#" class="btn btn_audio"><img src="'.$dir.'images/SVG/i_btn_audio.svg" alt="" class="img-fluid" width="150"> <span>0.12</span></a></p> -->
                 </div>
                 <div class="col-12 col-lg-6 mt2">
                     <a href="<?php echo $dir.$navID[3]; ?>" class="btn btnRecord recordagain">Erneut aufnehmen</a>
@@ -99,7 +99,7 @@ $output .= '
                 	<input type="text" name="email" id="email" class="form-control mb2" placeholder="email"/>
                 	<div class="custom-control custom-checkbox">
                     	<label class="custom-control-label" for="ck01">
-                    		<input type="checkbox" class="custom-control-input" id="ck01">
+                    		<input type="checkbox" class="custom-control-input" id="ck01" required>
 							Ja, ich stimme der Nutzung meiner Daten gemäß <a href="'.$dir.'datenschutz/">AGB und DSGVO</a> zu
 						</label>
                 	</div>

@@ -2,7 +2,7 @@
 /* pixel-dusche.de */
 
 global $emotional, $headerImg;
-global $uniqueID, $fileID, $lastUsedTemplateID, $anzahlOffenerDIV, $templateIsClosed, $slCt, $klasse, $tabstand;
+global $uniqueID, $fileID, $lastUsedTemplateID, $anzahlOffenerDIV, $templateIsClosed, $slCt, $klasse, $tabstand, $js;
 
 $fileID = basename(__FILE__, '.php');
 $lastUsedTemplateID = $fileID;
@@ -26,19 +26,27 @@ for($i=1; $i<=$slCt; $i++) {
 
 $template = '
 <section class="'.$edit_mode_class.($tabstand ? ' pt0 ' : '').($klasse ? ' '.$klasse : '').'">
-	<div class="carousel slide" data-ride="carousel" id="BUASlider">
-		<div class="carousel-indicators">
-			'.$indicator.'		
-		</div>
-		<div class="carousel-inner">
-		
-			#cont#
-		
-		</div>
-		<button class="carousel-control-prev" data-slide="prev" data-target="#BUASlider" type="button"><span aria-hidden="true" class="carousel-control-prev-icon"></span> <span class="visually-hidden">Previous</span></button> 
-		<button class="carousel-control-next" data-slide="next" data-target="#BUASlider" type="button"><span aria-hidden="true" class="carousel-control-next-icon"></span> <span class="visually-hidden">Next</span></button>
+	<div class="" id="BUASlider">
+		<div class="main-carousel">		
+			#cont#		
+		</div>		
 	</div>
 	'.edit_bar($content_id,"edit_class").'
 </section>
 
 ';
+
+
+$js .= "
+var fcarousel = $('.main-carousel').flickity({
+	contain: true,
+	autoPlay: true,
+	wrapAround: true
+});
+
+fcarousel.on( 'scroll.flickity', function( event, progress ) {
+  $('.carousel-caption h3').removeClass('animate__animated');
+  $('.carousel-caption h3').addClass('animate__animated');
+});
+
+";

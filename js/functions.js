@@ -7,20 +7,22 @@ const validateEmail = (email) => {
 };
 
 function checkMandatory() {
-  var name = $('#name').val();
-  var mail = $('#email').val();
+	var name = $('#name').val();
+	var mail = $('#email').val();
+	var ck01 = $('#ck01').prop('checked');
 
-  if(!validateEmail(mail) && mail != '')
-  return 0;
- else if(name != '' || mail != '') {
-   if(name != '' && mail == '')
-     return 2;
-   else if(mail != '' && name == '')
-     return 2;   
- }
-
- return 1;
- }
+	if(ck01 == 'false')
+		return 0;
+	else if(!validateEmail(mail) && mail != '')
+		return 0;
+	else if(name != '' || mail != '') {
+		if(name != '' && mail == '')
+			return 2;
+	 	else if(mail != '' && name == '')
+	   		return 2;   
+	}
+	return 1;
+}
 
 $(function($) {
   $(document).ready(function() {
@@ -31,23 +33,22 @@ $(function($) {
     });
 
     $('.submit_form_audio').click(function(){
-      if(checkMandatory() == 0) {
-      $('.message').addClass('error');
-      $('.message').html('Email not correct');
-  
-      return;
-        }
-        else if(checkMandatory() == 2) {
-      $('.message').addClass('error');
-      $('.message').html('Please enter Email and Name');
-  
-      return;
-      }
-      
-      $('#recordingsList a.submit').attr('href','javascript:void(0)');
-      $('#recordingsList a.submit')[0].click();
-     })
+		console.log("checkMandatory: "+checkMandatory());
 
+    	if(checkMandatory() == 0) {
+    	  	$('.message').addClass('error');
+      		$('.message').html('Email not correct');
+          	return;
+    	}
+    	else if(checkMandatory() == 2) {
+    	  	$('.message').addClass('error');
+      		$('.message').html('Please enter Email and Name');
+  	        return;
+      	}
+      
+      	$('#recordingsList a.submit').attr('href','javascript:void(0)');
+      	$('#recordingsList a.submit')[0].click();
+     })
   })
 });
 
@@ -92,17 +93,17 @@ jQuery(document).ready(function($) {
 }(jQuery));
 
 $(document).ready(function(){
-  if ($('.carousel').flickity != undefined) {
-    var $carousel = $('.carousel').flickity();
-    var isFlickity = true;
-    
-    if(window.matchMedia("(max-width: 767px)").matches){
-      // The viewport is less than 768 pixels wide
-      $carousel.flickity('destroy');
-    } else{
-      // The viewport is at least 768 pixels wide
-    }
-  }
+  // if ($('.carousel').flickity != undefined) {
+  //   var $carousel = $('.carousel').flickity();
+  //   var isFlickity = true;
+  //   
+  //   if(window.matchMedia("(max-width: 767px)").matches){
+  //     // The viewport is less than 768 pixels wide
+  //     $carousel.flickity('destroy');
+  //   } else{
+  //     // The viewport is at least 768 pixels wide
+  //   }
+  // }
   
   $("ul.menu-circular a").click(function(e) {
      var data = $(this).attr('data');
