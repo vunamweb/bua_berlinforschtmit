@@ -75,7 +75,7 @@ if ($add_properties) {
 // $new = '<a href="?neu=1" class="btn btn-info"><i class="fa fa-plus"></i> NEU</a>';
 $new = '<p class="button_add"><a href="?new=1&ebene='.$ebene.'&parent='.$parent.'" class="btn btn-info"><i class="fa fa-plus"></i> NEU</a></p>';
 // VU: create audio add button and modal
-$audio = '<p class="button_add"><a href="#" data-bs-toggle="modal" data-bs-target="#myModal" class="btn btn-info add_properties"><i class="fa fa-plus"></i>AUDIO</a></p>';
+$audio = '<p class="button_add"><a href="#" data-toggle="modal" data-target="#myModal" class="btn btn-info add_properties"><i class="fa fa-plus"></i>AUDIO</a></p>';
 $modal = '
 <!-- The Modal -->
 	<div class="modal" id="myModal">
@@ -84,7 +84,7 @@ $modal = '
 
 		  <!-- Modal Header -->
 		  <div class="modal-header">
-			<button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+			<button type="button" class="close" data-dismiss="modal">&times;</button>
 		  </div>
 
 		  <!-- Modal body -->
