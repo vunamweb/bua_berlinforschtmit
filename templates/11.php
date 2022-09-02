@@ -26,7 +26,7 @@ for($i=1; $i<=$slCt; $i++) {
 
 $template = '
 <section class="'.$edit_mode_class.($tabstand ? ' pt0 ' : '').($klasse ? ' '.$klasse : '').'">
-	<div class="carousel slide" data-bs-ride="carousel" id="BUASlider">
+	<div class="carousel slide" data-ride="carousel" id="BUASlider">
 		<div class="carousel-indicators">
 			'.$indicator.'		
 		</div>
@@ -35,8 +35,8 @@ $template = '
 			#cont#
 		
 		</div>
-		<button class="carousel-control-prev" data-bs-slide="prev" data-bs-target="#BUASlider" type="button"><span aria-hidden="true" class="carousel-control-prev-icon"></span> <span class="visually-hidden">Previous</span></button> 
-		<button class="carousel-control-next" data-bs-slide="next" data-bs-target="#BUASlider" type="button"><span aria-hidden="true" class="carousel-control-next-icon"></span> <span class="visually-hidden">Next</span></button>
+		<button class="carousel-control-prev" data-slide="prev" data-target="#BUASlider" type="button"><span aria-hidden="true" class="carousel-control-prev-icon"></span> <span class="visually-hidden">Previous</span></button> 
+		<button class="carousel-control-next" data-slide="next" data-target="#BUASlider" type="button"><span aria-hidden="true" class="carousel-control-next-icon"></span> <span class="visually-hidden">Next</span></button>
 	</div>
 	'.edit_bar($content_id,"edit_class").'
 </section>
