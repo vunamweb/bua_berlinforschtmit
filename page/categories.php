@@ -186,7 +186,7 @@ function liste() {
 	////////////////////
 	$where = "ebene=$ebene".($parent ? " AND parent=$parent " : "");
 	// VU: select category of log in user
-	$where .= ' AND mid = '.$_SESSION["mid"].'';
+	//$where .= ' AND mid = '.$_SESSION["mid"].'';
 	// END
 
 	$echo .= '<p>&nbsp;</p>
@@ -284,7 +284,8 @@ function liste() {
 	
 		  
 		// VU: select category of log in user
-		$sql = "SELECT * FROM $table WHERE ebene=1 AND mid = ".$_SESSION['mid']." ORDER BY $sortField";
+		//$sql = "SELECT * FROM $table WHERE ebene=1 AND mid = ".$_SESSION['mid']." ORDER BY $sortField";
+		$sql = "SELECT * FROM $table WHERE ebene=1 ORDER BY $sortField";
 		// END
 		$res = safe_query($sql);
 		$n = mysqli_num_rows($res);
