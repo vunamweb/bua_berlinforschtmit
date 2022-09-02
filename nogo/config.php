@@ -15,7 +15,7 @@ $morpheus["password2"]		= "AzzXfHZpATC2zeUM";
 
 $morpheus["dfile"]			= "morpheus_db.sql";
 $morpheus["server"]			= "85.13.164.136";
-$morpheus["url"]			= "http://localhost/berlinforscht/bua_berlinforschtmit/";
+$morpheus["url"]			= "http://localhost:8888/berlinforscht/bua_berlinforschtmit/";
 $morpheus["search_ID"]		= array("de"=>14, "en"=>"200" );
 
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
