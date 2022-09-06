@@ -79,10 +79,10 @@ if($neu || $edit) {
 	$arr_form = array(
 		array("title", "Title", '<input type="Text" value="#v#" class="form-control" name="#n#" />'),
 		array("message", "Message", '<textarea class="summernote form-control" name="#n#" />#v#</textarea>'),
-		array("parent", "", '<input type="hidden" value="0" class="form-control" name="#n#" />'),
-		array("uid", "", '<input type="hidden" value="#v#" class="form-control" name="#n#" />'),
-		array("date_time", "", '<input type="hidden" value="#v#" class="form-control" name="#n#" />'),
-		array("mediaID", "", '<input type="hidden" value="#v#" class="form-control" name="#n#" />'),
+		array("parent", "HIDDEN", '<input type="hidden" value="0" class="form-control" name="#n#" />'),
+		array("uid", "HIDDEN", '<input type="hidden" value="#v#" class="form-control" name="#n#" />'),
+		array("date_time", "HIDDEN", '<input type="hidden" value="#v#" class="form-control" name="#n#" />'),
+		array("mediaID", "HIDDEN", '<input type="hidden" value="#v#" class="form-control" name="#n#" />'),
 	);
 
 	$table = 'morp_note';
@@ -90,23 +90,22 @@ if($neu || $edit) {
 
 } else 
 	$arr_form = array(
-		array("mname", "Dateiname WAV", '<input type="Text" value="#v#" class="form-control" name="#n#" disabled />'),
-		array("ck01", "Ja, ich stimme der Nutzung meiner Daten gemäß", 'chk'),
-		array("ck02", "Ja, ich stimme der Veröffentlichung der obigen Tonaufnahme unter Abgabe", 'chk'),
-		array("ck03", "Ja, ich möchte über weitere Aktionen von Forschung von der Straße informiert werden", 'chk'),
-		array("mdesc", "Beschreibung", '<input type="Text" value="#v#" class="form-control" name="#n#" />'),
+		array("mname", "Dateiname WAV", '<input type="Text" value="#v#" class="form-control" name="#n#" readonly />'),
+		array("mdesc", "Kurz-Beschreibung", '<input type="Text" value="#v#" class="form-control" name="#n#" />'),
 		array("mdate", "Datum", '<input type="Text" value="#v#" class="form-control" name="#n#" />', 'date'),
 		array("name", "Name", '<input type="Text" value="#v#" class="form-control" name="#n#" />'),
 		array("email", "Email", '<input type="Text" value="#v#" class="form-control" name="#n#" />'),
-		array("text", "Übersetzung", '<textarea class="form-control" name="#n#" />#v#</textarea>'),
-	
 		array("", "CONFIG", '</div><div class="col-md-6 mb3 mt2">'),
-	
-		array("textonline", "Online Version / Text in rechter Textbox", '<textarea class="form-control" name="#n#" />#v#</textarea>'),
+		
+		array("text", "Audio zu Text", '<textarea class="form-control" name="#n#" />#v#</textarea>'),	
+		array("textonline", "Online Version öffentlich", '<textarea class="form-control" name="#n#" />#v#</textarea>'),
 		//array("mname", "MP3", 'file'),
+		array("ck02", "Tonaufnahme veröffentlichen", 'chk'),
+		array("ck01", "DSGVO", 'chk'),
+		array("ck03", "Newsletter", 'chk'),
 	
-		array("dsgvo", "DSGVO", 'dropdown_array', array("true" => "true", "false" => "false")),
-		array("public", "Darf veröffenlicht werden", 'dropdown_array', array("true" => "true", "false" => "false")),
+		// array("dsgvo", "DSGVO", 'dropdown_array', array("true" => "true", "false" => "false")),
+		// array("public", "Darf veröffenlicht werden", 'dropdown_array', array("true" => "true", "false" => "false")),
 	
 	//        array("", "CONFIG", '</div><div class="col-md-12 mb3 mt2">'),
 	//        array("img1", "Foto 1", 'img'),
@@ -147,14 +146,11 @@ function liste()
 	<tr>
 		<th>ID</th>
 		<th>Art</th>
-		<th>DSGVO</th>
 		<th>online</th>
-		<th>Newsletter</th>
 		<th>Dauer</th>
-		<th>Kommentar</th>
-		<th>Online Text</th>
-		<th>DSGVO</th>
-		<th>Public</th>
+		<th>Name</th>
+		<th>E-Mail</th>
+		<th>Kurz Beschreibung</th>
 		<th>Datum</th>
 	</tr>';
 
@@ -209,28 +205,19 @@ function liste()
 				<a ' . $target . ' href="' . $wavfile . '">' . ($mtyp ? '<i class="fa fa-microphone"></i>' : '<i class="fa fa-language"></i>') . ($mp3exists ? ' &nbsp; <span class="label label-danger">MP3</span>' : '') . '</a>' . $player . '
 			</td>
 			<td>
-				<a href="?edit_entry=' . $edit . '">' . ($row->ck01 ? 'x' : '-') . '</a>
-			</td>
-			<td>
 				<a href="?edit_entry=' . $edit . '">' . ($row->ck02 ? 'x' : '-') . '</a>
-			</td>
-			<td>
-				<a href="?edit_entry=' . $edit . '">' . ($row->ck03 ? 'x' : '-') . '</a>
 			</td>
 			<td>
 				<a href="?edit_entry=' . $edit . '">'. $dauer . '</a>
 			</td>
 			<td>
-				<a href="?edit_entry=' . $edit . '">' . substr($row->mdesc, 0, 30) . '</a>
+				<a href="?edit_entry=' . $edit . '">'. $row->name . '</a>
 			</td>
 			<td>
-				<a href="?edit_entry=' . $edit . '">' . substr($row->textonline, 0, 30) . '</a>
+				<a href="?edit_entry=' . $edit . '">'. $row->email . '</a>
 			</td>
 			<td>
-				<a href="?edit_entry=' . $edit . '">' . $row->dsgvo . ' </a>
-			</td>
-			<td>
-				<a href="?edit_entry=' . $edit . '">' . $row->public . ' </a>
+				<a href="?edit_entry=' . $edit . '">' . substr($row->mdesc, 0, 100) . '</a>
 			</td>
 			<td>
 				<a href="?edit_entry=' . $edit . '">' . euro_dat($row->mdate) . ' </a>
@@ -314,15 +301,17 @@ function edit($edit)
 	}
 
 	$echo .= '<br>
-	<input type="hidden" name="save_media" value="1">
-	<button class="btn btn-info" type="submit">Save</button>
+			<input type="hidden" name="save_media" value="1">
+			<button class="btn btn-info" type="submit">Speichern</button>
 		</div>
 	</div>
-	</form>
+</form>
 ';
 
-	$echo .= '<p class="area_comment">Comments</p><br>' . '<a href="?neu=1&mediaID='.$edit.'" class="btn btn-info">
-			  <i class="fa fa-plus"></i> NEU</a><br><br><p class="message_info"></p>
+	$echo .= '<hr>
+		<h1 class="text-center small"><i>Diary</i></h1>' . '
+		
+		<p><a href="?neu=1&mediaID='.$edit.'" class="btn btn-info"><i class="fa fa-plus"></i> Kommentar hinzufügen</a><br><br><p class="message_info"></p>
 			  ' . showComments($edit);
 
 	return $echo;

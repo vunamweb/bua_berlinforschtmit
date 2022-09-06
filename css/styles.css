@@ -1234,6 +1234,7 @@ body {
     border-bottom-color: transparent;
 }
 /* COMMENT */
+.accordion .card-body { padding: 0 1rem; }
 .edit_note, .add_note {
     margin-left: 7px;
     display: inline-block;
@@ -1255,7 +1256,7 @@ body {
     text-decoration: none;
     text-transform: none;
     letter-spacing: 0;
-    font-size: 0.6em;
+    font-size: 0.6em; font-weight: 600;
 }
 #accordionShowComment a.btn-link-1 {
     font-size: 0.5em;
@@ -1280,14 +1281,14 @@ body {
 }
 
 .title_comment {
-    font-size: 0.7rem;
+    /* font-size: 0.7rem; */
 }
 .title_comment .name_user {
     display: inline-block;
     font-style: normal;
     text-transform: none;
     letter-spacing: 0;
-    font-size: 1.3em;
+    font-size: .8rem; color: #93C83D;
 }
 .area_comment {
     background: #ccc;
@@ -1295,7 +1296,7 @@ body {
 }
 .text_comment {
     display: inline-block;
-    font-style: italic;
+    font-weight: 400;
     font-size: 1.2em;
 }
 .cid {
@@ -1310,9 +1311,9 @@ body {
     font-size: 0.6em;
     line-height: 1em;
     padding-left: 35px;
-    font-style: italic;
+    /* font-style: italic; */
     text-transform: none;
-    letter-spacing: 0;
+    letter-spacing: 0; font-weight: 400;
 }
 .area_show_sub_message {
     font-size: 0.8em;
@@ -1448,7 +1449,7 @@ body {
 .carousel-inner {
 	height: 400px;
 }
-/* .carousel-item img { width: 100% } */
+.main-carousel .carousel-cell img { width: 100% } 
 /* .carousel-item {
 	height: 100%;
 	min-height: 300px;

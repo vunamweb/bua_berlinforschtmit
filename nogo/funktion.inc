@@ -1486,6 +1486,11 @@ $("#'.$arr[0].'").daterangepicker({
 				 '.str_replace(array("#v#", "#n#"), array($dat, $arr[0]), $arr[2]).'
 			 </div>';
 	}
+	
+	elseif ($arr[1] == "HIDDEN") {
+		$data = $row->$get;
+		$echo .= str_replace(array("#v#", "#n#"), array($data, $arr[0]), $arr[2]);
+	}
 
 	elseif ($arr[2] == "text") {
 		$echo .= '
@@ -3417,6 +3422,7 @@ function showComments($mediaID = 0, $category = 0, $que = null)
 		$idNote = $row->idNote;
 		$title = ($row->title != '') ? $row->title . '('.countComment($idNote).')' : 'No Title' . '('.countComment($idNote).')';
 		$message = substr($row->message, 0, 200);
+		$message = $row->message;
 		
 		$name = getNameFromID($row->uid); //$_SESSION["vname"] . ' ' . $_SESSION["nname"] = $row->nname;
 
@@ -3426,8 +3432,7 @@ function showComments($mediaID = 0, $category = 0, $que = null)
 	   <div class="card-header" id="headingThree">
 		   <h2 class="mb-0">
 			  <div class="title_comment">
-				 <i class="fa fa-user" aria-hidden="true"></i>
-				 <p class="name_user">'.$name.' &nbsp; &nbsp; &nbsp;'.$row->date_time.'</p>
+				 <p class="name_user">'.$name.' &nbsp; &nbsp; &nbsp;'.euro_dat($row->date_time).'</p>
 			  </div> 
 		      <a type="button"
 				   class="btn btn-link collapsed"
@@ -3438,7 +3443,7 @@ function showComments($mediaID = 0, $category = 0, $que = null)
 				   ' . $title . '
 			  </a>
 			  <a class="edit_note '.showEdit($idNote).'" href="?edit='.$idNote.'"><i class="fa fa-pencil-square-o"></i></a>
-			  <div class="area_show_message">'.$message.'</div>
+			  <div class="area_show_message">'.nl2br($message).'</div>
 		   </h2>
 	   </div>
 	   <div id="collapse' . $idNote . '" class="collapse"
@@ -3548,7 +3553,7 @@ function showCommentOfComment($class, $parent, $level)
 					        <i class="fa fa-user" aria-hidden="true"></i>
 					        <p class="name_user">'.$name.' &nbsp; &nbsp; &nbsp;'.$row->date_time.'</p>
 						  </div>
-						  <i class="fa fa-plus fa1"></i> <p class="text_comment" id="data_'.$parentChild.'">' . $message . '</p><p class="text_comment">('.countComment($parentChild).')</p>
+						  <i class="fa fa-plus fa1"></i> <p class="text_comment" id="data_'.$parentChild.'">' . nl2br($message) . '</p><p class="text_comment">('.countComment($parentChild).')</p>
 						  <div id="'.$parentChild.'" data="'.$row->message.'" class="add_note '.showEdit($parentChild).'" data-toggle="modal" data-target="#add_note"><i class="fa fa-pencil-square-o"></i></div>
 						</a>
 						<div data="'.$parentChild.'" class="show_comment '.$class.'"><i class="fa fa-reply"></i></div>
@@ -4148,7 +4153,7 @@ function editComment($edit, $showCategory)
 
     //$echo = '<form action="" onsubmit="" name="verwaltung" method="post">';
 
-    $echo .= '<a onclick="history.back()"><i class="fa fa-arrow-circle-left"></i> zurück</a><br><br>';
+    $echo .= '<p><a onclick="history.back()" class="btn btn-info"><i class="fa fa-arrow-circle-left"></i> zurück</a></p>';
 
     $echo .= '
 		<input type="Hidden" name="edit" value="' . $edit . '">
@@ -4164,7 +4169,7 @@ function editComment($edit, $showCategory)
         $echo .= setMorpheusForm($row, $arr, $imgFolderShort, $edit, 'morp_referenzen', $tid);
 	}
 	
-	$echo .= '<p> HashTag: '.showHashTag($edit).'</p><br><br>';
+	$echo .= '<p>'.showHashTag($edit).'</p><br><br>';
 
 	if($showCategory)
 		$echo .= '<p>Category</p>'.showCategory($edit).'<br><br>';

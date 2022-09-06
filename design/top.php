@@ -26,8 +26,8 @@ if($userIsLogIn == $checkLogSession) {
 } 
 // VU: IF IS NOT LOG IN, THEN SHOW LOGIN, REGISTER
 else { ?>
-						<li class="nav-item"><a href="<?php echo $dir.$lan.'/login'; ?>" class="nav-link"><?php echo textvorlage(22); ?></a></li> 
-						<li class="nav-item"><a href="<?php echo $dir.$lan.'/register'; ?>" class="nav-link"><?php echo textvorlage(35); ?></a></li> 
+						<li class="nav-item"><a href="<?php echo $dir.$lan.'/login'; ?>" class="nav-link"><i class="fa fa-sign-in"></i></a></li> 
+						<!-- <li class="nav-item"><a href="<?php echo $dir.$lan.'/register'; ?>" class="nav-link"><?php echo textvorlage(35); ?></a></li> -->
 <?php } ?>
                     </ul>
 					<ul class="language">
