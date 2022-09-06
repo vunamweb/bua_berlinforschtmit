@@ -6,22 +6,24 @@
 					<div class="col-12 col-lg-12">
 						<ul class="list_nav">
 
-<?php if($userIsLogIn==$checkLogSession) echo $nav_h; else { 
-							echo '<li><a href="'.getUrl(18).'">Home</a></li>';
-							$pages = array(4,18,);
-							foreach($pages as $key) {
-								echo '<li><a href="'.getUrl($key).'">'.$navarrayFULL[$key].'</a></li>';								
-							}
-?>
-							
-<?php } ?>
+<?php 
+						if($userIsLogIn==$checkLogSession) echo $nav_h; 
+						else { 
+							echo '<li><a href="'.getUrl(1).'">Home</a></li>';
+							echo $nav_h; 
+							// $pages = array(4,18,);
+							// foreach($pages as $key) {
+							// 	echo '<li><a href="'.getUrl($key).'">'.$navarrayFULL[$key].'</a></li>';								
+							// }
+ 					   	} 
+ ?>
 						</ul>
 						<hr>
 						<ul class="list_bottom">
 							<li class="copyr"><a href="https://www.berlin-university-alliance.de/" target="_blank">© BERLIN UNIVERSITY ALLIANCE</a></li>
 <?php echo $nav_meta; ?>
 							<li><a href="<?php echo $dir.$lan.'/'.$navID[$loginid]; ?>"><?php echo textvorlage(22); ?></a></li> 
-							<li><a href="<?php echo $dir.$lan.'/'.$navID[$registerid]; ?>"><?php echo textvorlage(35); ?></a></li> 
+							<!-- <li><a href="<?php echo $dir.$lan.'/'.$navID[$registerid]; ?>"><?php echo textvorlage(35); ?></a></li>  -->
 						</ul>
 					</div>
 				</div>
@@ -89,6 +91,7 @@ if($morpheus_edit) include("design/edit.php");
 <script src="<?php echo $dir; ?>js/siriwave/dist/siriwave.umd.js"></script>
 <script type="text/javascript" src="<?php echo $dir; ?>js/siriwave/etc/dat.gui.js"></script>
 <script type="text/javascript" src="<?php echo $dir; ?>js/wavesurfer.js"></script>
+
 <?php if($_REQUEST['hn'] == 'diary') {  ?>
 <script type="text/javascript" src="<?php echo $dir; ?>js/semantic.js"></script>
 <?php } ?>
@@ -114,11 +117,11 @@ if($morpheus_edit) {
 
 <!-- VU: add js for category !-->
 <?php if(getCssMorpheus()) { ?>
-    <script src="https://unpkg.com/hammerjs@2.0.8/hammer.min.js"></script>
+	<script src="https://unpkg.com/hammerjs@2.0.8/hammer.min.js"></script>
 	<script type="text/javascript" src="<?php echo $dir; ?>morpheus/js/muuri.js"></script>
-
+	
 	<script>
-	new Muuri('.grid', {
+	var grid = new Muuri('.grid', {
 		dragEnabled: true,
 		dragAxis: 'y',
 		threshold: 10,
@@ -130,14 +133,32 @@ if($morpheus_edit) {
 		setHeight: true,
 		sortData: {
 			foo: function (item, element) {
-				//console.log(item);
 			},
 			bar: function (item, element) {
-				//console.log(77);
 			}
-  		}
+		  }
 	});
-	</script>
+	
+	grid.on('dragEnd', function (item) {	
+		var order = grid.getItems().map(item => item.getElement().getAttribute('id'));	
+		pos = "reihenfolge";
+		feld = "stID";
+		table = "morp_stimmen";	
+		request = $.ajax({
+			url: "<?php echo $dir; ?>morpheus/UpdatePos.php",
+			type: "post",
+			data: "data="+order+"&pos="+pos+"&feld="+feld+"&table="+table,
+			success: function(data) {
+				// console.log(data);
+			},
+			error: function(data) {				
+			}
+		});	
+		// MuuriPosition = ($.inArray(ref, order));
+	
+	});
+	</script> 
+	
 <?php } ?>
 <!-- END !-->
 

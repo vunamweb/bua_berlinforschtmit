@@ -106,7 +106,7 @@ $modal = '
 // END
 
 $output = '<div id=vorschau>
-   <h2>'.$titel.' &nbsp; <img src="images/flag-de.jpg" style="height:30px;"></h2>
+   <h2>'.$titel.'</h2>
 
 	'. ($edit || $neu ? '<p><a href="?">&laquo; zur&uuml;ck</a></p>' : '') .'
 	<form action="" onsubmit="" name="verwaltung" method="post">
@@ -189,7 +189,9 @@ function liste() {
 	//$where .= ' AND mid = '.$_SESSION["mid"].'';
 	// END
 
-	$echo .= '<p>&nbsp;</p>
+	$echo .= '
+	
+	<p>&nbsp;</p>
 
 	<p><a href="?repair=1&edit='.$edit.'&ebene='.$ebene.($parent ? "&parent=$parent" : "").'" class="button"><i class="fa fa-refresh"></i> repariere Sortierung</a></p>
 	<!-- VU: add message information !-->
@@ -198,25 +200,25 @@ function liste() {
 	<!-- END !-->
 
 	</form>
-<nav aria-label="breadcrumb">
+<nav aria-label="breadcrumb" >
   <ul class="breadcrumb">
   ';
   
-  	$breadcrumb = '';
+  	$breadcrumb = '<li class="breadcrumb-item"><a href="?ebene=1&parent=0">Start</a></li>';
 	  
 	if($ebene>1 && $parent) {		  
 		$sql = "SELECT * FROM $table WHERE $tid=$parent";
 		$res = safe_query($sql);
 		$row = mysqli_fetch_object($res);
 		$par = $row->parent;
-		$breadcrumb = '<li class="breadcrumb-item active" aria-current="page"><a href="?ebene='.($ebene-1).'&parent='.$par.'">'.$row->name.'</a></li>';
+		$breadcrumb .= '<li class="breadcrumb-item""><a href="?ebene='.($ebene-1).'&parent='.$par.'">'.$row->name.'</a></li>';
 		
 		for($n=($ebene-1); $n>=2; $n--) {
 			$sql = "SELECT * FROM $table WHERE $tid=$par";
 			$res = safe_query($sql);
 			$row = mysqli_fetch_object($res);
 			$par = $row->parent;
-			$breadcrumb = '<li class="breadcrumb-item active" aria-current="page"><a href="?ebene='.($n-1).'&parent='.$par.'">'.$row->name.'</a></li>'.$breadcrumb;
+			$breadcrumb .= '<li class="breadcrumb-item"><a href="?ebene='.($n-1).'&parent='.$par.'">'.$row->name.'</a></li>'.$breadcrumb;
 		}
 	}
 
@@ -273,9 +275,6 @@ function liste() {
 </div>
 <p>&nbsp;</p>
 ';
-
-	
-	
 	
 	
 	$data = '
@@ -291,31 +290,31 @@ function liste() {
 		$n = mysqli_num_rows($res);
 		$percent = 100 / $n;
 		$y = 0;
-			while ($row = mysqli_fetch_object($res)) {
-				if ($y) {
-					$data .= '
-					</ul>
-	';
-				}
-				$wert = $row->wert;
-				$color = 'color'.$row->$tid;
-				$hover = 'hover'.$row->$tid;
-				$data .= '
-					<li class="row">
-						<div class="col-md-8">
-							<a href="?edit='.$row->$tid.'">'.$row->name.'<span> => '.$wert.'</span></a>
-						</div>
-						<div class="col-md-2 text-right">
-							<a href="?new=1&ebene=2&parent='.$row->$tid.'" class="btn btn-info"><i class="fa fa-plus"></i></a>
-						</div>						
-						<div class="col-md-2 text-right">
-							<a href="?del='.$row->$tid.'" class="btn btn-danger"><i class="fa fa-trash-o"></i></a>
-						</div>						
-					</li><ul>';
-				$data .= get_par($row->$tid, 2, $wert, $$color, $$hover);
-		  
-				$y++;
-			}
+	// 		while ($row = mysqli_fetch_object($res)) {
+	// 			if ($y) {
+	// 				$data .= '
+	// 				</ul>
+	// ';
+	// 			}
+	// 			$wert = $row->wert;
+	// 			$color = 'color'.$row->$tid;
+	// 			$hover = 'hover'.$row->$tid;
+	// 			$data .= '
+	// 				<li class="row">
+	// 					<div class="col-md-8">
+	// 						<a href="?edit='.$row->$tid.'">'.$row->name.'<span> => '.$wert.'</span></a>
+	// 					</div>
+	// 					<div class="col-md-2 text-right">
+	// 						<a href="?new=1&ebene=2&parent='.$row->$tid.'" class="btn btn-info"><i class="fa fa-plus"></i></a>
+	// 					</div>						
+	// 					<div class="col-md-2 text-right">
+	// 						<a href="?del='.$row->$tid.'" class="btn btn-danger"><i class="fa fa-trash-o"></i></a>
+	// 					</div>						
+	// 				</li><ul>';
+	// 			$data .= get_par($row->$tid, 2, $wert, $$color, $$hover);
+	// 	  
+	// 			$y++;
+	// 		}
 			
 			
 			$echo .= $data.'</ul></div>';

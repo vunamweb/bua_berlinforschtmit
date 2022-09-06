@@ -27,7 +27,7 @@ $new = '<a href="?neu=1" class="btn btn-info"><i class="fa fa-plus"></i> NEU</a>
        ';
 
 $output = '<div id=vorschau>
-   <h2>' . $titel . ' &nbsp; <img src="images/flag-de.jpg" style="height:30px;"></h2>
+   <h2>' . $titel . '</h2>
 
 	' . ($edit || $neu ? '<p><a href="?">&laquo; zur&uuml;ck</a></p>' : '') . '
 	<form action="" onsubmit="" name="verwaltung" method="post">

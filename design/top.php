@@ -19,8 +19,12 @@
 // VU: IF IS LOG IN, THEN SHOW OWN MENU
 if($userIsLogIn == $checkLogSession) {
 ?>
+						<li class="nav-item dropdown">
+							<a href="#" class="nav-link dropdown-toggle" id="log" data-toggle="dropdown">Admin</a>
+								<ul class="dropdown-menu fade-up" aria-labelledby="log">
 <?php 
 						echo $nav_logged_in;
+						echo '</ul></a></li>';
 						echo '<li class="nav-item"><a href="'.$dir.$lan.'/'.$navID[$profile_id].'" class="nav-link profile"><i class="fa fa-user"></i></a></li>';
 						echo '<li class="nav-item logout"><a href="'.$dir.'?logout=1" class="nav-link profile"><i class="fa fa-sign-out"></i></a></li>';
 } 
@@ -41,3 +45,4 @@ else { ?>
 </header>
 <div class="spacing"></div>
 
+	

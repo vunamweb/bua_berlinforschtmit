@@ -1,1 +1,1 @@
-<?php $navID = array(1=>"home/", 2=>"ihre-stimme/", 4=>"ueber-uns/", 5=>"impressum/", 6=>"datenschutz/", 7=>"profil/", 14=>"register/", 15=>"login/", 17=>"cookie/", 18=>"kontakt/", 19=>"all-entries/", 20=>"categories/", 22=>"diary/", 23=>"hashtag/"); ?>
+<?php $navID = array(1=>"home/", 2=>"deine-stimme/", 4=>"ueber-uns/", 5=>"impressum/", 6=>"datenschutz/", 7=>"profil/", 14=>"register/", 15=>"login/", 17=>"cookie/", 18=>"kontakt/", 19=>"all-entries/", 20=>"categories/", 22=>"diary/", 23=>"hashtag/"); ?>
