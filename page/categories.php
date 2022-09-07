@@ -465,6 +465,7 @@ function edit($edit) {
 	foreach($arr_form as $arr) {
 		$echo .= setMorpheusForm($row, $arr, $imgFolderShort, $edit, 'morp_referenzen', $tid);
 	}
+	
 
 	$echo .= '</div>
 		</div>
@@ -472,7 +473,32 @@ function edit($edit) {
 			<button type="submit" id="savebtn2" value="hier" class="btn btn-success"><i class="fa fa-save"></i> &nbsp; '.$um_wen_gehts.' speichern und zurück</button>
 		<div class="row mt3">
 			<div class="col-md-12"><h5>Audiofiles zuweisen</h5><hr></div>
+		</div>
+		<div class="row">
 	';
+	
+	// BJORN: this is original - 
+	$medias = $row->media;
+	$medias = explode(",", $medias);
+	$sql = "SELECT * FROM `morp_media` WHERE ck02=1";
+	$res = safe_query($sql);
+	while($row = mysqli_fetch_object($res)) {
+		$echo .= '
+			<div class="col-md-1 mb2">
+				<label for="m'.$row->mediaID.'">
+					<input type="checkbox" name="media[]" id="m'.$row->mediaID.'" value="'.$row->mediaID.'"'.(in_array($row->mediaID, $medias) ? ' checked' : '').' />
+					'.$row->mediaID.'
+				</label>
+			</div>';
+	}
+	
+	$echo .= '
+		<div class="col-12">
+			<hr>
+		</div>
+	</div>
+	<div class="row">';
+	
 	
 	// VU: get audio list of this category
 	$sql = "SELECT * FROM morp_media m, morp_stimmen_media sm WHERE sm.mediaID = m.mediaID and sm.stID = ".$edit."";
@@ -502,7 +528,11 @@ function edit($edit) {
 ';
 
    // VU: show comment list of this category
-   $echo .= '<div class="row"><div class="col-md-12"><h5>Comments</h5><hr>'.showComments(0, $edit).'</div></div>'; 
+   $echo .= '<div class="row"><div class="col-md-12">
+   		<h1 class="text-center small"><i>Diary</i></h1>' . '
+   		<p><a href="?WRONG neu=1&mediaID='.$edit.'" class="btn btn-info"><i class="fa fa-plus"></i> Kommentar hinzufügen</a><br><br><p class="message_info"></p>
+   		'.showComments(0, $edit).'
+	</div></div>'; 
    // END
 
 	return $echo;
