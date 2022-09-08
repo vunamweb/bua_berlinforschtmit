@@ -422,6 +422,8 @@ $(document).ready(function() {
 		
 		$(this).addClass('bg_link');
 		$(this).parent().find('.show_list_media').addClass('show');
+
+		$('#action_export').val(1);
 	})
 	// END
 

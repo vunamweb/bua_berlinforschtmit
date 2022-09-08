@@ -246,7 +246,7 @@ function liste()
                 <br><br>
                 <input type="hidden" id="category_select" name="category_select" />
                 <input type="hidden" id="media_select" name="media_select" />
-                <input type="hidden" name="action_export" value="1" />
+                <input type="hidden" name="action_export" id="action_export" />
                 <input type="submit" class="btn btn-info" name="export_list" id="export_list" value="Export"/>
 			</div>
 		</div>
@@ -365,11 +365,12 @@ if ($save) {
 }
 }
 elseif($save_note) {
-	$uid = $_SESSION['mid'];
+    $uid = $_SESSION['mid'];
     $date = date("Y-m-d H:i:s");
 
+    $mediaId = 0;
+
     $sql = 'insert into morp_note(uid, parent, mediaID, message, add_link, date_time)values(' . $uid . ', ' . $parent_comment . ', ' . $mediaId . ', "' . $message_comment . '", "'.$cid.'", "' . $date . '")';
-    //echo $sql; die();
     safe_query($sql);
 
     updateDateComment($parent_comment);
