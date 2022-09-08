@@ -3379,23 +3379,23 @@ function getSqlComment($mediaID = 0, $category = 0, $que = null) {
 	else {
 		$in = '(';
 
-		$sql = "SELECT * FROM morp_stimmen_media WHERE stID = ".$category."";
+		$sql = "SELECT * FROM morp_note_stimmen WHERE idStimmen = ".$category."";
 		$res = safe_query($sql);
 
 		$count = 0;
 
 		while ($row = mysqli_fetch_object($res)) {
 		   if($count < mysqli_num_rows($res) - 1)
-			 $in .= $row->mediaID . ',';
+			 $in .= $row->idNote . ',';
 		   else
-		     $in .= $row->mediaID ;
+		     $in .= $row->idNote ;
 		      
 		    $count++; 
 		}
 
 		$in .= ')';
 
-		$sql = ($in != '()') ? "SELECT * FROM morp_note WHERE parent = 0 and mediaID in ".$in." ORDER BY date_time desc" : "SELECT * FROM morp_note WHERE parent = 0 and mediaID in (null) ORDER BY date_time desc";
+		$sql = ($in != '()') ? "SELECT * FROM morp_note WHERE parent = 0 and idNote  in ".$in." ORDER BY date_time desc" : "SELECT * FROM morp_note WHERE parent = 0 and mediaID in (null) ORDER BY date_time desc";
 		//echo $sql;
 	}
 
@@ -3404,7 +3404,9 @@ function getSqlComment($mediaID = 0, $category = 0, $que = null) {
 
 function showComments($mediaID = 0, $category = 0, $que = null)
 {
-    global $morpheus;
+	global $morpheus;
+	
+	//$parameter = ($mediaID) ? '&mediaID=1' : '&category=1';
 
 	$url = $morpheus['url'] . 'de/' . $_REQUEST['hn'] . '/?show_comment=' . $show_comment . '';
 	
@@ -3442,7 +3444,7 @@ function showComments($mediaID = 0, $category = 0, $que = null)
 				   <i class="fa fa-plus fa1"></i>
 				   ' . $title . '
 			  </a>
-			  <a class="edit_note '.showEdit($idNote).'" href="?edit='.$idNote.'"><i class="fa fa-pencil-square-o"></i></a>
+			  <a class="edit_note '.showEdit($idNote).'" href="'.$morpheus["url"] .'de/diary/?edit='.$idNote.'"><i class="fa fa-pencil-square-o"></i></a>
 			  <div class="area_show_message">'.nl2br($message).'</div>
 		   </h2>
 	   </div>

@@ -45,7 +45,6 @@ $parent_comment = $_REQUEST['parent_comment'];
 $parent_comment = $_REQUEST['parent_comment'];
 $message_comment = $_REQUEST['message_comment'];
 $listHashtag = $_POST['listHashTag'];
-$edit_entry = isset($_REQUEST["edit_entry"]) ? $_REQUEST["edit_entry"] : 0;
 $edit = isset($_REQUEST["edit"]) ? $_REQUEST["edit"] : 0;
 $cid = $_REQUEST['cid'];
 
@@ -74,22 +73,7 @@ $output = '<div id=vorschau>
 #$sql = "ALTER TABLE  $table ADD  `textonline` text() NOT NULL";
 #safe_query($sql);
 /////////////////////////////////////////////////////////////////////////////////////////////////////
-
-if($neu || $edit) {
-	$arr_form = array(
-		array("title", "Title", '<input type="Text" value="#v#" class="form-control" name="#n#" />'),
-		array("message", "Message", '<textarea class="summernote form-control" name="#n#" />#v#</textarea>'),
-		array("parent", "HIDDEN", '<input type="hidden" value="0" class="form-control" name="#n#" />'),
-		array("uid", "HIDDEN", '<input type="hidden" value="#v#" class="form-control" name="#n#" />'),
-		array("date_time", "HIDDEN", '<input type="hidden" value="#v#" class="form-control" name="#n#" />'),
-		array("mediaID", "HIDDEN", '<input type="hidden" value="#v#" class="form-control" name="#n#" />'),
-	);
-
-	$table = 'morp_note';
-	$tid = 'idNote';
-
-} else 
-	$arr_form = array(
+$arr_form = array(
 		array("mname", "Dateiname WAV", '<input type="Text" value="#v#" class="form-control" name="#n#" readonly />'),
 		array("mdesc", "Kurz-Beschreibung", '<input type="Text" value="#v#" class="form-control" name="#n#" />'),
 		array("mdate", "Datum", '<input type="Text" value="#v#" class="form-control" name="#n#" />', 'date'),
@@ -199,28 +183,28 @@ function liste()
 
 		$echo .= '<tr>
 			<td width="50" align="center">
-				<a href="?edit_entry=' . $edit . '">' . $row->$tid . ' </a>
+				<a href="?edit=' . $edit . '">' . $row->$tid . ' </a>
 			</td>
 			<td>
 				<a ' . $target . ' href="' . $wavfile . '">' . ($mtyp ? '<i class="fa fa-microphone"></i>' : '<i class="fa fa-language"></i>') . ($mp3exists ? ' &nbsp; <span class="label label-danger">MP3</span>' : '') . '</a>' . $player . '
 			</td>
 			<td>
-				<a href="?edit_entry=' . $edit . '">' . ($row->ck02 ? 'x' : '-') . '</a>
+				<a href="?edit=' . $edit . '">' . ($row->ck02 ? 'x' : '-') . '</a>
 			</td>
 			<td>
-				<a href="?edit_entry=' . $edit . '">'. $dauer . '</a>
+				<a href="?edit=' . $edit . '">'. $dauer . '</a>
 			</td>
 			<td>
-				<a href="?edit_entry=' . $edit . '">'. $row->name . '</a>
+				<a href="?edit=' . $edit . '">'. $row->name . '</a>
 			</td>
 			<td>
-				<a href="?edit_entry=' . $edit . '">'. $row->email . '</a>
+				<a href="?edit=' . $edit . '">'. $row->email . '</a>
 			</td>
 			<td>
-				<a href="?edit_entry=' . $edit . '">' . substr($row->mdesc, 0, 100) . '</a>
+				<a href="?edit=' . $edit . '">' . substr($row->mdesc, 0, 100) . '</a>
 			</td>
 			<td>
-				<a href="?edit_entry=' . $edit . '">' . euro_dat($row->mdate) . ' </a>
+				<a href="?edit=' . $edit . '">' . euro_dat($row->mdate) . ' </a>
 			</td>
 		</tr>
 ';
@@ -311,38 +295,15 @@ function edit($edit)
 	$echo .= '<hr>
 		<h1 class="text-center small"><i>Diary</i></h1>' . '
 		
-		<p><a href="?neu=1&mediaID='.$edit.'" class="btn btn-info"><i class="fa fa-plus"></i> Kommentar hinzufügen</a><br><br><p class="message_info"></p>
+		<p><a href="'.$morpheus['url'].'de/diary?neu=1&mediaID='.$edit.'" class="btn btn-info"><i class="fa fa-plus"></i> Kommentar hinzufügen</a><br><br><p class="message_info"></p>
 			  ' . showComments($edit);
 
 	return $echo;
 }
 
-if ($save) {
+if ($save_media) {
 	global $morpheus;
-
-	$neu = isset($_POST["neu"]) ? $_POST["neu"] : 0;
-
-	$_POST['uid'] = $_SESSION['mid'];
-	$_POST['parent'] = 0;
-	$_POST['date_time'] = date("Y-m-d H:i:s");
-	$_POST['mediaID'] = $_SESSION['entry'];
-
 	$edit = saveMorpheusForm($edit, $neu, 0);
-
-	// update hashtag list
-	updateHashtagNote($listHashtag, $edit);
-
-	$scriptname = $morpheus['url'] . 'de/' . $_REQUEST['hn'] . '/' . '?edit_entry='.$_SESSION['entry'].'';
-
-	?>
-	  <script>
-		location.href='<?php echo $scriptname; ?>';
-	  </script>
-	<?php
-} 
-else if ($save_media) {
-	global $morpheus;
-	$edit = saveMorpheusForm($edit_entry, $neu, 0);
 
 	// $scriptname = $morpheus['url'] . 'de/' . $_REQUEST['hn'] . '/' . '?edit_entry='.$_SESSION['entry'].'';
 
@@ -365,16 +326,11 @@ elseif($save_note) {
 	$output = showComments($mediaId);
 }
 
-if ($edit_entry) {
-	$output .= edit($edit_entry);
-	$_SESSION['entry'] = $edit_entry;
+if ($edit) {
+	$output .= edit($edit);
+	$_SESSION['entry'] = $edit;
 }
-elseif($edit)
-	$output .= editComment($edit, false);
-// VU: change design to show comment
-else if ($neu) {
-	$output .= addComment(false);
-} else {
+else {
 	$output = list_comment();
 }
 // END

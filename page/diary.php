@@ -38,8 +38,9 @@ $output = '<div id=vorschau>
 $arr_form = array(
 	array("title", "Title", '<input type="Text" value="#v#" class="form-control" name="#n#" />'),
 	array("message", "Message", '<textarea class="summernote form-control" name="#n#" />#v#</textarea>'),
-	array("parent", "", '<input type="hidden" value="#v#" class="form-control" name="#n#" />'),
-	array("uid", "", '<input type="hidden" value="#v#" class="form-control" name="#n#" />'),
+    array("parent", "", '<input type="hidden" value="#v#" class="form-control" name="#n#" />'),
+    array("mediaID", "", '<input type="hidden" value="#v#" class="form-control" name="#n#" />'),
+    array("uid", "", '<input type="hidden" value="#v#" class="form-control" name="#n#" />'),
 	array("date_time", "", '<input type="hidden" value="#v#" class="form-control" name="#n#" />'),
 );
 ///////////////////////////////////////////////////////////////////////////////////////
@@ -52,7 +53,7 @@ $delete = isset($_REQUEST["delete"]) ? $_REQUEST["delete"] : 0;
 $back = isset($_POST["back"]) ? $_POST["back"] : 0;
 $listHashtag = $_POST['listHashTag'];
 $listCategories = $_POST['listCategories'];
-$mediaId = $_REQUEST['mediaId'];
+$mediaId = $_REQUEST['mediaID'];
 $parent_comment = $_REQUEST['parent_comment'];
 $message_comment = $_REQUEST['message_comment'];
 $myNote = $_REQUEST['myNote'];
@@ -68,6 +69,7 @@ $idCategory = $_REQUEST['idCategory'];
 $action_export = $_REQUEST['action_export'];
 $category_select = $_REQUEST['category_select'];
 $media_select = $_REQUEST['media_select'];
+$category = $_REQUEST['category'];
 
 // VU: update comment text
 if ($myNote) {
@@ -318,18 +320,34 @@ if ($save) {
 
 	$_POST['uid'] = $_SESSION['mid'];
 	$_POST['parent'] = 0;
-	$_POST['date_time'] = date("Y-m-d H:i:s");
+    $_POST['date_time'] = date("Y-m-d H:i:s");
+    $_POST['mediaID'] = $_SESSION['entry'];
+
+    //VU: restore mediaID to 0
+    $_SESSION['entry'] = 0;
 
 	$edit = saveMorpheusForm($edit, $neu, 0);
 
     // update hashtag list
 	updateHashtagNote($listHashtag, $edit);
 	
-	// update categories list
-	updateCategoriesNote($listCategories, $edit);
+    // if from categories page
+    if($category) {
+       $listCategories = array();
+       $listCategories[0] = $category;
+    }
+    // END
 
-    $scriptname = $morpheus['url'] . 'de/' . $_REQUEST['hn'] . '/';
-
+    updateCategoriesNote($listCategories, $edit);
+    
+    /*// VU: if add entries from the all-entries page
+    if($_SESSION['entry']) {
+        $scriptname = $morpheus['url'] . 'de/all-entries?edit='.$_SESSION["entry"].'';
+        $_SESSION['entry'] = '';
+    } else if($category)
+    else*/
+      $scriptname = $morpheus['url'] . 'de/' . $_REQUEST['hn'] . '/';
+        
     if ($back || $new) {
         ?>
 	<script>
@@ -371,9 +389,18 @@ elseif ($del) {
 
 ';
 } elseif ($neuerDatensatz) {
-    $output .= addComment(true);
+    // VU: if not add new entries from the all-entries page
+    if(!$mediaId && !$category)
+      $output .= addComment(true);
+    else
+      $output .= addComment(false);
 } elseif ($edit) {
-    $output .= editComment($edit, true);
+    // VU: if not edit entries from the all-entries page
+    if(!$mediaId)
+      $output .= editComment($edit, true);
+    else
+      $output .= editComment($edit, false);
+       
 } else
     $output .= $new . search() . '<p class="message_info"></p>' . '<div id="list_comment">' . liste() . '</div>';
 

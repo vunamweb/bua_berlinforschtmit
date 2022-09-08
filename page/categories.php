@@ -530,7 +530,7 @@ function edit($edit) {
    // VU: show comment list of this category
    $echo .= '<div class="row"><div class="col-md-12">
    		<h1 class="text-center small"><i>Diary</i></h1>' . '
-   		<p><a href="?WRONG neu=1&mediaID='.$edit.'" class="btn btn-info"><i class="fa fa-plus"></i> Kommentar hinzufügen</a><br><br><p class="message_info"></p>
+   		<p><a href="'.$morpheus["url"].'de/diary/?neu=1&category='.$edit.'" class="btn btn-info"><i class="fa fa-plus"></i> Kommentar hinzufügen</a><br><br><p class="message_info"></p>
    		'.showComments(0, $edit).'
 	</div></div>'; 
    // END
