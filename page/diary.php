@@ -323,10 +323,7 @@ if ($save) {
     $_POST['date_time'] = date("Y-m-d H:i:s");
     $_POST['mediaID'] = $_SESSION['entry'];
 
-    //VU: restore mediaID to 0
-    $_SESSION['entry'] = 0;
-
-	$edit = saveMorpheusForm($edit, $neu, 0);
+    $edit = saveMorpheusForm($edit, $neu, 0);
 
     // update hashtag list
 	updateHashtagNote($listHashtag, $edit);
@@ -340,13 +337,18 @@ if ($save) {
 
     updateCategoriesNote($listCategories, $edit);
     
-    /*// VU: if add entries from the all-entries page
-    if($_SESSION['entry']) {
+    // VU: if go from the all-entries page
+    if($_SESSION['entry']) 
         $scriptname = $morpheus['url'] . 'de/all-entries?edit='.$_SESSION["entry"].'';
-        $_SESSION['entry'] = '';
-    } else if($category)
-    else*/
+    // VU: if go from the categories page
+    else if($_SESSION['category'])
+        $scriptname = $morpheus['url'] . 'de/categories?edit='.$_SESSION['category'].'';
+    else
       $scriptname = $morpheus['url'] . 'de/' . $_REQUEST['hn'] . '/';
+
+      // VU: resert session status to null
+      $_SESSION['entry'] = 0;
+      $_SESSION['category'] = 0;  
         
     if ($back || $new) {
         ?>

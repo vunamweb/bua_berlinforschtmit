@@ -711,7 +711,13 @@ if($del) {
 ';
 }
 elseif ($neuerDatensatz) 	$output .= neu("neu");
-elseif ($edit) 				$output .= edit($edit);
+elseif ($edit) {
+	// VU: create session here to redirect after saving on diary
+	$_SESSION['category'] = $edit;
+	$_SESSION['entry'] = 0;
+	
+	$output .= edit($edit);
+} 
 // VU: change position of new to top and add button audio
 else						$output .= $new . $audio . $modal . liste();
 

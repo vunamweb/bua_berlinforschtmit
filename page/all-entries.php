@@ -328,7 +328,9 @@ elseif($save_note) {
 
 if ($edit) {
 	$output .= edit($edit);
+
 	$_SESSION['entry'] = $edit;
+	$_SESSION['category'] = 0;
 }
 else {
 	$output = list_comment();
