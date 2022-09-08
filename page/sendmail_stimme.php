@@ -6,7 +6,7 @@ session_start();
 * Last Modified..: 2022-07-14
 */
 
-//	print_r($_POST);
+	print_r($_POST);
 
 include("../nogo/config.php");
 $pixel = isset($_POST["pixel"]) ? $_POST["pixel"] : 0;
@@ -39,12 +39,15 @@ $sql = "INSERT morp_media SET ";
 $customer_mail = '';
 $mail_content = '';
 
+$infos = 0;
+$public = 0;
+
 for($i=0; $i<($x-1); $i++) {
-	if($data[$i]["name"]=="stimme") $stimme = $data[$i]["value"];
+	if($data[$i]["name"]=="deine_stimme") $stimme = $data[$i]["value"];
 	else if($data[$i]["name"]=="public_stimme") $public = $data[$i]["value"];
 	else if($data[$i]["name"]=="infos") $infos = $data[$i]["value"];
-	else if($data[$i]["name"]=="Name") $name = $data[$i]["value"];
-	else if($data[$i]["name"]=="E-Mail") $email = $data[$i]["value"];
+	else if($data[$i]["name"]=="name_stimme") $name = $data[$i]["value"];
+	else if($data[$i]["name"]=="email_stimme") $email = $data[$i]["value"];
 
 	if($data[$i]["name"]!="fid" && $data[$i]["name"]!="myid") {
 		$mail_content .= '<tr><td valign="top"><b>'.ucfirst(utf8_decode($data[$i]["name"])).'</b> &nbsp; &nbsp; </td><td valign="top">'.utf8_decode(nl2br($data[$i]["value"])).'</td></tr>';
@@ -59,7 +62,7 @@ $mail_txt = $mail_start.$mail_content.'</table>'.utf8_decode($morpheus["mail_end
 	include("../nogo/db.php");
 	dbconnect();
 		
-	$sql .= " mname='NO FILE ".date("Y-m-d H:i:s")."', text='$stimme', name='$name', email='$email', dsgvo='true', infos=".($infos ? 1 : 0).", public='".($public ? 'true' : 'false')."'";
+	$sql .= " mname='NO FILE ".date("Y-m-d H:i:s")."', text='$stimme', name='$name', email='$email', ck01='1', ck03=".($infos ? 1 : 0).", ck02='".($public ? '1' : '0')."'";
 
 // echo $mail_txt;
 // echo "$sec && ($sec == $checkMySec) && $send ";
@@ -84,8 +87,8 @@ if( $sec && ($sec == $checkMySec) && $send ) {
 	$row 		= mysqli_fetch_object($result);
 	
 	//$Empfaenger = $row->post;
-	//$Empfaenger	= 'b@7sc.eu';
-	$Empfaenger = 'vukynamkhtn@gmail.com';
+	$Empfaenger	= 'b@7sc.eu';
+	//$Empfaenger = 'vukynamkhtn@gmail.com';
 	
 	$betreff 	= $row->betreff;	
 	$kundemail 	= $morpheus["email"];

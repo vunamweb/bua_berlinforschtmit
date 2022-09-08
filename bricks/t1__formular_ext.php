@@ -1,5 +1,5 @@
 <?php
-global $form_desc, $cid, $navID, $lan, $nosend, $morpheus, $ssl_arr, $ssl, $lokal_pfad, $js, $cid, $formMailAntwort, $plichtArray, $multilang, $full, $mid;
+global $form_desc, $cid, $navID, $lan, $nosend, $morpheus, $ssl_arr, $ssl, $lokal_pfad, $js, $cid, $formMailAntwort, $plichtArray, $multilang, $full, $mid, $isForm;
 
 // FROM EVENT PAGE
 if($_POST && $_FILES) {
@@ -48,8 +48,11 @@ $uploadForm = 0;
 	';
 
 	$designCheckbox = '
-		<div class="form-group">#cont#
-		<label for="#id#" class="lb">#desc#</label>
+	<div class="form-group">
+			#cont#
+		<label for="#id#" class="lb">
+			#desc#
+		</label>
 	</div>
 	';
 
@@ -90,6 +93,7 @@ $uploadForm = 0;
 // .    .    .    .    .    .    .    .    .    .    .    .    .    .    .    .    .    .    .    .    .    .
 
 	$fid 	= $text;
+	$isForm = $fid;
 
 	$query  	= "SELECT * FROM morp_cms_form WHERE fid=".$fid;
 	$result 	= safe_query($query);
@@ -125,7 +129,7 @@ $uploadForm = 0;
 		$star = ' *';
 		$pflicht = '';
 
-		if($row->pflicht) $plichtArray[]=$row->feld;
+		if($row->pflicht) $plichtArray[]=array($desc, $feld, $art);
 
 		if ($cont == "email" && $row->pflicht) 	{ $pflicht = ' required'; }
 		elseif ($cont == "number" && $row->pflicht) 	{ $pflicht = ' required'; $rules .= $feld.': { required:true, number: true },
@@ -244,7 +248,9 @@ $uploadForm = 0;
 
 	$dsText = '<div class="form-group"><input id="datenschutz" type="checkbox" name="datenschutz" required ><label for="datenschutz" class="lb">';
 
-	if($lan == "de") $dsText .= 'Ich stimme zu, dass meine Angaben aus dem Kontaktformular zur Beantwortung meiner Anfrage erhoben und verarbeitet werden. Die Daten werden nach abgeschlossener Bearbeitung Ihrer Anfrage gelöscht. Hinweis: Sie können Ihre Einwilligung jederzeit für die Zukunft per E-Mail an <a href="mailto:'.$morpheus['email'].'">'.$morpheus['email'].'</a> widerrufen. Detaillierte Informationen zum Umgang mit Nutzerdaten finden Sie in unserer <a href="'.$dir.$navID[$datenschutzID].'" target="_blank"><u>Datenschutzerklärung</u></a>.</label></div>';
+	if($fid == 6) $dsText .= 'Ja, ich stimme der Nutzung meiner Daten gemäß <a href="'.$dir.$navID[$datenschutzID].'" target="_blank">AGB und DSGVO</a> zu.</label></div>';
+	
+	else if($lan == "de") $dsText .= 'Ich stimme zu, dass meine Angaben aus dem Kontaktformular zur Beantwortung meiner Anfrage erhoben und verarbeitet werden. Die Daten werden nach abgeschlossener Bearbeitung Ihrer Anfrage gelöscht. Hinweis: Sie können Ihre Einwilligung jederzeit für die Zukunft per E-Mail an <a href="mailto:'.$morpheus['email'].'">'.$morpheus['email'].'</a> widerrufen. Detaillierte Informationen zum Umgang mit Nutzerdaten finden Sie in unserer <a href="'.$dir.$navID[$datenschutzID].'" target="_blank"><u>Datenschutzerklärung</u></a>.</label></div>';
 
 	elseif($lan == "en") $dsText .= 'I agree that my details from the contact form will be collected and processed to answer my request. The data will be deleted after processing your request. Note: You can revoke your consent at any time in future by e-mail to <a href="mailto:'.$morpheus['email'].'">'.$morpheus['email'].'</a>.
 Detailed information on handling user data can be found in our <a href="'.$dir.($multilang ? $lan.'/' : '').$navID[$datenschutzID].'" target="_blank">Data protection</a></label></div>';
@@ -266,35 +272,66 @@ Detailed information on handling user data can be found in our <a href="'.$dir.(
 
 	$js = str_replace(array('<!-- rules -->', '<!-- optional -->', '<!-- messages -->'), array($rules, $optional, $messages), $js);
 
+	if($fid == 6) $output .= '
+<div class="modal fade" id="stimmeText" tabindex="-1" aria-labelledby="stimmeTextLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">			
+				<button type="button" class="btn-close close reload" data-bs-dismiss="modal" aria-label="Close">
+				<img src="'.$dir.'images/SVG/i_close.svg" alt="" class="img-fluid" width="20">
+				</button>
+			</div>
+				
+			<div class="modal-body">			
+';
 	$output .= '
-					<div id="kontaktformular" class="box_frm_contact">
-					
-						<form id="kontaktf" method="post"'.($uploadForm ? ' enctype="multipart/form-data"' : '').'>
-							<input type="Hidden" name="fid" value="'.$fid.'">							
-							<input type="hidden" name="myid" value="'.$mid.'">							
-							<div class="frm_contact_body">
-								'.$form .'
-								'.$dsText.'
-								<span class="">* '.$Pflichtfelder.'</span>
-								<p class="mt2"><button class="btn btn-send'.($uploadForm ? '' : ' sendform').'" type="submit">'.$senden.'</button></p class="mt2">
+				
+				<div class="row">
+					<div class="col-12 mt2">
+
+						<div id="kontaktformular" class="box_frm_contact">
+							<div class="row">
+								<div class="col-12">
+									<div id="message" class="alert alert-primary text-center hide">alert</div>		
+								</div>
 							</div>
-						</form>
+							<form id="kontaktf" method="post"'.($uploadForm ? ' enctype="multipart/form-data"' : '').'>
+								<input type="Hidden" name="fid" value="'.$fid.'">							
+								<input type="hidden" name="myid" value="'.$mid.'">							
+									'.$form .'
+								<div class="frm_contact_body">
+									'.$dsText.'
+									<span class="">* '.$Pflichtfelder.'</span>
+									<p class="mt2"><button class="btn btn-success btn-send'.($uploadForm ? '' : ' sendform').'" type="submit">'.$senden.'</button></p class="mt2">
+								</div>
+							</form>
+	
+						</div>
 
 					</div>
+				</div>
+	';
+					
+	if($fid == 6) $output .= '
+				
+			</div>
+		</div>
+	</div>
+</div>
 	';
 }
 
 	$morp = '<b>FORMULAR</b>';
 
 
-if($_SESSION["nname"])
-	$js .= '
-	
-	$(document).ready(function() {
-		$("#anrede").val("'.$_SESSION["anrede"].'");
-		$("#name").val("'.$_SESSION["vname"].' '.$_SESSION["nname"].'");
-		$("#email").val("'.$_SESSION["email"].'");
-	});
-	';
+// if($_SESSION["nname"])
+// 	$js .= '
+// 	
+// 	$(document).ready(function() {
+// 		$("#anrede").val("'.$_SESSION["anrede"].'");
+// 		$("#name").val("'.$_SESSION["vname"].' '.$_SESSION["nname"].'");
+// 		$("#email").val("'.$_SESSION["email"].'");
+// 	});
+// 	';
 
 

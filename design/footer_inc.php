@@ -854,8 +854,7 @@ $('.linkbox').on("click", function() {
 	global $formMailAntwort, $plichtArray, $isForm;
 	if($formMailAntwort) {
 		$pflicht = '
-		var warn = "<br><br>";
-		pr=$("#datenschutz").prop("checked"); if(pr==false) { pflicht=0; warn += "• Bitte Datenschutzbestimmung akzeptieren<br><br>"; } ';
+		var warn = "<br><br>"; ';
 
 		foreach($plichtArray as $arr) {
 			$nm = $arr[0];
@@ -868,15 +867,16 @@ $('.linkbox').on("click", function() {
 			else $pflicht .= '		pr = $("#'.$feld.'").val(); if(pr=="") { pflicht=0; warn += "• '.$nm.'<br>"; }
 			';
 		}
+		$pflicht .= ' pr=$("#datenschutz").prop("checked"); if(pr==false) { pflicht=0; warn += "• Bitte Datenschutzbestimmung akzeptieren<br><br>"; } ';
 ?>		
 		
-    $(".sendform").on("click", function(event) {
+	$(".sendform").on("click", function(event) {
 		var data = $("#kontaktf").serializeArray();
 		data = JSON.stringify(data);
 		var pflicht=1;
+		var warnInfo = "";
 <?php 
 if($isForm==6) { ?>
-		var warnInfo = "";
 		if ($("#infos").prop("checked") == true) {
 			var nms = $("#name_stimme").val(); 
 			var ems = $("#email_stimme").val(); 
@@ -902,7 +902,13 @@ if($isForm==6) { ?>
 		        data: 'mystring=<?php echo md5("pd?x".date("ymd")); ?>&data='+data,
 		        success: function(msg) {
 	                console.log(msg);
-	                if(msg == "Mail sent") $('#kontaktformular').html("<div class='alert alert-primary' role='alert'><?php echo str_replace("\n", "", $formMailAntwort); ?></div>");
+	                //if(msg == "Mail sent") 
+					$('#kontaktformular').html("<div class='alert alert-primary' role='alert'><?php echo str_replace("\n", "", $formMailAntwort); ?></div>");
+					
+					setTimeout(function(){
+						$('#stimmeText').modal('hide');
+					},3000);
+					
 	                 //else if(msg == "Captcha") $('#kontaktformular').html("Die Anfrage wurde nicht gesendet. Es gab einen Fehler.");
 	                // else $('#kontaktformular').html("The request was not sent. There was an error: "+msg+". Please contact us directly.<br/><br/>Die Anfrage wurde nicht gesendet. Es gab einen Fehler: "+msg+". Bitte nehmen Sie direkt Kontakt zu uns auf.");
 	            }

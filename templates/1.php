@@ -63,6 +63,9 @@ elseif($tref == 3) $template = '
 </section>
 ';
 elseif($tref == 4) $template = '
+#cont#
+';
+elseif($tref == 44) $template = '
 <section'.($anker ? ' id="'.$anker.'"' : '').' class="'.$klasse.' '.($tabstand ? ' pt0 ' : '').($tabstand_bottom? ' pb0 ' : '').($class ? $class.' bg-color' : '').'"'.($farbe ? ' style="background:#'.$farbe.'"' : '').'>
 	<div class="'.$edit_mode_class.'container content '.($tabstand ? ' pt0 ' : '').''.($tabstand_bottom? ' pb0 ' : '').'"'.($bgIMG ? ' style="background:url('.$bgIMG.') no-repeat fixed; background-size: cover; padding-top:2em; padding-bottom:2em;"' : '').'>
         <div class="row">

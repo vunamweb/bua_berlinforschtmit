@@ -67,7 +67,7 @@ $morpheus["standard_des"]	= 1;
 #$morpheus["news_formate"]	= array(1=>"News", 3=>"Interview", 4=>"Settings");
 $morpheus["news_formate"]	= array(1=>"News");
 
-$morpheus["templ_conf1"]	= array(1=>"Container", 2=>"Container Text zentriert", 3=>"Container volle Breite",);
+$morpheus["templ_conf1"]	= array(1=>"Container", 2=>"Container Text zentriert", 3=>"Container volle Breite", 4=>"Keine Section / nur fuer Admin");
 // 3=>"Container Trennlinie", 5=>"Container BG Image ohne Text", 6=>"Image Slider", ); // 7=>'HTML', 8=>'HTML 2', 9=>"Container geringe Höhe / nur BG Image" );
 #$morpheus["templ_conf2"]	= array(1=>"1/3 Spalten", 2=>"2/3 Spalte", 3=>"1/4 Spalte", 3=>"3/4 Spalte" );
 $morpheus["templ_conf2"]	= array(1=>"1/2 Spalten", 2=>"3/4 Spalten",  3=>"1/4 Spalten",  4=>"2/3 Spalten", 5=>"1/3 Spalten", );
@@ -76,7 +76,7 @@ $morpheus["templ_conf2"]	= array(1=>"1/2 Spalten", 2=>"3/4 Spalten",  3=>"1/4 Sp
 //$morpheus["templ_conf3"]		= array(1=>"Logo // w=200 h=200", 2=>"Screens w=500");
 $morpheus["templ_conf6"]		= array(1=>"1/2 Bild / 1/2 Text Management", 2=>"1/2 Text / 1/2 Bild Management", 3=>"1/2 Bild / 1/2 Text", 4=>"1/2 Text / 1/2 Bild", 5=>"Header Bild mit Text", 6=>"Header Startseite / Homepage");
 // $morpheus["templ_conf7"]		= array(1=>"Bild links / Text rechts", 2=>"Text links / Bild rechts");
-
+$morpheus["templ_conf15"]		= array(1=>"start", 2=>"end");
 
 $morpheus["template_ende"]	= array(2,);
 $morpheus["template_abstand"]= array(1,2,11);
