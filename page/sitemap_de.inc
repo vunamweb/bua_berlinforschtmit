@@ -9,7 +9,7 @@
 				</ul>
 
 				<ul class="nav-child">
-					<li class="hn"><strong><a href="http://localhost:8888/berlinforscht/bua_berlinforschtmit/de/ihre-stimme/">Ihre Stimme</a></strong></li>
+					<li class="hn"><strong><a href="http://localhost:8888/berlinforscht/bua_berlinforschtmit/de/deine-stimme/">Deine Stimme</a></strong></li>
 
 
 				</ul>

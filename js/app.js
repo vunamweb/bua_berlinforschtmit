@@ -78,7 +78,7 @@ function setPosition() {
 
 	$('#myPopover1').css('top', ''+top+'px');
 	//$('#myPopover1').css('top', 0);*/
-	$(window).scrollTop(200);
+	// $(window).scrollTop(200);
 }
 
 function startRecording() {
@@ -256,7 +256,7 @@ function createDownloadLink(blob) {
 				//$('#myPopover2').popoverX('refreshPosition');
 				$("#hl").html('Vielen Dank für Ihre Stimme!');
 
-				$("#danke").html('<p class="mb-0">Wir nehmen uns Ihre Worte zu Herzen. Die Auswertung erfolgt voraussichtlich im April 2021. Unter <a href="#ansehen" data-scroll class="white">Ergebnisse ansehen</a> finden Sie einen Überblick über den Diskurs. Natürlich können Sie auch weitere <a href="#anhoeren" data-scroll class="white">Sprachnachrichten anhören</p>');
+				$("#danke").html('<p class="mb-0 thankyou">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>');
 
 				$('#myPopover1').addClass('psmall');
 

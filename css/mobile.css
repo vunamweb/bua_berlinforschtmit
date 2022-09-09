@@ -285,6 +285,46 @@
 		line-height: 1.25em;
 		font-size: .8em;
 	}
+	#recordingsList a, .submit_form_audio, .btn-success { font-size: 1em; letter-spacing: 0; }
+	.lb { width: 90%; }
+	.form-group.cb { display: flex; }
+	.bntmic span {	left: 12px; right: 12px; }
+	.round {
+		width: 100px;
+		height: 100px;
+		margin-top: 2em;
+	}
+	.round .fa { font-size: 3em; line-height: 100px; }
+	.slider__item { width: 100%; }
+	#display_wave { width: 100%; }
+	.bntmic.stop {
+		left: 30px;
+		top: 30px;
+	}
+	.bntmic.restart {
+		left: inherit;
+		top: 30px;
+		right: 30px;
+	}
+	.bntmic.stop span::before,
+	.bntmic.restart span::before
+	{
+		width: 60px;
+		height: 70px;
+	}
+	.popover-body {
+		padding: .3rem; 
+	}
+	.col-12 + .col-12 { margin-top: 2em; }
+	.modal .col-12 + .col-12 { margin-top: inherit; }
+	.custom-control-label {
+		color: #000;
+		font-size: .85em;
+		line-height: 1.25em;
+	}
+	.modal-body {
+		padding: 0 1rem;
+	}
 }
 
 @media (max-width: 600px) {
@@ -410,5 +450,8 @@
 		height: 200px;
 		right: 5px;
 		bottom: -115px; 
+	}
+	.modal-content {
+		width: inherit;
 	}
 }

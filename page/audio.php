@@ -101,7 +101,7 @@ $output .= '
 									<div id="formats" class="hide"></div>
 									<ol id="recordingsList"></ol>
 								</div>
-								<a href="'.$dir.'" class="btn btn-success btnRecord recordagain">Erneut aufnehmen</a>
+								<p><a href="#" class="btn btn-success btnRecord recordagain">Erneut aufnehmen</a></p>
             				</div>
             				<div class="col-12 col-lg-6 mt2">
             					<p class="message"></p>

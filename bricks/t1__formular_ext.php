@@ -48,7 +48,7 @@ $uploadForm = 0;
 	';
 
 	$designCheckbox = '
-	<div class="form-group">
+	<div class="form-group cb">
 			#cont#
 		<label for="#id#" class="lb">
 			#desc#
@@ -246,7 +246,7 @@ $uploadForm = 0;
 	if($lan == "de") $datenschutzID = 6;
 	else if($lan == "en") $datenschutzID = 100;
 
-	$dsText = '<div class="form-group"><input id="datenschutz" type="checkbox" name="datenschutz" required ><label for="datenschutz" class="lb">';
+	$dsText = '<div class="form-group cb"><input id="datenschutz" type="checkbox" name="datenschutz" required ><label for="datenschutz" class="lb">';
 
 	if($fid == 6) $dsText .= 'Ja, ich stimme der Nutzung meiner Daten gemäß <a href="'.$dir.$navID[$datenschutzID].'" target="_blank">AGB und DSGVO</a> zu.</label></div>';
 	

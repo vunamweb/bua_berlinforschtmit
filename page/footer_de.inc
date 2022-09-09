@@ -5,7 +5,7 @@
 		 	<ul class="sub-menu1"></ul>
 		</li>
 
-		<li class="parent n__2"><a href="http://localhost:8888/berlinforscht/bua_berlinforschtmit/ihre-stimme/">Ihre Stimme</a>
+		<li class="parent n__2"><a href="http://localhost:8888/berlinforscht/bua_berlinforschtmit/deine-stimme/">Deine Stimme</a>
 		 	<ul class="sub-menu2"></li>
 </ul>
 ';

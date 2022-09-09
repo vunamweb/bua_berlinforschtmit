@@ -31,8 +31,8 @@ $(function($) {
       e.preventDefault();
       $('html, body').animate({scrollTop:0}, '300');
     });
-
-    $('.submit_form_audio').click(function(){
+	
+	$('.submit_form_audio').click(function(){
 		console.log("checkMandatory: "+checkMandatory());
 
     	if(checkMandatory() == 0) {

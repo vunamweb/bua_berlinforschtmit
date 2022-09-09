@@ -272,7 +272,8 @@ removeBg = (parent) => {
 	})
 }
 // END
-
+  
+  
 // VU: script for saving comment of comment
 eventComment = () => {
 	$("#accordionShowComment a.btn-link").on("click", function() {
@@ -325,13 +326,16 @@ eventComment = () => {
 
   
   // Init on DOM ready
+  var waveHeight = 80; 
+  if( $(window).width() < 800 ) var waveHeight = 40;
+	
   if($('#waveform').length > 0) {
 	document.addEventListener('DOMContentLoaded', function() {
       wavesurfer = WaveSurfer.create({
           container: '#waveform',
           waveColor: '#428bca',
           progressColor: '#31708f',
-          height: 80,
+          height: waveHeight,
           barWidth: 3
       });
     });
@@ -714,6 +718,13 @@ $(document).ready(function() {
 	$('svg').svgTriangles();
 
 });
+
+$('.recordagain').click(function(){
+	window.location.hash = "mitmachen";
+	$('.modal').modal('hide');
+	location.reload();
+});
+
 
 $(window).resize(function() {
 	setSection();
