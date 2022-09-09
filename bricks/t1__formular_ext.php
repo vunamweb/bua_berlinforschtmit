@@ -273,7 +273,7 @@ Detailed information on handling user data can be found in our <a href="'.$dir.(
 	$js = str_replace(array('<!-- rules -->', '<!-- optional -->', '<!-- messages -->'), array($rules, $optional, $messages), $js);
 
 	if($fid == 6) $output .= '
-<div class="modal fade" id="stimmeText" tabindex="-1" aria-labelledby="stimmeTextLabel" aria-hidden="true">
+<div class="modal fade" id="stimmeText" aria-labelledby="stimmeTextLabel" aria-hidden="true">
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">			

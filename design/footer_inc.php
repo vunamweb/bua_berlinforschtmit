@@ -766,7 +766,7 @@ $(function() {
 			 var y = $(this).scrollTop()/time;
 			 var yy = $(this).scrollTop()/3;
 			 if(rorateRight <= 90) {
-			  var styleRight = "will-change: transform;transform: translateX("+x+"px) translateY("+y+"px) rotate(-"+rorateRight+"deg);";            
+			  var styleRight = "will-change: transform;transform: translateX("+(x*-.25)+"px) translateY("+y+"px) rotate(-"+rorateRight+"deg);";            
 			  $('.curtain__right').attr('style', styleRight);
 			 }
 			 if(rorateLeft <= 90) {
@@ -774,6 +774,8 @@ $(function() {
 			  $('.curtain__left').attr('style', styleLeft);
 			 }
 			 $(".zitat.hashtag").css({ "margin-top":yy+"px","margin-left":(yy+250)+"px" });
+			 $(".headerIMG").css({ "background-size":(100+yy)+"%" });
+			 
 		});
 });
 
