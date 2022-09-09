@@ -277,7 +277,7 @@ Detailed information on handling user data can be found in our <a href="'.$dir.(
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">			
-				<button type="button" class="btn-close close reload" data-bs-dismiss="modal" aria-label="Close">
+				<button type="button" class="btn-close close reload" data-dismiss="modal" aria-label="Close">
 				<img src="'.$dir.'images/SVG/i_close.svg" alt="" class="img-fluid" width="20">
 				</button>
 			</div>

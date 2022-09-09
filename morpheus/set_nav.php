@@ -138,7 +138,7 @@ foreach ($lang_arr as $lang_id=>$lan) {
 
 			elseif ( $ebene == 2 ) {
 				// platzhalter aus hauptnav beim ersten durchlauf loeschen
-				if (!$sub_on2) $footer_set = str_replace(array('xx'.$par.'xx', 'SPAN', 'DPD'), array('dropdown-hover dropdown-mega position-static', '', 'dropdown-toggle n'.$par.'" data-bs-toggle="dropdown" data-bs-auto-close="outside'), $footer_set);
+				if (!$sub_on2) $footer_set = str_replace(array('xx'.$par.'xx', 'SPAN', 'DPD'), array('dropdown-hover dropdown-mega position-static', '', 'dropdown-toggle n'.$par.'" data-toggle="dropdown" data-auto-close="outside'), $footer_set);
 				$lasturl = 0;
 
 				if($sub_on3) $footer_set .= '

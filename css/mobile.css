@@ -454,4 +454,5 @@
 	.modal-content {
 		width: inherit;
 	}
+	.col-12 + .col-12.position-relative { margin-top: 0 !important; }
 }

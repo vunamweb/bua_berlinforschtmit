@@ -9,7 +9,7 @@
 				  <img src="<?php echo $dir; ?>morpheus/images/Logo-Morpheus.svg" alt="CMS Morpheus" width="100">	  
 				</div>
 			  	<div class="col-1 text-right">
-        		  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        		  <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
 				  </div>
 			  </div>
 		  </div>

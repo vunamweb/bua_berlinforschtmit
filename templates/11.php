@@ -26,12 +26,18 @@ for($i=1; $i<=$slCt; $i++) {
 
 $template = '
 <section class="'.$edit_mode_class.($tabstand ? ' pt0 ' : '').($klasse ? ' '.$klasse : '').'">
-	<div class="" id="BUASlider">
-		<div class="main-carousel">		
-			#cont#		
-		</div>		
+	<div class="container">
+		<div class="row">
+			<div class="col-12">
+				<div class="" id="BUASlider">
+					<div class="main-carousel">		
+						#cont#		
+					</div>		
+				</div>
+				'.edit_bar($content_id,"edit_class").'
+			</div>
+		</div>
 	</div>
-	'.edit_bar($content_id,"edit_class").'
 </section>
 
 ';
