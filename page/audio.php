@@ -77,12 +77,12 @@ $output .= '
 
 
 <!-- Modal -->
-<div class="modal fade" id="audioModal" tabindex="-1" aria-labelledby="audioModalLabel" aria-hidden="true">
+<div class="modal fade" id="audioModal" aria-labelledby="audioModalLabel" aria-hidden="true">
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
 				<div id="hl">Haben wir Sie richtig verstanden?</div>
-				<button type="button" class="btn-close close reload" data-bs-dismiss="modal" aria-label="Close">
+				<button type="button" class="btn-close close reload" data-dismiss="modal" aria-label="Close">
 				<img src="'.$dir.'images/SVG/i_close.svg" alt="" class="img-fluid" width="20">
 				</button>
 			</div>
@@ -135,8 +135,6 @@ $output .= '
 		</div>
   	</div>
 </div>
-
-
 ';
 
 //$output = 'ddd';

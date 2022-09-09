@@ -164,7 +164,7 @@ function pauseRecording() {
 	}
 }
 
-function stopRecording() {
+function stop() {
 	console.log("stopButton clicked");
 
 	//disable the stop button, enable the record too allow for new recordings
@@ -204,6 +204,9 @@ function stopRecording() {
     setPosition();
 	//	$("#recordButton").removeClass("hide");
 
+}
+function stopRecording() {
+	setTimeout(stop, 500);
 }
 
 function restartRecording() {
