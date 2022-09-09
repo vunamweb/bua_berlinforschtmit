@@ -12,7 +12,7 @@ $output .= '
         	<span></span>
     	</a>
     	<div id="display_wave"></div>
-    	<a class="bntmic stop hide" role="button" href="#" data-bs-toggle="modal" data-bs-target="#audioModal" id="stopButton">
+    	<a class="bntmic stop hide" role="button" href="#" data-toggle="modal" data-target="#audioModal" id="stopButton">
         	<span></span>
     	</a><br>
     	<a class="bntmic restart hide" role="button" id="restartButton">

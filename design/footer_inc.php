@@ -78,7 +78,7 @@ if($morpheus_edit) include("design/edit.php");
 <script src="<?php echo $dir; ?>js/jquery.easing.min.js"></script>
 <!-- <script src="<?php echo $dir; ?>js/popper.min.js"></script> -->
 <script src="<?php echo $dir; ?>js/bootstrap.min.js"></script>
-<script src="<?php echo $dir; ?>js/bootstrap-popover-x.js"></script>
+<script src="<?php echo $dir; ?>js/bootstrap-popover-xzzz.js"></script>
 <script src="<?php echo $dir; ?>js/bsnav.min.js"></script>
 <!-- <script src="<?php echo $dir; ?>js/ekko-lightbox.min.js"></script> -->
 <script src="<?php echo $dir; ?>js/imagesloaded.pkgd.min.js"></script>
