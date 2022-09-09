@@ -14,11 +14,9 @@ $edit_mode_class = 'container_edit ';
 if($tref == 1 || !$tref) {
 	$template = '
 			<section class="headerIMG" style="background:url('.$imgTop.') no-repeat; background-size: cover; background-position: center; background-attachment: fixed;">
-			   <div class="container-full '.$edit_mode_class.' h-100"> 
-					<div class="row g-0 h-100">
-						<div class="col-12 align-self-center text-center">
+			   <div class="container '.$edit_mode_class.' h-100"> 
+					<div class="himg">
 							<div id="'.$uniqueID.'" class="directeditmode">#cont#</div>
-						</div>
 					</div>
 				'.edit_bar($content_id,"abst_top edit_class").'
 				</div>

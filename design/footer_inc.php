@@ -78,7 +78,7 @@ if($morpheus_edit) include("design/edit.php");
 <script src="<?php echo $dir; ?>js/jquery.easing.min.js"></script>
 <!-- <script src="<?php echo $dir; ?>js/popper.min.js"></script> -->
 <script src="<?php echo $dir; ?>js/bootstrap.min.js"></script>
-<script src="<?php echo $dir; ?>js/bootstrap-popover-xzzz.js"></script>
+<!-- <script src="<?php echo $dir; ?>js/bootstrap-popover-xzzz.js"></script> -->
 <script src="<?php echo $dir; ?>js/bsnav.min.js"></script>
 <!-- <script src="<?php echo $dir; ?>js/ekko-lightbox.min.js"></script> -->
 <script src="<?php echo $dir; ?>js/imagesloaded.pkgd.min.js"></script>
@@ -87,7 +87,7 @@ if($morpheus_edit) include("design/edit.php");
 <script src="<?php echo $dir; ?>js/functions.js?version=<?php echo rand(); ?>"></script>
 <script src="<?php echo $dir; ?>js/recorder.js"></script>
 <script src="<?php echo $dir; ?>js/app.js"></script>
-<script src="<?php echo $dir; ?>js/svgTriangles.jquery.js"></script>
+<!-- <script src="<?php echo $dir; ?>js/svgTriangles.jquery.js"></script> -->
 <script src="<?php echo $dir; ?>js/siriwave/dist/siriwave.umd.js"></script>
 <script type="text/javascript" src="<?php echo $dir; ?>js/siriwave/etc/dat.gui.js"></script>
 <script type="text/javascript" src="<?php echo $dir; ?>js/wavesurfer.js"></script>
@@ -401,7 +401,7 @@ eventComment = () => {
 
 $(document).ready(function() {
 	$('.uploadimg').click(function() {
-		console.log('hit');
+		// console.log('hit');
 		$('#imgModal .modal-body').load($(this).data('href'), function(e) {
 			$('#imgModal').modal('show')
 		});
@@ -715,7 +715,7 @@ $(document).ready(function() {
 
 	$("#myToastStart").toast("show");
 	
-	$('svg').svgTriangles();
+	// $('svg').svgTriangles();
 
 });
 
@@ -739,44 +739,44 @@ $(document).on('click', '[data-toggle="lightbox"]', function(event) {
 });
 
 $(function() {
-	var tri = $('div#svg svg').svgTriangles({
-		size: {w: 100, h: 200},
-		speed: 500
-	});
-
-	var defaultRorateRight = 50;
-    var defaultRorateLeft = 15;
-    var time = 10;
-
-    $('img').show();
-	tri.switchRandomOn();
-	
-	var i = true;
-	setInterval(function() {
-		if ( i ) {
-			tri.switchRandomOff();
-		} else tri.switchRandomOn();		
-		i = !i;
-	}, 2000);
+// 	var tri = $('div#svg svg').svgTriangles({
+// 		size: {w: 100, h: 200},
+// 		speed: 500
+// 	});
+// 
+// 	var defaultRorateRight = 50;
+//     var defaultRorateLeft = 15;
+//     var time = 10;
+// 
+//     $('img').show();
+// 	tri.switchRandomOn();
+// 	
+// 	var i = true;
+// 	setInterval(function() {
+// 		if ( i ) {
+// 			tri.switchRandomOff();
+// 		} else tri.switchRandomOn();		
+// 		i = !i;
+// 	}, 2000);
 	
 	$(window).scroll(function(){
-          var rorateRight = defaultRorateRight + $(this).scrollTop()/time;
-			 var rorateLeft = defaultRorateLeft + $(this).scrollTop()/time;           
-			 var x = $(this).scrollTop()/time;
-			 var y = $(this).scrollTop()/time;
-			 var yy = $(this).scrollTop()/3;
-			 if(rorateRight <= 90) {
-			  var styleRight = "will-change: transform;transform: translateX("+(x*-.25)+"px) translateY("+y+"px) rotate(-"+rorateRight+"deg);";            
-			  $('.curtain__right').attr('style', styleRight);
-			 }
-			 if(rorateLeft <= 90) {
-			  var styleLeft = "will-change: transform;transform: translateX("+(x*-.5)+"px) translateY("+y+"px) rotate("+rorateLeft+"deg);";
-			  $('.curtain__left').attr('style', styleLeft);
-			 }
-			 $(".zitat.hashtag").css({ "margin-top":yy+"px","margin-left":(yy+250)+"px" });
-			 $(".headerIMG").css({ "background-size":(100+yy)+"%" });
+         // var rorateRight = defaultRorateRight + $(this).scrollTop()/time;
+		 // var rorateLeft = defaultRorateLeft + $(this).scrollTop()/time;           
+		 // var x = $(this).scrollTop()/time;
+		 // var y = $(this).scrollTop()/time;
+		 var yy = $(this).scrollTop()/3;
+		 // if(rorateRight <= 90) {
+		 //  var styleRight = "will-change: transform;transform: translateX("+(x*-.25)+"px) translateY("+y+"px) rotate(-"+rorateRight+"deg);";            
+		 //  $('.curtain__right').attr('style', styleRight);
+		 // }
+		 // if(rorateLeft <= 90) {
+		 //  var styleLeft = "will-change: transform;transform: translateX("+(x*-.5)+"px) translateY("+y+"px) rotate("+rorateLeft+"deg);";
+		 //  $('.curtain__left').attr('style', styleLeft);
+		 // }
+		 $(".zitat.hashtag").css({ "margin-top":yy+"px","margin-left":(yy)+"px" });
+		 $(".headerIMG").css({ "background-size":(100+yy)+"%" });
 			 
-		});
+	});
 });
 
 // $('svg').svgTriangles({

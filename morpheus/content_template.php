@@ -33,7 +33,7 @@ $navid = $_SESSION["navid"];
 ///////////////////////////////////////////////////////////////////////////
 
 if ($save) {
-	$arr = array("tlink", "tbackground", "timage", "theadl", "tcolor", "klasse", "animation", "animation_time");
+	$arr = array("tlink", "tbackground", "timage", "theadl", "tcolor", "klasse", "klasse2", "animation", "animation_time");
 	foreach ($arr as $val) {
 		$set[] = $val."='".$_POST[$val]."'";
 	}
@@ -105,6 +105,7 @@ $tabstand = $row->tabstand;
 $tschmal = $row->tschmal;
 $tabstand_bottom = $row->tabstand_bottom;
 $klasse = $row->klasse;
+$klasse2 = $row->klasse2;
 $animation = $row->animation;
 $animation_time = $row->animation_time;
 
@@ -148,6 +149,7 @@ echo '<input type="Hidden" name="edit" value="'.$cid.'">
 
  echo '<p class="mb1 mt1">Anker Link: &nbsp; <input type="Text" name="tlink" value="'.$lnk.'"></p>';
  echo '<p class="mb1 mt1">Klasse / Class: &nbsp; <input type="Text" name="klasse" value="'.$klasse.'"></p>';
+ echo '<p class="mb1 mt1">Klasse 2 / Class 2: &nbsp; <input type="Text" name="klasse2" value="'.$klasse2.'"></p>';
  
 
 # # # # # # # # # # # # # # # # # # # # # # # # #

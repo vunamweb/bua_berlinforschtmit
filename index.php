@@ -998,7 +998,7 @@ $rb_headl = '';
 
 $hashtag_search = $_GET["ht"] ? $_GET["ht"] : '';
 
-global $anker, $tref, $tabstand, $tende, $tclass, $klasse, $tabstand_bottom, $position, $uniqueID, $tschmal, $animation, $animation_time;
+global $anker, $tref, $tabstand, $tende, $tclass, $klasse, $klasse2, $tabstand_bottom, $position, $uniqueID, $tschmal, $animation, $animation_time;
 
 global $replace_string;
 $replace_string = 'anker:';
@@ -1092,6 +1092,7 @@ if ($cid) {
 		$tabstand_bottom = $throw->tabstand_bottom;
 		$tclass		=$throw->tclass;
 		$klasse		=$throw->klasse;
+		$klasse2	=$throw->klasse2;
 		$tschmal	= $throw->tschmal;
 		$animation	= $throw->animation;
 		$animation_time	= $throw->animation_time;
@@ -1205,8 +1206,8 @@ $zufall=rand(0,999);
 
 include("design/header_inc.php");
 include("design/top.php");
-if($_GET['hn'] == 'home' || $_GET['hn'] == '') 
-	include("design/top-triangles.php");
+// if($_GET['hn'] == 'home' || $_GET['hn'] == '') 
+// 	include("design/top-triangles.php");
 
 if ($design) 	include("design/design-".$design.".php");
 else 			include("design/design-1.php");

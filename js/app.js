@@ -98,6 +98,7 @@ function startRecording() {
   */
 
 	$("#recordButton").addClass("hide");
+	$("#textstimme").addClass("hide");
 	$("#stopButton").removeClass("hide");
 	$("#restartButton").removeClass("hide");
 	showWave();

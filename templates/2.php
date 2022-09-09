@@ -5,7 +5,7 @@ global $cid, $uniqueID, $template2count, $templateTotal;
 global $lasttref, $linkbox;
 
 global $containerLink, $containerLinkText, $template2count, $templateTotal, $lastUsedTemplateID, $templateIsClosed, $templateCloseNow;
-global $design, $cid, $tref, $farbe, $class, $tende, $tabstand, $tpos, $DoNotCloseTemplate, $anzahlOffenerDIV, $anker, $klasse;
+global $design, $cid, $tref, $farbe, $class, $tende, $tabstand, $tpos, $DoNotCloseTemplate, $anzahlOffenerDIV, $anker, $klasse, $klasse2;
 global $class_inner, $farbe_inner, $kontaktCount, $icon, $tclass, $portrait;
 global $parallax, $needBG, $needBGCounter, $interner_link, $position, $animation, $animation_time;
 
@@ -48,7 +48,7 @@ if($lastUsedTemplateID && $lastUsedTemplateID != $fileID && !$templateIsClosed) 
 
 
 if($template2count == 1 || $templateIsClosed) { $template .= '
-<section class="section_multi '.($tclass ? $tclass.' ' : '').($tabstand ? ' pt0 ' : '').($tabstand_bottom? ' pb0 ' : '').'"'.($farbe ? ' style="background:#'.$farbe.';"' : '').($anker ? ' id="'.$anker.'"' : '').'>
+<section class="section_multi'.($klasse2 ? ' '.$klasse2 : '').($tclass ? $tclass.' ' : '').($tabstand ? ' pt0 ' : '').($tabstand_bottom? ' pb0 ' : '').'"'.($farbe ? ' style="background:#'.$farbe.';"' : '').($anker ? ' id="'.$anker.'"' : '').'>
 '.($parallax ? '<div class="parallax " style="background: url('.$parallax.') no-repeat top center fixed; -webkit-background-size: cover; background-size: cover;">' : '').'
     <div class="container">
         <div class="row'.($tref == 5 ? ' h-100' : '').'">';
@@ -188,3 +188,5 @@ $tclass = '';
 $class='';
 $tabstand = '';
 $parallax = '';
+$klasse = '';
+$klasse2 = '';

@@ -1,81 +1,97 @@
 <?php
-global $morpheus;
+global $morpheus, $audio_file, $modal;
 
 $rubrik = $_POST["rubrik"] ? $_POST["rubrik"] : '';
 
 $output .= '
-<div class="col-12 col-lg-6 position-relative">
-    <div class="count_time hide"><label id="minutes">00</label>:<label id="seconds">00</label></div>
-    	<br>
-    	<p class="text-center w_bntmic">
-    	<a class="bntmic start" id="recordButton">
-        	<span></span>
-    	</a>
-    	<div id="display_wave"></div>
-    	<a class="bntmic stop hide" role="button" href="#" data-toggle="modal" data-target="#audioModal" id="stopButton">
-        	<span></span>
-    	</a><br>
-    	<a class="bntmic restart hide" role="button" id="restartButton">
-        	<span></span>
-    	</a><br>
-    	</p>
-  	</div>
-	  
-
-	  
- </div>
-
-<div class="slider_2">
-    <div class="slider__wrapper">';
-    	$query  = "SELECT * FROM morp_media WHERE mtyp='wav' AND public='true'";
-		$query  = "SELECT * FROM morp_media WHERE mtyp='wav'";
-		$query  = "SELECT * FROM morp_media WHERE 1";
-		$result = safe_query($query);
-		while ($row = mysqli_fetch_object($result)) {
-        	$name = $row->name;
-        	$date = $row->email;
-        	$url_media = 'wav/' . $row->mname; 
-	
-        	$output .= '
-			<div class="slider__item">
-        		<a class="play_audio playme play1" href="'.$dir.''.$url_media.'">
-          	  		<img src="'.$dir.'images/wave.svg"/>
-        		</a>
-        		<div class="border_top">
-          	  		<p> '.$name.' // '.$date.'</p>
-        		</div>
-     		</div>';
-    	}    
-      
-    $output .= '
-	</div>
     	
-	<a class="slider__control slider__control_left" href="#" role="button"></a>
-    <a class="slider__control slider__control_right slider__control_show" href="#" role="button"></a>
-</div>
+			<div class="startbtn">
+				<b id="recordButton">
+					<span class="textstimme round">
+						<i class="fa fa-microphone"></i>
+					</span>
+					<em>Sprachnachricht einreichen</em>
+				</b>
+			</div>	
+    	
+			<div class="startbtn">
+				<a href="#" data-toggle="modal" data-target="#stimmeText" id="textstimme">
+					<span class="textstimme round">
+			   			<i class="fa fa-edit"></i>
+					</span>
+					<em>Textnachricht einreichen</em>
+				</a>
+			</div>	
+			
+			
+			<div class="on_record">
+				<div class="count_time hide"><label id="minutes">00</label>:<label id="seconds">00</label></div>
+    			<div id="display_wave"></div>
+				
+    			<a class="bntmic stop hide" role="button" href="#" data-toggle="modal" data-target="#audioModal" id="stopButton">
+        			<span></span>
+    			</a><br>
+    			<a class="bntmic restart hide" role="button" id="restartButton">
+        			<span></span>
+    			</a>
+			</div>
+	
+';
 
- <div class="row waveform_player">
-	<div class="col-sm-9">
-		<div id="waveform">
-			<!-- Here be waveform -->
+$audio_file .= '
+	<div class="col-12 position-relative">
+		<div class="slider_2">
+    		<div class="slider__wrapper">';
+    			$query  = "SELECT * FROM morp_media WHERE mtyp='wav' AND public='true'";
+				$query  = "SELECT * FROM morp_media WHERE mtyp='wav'";
+				$query  = "SELECT * FROM morp_media WHERE 1";
+				$result = safe_query($query);
+				while ($row = mysqli_fetch_object($result)) {
+        			$name = $row->name;
+        			$date = $row->email;
+        			$url_media = 'wav/' . $row->mname; 
+			
+        			$audio_file .= '
+					<div class="slider__item">
+        				<a class="play_audio playme play1" href="'.$dir.''.$url_media.'">
+          	  				<img src="'.$dir.'images/wave2.svg"/>
+        				</a>
+        				<div class="border_top">
+          	  				<p> '.$name.' // '.$date.'</p>
+        				</div>
+     				</div>';
+    			}    
+      		
+    		$audio_file .= '
+			</div>
+    			
+			<a class="slider__control slider__control_left" href="#" role="button"></a>
+    		<a class="slider__control slider__control_right slider__control_show" href="#" role="button"></a>
+		</div>
+	
+ 		<div class="row waveform_player">
+			<div class="col-sm-9">
+				<div id="waveform">
+					<!-- Here be waveform -->
+				</div>
+			</div>
+			<div class="col-sm-3 align-self-center">
+				<button class="btn btn-berlin btn-block" id="playPause">
+					<span id="play">                                                        
+						Play
+					</span>                        
+					<span id="pause" style="display: none">
+						Pause
+					</span>
+				</button>
+			</div>
 		</div>
 	</div>
-	<div class="col-sm-3 align-self-center">
-		<button class="btn btn-berlin btn-block" id="playPause">
-			<span id="play">                                                        
-				Play
-			</span>                        
-			<span id="pause" style="display: none">
-				Pause
-			</span>
-		</button>
-	</div>
-</div>
-
-</section>
+';
 
 
 
+$modal = '
 <!-- Modal -->
 <div class="modal fade" id="audioModal" aria-labelledby="audioModalLabel" aria-hidden="true">
 	<div class="modal-dialog">
