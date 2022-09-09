@@ -10,18 +10,49 @@ function checkMandatory() {
 	var name = $('#name').val();
 	var mail = $('#email').val();
 	var ck01 = $('#ck01').prop('checked');
+  var ck02 = $('#ck02').prop('checked');
+  var ck03 = $('#ck03').prop('checked');
 
-	if(ck01 == 'false')
-		return 0;
-	else if(!validateEmail(mail) && mail != '')
-		return 0;
-	else if(name != '' || mail != '') {
-		if(name != '' && mail == '')
-			return 2;
-	 	else if(mail != '' && name == '')
-	   		return 2;   
-	}
+	if(!ck01) {
+    removeErrorBorder();
+    $('#ck01').parent().addClass('error_border');
+
+    return 0;
+  }
+  else if(!ck02) {
+    removeErrorBorder();
+    $('#ck02').parent().addClass('error_border');
+    
+    return 0;
+  }
+  else if(!ck03) {
+    removeErrorBorder();
+    $('#ck03').parent().addClass('error_border');
+    
+    return 0;
+  }
+  else if(name == '') {
+    removeErrorBorder();
+    $('#name').addClass('error_border');
+
+    return 0;
+  }
+  else if(!validateEmail(mail) || mail == '') {
+    removeErrorBorder();
+    $('#email').addClass('error_border');
+
+    return 0;
+  }
+		
 	return 1;
+}
+
+function removeErrorBorder() {
+   $('label[for="ck01"]').removeClass('error_border');
+   $('label[for="ck02"]').removeClass('error_border');
+   $('label[for="ck03"]').removeClass('error_border');
+   $('#name').removeClass('error_border');
+   $('#email').removeClass('error_border');
 }
 
 $(function($) {
@@ -33,21 +64,16 @@ $(function($) {
     });
 	
 	$('.submit_form_audio').click(function(){
-		console.log("checkMandatory: "+checkMandatory());
-
-    	if(checkMandatory() == 0) {
+		//console.log("checkMandatory: "+checkMandatory());
+      if(checkMandatory() == 0) {
     	  	$('.message').addClass('error');
-      		$('.message').html('Email not correct');
-          	return;
+          $('.message').html('Please check information below');
+          
+          return;
     	}
-    	else if(checkMandatory() == 2) {
-    	  	$('.message').addClass('error');
-      		$('.message').html('Please enter Email and Name');
-  	        return;
-      	}
-      
-      	$('#recordingsList a.submit').attr('href','javascript:void(0)');
-      	$('#recordingsList a.submit')[0].click();
+    	
+      $('#recordingsList a.submit').attr('href','javascript:void(0)');
+      $('#recordingsList a.submit')[0].click();
      })
   })
 });
