@@ -66,7 +66,7 @@ $(function($) {
 	$('.submit_form_audio').click(function(){
 		//console.log("checkMandatory: "+checkMandatory());
       if(checkMandatory() == 0) {
-    	  	$('.message').addClass('error');
+    	  $('.message').addClass('error');
           $('.message').html('Please check information below');
           
           return;
