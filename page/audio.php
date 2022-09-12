@@ -5,6 +5,8 @@ $rubrik = $_POST["rubrik"] ? $_POST["rubrik"] : '';
 
 $output .= '
     	
+			<h2 class="mw">Nachricht hinterlassen</h2>
+			
 			<div class="startbtn">
 				<b id="recordButton">
 					<span class="textstimme round">
@@ -39,7 +41,9 @@ $output .= '
 ';
 
 $audio_file .= '
-	<div class="col-12 position-relative">
+	<div class="col-12 position-relative mt5">
+		
+		<h2 class="mw">Nachricht anhören</h2>
 		<div class="slider_2">
     		<div class="slider__wrapper">';
     			$query  = "SELECT * FROM morp_media WHERE mtyp='wav' AND public='true'";

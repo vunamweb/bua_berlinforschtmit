@@ -28,14 +28,14 @@
 	.date_box_abs {
 	    margin-top: -39px;
 	}
-	.zitat.hashtag { margin-left: 250px; }
+	/* .zitat.hashtag { margin-left: 250px; } */
 }
 @media (max-width: 1100px) {
 	.partner img { height: 80px; }
 }
 @media (max-width: 1050px) {
 	.zitat.hashtag { font-size: 7em; }
-	.hashtag:before { left: -300px; }
+	.hashtag:before { left: 40px; margin-top: -30px; }
 	.headerIMG { height: 500px; }
 }
 @media (max-width: 992px) {
@@ -60,6 +60,11 @@
 	    display: block;
 	    width: 300px;
 	}
+	.date_box { width: 100%; }
+	.headerIMG {
+		background-attachment: inherit !important;
+	}
+	.flag { position: relative; margin-left: 0; }
 	.event_detail:after {
 	    width: 290px;
 	}
@@ -152,13 +157,35 @@
 	}
 	.zitat.hashtag {
 		font-size: 5em;
-		margin-left: 35%;
+		
 	}
 	.hashtag:before {
-		left: -217px;
+		left: 105px;
 		width: 200px;
+		margin-top: 0;
 	}	
+	.ballon:before {
+		content: '';
+		width: 150px;
+		height: 200px;
+		z-index: 9;
+		right: 5%;
+		left: inherit;
+		top: -60px; 
+	}
+	.svg-audio {
+		width: 50%;
+		margin: 0 auto;
+		display: block;
+	}
 	.headerIMG { height: 50vH; }
+	.slider__item .border_top {	margin-left: 93px; }
+	.carousel-inner, .main-carousel, .flickity-viewport {
+		height: 500px !important;
+	}
+	.carousel-inner, .main-carousel, .flickity-viewport {
+		height: 501px !important;
+	}
 }
 
 @media (max-width: 768px) {
@@ -276,7 +303,9 @@
 	.copyr { display: block; margin-bottom: 1em; }
 	.date_box { max-width: 60%; margin-top: 2em; }
 	.date_box_abs .date_box { max-width: inherit; margin-top: 2em; }
-	.box_content_items { border-bottom: solid 1px #ccc; padding-bottom: 1em; }
+	.box_content_items { 
+		/* border-bottom: solid 1px #ccc;  */
+		padding-bottom: 1em; }
 	footer .list_nav a {
 		font-size: 1em;
 	}
@@ -370,7 +399,7 @@
 	}
 	.date_box .jahr { font-size: 1.75em; }
 	.date_box {
-		max-width: 50%;
+		max-width: 50%; margin-left: 30%;
 	}
 	.date_box_abs {
 		margin-top: 0;
@@ -394,18 +423,7 @@
 	}
 	.mobil-btn-pad { margin: 1em 0 0; }
 	.btn-regbig { font-size: 1em; margin: 2em 0 1em; }
-	#die_phasen .subline {
-		width: 50px;
-		top: 0;
-		margin-top: 0px;
-		line-height: 1.25em;
-		margin-left: 0;
-		font-size: .6em;
-	}
-	#die_phasen .subline, .percent {
-		width: 50px;
-		font-size: .6em;
-	}
+	.mt5
 	.abs.subline:before {
 		content:"\f059";
 		font: normal normal normal 14px/1 FontAwesome;
@@ -420,17 +438,21 @@
 	.grid-sizer {
 		width: 100%;
 	}
-	
+	.headerIMG {
+		height: 40vH;
+	}
 	.zitat.hashtag {
 		font-size: 3em;
-		margin-left: 125px;
+		padding-left: 100px;
 	}
 	.hashtag:before {
-		left: -130px;
-		width: 114px;
-		height: 100%;
+		left: 0; 
+		height: 95%;
 		top: 2px;
 	}
+	.ballon:before { right: -30px; }
+	.mt5 h2.mw { margin-top: 2	em; }
+	.tri_2:after { bottom: -120px; }
 	.popover .close {
 		margin-right: 12px;
 	}
@@ -439,7 +461,7 @@
 		/* margin-top: -80px; */
 	}
 	h1, h2.large {
-		font-size: 2.5em !important;
+		font-size: 2em !important;
 	}
 	.main-carousel .carousel-cell img { width: 200%; max-width: inherit; }
 	.carousel-cell { height: 60vH; }
@@ -455,4 +477,8 @@
 		width: inherit;
 	}
 	.col-12 + .col-12.position-relative { margin-top: 0 !important; }
+	.BMBF {
+		padding: 4em 30px 0;
+	}
+	.bmbf-bot { margin-bottom: 1em; }
 }

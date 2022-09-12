@@ -31,6 +31,20 @@
 		</div>
 	</footer>
 
+	<div class="container BMBF h-100">
+		<div class="row h-100">
+			<div class="col-12 col-md-6 d-flex align-items-center bmbf-bot">
+<?php echo getVorlagenText(104, $lang, $dir); ?>
+			</div>
+			<div class="col-6 col-md-3 img1">
+<?php echo getVorlagenText(106, $lang, $dir); ?>
+			</div>
+			<div class="col-6 col-md-3 img2">
+<?php echo getVorlagenText(105, $lang, $dir); ?>
+			</div>
+		</div>
+	</div>
+		
 	<div class="container partner">
 		<div class="row">
 			<div class="col-12 flex-container">
@@ -731,7 +745,6 @@ $(window).resize(function() {
 });
 
 $(document).on('click', '[data-toggle="lightbox"]', function(event) {
-	console.log(8);
 	event.preventDefault();
 	$(this).ekkoLightbox({
 		alwaysShowClose: true
@@ -760,11 +773,13 @@ $(function() {
 // 	}, 2000);
 	
 	$(window).scroll(function(){
-         // var rorateRight = defaultRorateRight + $(this).scrollTop()/time;
+        var posT = $(this).scrollTop();
+		if(posT>600) $(".zitat.hashtag").hide();
+		else $(".zitat.hashtag").show();
+		 // var rorateRight = defaultRorateRight + $(this).scrollTop()/time;
 		 // var rorateLeft = defaultRorateLeft + $(this).scrollTop()/time;           
 		 // var x = $(this).scrollTop()/time;
 		 // var y = $(this).scrollTop()/time;
-		 var yy = $(this).scrollTop()/3;
 		 // if(rorateRight <= 90) {
 		 //  var styleRight = "will-change: transform;transform: translateX("+(x*-.25)+"px) translateY("+y+"px) rotate(-"+rorateRight+"deg);";            
 		 //  $('.curtain__right').attr('style', styleRight);
@@ -773,8 +788,17 @@ $(function() {
 		 //  var styleLeft = "will-change: transform;transform: translateX("+(x*-.5)+"px) translateY("+y+"px) rotate("+rorateLeft+"deg);";
 		 //  $('.curtain__left').attr('style', styleLeft);
 		 // }
-		 $(".zitat.hashtag").css({ "margin-top":yy+"px","margin-left":(yy)+"px" });
-		 $(".headerIMG").css({ "background-size":(100+yy)+"%" });
+		 wW = $(window).width();
+		
+		if(wW > 992) {
+			var yy = $(this).scrollTop()/3;
+			if(wW > 1100) 
+				$(".zitat.hashtag").css({ "margin-top":yy+"px","margin-left":(yy)+"px" });
+			if(wW > 1300) 
+				$(".headerIMG").css({ "background-size":(100+yy)+"%" });
+			else if(wW > 1100) 
+				$(".headerIMG").css({ "background-size":(110+yy)+"%" });
+		}
 			 
 	});
 });

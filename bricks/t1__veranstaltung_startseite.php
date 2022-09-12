@@ -8,7 +8,8 @@ $tid = "eventid";
 $sql = "SELECT * FROM $table WHERE aktiv=1 ORDER BY eventDatum ASC LIMIT 0,1";
 $res = safe_query($sql);
 
-$reg_btn = $lang == 1 ? 'Details anzeigen und registrieren' : 'Details and register';
+$reg_btn = $lang == 1 ? 'Jetzt anmelden' : 'Details and register';
+$erf_btn = $lang == 1 ? 'Mehr anzeigen' : 'Details in archive';
 $archive_btn = $lang == 1 ? 'Im Archiv anzeigen' : 'Details in archive';
 $month_arr = $lang == 1 ? $monate : $month;
 $event_url_id = $lang == 1 ? 2 : 13;
@@ -39,18 +40,18 @@ while($row = mysqli_fetch_object($res)) {
 
 <div class="box_content_items event'.($full ? ' overbooked' : '').'">
 	<div class="row">
-		<div class="col-12 col-md-4 col-lg-3 offset-lg-1">
+		<div class="col-12 col-md-4 col-lg-5 col-xl-3 offset-xl-1">
 			<div class="date_box db'.$x.' flag">
 				<span class="tag">'.$tag.'</span>
 				<span class="monat">'.$month_arr[$monat].'</span>
 				<span class="jahr">'.$jahr.'</span>
 			</div>
 		</div>
-		<div class="col-12 col-md-8 col-lg-7 offset-lg-1 wow animate__animated animate__fadeInLeft animate__delay-1s">
+		<div class="col-12 col-md-8 col-lg-7 col-xl-7 offset-xl-1 wow animate__animated animate__fadeInLeft animate__delay-1s">
 			<h2>'.nl2br($eventName).'</h2>
 			<p>'.nl2br($eventText).'</p>
 			<p><a href="'.$dir.$lan.'/'.$navID[$event_url_id].eliminiere($eventName).'+'.$row->eventid.'/" class="btn btn-info btn-register">'.($full ? $archive_btn : $reg_btn).'</a></p>
-		</div>
+		</div>		
 	</div>
 </div>';
 

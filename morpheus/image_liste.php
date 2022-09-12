@@ -12,7 +12,7 @@ session_start();
 $stelle = isset($_REQUEST["stelle"]) ? $_REQUEST["stelle"] : 0;
 
 $myauth = 10;
-$box = $_REQUEST["box"];
+// $box = $_REQUEST["box"];
 $ekko = 1;
 $images_in = 'in';
 include("cms_include.inc");
