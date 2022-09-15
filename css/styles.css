@@ -1359,6 +1359,11 @@ body {
 	font-size: 0.7em;
 	cursor: pointer;
 }
+
+.delete_note {
+	display: inline-block;
+	margin-left: 10px;
+}
 /* END COMMENT */
 
 /* HASHTAG */

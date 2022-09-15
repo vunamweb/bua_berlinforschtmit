@@ -3616,6 +3616,7 @@ function showComments($mediaID = 0, $category = 0, $que = null)
 				   ' . $title . '
 			  </a>
 			  <a class="edit_note '.showEdit($idNote).'" href="'.$morpheus["url"] .'de/diary/?edit='.$idNote.'"><i class="fa fa-pencil-square-o"></i></a>
+			  <a class="edit_note '.showEdit($idNote).'" href="'.$morpheus["url"] .'de/diary/?del='.$idNote.'"><i class="fa fa-trash-o"></i></a>
 			  <div class="area_show_message">'.nl2br($message).'</div>
 		   </h2>
 	   </div>
@@ -3625,8 +3626,8 @@ function showComments($mediaID = 0, $category = 0, $que = null)
 		   <div class="card-body">
 				' . showCommentOfComment($class, $idNote, 1) . '
 			   <div class="block_comment open" id="block_comment_' . $idNote . '">
-				 <textarea class="message_comment" placeholder="Comment"></textarea>
-				 <a href="#" data-toggle="modal" data-target="#show_link">Add link</a><br><br>
+				 <textarea id="comment_' . $idNote . '" class="message_comment summernote" placeholder="Comment"></textarea>
+				 <a href="#" data-toggle="modal" data-target="#show_link" class="hide">Add link</a><br><br>
 			     <input type="submit" class="btn btn-info" value="Save"></div>
 		   </div>
 	   </div>
@@ -3672,6 +3673,10 @@ function showComments($mediaID = 0, $category = 0, $que = null)
 	  </div>
   </div>
 </div>';
+
+// click this button to show above modal  
+$echo .= '<a href="#" data-toggle="modal" data-target="#show_link" id="show_list_comment" class="hide">Add link</a><br><br>'; 
+
 
 	if ($parent_comment > 0) {
         $echo .= '<script>
@@ -3728,6 +3733,7 @@ function showCommentOfComment($class, $parent, $level)
 						  </div>
 						  <i class="fa fa-plus fa1"></i> <p class="text_comment" id="data_'.$parentChild.'">' . nl2br($message) . '</p><p class="text_comment">('.countComment($parentChild).')</p>
 						  <div id="'.$parentChild.'" data="'.$row->message.'" class="add_note '.showEdit($parentChild).'" data-toggle="modal" data-target="#add_note"><i class="fa fa-pencil-square-o"></i></div>
+						  <div href="'.$parentChild.'" class="delete_note '.showEdit($parentChild).'"><i class="fa fa-trash-o"></i></div>
 						</a>
 						<div data="'.$parentChild.'" class="show_comment '.$class.'"><i class="fa fa-reply"></i></div>
 					</h2>';
@@ -3736,8 +3742,8 @@ function showCommentOfComment($class, $parent, $level)
 		$response .= showCommentOfComment($class . ' root_' . $parentChild, $parentChild, $level);
 
 		$response .= '<div class="block_comment" id="block_comment_' . $parentChild . '">
-						 <textarea class="message_comment" placeholder="Comment"></textarea>
-						 <a href="#" data-toggle="modal" data-target="#show_link">Add link</a><br><br>
+						 <textarea id="comment_' . $parentChild . '" class="message_comment summernote" placeholder="Comment"></textarea>
+						 <a href="#" data-toggle="modal" data-target="#show_link" class="hide">Add link</a><br><br>
 					     <input type="submit" class="btn btn-info" value="Save">
 					  </div>
 	                 ';
