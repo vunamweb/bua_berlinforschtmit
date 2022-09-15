@@ -4308,9 +4308,9 @@ function showCategoryOfCategory($array_properties, $parent, $level)
 		$check = (in_array($row->stID, $array_properties)) ? "checked" : '';
 
 		$response .= '<h2 class="mb-0 mb-1" style="margin-left:'.$marginLeft.'px">
-					   <a class="btn btn-link btn-link-1" parent="' . $parent . '" data-target="#collapse' . $parentChild . '">
+					   <a class="btn btn-link btn-link-1 input-category" parent="' . $parent . '" data-target="#collapse' . $parentChild . '">
 					      <input '.$check.' type="checkbox" value="'.$parentChild.'" name="listCategories[]">
-					      <i class="fa fa-plus fa1"></i> <p class="text_comment" id="data_'.$parentChild.'">' . $name . '</p>
+					      <p class="text_comment" id="data_'.$parentChild.'">' . $name . '</p>
 						</a>
 					 </h2>';
 
