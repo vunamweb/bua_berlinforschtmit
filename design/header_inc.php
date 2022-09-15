@@ -64,3 +64,5 @@ echo $css ? '
     <a id="top"></a>
 
     <div id="page">
+
+<?php print_r($_SESSION); ?>

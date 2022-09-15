@@ -472,30 +472,28 @@ function edit($edit) {
  			<button type="submit" id="savebtn" class="btn btn-success"><i class="fa fa-save"></i> &nbsp; '.$um_wen_gehts.' speichern / aktualisieren</button>
 			<button type="submit" id="savebtn2" value="hier" class="btn btn-success"><i class="fa fa-save"></i> &nbsp; '.$um_wen_gehts.' speichern und zurück</button>
 		<div class="row mt3">
-			<div class="col-md-12"><h5>Audiofiles zuweisen</h5><hr></div>
+			<div class="col-md-12"><h5>zugewiesene Audiofiles</h5><hr></div>
 		</div>
 		<div class="row">
 	';
 	
 	// BJORN: this is original - 
-	$medias = $row->media;
-	$medias = explode(",", $medias);
-	$sql = "SELECT * FROM `morp_media` WHERE ck02=1";
-	$res = safe_query($sql);
-	while($row = mysqli_fetch_object($res)) {
-		$echo .= '
-			<div class="col-md-1 mb2">
-				<label for="m'.$row->mediaID.'">
-					<input type="checkbox" name="media[]" id="m'.$row->mediaID.'" value="'.$row->mediaID.'"'.(in_array($row->mediaID, $medias) ? ' checked' : '').' />
-					'.$row->mediaID.'
-				</label>
-			</div>';
-	}
+	// $medias = $row->media;
+	// $medias = explode(",", $medias);
+	// $sql = "SELECT * FROM `morp_media` WHERE ck02=1";
+	// $res = safe_query($sql);
+	// while($row = mysqli_fetch_object($res)) {
+	// 	$echo .= '
+	// 		<div class="col-md-1 mb2">
+	// 			<label for="m'.$row->mediaID.'">
+	// 				<input type="checkbox" name="media[]" id="m'.$row->mediaID.'" value="'.$row->mediaID.'"'.(in_array($row->mediaID, $medias) ? ' checked' : '').' />
+	// 				'.$row->mediaID.'
+	// 			</label>
+	// 		</div>';
+	// }
 	
 	$echo .= '
-		<div class="col-12">
-			<hr>
-		</div>
+		
 	</div>
 	<div class="row">';
 	
@@ -511,17 +509,14 @@ function edit($edit) {
 		$url = $morpheus['url'] . 'de/all-entries/?edit='.$mediaID.'';
 
 		$echo .= '
-			<div class="col-md-3 mb2">
-				<div class="pretty p-default">
-					<div class="state p-info">
-						<a href='.$url.' target="_balank">'.$description.'</a>
-					</div>
-				</div>
+			<div class="col-md-3 mb2" id="M'.$mediaID.'">
+				<a href='.$url.' target="_blank">'.$description.'</a>
+				<span class="delMediaFromCat btn btn-danger btn-small ml10" data-id="'.$edit.'" data-media="'.$mediaID.'"><i class="fa fa-trash-o"></i></span>
 			</div>';
 	}
 	// END
 	
-	$echo .= '
+	$echo .= '<hr>
 		</div>
     </div>
     </form>	

@@ -608,6 +608,23 @@ $(document).ready(function() {
             }
           });
     })
+	
+	// Bjoern add delete assigned media to category
+	$('.delMediaFromCat').click(function(){		
+		media = $(this).attr('data-media');
+		id = $(this).attr('data-id');
+		request = $.ajax({
+			url: "<?php echo $dir; ?>inc/UpdateTableCat.php",
+			type: "POST",
+			data: "tbl=morp_stimmen_media&id="+id+"&media="+media,
+			success: function(data) {
+			  $('#M'+media).addClass('hide');
+			  $('.message_info').removeClass('hide');
+			  $('.message_info').css('color', 'green');
+			  $('.message_info').html('Delete successfully');
+			}
+		 });
+	});
 	// END
 
 	// VU: call event click comment
