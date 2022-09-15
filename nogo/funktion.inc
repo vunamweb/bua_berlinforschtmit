@@ -3844,15 +3844,16 @@ function showexportOfExport($parent, $level) {
 
 // VU: show comment export
 function showCommentExport($mediaID = 0, $category = 0, $que = null)
-{
+{	
     $sql = getSqlComment($mediaID, $category, $que);
 	$res = safe_query($sql);
 	
 	if(mysqli_num_rows($res) == 0)
 	  return 'No comments';
     //echo mysqli_num_rows($res); die();
-
+	$n = 0;
     while ($row = mysqli_fetch_object($res)) {
+		$n++;
 		$idNote = $row->idNote;
 		$title = ($row->title != '') ? $row->title . '('.countComment($idNote).')' : 'No Title' . '('.countComment($idNote).')';
 		$message = substr($row->message, 0, 200);
@@ -3861,11 +3862,13 @@ function showCommentExport($mediaID = 0, $category = 0, $que = null)
 
 		$class = 'root_' . $idNote;
 
-        $echo .= '<div class="card">
+		$datetime = explode(" ", $row->date_time);
+		
+        $echo .= ($n > 1 ? '<hr>' : '').'<div class="card">
 	   <div class="card-header" id="headingThree">
 		   <h2 class="mb-0">
 			  <div class="title_comment">
-				 <p class="name_user">'.$name.' &nbsp; &nbsp; &nbsp;'.$row->date_time.'</p>
+				 <p class="name_user">'.$name.' &nbsp; &nbsp; &nbsp;'.euro_dat($datetime[0]).' | '.$datetime[1].' – Media ID: '.$row->mediaID.'</p>
 			  </div> 
 		      <a type="button"
 				   ' . $title . '
@@ -3919,15 +3922,16 @@ function showCommentOfCommentOfExport($class, $parent, $level)
 		/*$href = $morpheus['url'] . 'de' . '/' . $addLink[1] . '?cidValue='.$addLink[2].'';
         $nameLink = $addLink[3];
 		$nameLink = substr(strip_tags($nameLink), 0, 200);*/
-
-
 		
-		$response .= '<h2 class="mb-0 mb-1" style="margin-left:'.$marginLeft.'px">
+		$datetime = explode(" ", $row->date_time);
+		
+		$response .= '
+					<h2 class="mb-0 mb-1" style="margin-left:'.$marginLeft.'px">
 					   <a >
 					      <div class="title_comment">
-					        <p class="name_user">'.$name.' &nbsp; &nbsp; &nbsp;'.$row->date_time.'</p>
+					        <p class="name_user">'.$name.' &nbsp; &nbsp; &nbsp;'.euro_dat($datetime[0]).' | '.$datetime[1].' ('.countComment($parentChild).')</p>
 						  </div>
-						  <p>' . $message . '</p><p>('.countComment($parentChild).')</p>
+						  <p style="color:#444;">' . $message . '</p>
 						</a>
 					</h2>';
 

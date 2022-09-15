@@ -17,8 +17,8 @@ $myauth = 10;
 $stimmen_in = 'in';
 $css = "style_blue.css";
 
-$um_wen_gehts 	= "Stimmen";
-$titel			= "Stimmen Verwaltung";
+$um_wen_gehts 	= "Chart";
+$titel			= "Charts / Statistik";
 ///////////////////////////////////////////////////////////////////////////////////////
 $table 		= 'morp_stimmen';
 $tid 		= 'stID';
@@ -108,7 +108,7 @@ $modal = '
 $output = '<div id=vorschau>
    <h2>'.$titel.'</h2>
 
-	'. ($edit || $neu ? '<p><a href="?">&laquo; zur&uuml;ck</a></p>' : '') .'
+	'. ($edit || $neu ? '<p><a href="?" class="btn btn-success">&laquo; zur&uuml;ck</a></p>' : '') .'
 	<form action="" onsubmit="" name="verwaltung" method="post">
 '.($edit || $neu ? '' : '').'
 '.(!$edit && !$neu ? '' : '').'
@@ -244,12 +244,14 @@ function liste() {
 		$edit = $row->$tid;
 		$echo .= '
 	<div class="zeile item row"  id="'.$row->$tid.'">
-			<div class="col-md-2 pull-left">
+			<div class="col-md-1 pull-left">
 			    <!-- VU: add checkbox  !-->
 			    <input type="checkbox" value="'.$edit.'" class="td_checkbox">
 				<!-- END !-->
-				<a href="?edit='.$edit.'"><span class="small light">'.$row->reihenfolge.'</span>
-					<span class=" ml2 btn btn-primary"><i class="fa fa-pencil-square-o"></i><span class="small light"> &nbsp; '.$row->$tid.'</span>
+			</div>
+			<div class="col-md-1 pull-left">
+				<a href="?edit='.$edit.'" class="btn btn-success">
+					<i class="fa fa-pencil-square-o"></i>
 				</a>
 			</div>
 			<div class="col-md-1 pull-left">
@@ -257,10 +259,6 @@ function liste() {
 			</div>
 			<div class="col-md-6 pull-left">
 				<a class="width1" href="?ebene='.($ebene+1).'&parent='.$edit.'"><i class="fa fa-level-down"></i> &nbsp; '.$row->$anz.' </a>
-				&nbsp; &nbsp; 
-				<a href="?edit='.$edit.'" class="btn btn-info">
-					<i class="fa fa-pencil-square-o"></i>
-				</a>
 			</div>
 			<div class="col-md-1 text-right pull-left">
 				<a href="?del='.$edit.'" class="btn btn-danger"><i class="fa fa-trash-o"></i></a>
@@ -450,7 +448,7 @@ function edit($edit) {
     
 	//$echo = '<form action="" onsubmit="" name="verwaltung" method="post">';
 	
-	$echo .= '<a onclick="history.back()"><i class="fa fa-arrow-circle-left"></i> zurück</a><br><br>';
+	$echo .= '<a onclick="history.back()" class="btn btn-success"><i class="fa fa-arrow-circle-left"></i> zurück</a><br><br>';
 
 	$echo .= '
 		<input type="Hidden" name="edit" value="'.$edit.'">
@@ -541,7 +539,7 @@ function neu() {
 
 	$x = 0;
 
-	$echo .= '<a onclick="history.back()"><i class="fa fa-arrow-circle-left"></i> zurück</a><br><br>';
+	$echo .= '<a onclick="history.back()" class="btn btn-success"><i class="fa fa-arrow-circle-left"></i> zurück</a><br><br>';
 
     $echo .= '<input type="Hidden" name="neu" value="1"><input type="Hidden" name="save" value="1">
 <input type="hidden" value="'.$ebene.'" class="form-control" name="ebene" readonly="" style="width:120px">

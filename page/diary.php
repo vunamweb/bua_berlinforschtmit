@@ -175,7 +175,7 @@ if ($action_export) {
     header("Content-type: application/vnd.ms-word");
     header("Content-Disposition: attachment;Filename=detail_comment.doc");
 
-    echo '<html>' . '<meta http-equiv=\"Content-Type\" content=\"text/html; charset=Windows-1252\">' . '<body>' . showCommentExport(0, 0, $sql) . '</body>' . '</html>';
+    echo '<html>' . '<meta http-equiv=\"Content-Type\" content=\"text/html; charset=Windows-1252\">' . '<style>div, p,h1,h2,h3,h4,h5,li,span,b,strong { font-family:Arial,Helvetica,Verdana; font-weight:normal; } .name_user { font-weight:bold; color:green;} p, div, li, span { font-size:9pt; } h1 { font-size:16pt; } h2 { font-size:14pt; } h3 { font-size:12pt; } h4 { font-size:10pt; } h5 { font-size:9pt; } b, strong { }</style><body>' . showCommentExport(0, 0, $sql) . '</body>' . '</html>';
     die();
 }
 // END
