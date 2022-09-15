@@ -36,12 +36,12 @@ $output = '<div id=vorschau>
 ';
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 $arr_form = array(
-	array("title", "Title", '<input type="Text" value="#v#" class="form-control" name="#n#" />'),
-	array("message", "Message", '<textarea class="summernote form-control" name="#n#" />#v#</textarea>'),
+    array("title", "Title", '<input type="Text" value="#v#" class="form-control" name="#n#" />'),
+    array("message", "Message", '<textarea class="summernote form-control" name="#n#" />#v#</textarea>'),
     array("parent", "", '<input type="hidden" value="#v#" class="form-control" name="#n#" />'),
     array("mediaID", "", '<input type="hidden" value="#v#" class="form-control" name="#n#" />'),
     array("uid", "", '<input type="hidden" value="#v#" class="form-control" name="#n#" />'),
-	array("date_time", "", '<input type="hidden" value="#v#" class="form-control" name="#n#" />'),
+    array("date_time", "", '<input type="hidden" value="#v#" class="form-control" name="#n#" />'),
 );
 ///////////////////////////////////////////////////////////////////////////////////////
 $neuerDatensatz = isset($_GET["neu"]) ? $_GET["neu"] : 0;
@@ -73,7 +73,7 @@ $category = $_REQUEST['category'];
 
 // VU: update comment text
 if ($myNote) {
-    $sql = 'update morp_note set message = "'.$myNote.'" where idNote = '.$noteId.'';
+    $sql = 'update morp_note set message = "' . $myNote . '" where idNote = ' . $noteId . '';
     echo $sql;
     safe_query($sql);
 
@@ -82,8 +82,8 @@ if ($myNote) {
 // END
 
 // VU: search
-if($search_combine) {
-	$hashtags = explode(',', $hashtags);
+if ($search_combine) {
+    $hashtags = explode(',', $hashtags);
     $categories = explode(',', $categories);
 
     // hashtag
@@ -126,7 +126,6 @@ if($search_combine) {
     $sql1 .= ' having count(idNote) = ' . (count($categories) - 1) . ' ';
     // end
 
-
     //if((string) $GH != 'null' && (string) $BC != 'null')
     $que = "SELECT * FROM `morp_note` g WHERE
 			(g.title like '%" . $search_value . "%' OR g.message like '%" . $search_value . "%')
@@ -141,35 +140,35 @@ if($search_combine) {
 
     $que .= 'ORDER BY g.date_time DESC';
 
-    echo showComments(0, 0, $que); die();
+    echo showComments(0, 0, $que);die();
 }
 // END
 
 // VU: show list media of category
-if($show_list_media) {
+if ($show_list_media) {
     $response = '';
 
-    $sql = "SELECT * FROM morp_media mm, morp_stimmen_media msm WHERE mm.mediaID = msm.mediaID and msm.stID = ".$idCategory."  ORDER BY mm.mdate desc";
+    $sql = "SELECT * FROM morp_media mm, morp_stimmen_media msm WHERE mm.mediaID = msm.mediaID and msm.stID = " . $idCategory . "  ORDER BY mm.mdate desc";
     $res = safe_query($sql);
-    
-    if(mysqli_num_rows($res) == 0) {
+
+    if (mysqli_num_rows($res) == 0) {
         echo 'No Media';
         die();
     }
 
     while ($row = mysqli_fetch_object($res)) {
-		$date = ' (' . $row->mdate . ')';
-		$description = ($row->text != '') ? $row->text . $date  : 'No description' . $date;
-		$response .= '<div><input type="checkbox" value=' . ($row->mediaID) . ' class="modal_checkbox_properties">&nbsp; &nbsp; &nbsp;<label>' . $description . '</label></div>';
+        $date = ' (' . $row->mdate . ')';
+        $description = ($row->text != '') ? $row->text . $date : 'No description' . $date;
+        $response .= '<div><input type="checkbox" value=' . ($row->mediaID) . ' class="modal_checkbox_properties">&nbsp; &nbsp; &nbsp;<label>' . $description . '</label></div>';
     }
 
     echo $response;die();
 }
 // END
 
-// VU: export 
-if($action_export) {
-   
+// VU: export
+if ($action_export) {
+
     $sql = ($media_select != '') ? getSqlMediaExport($media_select) : getSqlCategoryExport($category_select);
     //echo $sql;
 
@@ -182,30 +181,34 @@ if($action_export) {
 // END
 
 // VU: get sql if select media of export
-function getSqlMediaExport($media_select) {
+function getSqlMediaExport($media_select)
+{
     $media_select = explode(',', $media_select);
     $in = '(';
 
-    for($i = 0; $i < count($media_select); $i++)
-        if($i < count($media_select) -2)
-        $in .= $media_select[$i] . ',';
-    else
-        $in .= $media_select[$i];
+    for ($i = 0; $i < count($media_select); $i++) {
+        if ($i < count($media_select) - 2) {
+            $in .= $media_select[$i] . ',';
+        } else {
+            $in .= $media_select[$i];
+        }
+    }
 
-    $in .= ')';    
-        
-    $sql = ($in != '()') ? "SELECT * FROM morp_note WHERE parent = 0 and mediaID in ".$in." ORDER BY date_time desc" : "SELECT * FROM morp_note WHERE parent = 0 and mediaID in (null) ORDER BY date_time desc";
-		    
+    $in .= ')';
+
+    $sql = ($in != '()') ? "SELECT * FROM morp_note WHERE parent = 0 and mediaID in " . $in . " ORDER BY date_time desc" : "SELECT * FROM morp_note WHERE parent = 0 and mediaID in (null) ORDER BY date_time desc";
+
     return $sql;
 }
 // END
 
 // VU: get sql category of export
-function getSqlCategoryExport($category_select) {
-   $sql = "SELECT * FROM morp_note mn, morp_note_stimmen mns WHERE mn.parent = 0 and mns.idStimmen = ".$category_select."
+function getSqlCategoryExport($category_select)
+{
+    $sql = "SELECT * FROM morp_note mn, morp_note_stimmen mns WHERE mn.parent = 0 and mns.idStimmen = " . $category_select . "
    and mns.idNote = mn.idNote";
 
-   return $sql;
+    return $sql;
 }
 // END
 
@@ -215,7 +218,7 @@ function liste()
     global $show;
 
     // modal show media
-  $modal = '<div class="modal" id="show_list_media" aria-hidden="true">
+    $modal = '<div class="modal" id="show_list_media" aria-hidden="true">
   <div class="modal-dialog">
       <div class="modal-content">
           <!-- Modal Header -->
@@ -242,7 +245,7 @@ function liste()
 			</div>
 			<!-- Modal body -->
 			<div class="modal-body">
-                '.showExport().'
+                ' . showExport() . '
                 <br><br>
                 <input type="hidden" id="category_select" name="category_select" />
                 <input type="hidden" id="media_select" name="media_select" />
@@ -253,8 +256,8 @@ function liste()
 	</div>
   </div>';
 
-  if($show) {
-        $sql = 'select * from morp_note where parent = 0 and idNote = '.$show.'';
+    if ($show) {
+        $sql = 'select * from morp_note where parent = 0 and idNote = ' . $show . '';
         //echo $sql;
 
         return showComments(0, 0, $sql) . $modal;
@@ -265,34 +268,34 @@ function liste()
 
 function search()
 {
-	$hashtag = '<div class="col-md-2 col-filter"><select name="select" class="ui selection hashtag" multiple=""><option value="">HashTag</option>';
+    $hashtag = '<div class="col-md-2 col-filter"><select name="select" class="ui selection hashtag" multiple=""><option value="">HashTag</option>';
 
     $sql = "SELECT * FROM morp_hashtag WHERE 1";
-	$res = safe_query($sql);
-	
+    $res = safe_query($sql);
+
     while ($row = mysqli_fetch_object($res)) {
         $property = $row->name;
-		$mpid = $row->htID;
-		
+        $mpid = $row->htID;
+
         $hashtag .= '<option value="' . $mpid . '">' . $property . '</option>
 	';
-	}
-	
-	$hashtag .= '</select></div>';
-	
-	$categories = '<div class="col-md-2 col-filter"><select name="select" class="ui selection categories" multiple=""><option value="">Category</option>';
+    }
+
+    $hashtag .= '</select></div>';
+
+    $categories = '<div class="col-md-2 col-filter"><select name="select" class="ui selection categories" multiple=""><option value="">Category</option>';
 
     $sql = "SELECT * FROM morp_stimmen WHERE 1";
-	$res = safe_query($sql);
-	
+    $res = safe_query($sql);
+
     while ($row = mysqli_fetch_object($res)) {
         $property = $row->name;
-		$mpid = $row->stID;
-		
+        $mpid = $row->stID;
+
         $categories .= '<option value="' . $mpid . '">' . $property . '</option>
 	';
-	}
-	
+    }
+
     $categories .= '</select></div>';
 
     $form = '<hr>';
@@ -302,8 +305,8 @@ function search()
 	  <input type="text" name="suche" id="suche" placeholder="Suche nach Name">
 	</div>';
 
-	$form .= $hashtag;
-	$form .= $categories;
+    $form .= $hashtag;
+    $form .= $categories;
 
     //$form .= $select_interests;
     $form .= '<div class="col-md-2"><input value="Filter" class="btn btn-info btn-submit-search navbar-form"></div>';
@@ -312,100 +315,130 @@ function search()
     $form .= '<hr class="mt2">';
 
     return $form;
-} 
+}
+
+function getScriptname()
+{
+    global $morpheus;
+
+    //echo $_SESSION['entry'] . '///dddd'; die();
+
+    // VU: if go from the all-entries page
+    if ($_SESSION['entry']) {
+        $scriptname = $morpheus['url'] . 'de/all-entries?edit=' . $_SESSION["entry"] . '';
+    }
+    // VU: if go from the categories page
+    else if ($_SESSION['category']) {
+        $scriptname = $morpheus['url'] . 'de/categories?edit=' . $_SESSION['category'] . '';
+    } else {
+        $scriptname = $morpheus['url'] . 'de/' . $_REQUEST['hn'] . '/';
+    }
+
+    return $scriptname;
+}
+
+function resetSession()
+{
+    // VU: resert session status to null
+    $_SESSION['entry'] = 0;
+    $_SESSION['category'] = 0;
+}
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 if ($save) {
     $neu = isset($_POST["neu"]) ? $_POST["neu"] : 0;
 
-	$_POST['uid'] = $_SESSION['mid'];
-	$_POST['parent'] = 0;
+    $_POST['uid'] = $_SESSION['mid'];
+    $_POST['parent'] = 0;
     $_POST['date_time'] = date("Y-m-d H:i:s");
     $_POST['mediaID'] = $_SESSION['entry'];
 
     $edit = saveMorpheusForm($edit, $neu, 0);
 
     // update hashtag list
-	updateHashtagNote($listHashtag, $edit);
-	
+    updateHashtagNote($listHashtag, $edit);
+
     // if from categories page
-    if($category) {
-       $listCategories = array();
-       $listCategories[0] = $category;
+    if ($category) {
+        $listCategories = array();
+        $listCategories[0] = $category;
     }
     // END
 
+    // VU: add comment for categories
     updateCategoriesNote($listCategories, $edit);
-    
-    // VU: if go from the all-entries page
-    if($_SESSION['entry']) 
-        $scriptname = $morpheus['url'] . 'de/all-entries?edit='.$_SESSION["entry"].'';
-    // VU: if go from the categories page
-    else if($_SESSION['category'])
-        $scriptname = $morpheus['url'] . 'de/categories?edit='.$_SESSION['category'].'';
-    else
-      $scriptname = $morpheus['url'] . 'de/' . $_REQUEST['hn'] . '/';
 
-      // VU: resert session status to null
-      $_SESSION['entry'] = 0;
-      $_SESSION['category'] = 0;  
-        
+    // VU: get url to come back after save
+    $scriptname = getScriptname();
+
     if ($back || $new) {
         ?>
 	<script>
 		location.href='<?php echo $scriptname; ?>';
 	</script>
 <?php
-} else{
+} else {
         ?>
 	<script>
 		location.href='<?php echo $scriptname; ?>?edit=<?php echo $edit ?>';
 	</script>
 <?php
 }
-}
-elseif($save_note) {
+} elseif ($save_note) {
     $uid = $_SESSION['mid'];
     $date = date("Y-m-d H:i:s");
 
     $mediaId = 0;
 
-    $sql = 'insert into morp_note(uid, parent, mediaID, message, add_link, date_time)values(' . $uid . ', ' . $parent_comment . ', ' . $mediaId . ', "' . $message_comment . '", "'.$cid.'", "' . $date . '")';
+    $sql = 'insert into morp_note(uid, parent, mediaID, message, add_link, date_time)values(' . $uid . ', ' . $parent_comment . ', ' . $mediaId . ', "' . $message_comment . '", "' . $cid . '", "' . $date . '")';
     safe_query($sql);
 
     updateDateComment($parent_comment);
 
     $output = $new . liste();
-} 
-elseif ($delete) {
+} elseif ($delete) {
     $sql = "DELETE FROM `$table` WHERE $tid=$delete ";
-	safe_query($sql);
-	
-	$output .= $new . liste();
+    safe_query($sql);
+
+     // VU: get url to come back after save
+     $scriptname = getScriptname();
+
+    ?>
+    <script>
+		location.href='<?php echo $scriptname; ?>';
+	</script>
+    <?php
 }
 ///////////////////////////////////////////////////////////////////////////////////////
 elseif ($del) {
     $output = '	<h2>Wollen Sie ' . $um_wen_gehts . ' wirklich löschen?</h2>
 			<p>&nbsp;</p>
 			<p><a href="?delete=' . $del . '" class="btn btn-danger"><i class="fa fa-trash"></i> &nbsp; Ja</a>
-			<a href="?" class="btn btn-info"><i class="fa fa-remove"></i> &nbsp; Nein / Abbruch</a></p>
+			<a onclick="history.back()" class="btn btn-info"><i class="fa fa-remove"></i> &nbsp; Nein / Abbruch</a></p>
 
 ';
 } elseif ($neuerDatensatz) {
     // VU: if not add new entries from the all-entries page
-    if(!$mediaId && !$category)
-      $output .= addComment(true);
-    else
-      $output .= addComment(false);
+    if (!$mediaId && !$category) {
+        $output .= addComment(true);
+    } else {
+        $output .= addComment(false);
+    }
+
 } elseif ($edit) {
     // VU: if not edit entries from the all-entries page
-    if(!$mediaId)
-      $output .= editComment($edit, true);
-    else
-      $output .= editComment($edit, false);
-       
-} else
+    if (!$mediaId) {
+        $output .= editComment($edit, true);
+    } else {
+        $output .= editComment($edit, false);
+    }
+
+} else {
+    // VU: resert session status to null
+    resetSession();
+
     $output .= $new . search() . '<p class="message_info"></p>' . '<div id="list_comment">' . liste() . '</div>';
+}
 
 $output .= '
 </form>

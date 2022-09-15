@@ -617,6 +617,13 @@ $(document).ready(function() {
 	   if($('#message').val() == '')
 	     $('#message').val(message);
 	})
+
+	$(".delete_note").click(function() {
+	   var noteID = $(this).attr("href");
+	   
+	   window.location = '<?php echo $dir ?>' + 'de/diary/?del='+noteID+'';
+	   
+	})
 	
 	$("#save_note").click(function() {
       var noteId = $(this).attr("ref");

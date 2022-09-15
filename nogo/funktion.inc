@@ -3445,6 +3445,7 @@ function showComments($mediaID = 0, $category = 0, $que = null)
 				   ' . $title . '
 			  </a>
 			  <a class="edit_note '.showEdit($idNote).'" href="'.$morpheus["url"] .'de/diary/?edit='.$idNote.'"><i class="fa fa-pencil-square-o"></i></a>
+			  <a class="edit_note '.showEdit($idNote).'" href="'.$morpheus["url"] .'de/diary/?del='.$idNote.'"><i class="fa fa-trash-o"></i></a>
 			  <div class="area_show_message">'.nl2br($message).'</div>
 		   </h2>
 	   </div>
@@ -3557,6 +3558,7 @@ function showCommentOfComment($class, $parent, $level)
 						  </div>
 						  <i class="fa fa-plus fa1"></i> <p class="text_comment" id="data_'.$parentChild.'">' . nl2br($message) . '</p><p class="text_comment">('.countComment($parentChild).')</p>
 						  <div id="'.$parentChild.'" data="'.$row->message.'" class="add_note '.showEdit($parentChild).'" data-toggle="modal" data-target="#add_note"><i class="fa fa-pencil-square-o"></i></div>
+						  <div href="'.$parentChild.'" class="delete_note '.showEdit($parentChild).'"><i class="fa fa-trash-o"></i></div>
 						</a>
 						<div data="'.$parentChild.'" class="show_comment '.$class.'"><i class="fa fa-reply"></i></div>
 					</h2>';
