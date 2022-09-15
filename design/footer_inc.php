@@ -247,6 +247,13 @@ showChildren = (parent) => {
 	})
 }
 
+hideIconPlus = () => {
+	$('#accordionShowComment .btn-link').each(function(){
+		$(this).find('.fa1').removeClass('fa-minus');
+			$(this).find('.fa1').addClass('fa-plus');
+    })
+}
+
 hideChildren = (parent) => {
 	$('.btn-link-1').each(function(){
 		if($(this).hasClass('root_'+parent+'')) {
@@ -316,6 +323,8 @@ eventComment = () => {
 		} 
 		// if not open
 		else {
+			hideIconPlus();
+
 			$(this).parent().find('.btn-link .fa1').removeClass('fa-plus');
 			$(this).parent().find('.btn-link .fa1').addClass('fa-minus');
 
