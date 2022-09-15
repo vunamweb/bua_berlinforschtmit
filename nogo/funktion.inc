@@ -3455,8 +3455,8 @@ function showComments($mediaID = 0, $category = 0, $que = null)
 		   <div class="card-body">
 				' . showCommentOfComment($class, $idNote, 1) . '
 			   <div class="block_comment open" id="block_comment_' . $idNote . '">
-				 <textarea class="message_comment" placeholder="Comment"></textarea>
-				 <a href="#" data-toggle="modal" data-target="#show_link">Add link</a><br><br>
+				 <textarea id="comment_' . $idNote . '" class="message_comment summernote" placeholder="Comment"></textarea>
+				 <a href="#" data-toggle="modal" data-target="#show_link" class="hide">Add link</a><br><br>
 			     <input type="submit" class="btn btn-info" value="Save"></div>
 		   </div>
 	   </div>
@@ -3502,6 +3502,10 @@ function showComments($mediaID = 0, $category = 0, $que = null)
 	  </div>
   </div>
 </div>';
+
+// click this button to show above modal  
+$echo .= '<a href="#" data-toggle="modal" data-target="#show_link" id="show_list_comment" class="hide">Add link</a><br><br>'; 
+
 
 	if ($parent_comment > 0) {
         $echo .= '<script>
@@ -3567,8 +3571,8 @@ function showCommentOfComment($class, $parent, $level)
 		$response .= showCommentOfComment($class . ' root_' . $parentChild, $parentChild, $level);
 
 		$response .= '<div class="block_comment" id="block_comment_' . $parentChild . '">
-						 <textarea class="message_comment" placeholder="Comment"></textarea>
-						 <a href="#" data-toggle="modal" data-target="#show_link">Add link</a><br><br>
+						 <textarea id="comment_' . $parentChild . '" class="message_comment summernote" placeholder="Comment"></textarea>
+						 <a href="#" data-toggle="modal" data-target="#show_link" class="hide">Add link</a><br><br>
 					     <input type="submit" class="btn btn-info" value="Save">
 					  </div>
 	                 ';

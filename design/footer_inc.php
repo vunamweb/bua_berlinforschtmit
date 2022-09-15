@@ -193,6 +193,9 @@ if($morpheus_edit) {
 	toolbar: 
     	 'customInsertButton customDateButton', 
 	setup: (editor) => {
+		editor.on('change', function(e) {
+			$('#message_comment').val(editor.getContent());
+       });
 		editor.ui.registry.addButton('customInsertButton', {
       text: 'Insert comment',
       onAction: (_) => addLink(editor)//editor.insertContent(`&nbsp;<strong>It's my button!</strong>&nbsp;`)
@@ -227,6 +230,7 @@ addLink = (editor) => {
    //editor.insertContent(`&nbsp;<strong>It's my button!</strong>&nbsp;`);
 }
 // END
+
 // VU: add function comment
 showChildren = (parent) => {
 	$('.btn-link-1').each(function(){
@@ -593,11 +597,13 @@ $(document).ready(function() {
 	// END
 
 	// VU: show comment
-    $(".message_comment").on("change keyup paste", function() {
-		var message = $(this).val();
+    /*$(".message_comment").on("change keyup paste", function() {
+		//var message = $(this).val();
+		var idNote = $(this).attr('id'); 
+		var message  = tinymce.get(idNote).getContent();
 
 		$('#message_comment').val(message);
-	});
+	});*/
 	// END 
 
 	// VU: add script for button savebtn2
