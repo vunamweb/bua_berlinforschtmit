@@ -26,10 +26,175 @@ $monate = array(1=>"Januar", 2=>"Februar", 3=>"März", 4=>"April", 5=>"Mai", 6=>
 global $imgWidth;
 $imgWidth = array(1=>450, 2=>700, 3=>580, 4=>1100, 5=>1100, 7=>1500);
 
+function html_text($id, $utf8=0)
+{
+	global $lan;
+	if (!$lan) {
+		$lan = "de";
+	}
+
+	$sql = "SELECT $lan FROM morp_mail_templates WHERE id=$id";
+	$res = safe_query($sql);
+	$row = mysqli_fetch_object($res);
+	$return = $utf8 ? utf8_decode($row->$lan) : $row->$lan; 
+	return $return;
+}
+
+function makeUrltoLink($string) {
+ // The Regular Expression filter
+ $reg_pattern = "/(((http|https|ftp|ftps)\:\/\/)|(www\.))[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\:[0-9]+)?(\/\S*)?/";
+ 
+ // make the urls to hyperlinks
+ return preg_replace($reg_pattern, '<a href="$0" target="_blank" rel="noopener noreferrer">$0</a>', $string);
+}
+
+function browser_name()
+{
+
+	$ua = $_SERVER['HTTP_USER_AGENT'];
+
+	if (
+		strpos(strtolower($ua), 'safari/') &&
+		strpos(strtolower($ua), 'opr/')
+	) {
+		// Opera
+		$res = 'Opera';
+	} elseif (
+		strpos(strtolower($ua), 'safari/') &&
+		strpos(strtolower($ua), 'chrome/')
+	) {
+		// Chrome
+		$res = 'Chrome';
+	} elseif (
+		strpos(strtolower($ua), 'msie') ||
+		strpos(strtolower($ua), 'trident/')
+	) {
+		// Internet Explorer
+		$res = 'Internet Explorer';
+	} elseif (strpos(strtolower($ua), 'firefox/')) {
+		// Firefox
+		$res = 'Firefox';
+	} elseif (
+		strpos(strtolower($ua), 'safari/') &&
+		(strpos(strtolower($ua), 'opr/') === false) &&
+		(strpos(strtolower($ua), 'chrome/') === false)
+	) {
+		// Safari
+		$res = 'Safari';
+	} else {
+		// Out of data
+		$res = false;
+	}
+
+	return $res;
+}
+
+function get_operating_system() {
+	$u_agent = isset($_SERVER['HTTP_USER_AGENT']) ? $_SERVER['HTTP_USER_AGENT'] : '';
+	$operating_system = 'Unknown Operating System';
+
+	//Get the operating_system name
+	if($u_agent) {
+		if (preg_match('/linux/i', $u_agent)) {
+			$operating_system = 'Linux';
+		} elseif (preg_match('/windows|win32|win98|win95|win16/i', $u_agent)) {
+			$operating_system = 'Windows';
+		} elseif (preg_match('/ubuntu/i', $u_agent)) {
+			$operating_system = 'Ubuntu';
+		} elseif (preg_match('/iphone/i', $u_agent)) {
+			$operating_system = 'IPhone';
+		} elseif (preg_match('/ipod/i', $u_agent)) {
+			$operating_system = 'IPod';
+		} elseif (preg_match('/ipad/i', $u_agent)) {
+			$operating_system = 'IPad';
+		} elseif (preg_match('/android/i', $u_agent)) {
+			$operating_system = 'Android';
+		} elseif (preg_match('/macintosh|mac os x|mac_powerpc/i', $u_agent)) {
+			$operating_system = 'Mac';
+		} elseif (preg_match('/blackberry/i', $u_agent)) {
+			$operating_system = 'Blackberry';
+		} elseif (preg_match('/webos/i', $u_agent)) {
+			$operating_system = 'Mobile';
+		}
+	} else {
+		$operating_system = php_uname('s');
+	}
+	
+	return $operating_system;
+}
+
+function getTextMail($nlid)
+{
+	global $morpheus;
+	$url = $morpheus['url'] . 'preview.php?nlid=' . $nlid . '';
+
+	$content = $morpheus['mail_start'] . file_get_contents($url) . $morpheus['mail_end'];
+
+	return $content;
+}
+
+function getMailFormIduser($mid)
+{
+	$query = "SELECT * FROM morp_intranet_user WHERE mid = " . $mid . "";
+	$result = safe_query($query);
+	$row = mysqli_fetch_object($result);
+
+	return $row->email;
+}
+
+function sendMailNewletters()
+{
+	global $morpheus;
+
+	include('inc/send.php');
+
+	$date = date('Y-m-d');
+	//echo $date . '///';
+
+	$query = "SELECT * FROM morp_newsletter_track";
+	$res = safe_query($query);
+	
+	//print_r($res);
+
+	while ($row = mysqli_fetch_object($res)) {
+		$id = $row->id;
+		$date_send_mail = $row->date_send_mail;
+		$nlid = $row->nlid;
+
+		$listUser = $row->mids;
+		$listUser = explode(',', $listUser);
+		
+		if ($date == $date_send_mail) {
+			// update status to true, so we know ready send mail
+			$query = 'update morp_newsletter_track set status = true where id = '.$id.'';
+			safe_query($query);
+
+			$body = getTextMail($nlid);
+			
+			/*$headerMail = $morpheus["mail_start"];
+			$footerMail = $morpheus["mail_end"];*/
+
+			$mail_txt = $body;
+
+			foreach ($listUser as $mid) {
+				if($mid) {
+					//$to = getMailFormIduser($mid);
+					//$to = 'vukynamkhtn@gmail.com';
+					$to = 'post@pixel-dusche.de';
+					$betreff = "News";
+
+					sendMailSMTP($to, utf8_decode($betreff), utf8_decode($mail_txt));
+				}
+			}
+		}
+	}
+	
+	echo '<div class="alert alert alert-success" role="alert">Successfully send mail</div>';
+}
+
 function get_token() {
 	return md5(date("Ymd").'PiDu');
 }
-
 
 function formSearch() {
 	$select = '
@@ -58,10 +223,16 @@ function formSearch() {
 	}
 	$select_interests .= '</select></div>';
 
-	$checkbox = '<div class="col-md-2 col-filter mt06">
-	&nbsp;<input type="checkbox" id="GH">&nbsp;&nbsp;<label>GH</label>
-	&nbsp;<input type="checkbox" id="BC">&nbsp; &nbsp;<label>BC</label>
-    </div>';
+	$checkbox = '<div class="col-md-4 col-filter mt06">
+	&nbsp;<input type="checkbox" id="GH">&nbsp;<label for="GH">GH</label>
+	&nbsp;<input type="checkbox" id="BC">&nbsp;<label for="BC">BC</label>
+	&nbsp;<input type="checkbox" id="SC">&nbsp;<label for="SC">SC</label>
+	&nbsp;<input type="checkbox" id="NGC">&nbsp;<label for="NGC">NGC</label>
+	&nbsp;<input type="checkbox" id="KnEx">&nbsp;<label for="KnEx">KnEx</label>
+	&nbsp;<input type="checkbox" id="Pol">&nbsp;<label for="Pol">Pol</label>
+	&nbsp;<input type="checkbox" id="Kul">&nbsp;<label for="Kul">Kul</label>
+	&nbsp;<input type="checkbox" id="ExLab">&nbsp;<label for="ExLab">ExLab</label>
+	</div>';
 	
 	$form = '<hr>';
 

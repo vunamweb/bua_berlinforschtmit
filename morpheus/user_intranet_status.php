@@ -9,7 +9,7 @@
 # # # # # # # # # # # # # # # # # # # # # # # # # # #
 
 session_start();
-$myauth = 10;
+$myauth = 50;
 $aktuere_in = 'in';
 $akt3_active = ' class="active"';
 $useUserDB = 1;

@@ -354,7 +354,13 @@ $(document).ready(function() {
         $('#wave1').removeClass('hide');
 
         var GH = $('#GH').is(':checked') ? 'on' : '';
-        var BC = $('#BC').is(':checked') ? 'on' : '';
+		var BC = $('#BC').is(':checked') ? 'on' : '';
+		var SC  = $('#SC').is(':checked') ? 'on' : '';
+		var NGC  = $('#NGC').is(':checked') ? 'on' : '';
+		var KnEx  = $('#KnEx').is(':checked') ? 'on' : '';
+		var Pol  = $('#Pol').is(':checked') ? 'on' : '';
+		var Kul  = $('#Kul').is(':checked') ? 'on' : '';
+		var ExLab  = $('#ExLab').is(':checked') ? 'on' : '';
         
         //call ajax to change content
         $.ajax({
@@ -366,7 +372,13 @@ $(document).ready(function() {
             hashtags_interests: getHashtagsInterests(),
             search_combine: 'search',
             GH: GH,
-            BC: BC
+			BC: BC,
+			SC: SC,
+			NGC: NGC,
+			KnEx: KnEx,
+			Pol: Pol,
+			Kul: Kul,
+			ExLab: ExLab
           },
           dataType: 'json',
           beforeSend: function beforeSend() {},

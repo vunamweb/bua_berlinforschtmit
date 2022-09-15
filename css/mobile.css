@@ -188,6 +188,12 @@
 	}
 }
 
+@media (max-width: 1050px) {
+	.text-top-home {
+		width: 80% !important;
+	}
+}
+
 @media (max-width: 768px) {
     section {
         padding: 30px 0;

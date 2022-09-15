@@ -932,14 +932,14 @@ width: 100%; padding: 0 !important;
 }
 #recordingsList { color: #fff; padding: 0; margin: 0; list-style: none; }
 #recordingsList a, .submit_form_audio, .btn-success { 
-  font-size: 1.2em;
+  font-size: 1em; font-family: 'Merriweather';
   color: #000 !important; 
   background: #edebe4;
   color: #fff;
-  border: solid 4px #99cc00;
+  border: solid 2px #99cc00;
   /* border-radius: 50px; */
   border-radius: 0;
-  padding: 10px 30px;
+  padding: 6px 20px;
   margin-top: 0;
   margin-bottom: 1em;
   display: inline-block;
@@ -950,9 +950,8 @@ width: 100%; padding: 0 !important;
 }
 #recordingsList a:hover, .submit_form_audio:hover, .btn-success:hover { 
   background: #edebe4;
-  border: solid 4px #0D3E65;
+  border: solid 2px #0D3E65;
   color: #1E1D70 !important;
-  padding: 10px 30px;
 }
 #recordingsList a.hide { display: none !important; }
 #recordingsList a.submit { position: absolute; margin-left: 2em; display: none;}

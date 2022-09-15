@@ -109,7 +109,7 @@ $auths_arr = array(
 
 
 				<?php	} ?>
-				<?php if(in_array(21,$auths) || $admin) { ?>
+				<?php if(in_array(60,$auths) || $admin) { ?>
 
 					<li class="panel panel-default <?php global $events_in; echo $events_in; ?>" id="dropdown">
 						<a data-toggle="collapse" href="#dropdown-lvl161">
@@ -125,6 +125,9 @@ $auths_arr = array(
 							</div>
 						</div>
 					</li> 
+					
+				<?php	} ?>
+				<?php if(in_array(50,$auths) || $admin) { ?>
 					
 					<li class="panel panel-default <?php global $aktuere_in; echo $aktuere_in; ?>">
 						<a data-toggle="collapse" href="#dropdown-lvl2a">
@@ -143,6 +146,9 @@ $auths_arr = array(
 						</div>
 					</li>
 					
+				<?php	} ?>
+				<?php if(in_array(70,$auths) || $admin) { ?>
+				
 					<li class="panel panel-default" id="dropdown">
 						<a data-toggle="collapse" href="#dropdown-lvl40">
 							<i class="fa fa-paper-plane"></i> Mailing <span class="caret"></span>
@@ -161,6 +167,8 @@ $auths_arr = array(
 						</div>
 					</li>
 					
+				<?php	} ?>
+				<?php if(in_array(10,$auths) || $admin) { ?>
 
 					<!--	<li><a href="morp_team.php" title="PDF\'s verwalten"><i class="fa fa-th"></i> Team</a></li>-->
 					 <li><a href="formular.php" title="Formulare verwalten"><i class="fa fa-tasks "></i> Formulare</a></li>
