@@ -1386,7 +1386,14 @@ body {
 	margin-left: 20px;
 	font-size: .7em;
 }
-/* */
+
+.col-hastag {
+	margin-right: 50px;
+}
+
+.col-hastag .hashtag:before {
+	display: none;
+}
 /*  END */
 
 /* EXPORT */

@@ -268,7 +268,7 @@ function liste()
 
 function search()
 {
-    $hashtag = '<div class="col-md-2 col-filter"><select name="select" class="ui selection hashtag" multiple=""><option value="">HashTag</option>';
+    $hashtag = '<div class="col-md-2 col-filter col-hastag"><select name="select" class="ui selection hashtag" multiple=""><option value="">HashTag</option>';
 
     $sql = "SELECT * FROM morp_hashtag WHERE 1";
     $res = safe_query($sql);
@@ -283,7 +283,7 @@ function search()
 
     $hashtag .= '</select></div>';
 
-    $categories = '<div class="col-md-2 col-filter"><select name="select" class="ui selection categories" multiple=""><option value="">Category</option>';
+    $categories = '<div class="col-md-2 col-filter col-hastag"><select name="select" class="ui selection categories" multiple=""><option value="">Category</option>';
 
     $sql = "SELECT * FROM morp_stimmen WHERE 1";
     $res = safe_query($sql);
@@ -301,7 +301,7 @@ function search()
     $form = '<hr>';
 
     $form .= '<div class="row">';
-    $form .= '<div class="col-md-2 ui left icon input">
+    $form .= '<div class="col-md-3 ui left icon input">
 	  <input type="text" name="suche" id="suche" placeholder="Suche nach Name">
 	</div>';
 
@@ -309,7 +309,7 @@ function search()
     $form .= $categories;
 
     //$form .= $select_interests;
-    $form .= '<div class="col-md-2"><button value="Filter" class="btn btn-info btn-submit-search navbar-form">Filter</button></div>';
+    $form .= '<div class="col-md-2"><a href="#" class="btn btn-info navbar-form">Filter</a></div>';
     $form .= '</div>';
 
     $form .= '<hr class="mt2">';
