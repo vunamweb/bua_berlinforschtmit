@@ -39,7 +39,7 @@
 				</ul>
 
 				<ul class="nav-child">
-					<li class="hn"><strong><a href="http://localhost:8888/berlinforscht/bua_berlinforschtmit/de/categories/">Categories</a></strong></li>
+					<li class="hn"><strong><a href="http://localhost:8888/berlinforscht/bua_berlinforschtmit/de/categories/">Chart</a></strong></li>
 
 
 				</ul>

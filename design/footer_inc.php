@@ -178,30 +178,35 @@ if($morpheus_edit) {
 
 <!-- VU: add script for tinymce !-->
 <script type="text/javascript">
-  tinymce.init({
-    selector: '.summernote',
-	width: '100%',
-	max_width: '100%',
-	/*menubar: false,
-	statusbar: false,
-	toolbar: false,
-	//inline: 'true',
-	 skin: 'tinymce-5-dark',
-    toolbar_mode: 'floating',
-	// plugins: 'autoresize advlist link image lists',
-	plugins: 'autoresize link lists charmap table code ',*/
-	toolbar: 
-    	 'customInsertButton customDateButton', 
-	setup: (editor) => {
-		editor.on('change', function(e) {
-			$('#message_comment').val(editor.getContent());
-       });
-		editor.ui.registry.addButton('customInsertButton', {
-      text: 'Insert comment',
-      onAction: (_) => addLink(editor)//editor.insertContent(`&nbsp;<strong>It's my button!</strong>&nbsp;`)
-    
-	})
-   },	 
+  	tinymce.init({
+	  selector: '.summernote',
+	  width: '100%',
+	  max_width: '100%',
+	  menubar: false,
+	  statusbar: false,
+	  /*
+	  toolbar: false,
+	  //inline: 'true',
+	   skin: 'tinymce-5-dark',
+	  toolbar_mode: 'floating',
+	  // plugins: 'autoresize advlist link image lists',
+	  plugins: 'autoresize link lists charmap table code ',*/
+	  plugins: 'autoresize link lists charmap table code ',
+	  toolbar: 
+		  'customInsertButton customDateButton' +
+		  'undo redo ' +
+		  'styles ' +
+		  'bold italic underline | link | hr ' +
+		  'bullist numlist | table | charmap | removeformat ', 
+	  setup: (editor) => {
+		  editor.on('change', function(e) {
+			  $('#message_comment').val(editor.getContent());
+	  });
+	  editor.ui.registry.addButton('customInsertButton', {
+		  text: 'Link',
+		  onAction: (_) => addLink(editor)//editor.insertContent(`&nbsp;<strong>It's my button!</strong>&nbsp;`)    
+	  })
+	},	 
     
 	
 //		outdent indent |   

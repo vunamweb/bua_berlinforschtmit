@@ -645,6 +645,8 @@ function sendMail($isallowed, $name, $email, $txt_confirm_email) {
 
 	sendMailSMTP($to, utf8_decode($betreff), utf8_decode($mail_txt));
 }
+
+
 function showProperties($mid)
 {
 	$response = '';
@@ -659,10 +661,11 @@ function showProperties($mid)
 
 	$query = "SELECT * FROM morp_intranet_user_properties";
 	$result = safe_query2($query);
-
-	while ($row = mysqli_fetch_object($result)) {
+	$n = 0;
+	while ($row = mysqli_fetch_object($result)) {		
+		$n++;
 		$check = (in_array($row->mpid, $array_properties)) ? "checked" : '';
-		$response .= '<div><input ' . $check . ' type="checkbox" value=' . ($row->mpid) . ' name="listProperties[]">&nbsp; &nbsp; &nbsp;<label>' . ($row->property) . '</label></div>';
+		$response .= '<div><input ' . $check . ' type="checkbox" value=' . ($row->mpid) . ' id="pp'.$n.'" name="listProperties[]">&nbsp; &nbsp; &nbsp;<label for="pp'.$n.'">' . ($row->property) . '</label></div>';
 	}
 
 	return $response;
@@ -682,10 +685,11 @@ function showInterests($mid)
 
 	$query = "SELECT * FROM morp_intranet_user_interests";
 	$result = safe_query2($query);
-
+	$n = 0;
 	while ($row = mysqli_fetch_object($result)) {
+		$n++;
 		$check = (in_array($row->inID, $array_properties)) ? "checked" : '';
-		$response .= '<div><input ' . $check . ' type="checkbox" value=' . ($row->inID) . ' name="listInterests[]">&nbsp; &nbsp; &nbsp;<label>' . ($row->interest) . '</label></div>';
+		$response .= '<div><input ' . $check . ' type="checkbox" value=' . ($row->inID) . ' id="li'.$n.'" name="listInterests[]">&nbsp; &nbsp; &nbsp;<label for="li'.$n.'">' . ($row->interest) . '</label></div>';
 	}
 
 	return $response;
@@ -702,10 +706,11 @@ function showTypeUser($mid, $type)
 
 	$check = ($row->$type) ? "checked" : '';
 
-	$response .= '<div><input ' . $check . ' type="checkbox" name="' . $type . '">&nbsp; &nbsp; &nbsp;<label>' . $type . '</label></div>';
+	$response .= '<div><input ' . $check . ' type="checkbox" name="' . $type . '" id="' . $type . '">&nbsp; &nbsp; &nbsp;<label for="' . $type . '">' . $type . '</label></div>';
 
 	return $response;
 }
+
 
 function updatePropertiesUser($list_properties, $mid)
 {

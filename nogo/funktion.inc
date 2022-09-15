@@ -4248,7 +4248,7 @@ function showCategory($idNote) {
 	$sql = "SELECT * FROM morp_stimmen WHERE parent = 0 ORDER BY name desc";
 	$res = safe_query($sql);
 
-	$echo = '<br><br><div class="accordion" id="accordionShowComment">';
+	$echo = '<div class="accordion" id="accordionShowComment">';
 	
 	while ($row = mysqli_fetch_object($res)) {
 		$stID = $row->stID;
@@ -4348,20 +4348,21 @@ function editComment($edit, $showCategory)
         $echo .= setMorpheusForm($row, $arr, $imgFolderShort, $edit, 'morp_referenzen', $tid);
 	}
 	
-	$echo .= '<p>'.showHashTag($edit).'</p><br><br>';
+	$echo .= '<p>'.showHashTag($edit).'</p>';
 
 	if($showCategory)
-		$echo .= '<p>Category</p>'.showCategory($edit).'<br><br>';
+		$echo .= '<h2>Category</h2>'.showCategory($edit).'';
 
     $echo .= '</div>
 		</div>
- 			<button type="submit" id="savebtn" class="btn btn-success"><i class="fa fa-save"></i> &nbsp; ' . $um_wen_gehts . ' speichern / aktualisieren</button>
-			<button type="submit" id="savebtn2" value="hier" class="btn btn-success"><i class="fa fa-save"></i> &nbsp; ' . $um_wen_gehts . ' speichern und zurück</button>
-		<div class="row mt3">
+
+		<p>&nbsp;</p>
+		
+		<button type="submit" id="savebtn" class="btn btn-success"><i class="fa fa-save"></i> &nbsp; ' . $um_wen_gehts . ' speichern / aktualisieren</button>			
 	';
 
     $echo .= '
-		</div>
+
     </div>
     </form>
 ';

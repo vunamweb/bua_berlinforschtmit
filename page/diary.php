@@ -38,10 +38,10 @@ $output = '<div id=vorschau>
 $arr_form = array(
     array("title", "Title", '<input type="Text" value="#v#" class="form-control" name="#n#" />'),
     array("message", "Message", '<textarea class="summernote form-control" name="#n#" />#v#</textarea>'),
-    array("parent", "", '<input type="hidden" value="#v#" class="form-control" name="#n#" />'),
-    array("mediaID", "", '<input type="hidden" value="#v#" class="form-control" name="#n#" />'),
+    array("parent", "HIDDEN", '<input type="hidden" value="#v#" class="form-control" name="#n#" />'),
+    array("mediaID", "HIDDEN", '<input type="hidden" value="#v#" class="form-control" name="#n#" />'),
     array("uid", "", '<input type="hidden" value="#v#" class="form-control" name="#n#" />'),
-    array("date_time", "", '<input type="hidden" value="#v#" class="form-control" name="#n#" />'),
+    array("date_time", "HIDDEN", '<input type="hidden" value="#v#" class="form-control" name="#n#" />'),
 );
 ///////////////////////////////////////////////////////////////////////////////////////
 $neuerDatensatz = isset($_GET["neu"]) ? $_GET["neu"] : 0;
@@ -309,7 +309,7 @@ function search()
     $form .= $categories;
 
     //$form .= $select_interests;
-    $form .= '<div class="col-md-2"><input value="Filter" class="btn btn-info btn-submit-search navbar-form"></div>';
+    $form .= '<div class="col-md-2"><button value="Filter" class="btn btn-info btn-submit-search navbar-form">Filter</button></div>';
     $form .= '</div>';
 
     $form .= '<hr class="mt2">';
