@@ -310,8 +310,11 @@ eventComment = () => {
 		
         // if already open
 		if($(this).parent().find('.btn-link .fa').hasClass('fa-minus')) {
-			$(this).parent().find('.btn-link .fa1').removeClass('fa-minus');
-			$(this).parent().find('.btn-link .fa1').addClass('fa-plus');
+			if(!$(this).hasClass('input-category')) {
+				$(this).parent().find('.btn-link .fa1').removeClass('fa-minus');
+			    $(this).parent().find('.btn-link .fa1').addClass('fa-plus');
+			}
+			
 
 			// hide comment of comment
 			hideChildren(idComment);
@@ -323,7 +326,8 @@ eventComment = () => {
 		} 
 		// if not open
 		else {
-			hideIconPlus();
+			if(!$(this).hasClass('input-category'))
+			  hideIconPlus();
 
 			$(this).parent().find('.btn-link .fa1').removeClass('fa-plus');
 			$(this).parent().find('.btn-link .fa1').addClass('fa-minus');

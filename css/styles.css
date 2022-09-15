@@ -1364,6 +1364,10 @@ body {
 	display: inline-block;
 	margin-left: 10px;
 }
+
+.input-category {
+	display: block !important;
+}
 /* END COMMENT */
 
 /* HASHTAG */
