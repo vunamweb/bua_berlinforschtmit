@@ -1343,7 +1343,8 @@ width: 100%; padding: 0 !important;
 .text_comment {
 	display: inline-block;
 	font-weight: 400;
-	font-size: 1.2em;
+	font-size: 1rem;
+	line-height: 2em;
 }
 .cid {
 	display: block;

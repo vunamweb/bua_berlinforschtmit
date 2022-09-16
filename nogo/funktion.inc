@@ -4316,6 +4316,39 @@ function showCategory($idNote) {
 }
 // END
 
+function showCategories($array_properties = array()) {
+	$sql = "SELECT * FROM morp_stimmen WHERE parent = 0 ORDER BY name desc";
+	$res = safe_query($sql);
+
+	$echo = '<div class="accordion" id="accordionShowComment">';
+	while ($row = mysqli_fetch_object($res)) {
+		$stID = $row->stID;
+		$name = $row->name;
+
+		$check = (in_array($row->stID, $array_properties)) ? "checked" : '';
+		
+		$echo .= '
+		<div class="card">
+	   		<div class="card-header">
+		   		<h2 class="mb-0">
+					<input '.$check.' type="checkbox" value="'.$stID.'" name="listCategories[]">
+					<a type="button" class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapse' . $stID . '">
+				   		<i class="fa fa-plus fa1"></i>
+				   		' . $name . '
+					</a>
+				</h2>
+	   		</div>
+	   		<div id="collapse' . $stID . '" class="collapse" aria-labelledby="headingThree" data-parent="#accordionShowComment">
+		   		<div class="card-body">
+				' . showCategoryOfCategory($array_properties, $stID, 1) . '
+				</div>
+	   		</div>
+   		</div>';
+	}
+
+	return $echo;
+}
+
 // show category of category
 function showCategoryOfCategory($array_properties, $parent, $level)
 {
@@ -4338,12 +4371,17 @@ function showCategoryOfCategory($array_properties, $parent, $level)
 
 		$check = (in_array($row->stID, $array_properties)) ? "checked" : '';
 
-		$response .= '<h2 class="mb-0 mb-1" style="margin-left:'.$marginLeft.'px">
-					   <a class="btn btn-link btn-link-1 input-category" parent="' . $parent . '" data-target="#collapse' . $parentChild . '">
-					      <input '.$check.' type="checkbox" value="'.$parentChild.'" name="listCategories[]">
-					      <p class="text_comment" id="data_'.$parentChild.'">' . $name . '</p>
-						</a>
-					 </h2>';
+		// $response .= '<h2 class="mb-0 mb-1" style="margin-left:'.$marginLeft.'px">
+		//    <a class="btn btn-link btn-link-1 input-category" parent="' . $parent . '" data-target="#collapse' . $parentChild . '">
+		// 	  <input '.$check.' type="checkbox" value="'.$parentChild.'" name="listCategories[]">
+		// 	  <label class="text_comment" id="data_'.$parentChild.'">' . $name . '</label>
+		// 	</a>
+		//  </h2>';
+
+		$response .= '<p class="mb-0" style="margin-left:'.$marginLeft.'px">
+					      <input '.$check.' type="checkbox" value="'.$parentChild.'" name="listCategories[]" id="data_'.$parentChild.'">
+					      <label class="text_comment" for="data_'.$parentChild.'">' . $name . '</label>
+					 </p>';
 
         $response .= showCategoryOfCategory($array_properties, $parentChild, $level);
     }

@@ -320,14 +320,30 @@ function edit($edit)
 		$echo .= setMorpheusForm($row, $arr, $imgFolder, $edit, 'morp_media', $tid);
 	}
 
+	$array_properties = array();
+	$sql = "SELECT * FROM morp_stimmen_media t1, morp_stimmen t2 WHERE t1.stID=t2.stID AND mediaID=$edit";
+	$res = safe_query($sql);
+	$charts = '';
+	while($row = mysqli_fetch_object($res)) {
+		$array_properties[] = $row->stID;		
+		$charts .= '<span class="btn btn-info mr-1 mb-1 delChart" data-id="'.$row->stID.'"><i class="fa fa-trash"></i> &nbsp; '.$row->name.'</span>';
+	}
+	
 	$echo .= '
-			<input type="hidden" name="save_media" value="1">
-			<button class="btn btn-info" type="submit">Speichern</button>
+		<div class="row">
+			<div class="col-md-6">
+				<input type="hidden" name="save_media" value="1">
+				<button class="btn btn-info" type="submit">Speichern</button>
+			</div>
+			<div class="col-md-6">
+				'.$charts.'
+				'. showCategories($array_properties) .'			
+			</div>
 		</div>
 	</div>
 </form>
 ';
-
+	
 	$echo .= '<hr>
 		<h1 class="text-center small"><i>Diary</i></h1>' . '
 		
@@ -385,6 +401,17 @@ else if ($save_media) {
 	global $morpheus;
 	$edit = saveMorpheusForm($edit, $neu, 0);
 
+	// HERE WE HAVE TO CHECK HOW WE DELETE 
+	// MAYBE DELETE ALL AND INSERT NEW
+	foreach($_POST["listCategories"] as $val) {
+		$sql = "SELECT * FROM morp_stimmen_media WHERE stID=$val AND mediaID=$edit";
+		$res = safe_query($sql);
+		if(mysqli_num_rows($res)<1) {
+			$sql = "INSERT morp_stimmen_media SET stID=$val , mediaID=$edit";
+			$rs = safe_query($sql);
+		}
+	}
+	
 	// $scriptname = $morpheus['url'] . 'de/' . $_REQUEST['hn'] . '/' . '?edit_entry='.$_SESSION['entry'].'';
 
 	?>
