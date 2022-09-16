@@ -211,25 +211,25 @@ function liste() {
   <ul class="breadcrumb">
   ';
   
-  	$breadcrumb = '<li class="breadcrumb-item"><a href="?ebene=1&parent=0">Start</a></li>';
+  	$bc_start = '<li class="breadcrumb-item"><a href="?ebene=1&parent=0">Start</a></li>';
 	  
 	if($ebene>1 && $parent) {		  
 		$sql = "SELECT * FROM $table WHERE $tid=$parent";
 		$res = safe_query($sql);
 		$row = mysqli_fetch_object($res);
 		$par = $row->parent;
-		$breadcrumb .= '<li class="breadcrumb-item""><a href="?ebene='.($ebene-1).'&parent='.$par.'">'.$row->name.'</a></li>';
+		$breadcrumb = '<li class="breadcrumb-item""><a href="?ebene='.($ebene-1).'&parent='.$par.'">'.$row->name.'</a></li>';
 		
 		for($n=($ebene-1); $n>=2; $n--) {
 			$sql = "SELECT * FROM $table WHERE $tid=$par";
 			$res = safe_query($sql);
 			$row = mysqli_fetch_object($res);
 			$par = $row->parent;
-			$breadcrumb .= '<li class="breadcrumb-item"><a href="?ebene='.($n-1).'&parent='.$par.'">'.$row->name.'</a></li>'.$breadcrumb;
+			$breadcrumb = '<li class="breadcrumb-item"><a href="?ebene='.($n-1).'&parent='.$par.'">'.$row->name.'</a></li>'.$breadcrumb;
 		}
 	}
 
-	$echo .= $breadcrumb.'
+	$echo .= $bc_start.$breadcrumb.'
   </ul>
 </nav>
 
@@ -266,6 +266,9 @@ function liste() {
 			</div>
 			<div class="col-md-6 pull-left">
 				<a class="width1" href="?ebene='.($ebene+1).'&parent='.$edit.'"><i class="fa fa-level-down"></i> &nbsp; '.$row->$anz.' </a>
+			</div>
+			<div class="col-md-1 pull-left">
+				'.$row->wert.'
 			</div>
 			<div class="col-md-1 text-right pull-left">
 				<a href="?del='.$edit.'" class="btn btn-danger"><i class="fa fa-trash-o"></i></a>
