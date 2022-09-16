@@ -211,6 +211,8 @@ hr { margin: 2rem 0 1rem; }
 .img-logo { max-width: 250px; }
 .img-vcard { max-width: 25%; width: 100%; height: auto; margin-right: 20px; margin-bottom: 1em; }
 .partner {  padding: 3em 0 ; }
+.header-img  {  }
+.header-img img { margin-left: -50px; }
 img.partner-logo { height: 60px;  width: auto; }
 .flex-container {
   display:flex;
@@ -1499,7 +1501,7 @@ width: 100%; padding: 0 !important;
 .lampe { padding-left: 200px;  }
 .lampe.container_edit, .lampe + .container_edit { padding-top: 50px; }
 .himg { position: relative; }
-.headerIMG { height: 600px; }
+.headerIMG { height: 70vH; }
 .zitat.hashtag {  font-family: 'MerriweatherSans'; text-align: left; color: #fff; font-weight: 700; font-size: 8em; line-height: .9em; position: relative; margin-left: 0; transform: inherit; position: absolute; top: 75px; left: 0; padding-left: 260px; }
 .hashtag:before { content: ''; position: absolute; display: block; height: calc(100% - 20px); width: 300px; background-size: contain; background-repeat: no-repeat; left:0; top: 8px;
 	background-image: url("data:image/svg+xml,%3C%3Fxml version='1.0' encoding='utf-8'%3F%3E%3Csvg version='1.1' id='Ebene_1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' viewBox='0 0 34.3 48.2' style='enable-background:new 0 0 34.3 48.2;' xml:space='preserve'%3E%3Cstyle type='text/css'%3E .st0%7Bfill:%23FFFFFF;%7D%0A%3C/style%3E%3Cpath class='st0' d='M34.3,17.4v-5.6h-7.7L27.8,0h-7.1l-1.1,11.8H9L10.1,0H3L1.9,11.8H0v5.6h1.4L0.2,30.1H0v18.1h5.6l1.2-12.3h10.7 l-1.1,12.3h6.9l1.2-12.3h8.3v-5.8H25l1.2-12.7C26.2,17.4,34.3,17.4,34.3,17.4z M18,30.1H7.3l1.2-12.7h10.7L18,30.1z'/%3E%3C/svg%3E%0A");
@@ -1697,3 +1699,71 @@ body.hashtag:before {
 	  outline: 0;
 	  box-shadow: none;
   }
+  
+  #mp { position: fixed; top: 50%; left: 50%; height: 70px; width: 80px; margin: -54px 0 0 -39px; z-index: 99; }
+  #mp.megaphone:after { width: 78px; height: 66px; }
+  #nest5 {
+	display: block; z-index: 100;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	height: 150px;
+	width: 150px;
+	margin: -75px 0 0 -75px;
+	border: 2px solid transparent;
+	border-top-color: #D964A5;
+	border-radius: 50%;
+	-webkit-animation: spin11 2s linear infinite;
+			animation: spin11 2s linear infinite;
+  }
+  #nest5:before {
+	content: "";
+	position: absolute;
+	top: 7px;
+	right: 7px;
+	bottom: 7px;
+	left: 7px;
+	border: 2px solid transparent;
+	border-radius: 50%;
+	border-top-color: #D964A5;
+	-webkit-animation: spin11 3s linear infinite;
+			animation: spin11 3s linear infinite;
+  }
+  #nest5:after {
+	content: "";
+	position: absolute;
+	top: 15px;
+	right: 15px;
+	bottom: 15px;
+	left: 15px;
+	border: 2px solid transparent;
+	border-radius: 50%;
+	border-top-color: #D964A5;
+	-webkit-animation: spin11 1.5s linear infinite;
+			animation: spin11 1.5s linear infinite;
+  }
+  #nest5.hide { display: none; transition: .5s }
+  
+  #waitbg { position: fixed; display: block; width: 100%; height: 100%; left: 0; right: 0; top: 0; bottom: 0; background: rgba(255,255,255,.85); z-index: 99; }
+  #waitbg.hide { opacity: 0; transition: .5s; display: none; }
+  
+  @-webkit-keyframes spin11 {
+	from {
+	  -webkit-transform: rotate(0deg);
+			  transform: rotate(0deg);
+	}  to {
+	  -webkit-transform: rotate(359deg);
+			  transform: rotate(359deg);
+	}}@keyframes spin11 {
+	from {
+	  -webkit-transform: rotate(0deg);
+			  transform: rotate(0deg);
+	  -webkit-transform: rotate(0deg);
+			  transform: rotate(0deg);
+	}  to {
+	  -webkit-transform: rotate(359deg);
+			  transform: rotate(359deg);
+	  -webkit-transform: rotate(359deg);
+			  transform: rotate(359deg);
+	}}/** END of nest5*/
+  /*-----------------------------------------------------------------------*/

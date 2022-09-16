@@ -47,7 +47,7 @@ while($row = mysqli_fetch_object($res)) {
 				<span class="jahr">'.$jahr.'</span>
 			</div>
 		</div>
-		<div class="col-12 col-md-8 col-lg-7 col-xl-7 offset-xl-1 wow animate__animated animate__fadeInLeft animate__delay-1s">
+		<div class="col-12 col-md-8 col-lg-7 col-xl-7 offset-xl-1 ">
 			<h2>'.nl2br($eventName).'</h2>
 			<p>'.nl2br($eventText).'</p>
 			<p><a href="'.$dir.$lan.'/'.$navID[$event_url_id].eliminiere($eventName).'+'.$row->eventid.'/" class="btn btn-info btn-register">'.($full ? $archive_btn : $reg_btn).'</a></p>

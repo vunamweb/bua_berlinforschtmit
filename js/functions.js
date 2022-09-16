@@ -167,6 +167,19 @@ $(".menu-button-circular").click(function(e) {
   e.preventDefault();
 });
 
+$('body').imagesLoaded()
+	.always( function( instance ) {
+		$("#nest5, #waitbg, #mp").addClass("hide");
+	})
+	.done( function( instance ) {
+	}
+);
+$(function($) {
+	$("#movetop").on('click', function () {
+		$("html, body").animate({scrollTop: 0}, 400);
+	});
+});
+
   // $('.submit').popoverButton({
   //   target: '#myPopover2'
   // });

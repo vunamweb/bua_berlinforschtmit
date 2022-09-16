@@ -64,6 +64,9 @@
 	
 </div>
 
+<div id="waitbg"></div>
+<div id="nest5"></div>
+<div id="mp" class="megaphone"></div>
 
 <!-- <a class="btn btn-primary" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample">
   Link with href
@@ -73,14 +76,14 @@
 <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
   <div id="myToastStart" class="toast fade hide" role="alert" aria-live="assertive" aria-atomic="true" data-bs-delay="10000">
 	<div class="toast-header">
-	  <svg class="bd-placeholder-img rounded me-2" width="20" height="20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#007aff"></rect></svg>
-
-	  <strong class="me-auto">BUA message</strong>
-	  <small>now</small>
-	  <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+		<svg class="bd-placeholder-img rounded me-2" width="20" height="20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#007aff"></rect></svg>
+		
+		<strong class="me-auto">BUA message</strong>
+		<small>now</small>
+		<button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
 	</div>
 	<div class="toast-body">
-	  Welcome <?php echo $_SESSION["vname"].' '.$_SESSION["nname"]; ?> to BUA global health portal
+		Welcome <?php echo $_SESSION["vname"].' '.$_SESSION["nname"]; ?> to BUA global health portal
 	</div>
   </div>
 </div>
@@ -180,41 +183,30 @@ if($morpheus_edit) {
 
 <!-- VU: add script for tinymce !-->
 <script type="text/javascript">
-  	tinymce.init({
-	  selector: '.summernote',
-	  width: '100%',
-	  max_width: '100%',
-	  menubar: false,
-	  statusbar: false,
-	  /*
-	  toolbar: false,
-	  //inline: 'true',
-	   skin: 'tinymce-5-dark',
-	  toolbar_mode: 'floating',
-	  // plugins: 'autoresize advlist link image lists',
-	  plugins: 'autoresize link lists charmap table code ',*/
-	  plugins: 'autoresize link lists charmap table code ',
-	  toolbar: 
-		  'customInsertButton customDateButton' +
-		  'undo redo ' +
-		  'styles ' +
-		  'bold italic underline | link | hr ' +
-		  'bullist numlist | table | charmap | removeformat ', 
-	  setup: (editor) => {
-		  editor.on('change', function(e) {
-			  $('#message_comment').val(editor.getContent());
-	  });
-	  editor.ui.registry.addButton('customInsertButton', {
-		  text: 'Link',
-		  onAction: (_) => addLink(editor)//editor.insertContent(`&nbsp;<strong>It's my button!</strong>&nbsp;`)    
-	  })
-	},	 
-    
-	
-//		outdent indent |   
-//  	{ name: 'alignment', items: [ 'alignleft', 'aligncenter', 'alignright', 'alignjustify' ] },
-  });
-  </script>
+	tinymce.init({
+		selector: '.summernote',
+		width: '100%',
+		max_width: '100%',
+		menubar: false,
+		statusbar: false,
+		plugins: 'autoresize link lists charmap table code ',
+		toolbar: 
+  			'customInsertButton customDateButton' +
+  			'undo redo ' +
+  			'styles ' +
+  			'bold italic underline | link | hr ' +
+  			'bullist numlist | table | charmap | removeformat ', 
+		setup: (editor) => {
+  		editor.on('change', function(e) {
+	  		$('#message_comment').val(editor.getContent());
+		});
+		editor.ui.registry.addButton('customInsertButton', {
+  			text: 'Link',
+  			onAction: (_) => addLink(editor)//editor.insertContent(`&nbsp;<strong>It's my button!</strong>&nbsp;`)    
+		})
+		},	 
+	});
+</script>
 <!-- END !-->
 
 <script>
@@ -226,15 +218,7 @@ var ed;
 addLink = (editor) => {
    //alert(editor.selection.getContent());
    $('#show_list_comment').click();
-
    ed = editor;
-
-   /*var value = editor.selection.getContent();
-   value = '<b>' + value + '</b>';
-   
-   editor.selection.setContent(value);*/
-
-   //editor.insertContent(`&nbsp;<strong>It's my button!</strong>&nbsp;`);
 }
 // END
 
@@ -244,7 +228,6 @@ showChildren = (parent) => {
 		if($(this).hasClass('root_'+parent+'')) {
 			$(this).parent().find('.btn-link .fa1').removeClass('fa-plus');
 			$(this).parent().find('.btn-link .fa1').addClass('fa-minus');
-
 			$(this).show();
 		}
 	})
@@ -266,7 +249,6 @@ hideChildren = (parent) => {
 		if($(this).hasClass('root_'+parent+'')) {
 			$(this).parent().find('.btn-link .fa1').removeClass('fa-minus');
 			$(this).parent().find('.btn-link .fa1').addClass('fa-plus');
-
 			$(this).hide();
 		}
 	})
@@ -322,7 +304,6 @@ eventComment = () => {
 			    $(this).parent().find('.btn-link .fa1').addClass('fa-plus');
 			}
 			
-
 			// hide comment of comment
 			hideChildren(idComment);
 
@@ -532,9 +513,7 @@ $(document).ready(function() {
 		$('.modal_checkbox_properties').each(function(){
             if($(this).is(':checked')) {
 			  var data = $('#media_select').val();
-
 			  data = data + $(this).attr('value') + ',';
-
 			  $('#media_select').val(data);			  
             }
 		})
@@ -824,8 +803,8 @@ $(function() {
 	
 	$(window).scroll(function(){
         var posT = $(this).scrollTop();
-		if(posT>600) $(".zitat.hashtag").hide();
-		else $(".zitat.hashtag").show();
+		// if(posT>600) $(".zitat.hashtag").hide();
+		// else $(".zitat.hashtag").show();
 		 // var rorateRight = defaultRorateRight + $(this).scrollTop()/time;
 		 // var rorateLeft = defaultRorateLeft + $(this).scrollTop()/time;           
 		 // var x = $(this).scrollTop()/time;
@@ -842,8 +821,8 @@ $(function() {
 		
 		if(wW > 992) {
 			var yy = $(this).scrollTop()/3;
-			if(wW > 1100) 
-				$(".zitat.hashtag").css({ "margin-top":yy+"px","margin-left":(yy)+"px" });
+			// if(wW > 1100) 
+			// 	$(".zitat.hashtag").css({ "margin-top":yy+"px","margin-left":(yy)+"px" });
 			if(wW > 1300) 
 				$(".headerIMG").css({ "background-size":(100+yy)+"%" });
 			else if(wW > 1100) 
@@ -853,30 +832,6 @@ $(function() {
 	});
 });
 
-// $('svg').svgTriangles({
-//   
-//   // default: size: {w: 50, h: 50}
-//   size: {
-// 	w: 150, 
-// 	h: 150
-//   }
-// 
-// });
-// instance.switchRandomOn(SPEED);
-// instance.switchRandomOff(SPEED);
-// $('svg').svgTriangles({
-//   
-//   speed: 5
-// 
-// });
-// $('svg').svgTriangles({
-//   
-//   className: 'off',
-//   classNameOn: 'on',
-//   classNameTmp: 'tmp'
-// 
-// });
-
 function setSection() {
 	wW = $(window).width();
 	faktor = 911/1920;
@@ -884,6 +839,8 @@ function setSection() {
 	nLeftH = ( wW / 1200 );
 	left = 350;
 	right = 80;
+	headerH = $(".headerIMG").height() / 1.25;
+	$(".header-img img").height(headerH);
 	if(wW >= 1200) {
 		$('.box_topbanner_item').css({"height":"500px"});
 		$('.section_topbanner').css({"height":"600px"});

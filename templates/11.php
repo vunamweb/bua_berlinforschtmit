@@ -1,7 +1,7 @@
 <?php
 /* pixel-dusche.de */
 
-global $emotional, $headerImg;
+global $emotional, $headerImg, $image_overlay;
 global $uniqueID, $fileID, $lastUsedTemplateID, $anzahlOffenerDIV, $templateIsClosed, $slCt, $klasse, $tabstand, $js;
 
 $fileID = basename(__FILE__, '.php');

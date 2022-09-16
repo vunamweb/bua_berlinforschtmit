@@ -10,7 +10,7 @@ $txt 	= $tmp[1];
 
 $output .= '
 <div class="w_workshop">
-<a href="'.$dir.($multilang ? $lan.'/' : '').$navID[$link].'" class="btn btn-info btn-text">'.$txt.' <i class="i_right"><img src="'.$dir.'images/SVG/i_right_white.svg" alt="" class="img-fluid" width="30"></i></a>
+<a href="'.$dir.($multilang ? $lan.'/' : '').$navID[$link].'" class="btn btn-info btn-text">'.$txt.' </a>
 </div>';
 
 $morp = '<b>Link</b>: '.$txt.'<br/>';
