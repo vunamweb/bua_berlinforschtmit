@@ -3573,6 +3573,31 @@ function getSqlComment($mediaID = 0, $category = 0, $que = null) {
 	return $sql;
 }
 
+function showLinkComment($idNote, $mediaID) {
+	global $morpheus;
+	$href = '';
+	$response = '';
+	
+	if($mediaID != 0 && $mediaID != '')
+	  $href = $morpheus['url'] . 'de/' . 'all-entries' . '/' . '?edit='.$mediaID.'';
+	else {
+		$sql = "SELECT * FROM morp_note mn, morp_note_stimmen mns WHERE mn.idNote = ".$idNote." and mn.idNote = mns.idNote";
+		$res = safe_query($sql);
+
+		if(mysqli_num_rows($res) > 0) {
+			$row = mysqli_fetch_object($res);
+			$idStimmen = $row->idStimmen;
+
+			$href = $morpheus['url'] . 'de/' . 'categories' . '/' . '?edit='.$idStimmen.'';
+}
+	}
+	
+	if($href)
+	  $response = '<a target="_blank" href="'.$href.'" class="edit_note"><i class="fa fa-eye"></i></a>';
+
+	return $response;  
+} 
+
 function showComments($mediaID = 0, $category = 0, $que = null)
 {
 	global $morpheus;
@@ -3596,6 +3621,7 @@ function showComments($mediaID = 0, $category = 0, $que = null)
 		$title = ($row->title != '') ? $row->title . '('.countComment($idNote).')' : 'No Title' . '('.countComment($idNote).')';
 		$message = substr($row->message, 0, 200);
 		$message = $row->message;
+		$mediaID = $row->mediaID;
 		
 		$name = getNameFromID($row->uid); //$_SESSION["vname"] . ' ' . $_SESSION["nname"] = $row->nname;
 
@@ -3615,6 +3641,7 @@ function showComments($mediaID = 0, $category = 0, $que = null)
 				   <i class="fa fa-plus fa1"></i>
 				   ' . $title . '
 			  </a>
+			  '.showLinkComment($idNote, $mediaID).'
 			  <a class="edit_note '.showEdit($idNote).'" href="'.$morpheus["url"] .'de/diary/?edit='.$idNote.'"><i class="fa fa-pencil-square-o"></i></a>
 			  <a class="edit_note '.showEdit($idNote).'" href="'.$morpheus["url"] .'de/diary/?del='.$idNote.'"><i class="fa fa-trash-o"></i></a>
 			  <div class="area_show_message">'.nl2br($message).'</div>
