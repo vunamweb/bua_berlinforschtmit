@@ -1566,7 +1566,7 @@ body.hashtag:before {
 .flickity-button:hover { background: rgba(0,0,0,.3); color: #fff; }
 
 .error_border { border: solid 1px red; }
-
+.mrow:hover { background: #999; transition: .5s; }
 .diagonal-shape.bl-to-tr {
   height: 0;
   border-style: solid;

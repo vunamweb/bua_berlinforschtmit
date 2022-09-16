@@ -45,13 +45,14 @@ $cid = $_REQUEST['cid'];
 if ($add_properties) {
     $response = '';
 
-    $sql = "SELECT * FROM `morp_media` WHERE dsgvo='true'";
+    $sql = "SELECT * FROM `morp_media` WHERE 1 ORDER BY mediaID DESC";
     $res = safe_query($sql);
 
     while ($row = mysqli_fetch_object($res)) {
-		$date = ' (' . $row->mdate . ')';
-		$description = ($row->text != '') ? $row->text . $date  : 'No description' . $date;
-		$response .= '<div><input type="checkbox" value=' . ($row->mediaID) . ' class="modal_checkbox_properties">&nbsp; &nbsp; &nbsp;<label>' . $description . '</label></div>';
+		$date = explode(" ", $row->mdate);
+		$date = ' (' . euro_dat($date[0]) . ')';
+		$description = ($row->mdesc != '') ? $row->mdesc . $date  : $row->mname . $date;
+		$response .= '<div class="mrow"><input type="checkbox" value=' . ($row->mediaID) . ' id="m' . ($row->mediaID) . '" class="modal_checkbox_properties">&nbsp; &nbsp; &nbsp;<label for="m' . ($row->mediaID) . '">' . $description . '</label></div>';
     }
 
     echo $response;die();
