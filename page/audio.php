@@ -130,7 +130,7 @@ $modal = '
             					<div class="custom-control custom-checkbox">
                 					<label class="custom-control-label" for="ck01">
                 						<input type="checkbox" class="custom-control-input" id="ck01" required>
-										Ja, ich stimme der Nutzung meiner Daten gemäß <a href="'.$dir.'datenschutz/">AGB und DSGVO</a> zu
+										Ja, ich stimme der Nutzung meiner Daten gemäß <a href="'.$dir.'datenschutz/">AGB und DSGVO</a> zu*
 									</label>
             					</div>
             					<div class="custom-control custom-checkbox mt1">
@@ -145,7 +145,8 @@ $modal = '
 										Ja, ich möchte über weitere Aktionen von Forschung von der Straße informiert werden
 									</label>
                 					<a class="submit_form_audio" href="javascript:void(0)">Aufnahme senden</a>  
-            					</div>                                                                                       
+            					</div>   
+								* Pflichtfeld                                                                                    
             				</div>
         				</div>
     				</form>

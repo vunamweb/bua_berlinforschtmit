@@ -61,8 +61,9 @@ $mail_txt = $mail_start.$mail_content.'</table>'.utf8_decode($morpheus["mail_end
 
 	include("../nogo/db.php");
 	dbconnect();
-		
-	$sql .= " mname='NO FILE ".date("Y-m-d H:i:s")."', text='$stimme', name='$name', email='$email', ck01='1', ck03=".($infos ? 1 : 0).", ck02='".($public ? '1' : '0')."'";
+	
+	$desc = substr($stimme,0,50);
+	$sql .= " mname='NO FILE ".date("Y-m-d H:i:s")."', text='$stimme', `mdesc`='$desc', name='$name', email='$email', ck01='1', ck03=".($infos ? 1 : 0).", ck02='".($public ? '1' : '0')."'";
 
 // echo $mail_txt;
 // echo "$sec && ($sec == $checkMySec) && $send ";

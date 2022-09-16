@@ -1508,9 +1508,9 @@ function setMorpheusForm($row, $arr, $folder="", $edit=0, $from='', $setid='', $
 
 	elseif ($arr[2] == "chk") {
 		$echo .= '
-		<div class="form-group">
-			<label for="'.$arr[0].'" class="btn btn-default active">
-				<input type="checkbox" name="'.$arr[0].'"  id="'.$arr[0].'"'.($row->$get ? ' checked' : '').'  /> &nbsp; 
+		<div class="form-check form-switch">
+			<input class="form-check-input" type="checkbox" name="'.$arr[0].'"  id="'.$arr[0].'"'.($row->$get ? ' checked' : '').'  /> &nbsp; 
+			<label class="form-check-label" for="'.$arr[0].'">
 				'.$arr[1].'
 			</label>
 		</div>

@@ -10,39 +10,34 @@ function checkMandatory() {
 	var name = $('#name').val();
 	var mail = $('#email').val();
 	var ck01 = $('#ck01').prop('checked');
-  var ck02 = $('#ck02').prop('checked');
-  var ck03 = $('#ck03').prop('checked');
+    var ck02 = $('#ck02').prop('checked');
+    var ck03 = $('#ck03').prop('checked');
 
 	if(!ck01) {
-    removeErrorBorder();
-    $('#ck01').parent().addClass('error_border');
-
-    return 0;
-  }
-  else if(!ck02) {
-    removeErrorBorder();
-    $('#ck02').parent().addClass('error_border');
-    
-    return 0;
-  }
-  else if(!ck03) {
-    removeErrorBorder();
-    $('#ck03').parent().addClass('error_border');
-    
-    return 0;
-  }
-  else if(name == '') {
-    removeErrorBorder();
-    $('#name').addClass('error_border');
-
-    return 0;
-  }
-  else if(!validateEmail(mail) || mail == '') {
-    removeErrorBorder();
-    $('#email').addClass('error_border');
-
-    return 0;
-  }
+    	removeErrorBorder();
+    	$('#ck01').parent().addClass('error_border');
+	    return 0;
+  	}
+	// else if(!ck02) {
+	// 	removeErrorBorder();
+	// 	$('#ck02').parent().addClass('error_border');
+	// 	return 0;
+	// }
+	// else if(!ck03) {
+	// 	removeErrorBorder();
+	// 	$('#ck03').parent().addClass('error_border');
+	// 	return 0;
+	// }
+	// else if(name == '') {
+	// 	removeErrorBorder();
+	// 	$('#name').addClass('error_border');
+	// 	return 0;
+	// }
+	// else if(!validateEmail(mail) || mail == '') {
+	// 	removeErrorBorder();
+	// 	$('#email').addClass('error_border');
+	// 	return 0;
+	// }
 		
 	return 1;
 }
@@ -67,8 +62,7 @@ $(function($) {
 		//console.log("checkMandatory: "+checkMandatory());
       if(checkMandatory() == 0) {
     	  $('.message').addClass('error');
-          $('.message').html('Please check information below');
-          
+          $('.message').html('Bitte Pflichtfelder bestätigen');          
           return;
     	}
     	
@@ -169,7 +163,9 @@ $(".menu-button-circular").click(function(e) {
 
 $('body').imagesLoaded()
 	.always( function( instance ) {
-		$("#nest5, #waitbg, #mp").addClass("hide");
+		// setTimeout(function () {
+			$("#nest5, #waitbg, #mp").addClass("hide");
+		// }, 500);
 	})
 	.done( function( instance ) {
 	}

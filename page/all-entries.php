@@ -33,9 +33,10 @@ $nameField = "mname";
 
 $imgFolder = 'wav';
 
-$neu = $_REQUEST['neu'];
+$new = $_REQUEST['neu'];
 $save = $_REQUEST['save'];
 $save_media = $_POST["save_media"];
+$save_new = $_POST["save_new"];
 $save_note = $_REQUEST['save_note'];
 $myNote = $_REQUEST['myNote'];
 $noteId = $_REQUEST['noteId'];
@@ -72,20 +73,39 @@ $output = '<div id=vorschau>
 #$sql = "ALTER TABLE  $table ADD  `textonline` text() NOT NULL";
 #safe_query($sql);
 /////////////////////////////////////////////////////////////////////////////////////////////////////
-$arr_form = array(
-		array("mname", "Dateiname WAV", '<input type="Text" value="#v#" class="form-control" name="#n#" readonly />'),
+
+if($new)	
+	$arr_form = array(
 		array("mdesc", "Kurz-Beschreibung", '<input type="Text" value="#v#" class="form-control" name="#n#" />'),
 		array("mdate", "Datum", '<input type="Text" value="#v#" class="form-control" name="#n#" />', 'date'),
 		array("name", "Name", '<input type="Text" value="#v#" class="form-control" name="#n#" />'),
 		array("email", "Email", '<input type="Text" value="#v#" class="form-control" name="#n#" />'),
-		array("", "CONFIG", '</div><div class="col-md-6 mb3 mt2">'),
+		array("text", "Audio zu Text / Textkommentar", '<textarea class="form-control" name="#n#" />#v#</textarea>'),	
+	);
+else if($edit) {
+	$sql = "SELECT * FROM $table WHERE $tid=" . $edit . "";
+	$res = safe_query($sql);
+	$row = mysqli_fetch_object($res);
+	$mtyp = $row->mtyp;
+
+	$arr_form = array(
+		array("", "CONFIG", '<div style="background:#99cc00; margin-bottom:1em; padding: 1em;">'),
+		array("online", "Für Webseite freischalten ", 'chk', ),
+		array("", "CONFIG", '</div>'),
+		array("mname", ($mtyp ? 'Dateiname WAV' : 'HIDDEN'), '<input type="'.($mtyp ? 'Text' : 'hidden').'" value="#v#" class="form-control" name="#n#" readonly />'),
+		array("mdesc", "Kurz-Beschreibung", '<input type="Text" value="#v#" class="form-control" name="#n#" />'),
+		array("mdate", "Datum", '<input type="Text" value="#v#" class="form-control" name="#n#" />', 'date'),
+		array("name", "Name", '<input type="Text" value="#v#" class="form-control" name="#n#" />'),
+		array("email", "Email", '<input type="Text" value="#v#" class="form-control" name="#n#" />'),
+		array("", "CONFIG", '</div><div class="col-md-6 mb3 mt2"><hr>'),
 		
-		array("text", "Audio zu Text", '<textarea class="form-control" name="#n#" />#v#</textarea>'),	
+		array("text", "Audio zu Text / Textkommentar", '<textarea class="form-control" name="#n#" />#v#</textarea>'),	
 		array("textonline", "Online Version öffentlich", '<textarea class="form-control" name="#n#" />#v#</textarea>'),
 		//array("mname", "MP3", 'file'),
+		array("", "CONFIG", '<hr><p>Vom Teilnehmer gesetzte Angagen zur Veröffentlichung und Newsletter</p>'),
 		array("ck02", "Tonaufnahme veröffentlichen", 'chk'),
-		array("ck01", "DSGVO", 'chk'),
 		array("ck03", "Newsletter", 'chk'),
+		array("ck01", "DSGVO", 'chk'),
 	
 		// array("dsgvo", "DSGVO", 'dropdown_array', array("true" => "true", "false" => "false")),
 		// array("public", "Darf veröffenlicht werden", 'dropdown_array', array("true" => "true", "false" => "false")),
@@ -94,6 +114,7 @@ $arr_form = array(
 	//        array("img1", "Foto 1", 'img'),
 		array("", "CONFIG", '</div></div>'),
 	);
+}
 
 function liste()
 {
@@ -110,7 +131,7 @@ function liste()
 	$where = 1;
 
 	$echo .= '<p>&nbsp;</p>
-
+	<p><a href="?neu=1" class="btn btn-success"><i class="fa fa-plus"></i> &nbsp; Neuen Text Kommentar hinzufügen</a></p>
 	<style>th { text-align:left; font-size:13px; }
   .player
   {
@@ -185,7 +206,7 @@ function liste()
 				<a href="?edit=' . $edit . '">' . $row->$tid . ' </a>
 			</td>
 			<td>
-				<a ' . $target . ' href="' . $wavfile . '">' . ($mtyp ? '<i class="fa fa-microphone"></i>' : '<i class="fa fa-language"></i>') . ($mp3exists ? ' &nbsp; <span class="label label-danger">MP3</span>' : '') . '</a>' . $player . '
+				'.( $mtyp ? '<a ' . $target . ' href="' . $wavfile . '">' : '') . ($mtyp ? '<i class="fa fa-microphone"></i>' : '<i class="fa fa-language"></i>') . ($mp3exists ? ' &nbsp; <span class="label label-danger">MP3</span>' : '') . ($mtyp ? '</a>' : '') . $player . '
 			</td>
 			<td>
 				<a href="?edit=' . $edit . '">' . ($row->ck02 ? 'x' : '-') . '</a>
@@ -262,28 +283,44 @@ function duplicate_time($dauer)
 
 function edit($edit)
 {
-	global $arr_form, $table, $tid, $imgFolder, $um_wen_gehts, $neu, $morpheus;
+	global $arr_form, $table, $tid, $imgFolder, $um_wen_gehts, $neu, $morpheus, $dir;
 
 	$sql = "SELECT * FROM $table WHERE $tid=" . $edit . "";
 	$res = safe_query($sql);
 	$row = mysqli_fetch_object($res);
 	
 	$scriptname = $morpheus['url'] . 'de/' . $_REQUEST['hn'] . '/';
+
+	$mtyp = $row->mtyp;
+	
+	if($mtyp) {			
+		$file = substr($row->$anz, 0, strlen($row->$anz) - 4);
+		$wavfile = (strpos($row->mname, 'wav')) ? $morpheus['url'] . 'wav/' . $row->mname : '#';
+		$filename = $dir.'mp3/' . $row->mp3;
+		$wav = $dir.'wav/' . $row->mname;
+		// if (file_exists($wav)) echo '########';
+		
+		$mp3exists = 0;
+		if (file_exists($filename) && $row->mp3) {
+			$mp3exists = 1;
+			$player = '<audio controls src="' . $filename . '"></audio>';
+		} else {
+			$player = '<audio controls src="' . $wav . '"></audio>';
+		}
+	}
 	
 	$echo .= '
 	<p><a href="'.$scriptname.'" class="btn btn-success"><i class="fa fa-arrow-circle-left"></i> zurück</a></p>
 	<br>
-
+		'.$player.'		
 		<div class="row">
-			<div class="col-md-6">
-
-	';
+			<div class="col-md-6">';
 
 	foreach ($arr_form as $arr) {
 		$echo .= setMorpheusForm($row, $arr, $imgFolder, $edit, 'morp_media', $tid);
 	}
 
-	$echo .= '<br>
+	$echo .= '
 			<input type="hidden" name="save_media" value="1">
 			<button class="btn btn-info" type="submit">Speichern</button>
 		</div>
@@ -300,7 +337,51 @@ function edit($edit)
 	return $echo;
 }
 
-if ($save_media) {
+/////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////
+
+function new_entry()
+{
+	global $arr_form, $table, $tid, $imgFolder, $um_wen_gehts, $neu, $morpheus, $dir;
+	
+	$scriptname = $morpheus['url'] . 'de/' . $_REQUEST['hn'] . '/';
+	$mtyp = 0;
+		
+	$echo .= '
+	<p><a href="'.$scriptname.'" class="btn btn-success"><i class="fa fa-arrow-circle-left"></i> zurück</a></p>
+	<br>
+		<div class="row">
+			<div class="col-md-6">';
+
+	foreach ($arr_form as $arr) {
+		$echo .= setMorpheusForm($row, $arr, $imgFolder, $edit, 'morp_media', $tid);
+	}
+
+	$echo .= '
+			<input type="hidden" name="save_media" value="1">
+			<input type="hidden" name="save_new" value="1">
+			<button class="btn btn-info" type="submit">Speichern</button>
+		</div>
+	</div>
+</form>
+';
+
+	return $echo;
+}
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////
+
+if ($save_media && $save_new) {
+	global $morpheus;
+	$edit = saveMorpheusForm(0, 1, 0);
+	?>
+	<script>
+		location.href='<?php echo $scriptname; ?>?edit=<?php echo $edit; ?>';
+	</script>
+	<?php
+} 
+else if ($save_media) {
 	global $morpheus;
 	$edit = saveMorpheusForm($edit, $neu, 0);
 
@@ -335,6 +416,9 @@ if ($edit) {
 
 	$_SESSION['entry'] = $edit;
 	$_SESSION['category'] = 0;
+}
+else if ($new) {
+	$output .= new_entry();
 }
 else {
 	$output = list_comment();
