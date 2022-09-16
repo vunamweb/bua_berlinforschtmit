@@ -257,20 +257,21 @@ function liste() {
 				<!-- END !-->
 			</div>
 			<div class="col-md-1 pull-left">
-				<a href="?edit='.$edit.'" class="btn btn-success">
+				<a href="?ebene='.($ebene+1).'&parent='.$edit.'" class="btn btn-info"><i class="fa fa-level-down"></i></a>
+			</div>
+			<div class="col-md-1 pull-left">
+				<a href="?edit='.$edit.'" class="btn btn-info mb0 pb0">
 					<i class="fa fa-pencil-square-o"></i>
 				</a>
+			</div>			
+			<div class="col-md-5 pull-left">
+				<a href="?edit='.$edit.'">'.$row->$anz.' </a>
 			</div>
 			<div class="col-md-1 pull-left">
-				<a href="?edit='.$edit.'">'.$row->word.' </a>
+				'.$row->wert.'%
 			</div>
-			<div class="col-md-6 pull-left">
-				<a class="width1" href="?ebene='.($ebene+1).'&parent='.$edit.'"><i class="fa fa-level-down"></i> &nbsp; '.$row->$anz.' </a>
-			</div>
-			<div class="col-md-1 pull-left">
-				'.$row->wert.'
-			</div>
-			<div class="col-md-1 text-right pull-left">
+			<div class="col-md-2pull-left"></div>
+			<div class="col-md-1 text-right pull-right">
 				<a href="?del='.$edit.'" class="btn btn-danger"><i class="fa fa-trash-o"></i></a>
 			</div>
 	</div>
