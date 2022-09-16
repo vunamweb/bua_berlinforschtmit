@@ -10,7 +10,7 @@
 
 require_once 'morpheus/getid3/getid3.php';
 
-global $arr_form, $table, $tid, $filter, $nameField, $js;
+global $arr_form, $table, $tid, $filter, $nameField, $js, $morpheus;
 
 ///////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////
@@ -41,7 +41,6 @@ $myNote = $_REQUEST['myNote'];
 $noteId = $_REQUEST['noteId'];
 $show_comment = $_REQUEST['show_comment'];
 $mediaId = $_REQUEST['mediaId'];
-$parent_comment = $_REQUEST['parent_comment'];
 $parent_comment = $_REQUEST['parent_comment'];
 $message_comment = $_REQUEST['message_comment'];
 $listHashtag = $_POST['listHashTag'];
@@ -317,13 +316,18 @@ elseif($save_note) {
 	$uid = $_SESSION['mid'];
 	$date = date("Y-m-d H:i:s");
 
-	//$sql = 'insert into morp_note(uid, parent, mediaID, message, date_time)values(' . $uid . ', ' . $parent_comment . ', ' . $mediaId . ', "' . $message_comment . '", "' . $date . '")';
 	$sql = 'insert into morp_note(uid, parent, mediaID, message, add_link, date_time)values(' . $uid . ', ' . $parent_comment . ', ' . $mediaId . ', "' . $message_comment . '", "'.$cid.'", "' . $date . '")';
 	safe_query($sql);
 
 	updateDateComment($parent_comment);
 
-	$output = showComments($mediaId);
+	$scriptname = $morpheus['url'] . 'de/' . $_REQUEST['hn'] . '/' . '?edit='.$_SESSION['entry'].'';
+
+	?>
+	   <script>
+		location.href='<?php echo $scriptname; ?>';
+	  </script> 
+	<?php
 }
 
 if ($edit) {

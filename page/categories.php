@@ -34,6 +34,13 @@ $add_properties = $_REQUEST['add_properties'];
 $list_properties = $_REQUEST['list_properties'];
 // END
 
+// VU: add comment of comment
+$save_note = $_REQUEST['save_note'];
+$parent_comment = $_REQUEST['parent_comment'];
+$message_comment = $_REQUEST['message_comment'];
+$cid = $_REQUEST['cid'];
+// END
+
 // VU: show/add/delete audio
 if ($add_properties) {
     $response = '';
@@ -574,49 +581,23 @@ function neu() {
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 
-if ($save) {
-	$neu = isset($_POST["neu"]) ? $_POST["neu"] : 0;
-	
-	// VU: comment this code because that is redundant
-	/*$media = isset($_POST["media"]) ? $_POST["media"] : '';
-    if($media) $zusatz = ", media='".implode(",",$media)."'";
-	else $zusatz = ", media=''";*/
-	// END
-    
-    // VU: if parent, wert is null, then set value 0
-	$_POST['parent'] = ($_POST['parent'] == '') ? 0 : $_POST['parent'];
-	$_POST['wert'] = ($_POST['wert'] == '') ? 0 : $_POST['parent'];
-	// END
-	// VU: set value for mid
-	$_POST['mid'] = $_SESSION['mid'];
-	// END
+if($save_note) {
+	$uid = $_SESSION['mid'];
+	$date = date("Y-m-d H:i:s");
 
-    $edit = saveMorpheusForm($edit, $neu, 0, $zusatz);
+	//$sql = 'insert into morp_note(uid, parent, mediaID, message, date_time)values(' . $uid . ', ' . $parent_comment . ', ' . $mediaId . ', "' . $message_comment . '", "' . $date . '")';
+	$sql = 'insert into morp_note(uid, parent, mediaID, message, add_link, date_time)values(' . $uid . ', ' . $parent_comment . ', 0, "' . $message_comment . '", "'.$cid.'", "' . $date . '")';
+	safe_query($sql);
 
-	// if(neu) unset($neu);
+	updateDateComment($parent_comment);
 
-	$scriptname = $morpheus['url'] . 'de/' . $_REQUEST['hn'] . '/' ;
-	
+	$scriptname = $morpheus['url'] . 'de/' . $_REQUEST['hn'] . '/' . '?edit='.$_SESSION['category'].'';
 
-	$ebene = isset($_POST["ebene"]) ? $_POST["ebene"] : 1;
-	$parent = isset($_POST["parent"]) ? $_POST["parent"] : 0;
-
-	if($back) {
-?>
-	<script>
-		location.href='<?php echo $scriptname; ?>?ebene=<?php echo $ebene; ?>&parent=<?php echo $parent; ?>';
-	</script>
-<?php
-	}
-	elseif($neu) {
-?>
-	<script>
-		location.href='<?php echo $scriptname; ?>?edit=<?php echo $edit; ?>&ebene=<?php echo $ebene; ?>&parent=<?php echo $parent; ?>';
-	</script>
-<?php
-	}
-
-	// unset($edit);
+	?>
+	   <script>
+		location.href='<?php echo $scriptname; ?>';
+	  </script> 
+	<?php
 }
 
 elseif ($delimg) {
