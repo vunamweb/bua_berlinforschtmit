@@ -119,6 +119,7 @@ body {
 }
 body.hashtag:before { display: none; }
 body.stimmen { background: #efefef; }
+/* .stimmen .partner { display: none; } */
 /* body.home {
 	background: #08386d;
 	color: #fff;

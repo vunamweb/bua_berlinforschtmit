@@ -31,6 +31,7 @@
 		</div>
 	</footer>
 
+<div class="container-fluid bg-white">
 	<div class="container BMBF h-100">
 		<div class="row h-100">
 			<div class="col-12 col-md-6 d-flex align-items-center bmbf-bot">
@@ -52,6 +53,7 @@
 			</div>
 		</div>
 	</div>
+</div>
 	
 	<div class='back-to-top d-none d-lg-inline-block' id='back-to-top' title='Back to top'></div>
 	
