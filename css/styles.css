@@ -1744,7 +1744,7 @@ body.hashtag:before {
   }
   #nest5.hide { display: none; transition: .5s }
   
-  #waitbg { position: fixed; display: block; width: 100%; height: 100%; left: 0; right: 0; top: 0; bottom: 0; background: rgba(255,255,255,.85); z-index: 99; }
+  #waitbg { position: fixed; display: block; width: 100%; height: 100%; left: 0; right: 0; top: 0; bottom: 0; background: rgba(0,0,0,.9); z-index: 99; }
   #waitbg.hide { opacity: 0; transition: .5s; display: none; }
   
   @-webkit-keyframes spin11 {
