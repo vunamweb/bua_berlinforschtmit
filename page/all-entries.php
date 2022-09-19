@@ -58,7 +58,7 @@ if ($myNote) {
 }
 // END
 
-$output = '<div id=vorschau>
+$output = '<div id="vorschau">
 	<h2>' . $titel . '</h2>
 
 	' . ($show_comment ? '<p><a href="?">&laquo; zur&uuml;ck</a></p><br>' : '') . '
@@ -97,7 +97,7 @@ else if($edit) {
 		array("mdate", "Datum", '<input type="Text" value="#v#" class="form-control" name="#n#" />', 'date'),
 		array("name", "Name", '<input type="Text" value="#v#" class="form-control" name="#n#" />'),
 		array("email", "Email", '<input type="Text" value="#v#" class="form-control" name="#n#" />'),
-		array("", "CONFIG", '</div><div class="col-md-6 mb3 mt2"><hr>'),
+		array("", "CONFIG", '<save></div><div class="col-md-6 mb3 mt2"><hr>'),
 		
 		array("text", "Audio zu Text / Textkommentar", '<textarea class="form-control" name="#n#" />#v#</textarea>'),	
 		array("textonline", "Online Version öffentlich", '<textarea class="form-control" name="#n#" />#v#</textarea>'),
@@ -314,7 +314,9 @@ function edit($edit)
 	<br>
 		'.$player.'		
 		<div class="row">
-			<div class="col-md-6">';
+			<div class="col-md-6">
+				<input type="hidden" name="save_media" value="1">
+			';
 
 	foreach ($arr_form as $arr) {
 		$echo .= setMorpheusForm($row, $arr, $imgFolder, $edit, 'morp_media', $tid);
@@ -326,18 +328,20 @@ function edit($edit)
 	$charts = '';
 	while($row = mysqli_fetch_object($res)) {
 		$array_properties[] = $row->stID;		
-		$charts .= '<span class="btn btn-info mr-1 mb-1 delChart" data-id="'.$row->stID.'"><i class="fa fa-trash"></i> &nbsp; '.$row->name.'</span>';
+		$charts .= '<span class="btn btn-info mr1 mb1 delChart" data-id="'.$row->idstmedia.'" data-myid="'.$row->stID.'"><i class="fa fa-trash"></i> &nbsp; '.$row->name.'</span>';
 	}
+	
+	$echo = str_replace('<save>', '<hr><button class="btn btn-info" type="submit">Speichern</button>', $echo);
 	
 	$echo .= '
 		<div class="row">
 			<div class="col-md-6">
-				<input type="hidden" name="save_media" value="1">
-				<button class="btn btn-info" type="submit">Speichern</button>
+				'. showCategories($array_properties) .'			
 			</div>
 			<div class="col-md-6">
 				'.$charts.'
-				'. showCategories($array_properties) .'			
+				
+				<hr class="mt4"><button class="btn btn-info" type="submit">Speichern</button>
 			</div>
 		</div>
 	</div>
@@ -401,17 +405,12 @@ else if ($save_media) {
 	global $morpheus;
 	$edit = saveMorpheusForm($edit, $neu, 0);
 
-	// HERE WE HAVE TO CHECK HOW WE DELETE 
-	// MAYBE DELETE ALL AND INSERT NEW
-	foreach($_POST["listCategories"] as $val) {
-		$sql = "SELECT * FROM morp_stimmen_media WHERE stID=$val AND mediaID=$edit";
-		$res = safe_query($sql);
-		if(mysqli_num_rows($res)<1) {
-			$sql = "INSERT morp_stimmen_media SET stID=$val , mediaID=$edit";
-			$rs = safe_query($sql);
-		}
-	}
-	
+	$sql = "DELETE FROM morp_stimmen_media WHERE mediaID=$edit";
+	$res = safe_query($sql);
+	foreach($_POST["listCategories"] as $key=>$val) {
+		$sql = "INSERT morp_stimmen_media SET stID=$val , mediaID=$edit";
+		$rs = safe_query($sql);
+	}	
 	// $scriptname = $morpheus['url'] . 'de/' . $_REQUEST['hn'] . '/' . '?edit_entry='.$_SESSION['entry'].'';
 
 	?>
@@ -454,4 +453,28 @@ else {
 
 $output .= '
 </form>
+';
+
+
+$js .= '
+// Bjoern add delete assigned media to media
+$(".delChart").click(function(){		
+	media = $(this).attr("data-media");
+	id = $(this).attr("data-id");
+	myid = $(this).attr("data-myid");
+	$(this).addClass("hide");
+	request = $.ajax({
+		url: "'.$dir.'inc/UpdateDelete.php",
+		type: "POST",
+		data: "tabl=morp_stimmen_media&tid=idstmedia&todel="+id,
+		success: function(data) {
+			$("#data_"+myid).prop( "checked", false );
+			$("#data_"+myid).prop( "checked", false );
+			$(".message_info").removeClass("hide");
+			$(".message_info").css("color", "green");
+			$(this).html("Zuweisung gelöscht");
+		}
+	 });
+});
+
 ';

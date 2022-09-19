@@ -4331,7 +4331,7 @@ function showCategories($array_properties = array()) {
 		<div class="card">
 	   		<div class="card-header">
 		   		<h2 class="mb-0">
-					<input '.$check.' type="checkbox" value="'.$stID.'" name="listCategories[]">
+					<input '.$check.' type="checkbox" value="'.$stID.'" name="listCategories[]" id="data_'.$stID.'">
 					<a type="button" class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapse' . $stID . '">
 				   		<i class="fa fa-plus fa1"></i>
 				   		' . $name . '
@@ -4346,7 +4346,7 @@ function showCategories($array_properties = array()) {
    		</div>';
 	}
 
-	return $echo;
+	return $echo.'</div>';
 }
 
 // show category of category

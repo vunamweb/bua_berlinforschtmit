@@ -28,4 +28,3 @@ if($table && $pos && $feld && $id) {
 	safe_query($sql);
 }
 
-?>
