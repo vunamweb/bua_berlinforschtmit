@@ -9,7 +9,7 @@ include("../nogo/funktion.inc");
 include("../nogo/db.php");
 dbconnect();
 
-print_r($_POST);
+// print_r($_POST);
 
 
 $mid = $_SESSION["mid"];
