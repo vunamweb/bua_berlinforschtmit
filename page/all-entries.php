@@ -10,7 +10,7 @@
 
 require_once 'morpheus/getid3/getid3.php';
 
-global $arr_form, $table, $tid, $filter, $nameField, $js, $morpheus;
+global $arr_form, $table, $tid, $filter, $nameField, $js, $morpheus, $dir;
 
 ///////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////
@@ -169,9 +169,12 @@ function liste()
 
 		if($mtyp) {			
 			$file = substr($row->$anz, 0, strlen($row->$anz) - 4);
-			$wavfile = (strpos($row->mname, 'wav')) ? $morpheus['url'] . 'wav/' . $row->mname : '#';
+
+			$wavfile = (strpos($row->mname, 'wav') || strpos($row->mname, 'mp3')) ? $morpheus['url'] . 'wav/' . $row->mname : '#';
+			//$wavfile = (strpos($row->mname, 'mp3')) ? $morpheus['url'] . 'wav/' . $row->mname : '#';
+			
 			$filename = $dir.'mp3/' . $row->mp3;
-			$target = (strpos($row->mname, 'wav')) ? 'target="_blank"' : '';
+			$target = (strpos($row->mname, 'wav') || strpos($row->mname, 'mp3')) ? 'target="_blank"' : '';
 			if (file_exists($filename) && $row->mp3) {
 				$ThisFileInfo = $getID3->analyze($filename);
 				$dauer = $row->dauer;
@@ -304,8 +307,12 @@ function edit($edit)
 		if (file_exists($filename) && $row->mp3) {
 			$mp3exists = 1;
 			$player = '<audio controls src="' . $filename . '"></audio>';
+			$player .= '<a href="?edit=3" class="btn btn-info mb0 pb0">
+			<i class="fa fa-pencil-square-o"></i>
+		</a>';
 		} else {
 			$player = '<audio controls src="' . $wav . '"></audio>';
+			$player .= '<a href="#" data-toggle="modal" data-target="#myModalUploadMedia" class="btn btn-info upload_audio"><i class="fa fa-upload"></i></a>';
 		}
 	}
 	
@@ -439,6 +446,41 @@ elseif($save_note) {
 
 if ($edit) {
 	$output .= edit($edit);
+
+	$timestamp = time();
+	$uploadScript = $dir . 'uploadifive/uploadifive.php';
+	
+    $output .= '
+	<!-- The Modal -->
+		<div class="modal" id="myModalUploadMedia">
+		  <div class="modal-dialog">
+			<div class="modal-content">
+	
+			  <!-- Modal Header -->
+			  <div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+			  </div>
+	
+			  <!-- Modal body -->
+			  <div class="modal-body">
+			  <div id="queue"></div>
+			  <input id="file_upload_media" name="file_upload_media" type="file" multiple="true">
+			  </div>
+	
+			  <!-- Modal footer -->
+			  <div class="modal-footer">
+				<button type="button" class="btn btn-info btn-upload-file">Upload</button>
+				<input type="hidden" id="timestamp" value=' . $timestamp . ' />
+				<input type="hidden" id="id_entries" value=' . $edit . ' />
+				<input type="hidden" id="uploadScript" value=' . $uploadScript . ' />
+				<input type="hidden" id="token" value=' . md5('pixeld' . $timestamp) .
+			' />
+			  </div>
+	
+			</div>
+		  </div>
+		</div>
+	';
 
 	$_SESSION['entry'] = $edit;
 	$_SESSION['category'] = 0;
