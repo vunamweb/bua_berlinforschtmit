@@ -328,6 +328,9 @@ function liste() {
 			
 			
 			$echo .= $data.'</ul></div>';
+
+			if($_REQUEST['ebene'])
+			  $echo .= showCategory(0);
 	
 	return $echo;
 }
