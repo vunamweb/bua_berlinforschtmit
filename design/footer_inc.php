@@ -118,6 +118,10 @@ if($morpheus_edit) include("design/edit.php");
 <!-- VU add tinymce !-->
 <script type="text/javascript" src="<?php echo $dir ?>morpheus/tinymce/tinymce.min.js"></script>
 <!-- END !-->
+<!-- VU add upload file !-->
+<link rel="stylesheet" type="text/css" href="<?php echo $dir; ?>uploadifive/uploadifive.css">
+<script src="<?php echo $dir; ?>uploadifive/jquery.uploadifive.min.js" type="text/javascript"></script>
+<!-- END !-->
 <!-- Bjorn add for animation on scroll -->
 <script src="<?php echo $dir ?>js/wow.min.js"></script>
 <script>
@@ -220,6 +224,63 @@ addLink = (editor) => {
    $('#show_list_comment').click();
    ed = editor;
 }
+// END
+
+//  VU: upload file
+initUploadFile = () => {
+	  var id = $('#id_entries').val();
+      var uploadScript = $('#uploadScript').val();
+      var token = $('#token').val();
+      var timestamp = $('#timestamp').val();
+	  
+      $('#file_upload_media').uploadifive({
+            'auto': false,
+            'onUpload' : function(){
+                  $('#file_upload_media').data('uploadifive').settings.formData = {
+                    'timestamp': '' + timestamp + '',
+                    'token': '' + token + '',
+                    'id': ''+id+'',
+                    }
+                  },
+            'buttonText' : 'Select File',
+            'queueID': 'queue',
+            'uploadScript': ''+uploadScript+'',
+            'onUploadComplete': function(file, data) {
+                location.reload();
+            }
+        });
+}
+
+checkUpload = () => {
+    return checksoundfile();
+}
+
+checksoundfile = () => {
+    var countFile = $('#queue .uploadifive-queue-item').length;
+    var countPreview = 0;
+    var fileName = '', checkFile = true;
+
+     if(countFile == 0) {
+      alert('You must select at least one file');
+      return false;
+     }
+     else {
+      $('#queue .uploadifive-queue-item .filename').each(function(){
+          var item = $(this).html()
+          fileName = fileName + item;
+      })
+     }
+
+     // if not contains mp3
+     if((!fileName.includes('mp3') && !fileName.includes('wav'))) {
+      alert('You must select mp3, wav');
+
+      return false;
+     }
+     else {
+       return true;
+     }
+   }
 // END
 
 // VU: add function comment
@@ -434,6 +495,15 @@ $(document).ready(function() {
 	$('.selection.categories').dropdown({
       maxSelections: 3
     });
+	// END
+
+	// VU: upload file
+	initUploadFile();
+	
+	$('.btn-upload-file').click(function(){
+	   if(checkUpload())
+	     $('#file_upload_media').uploadifive('upload');
+	})
 	// END
 
 	// VU: make hightlight category of export
