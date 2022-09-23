@@ -304,12 +304,10 @@ function edit($edit)
 		// if (file_exists($wav)) echo '########';
 		
 		$mp3exists = 0;
-		if (file_exists($filename) && $row->mp3) {
+		if ($row->mp3) {
 			$mp3exists = 1;
 			$player = '<audio controls src="' . $filename . '"></audio>';
-			$player .= '<a href="?edit=3" class="btn btn-info mb0 pb0">
-			<i class="fa fa-pencil-square-o"></i>
-		</a>';
+			$player .= '<a href="#" data-toggle="modal" data-target="#myModalUploadMedia" class="btn btn-info upload_audio"><i class="fa fa-upload"></i></a>';
 		} else {
 			$player = '<audio controls src="' . $wav . '"></audio>';
 			$player .= '<a href="#" data-toggle="modal" data-target="#myModalUploadMedia" class="btn btn-info upload_audio"><i class="fa fa-upload"></i></a>';
