@@ -312,8 +312,8 @@ function edit_bar($content_id, $class)
 
         $return = '
 			<div class="edit_bar ' . $class . '">
-				<button ref="#' . ($content_id . ',' . $cid) . '" data-bs-toggle="modal" data-bs-target="#edit_area" data-templ="' . $content_id . '" class="btn edit_item"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
-				<button ref="#' . ($content_id . ',' . $cid) . '" data-bs-toggle="modal" data-bs-target="#edit_area" data-templ="' . $content_id . '" class="btn edit_templ"><i class="fa fa-cogs" aria-hidden="true"></i></button>
+				<button ref="#' . ($content_id . ',' . $cid) . '" data-toggle="modal" data-target="#edit_area" data-templ="' . $content_id . '" class="btn edit_item"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
+				<button ref="#' . ($content_id . ',' . $cid) . '" data-toggle="modal" data-target="#edit_area" data-templ="' . $content_id . '" class="btn edit_templ"><i class="fa fa-cogs" aria-hidden="true"></i></button>
 
 				<button ref="#' . ($content_id . ',' . $cid . ',' . $position . ',up') . '" class="btn pos_change"><i class="fa fa-chevron-up"></i></button>
 				<button ref="#' . ($content_id . ',' . $cid . ',' . $position . ',down') . '" class="btn pos_change"><i class="fa fa-chevron-down"></i></button>

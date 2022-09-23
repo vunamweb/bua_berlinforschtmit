@@ -1272,20 +1272,6 @@ echo "\n\n
 echo '		<h2 class="content_edit_titel"></h2>
 
 <div class="panel panel-default fix-Top panel-edit">
-<!--
-  <div class="panel-heading">
-	<ul class="navTopTop">
-		<li><b class="panel-title">'.$ort.'</b></li>
-		<li class="mobileOff"><img src="images/'.$morpheus["lan_arr"][$sprache].'.gif"></li>
-		<li class="mobileOff"><a href="../index.php?vs=1&cid='.$navid.'&navid='.$navid.'&lan='.$sprache.'" data-title="Vorschau" data-width="1200" data-toggle="lightbox" data-gallery="remoteload"><i class="fa fa-television"></i> '.$MORPTEXT["GLOB-VORSCHAU"].'</a></li>
-		<li class="mobileOff">'.$MORPTEXT["CONE-LETZTEBEAR"].': '.$unm.'</li>
-		<li class="mobileOff"><a href="content_history.php?id='.$edit.'" data-title="Historie" data-width="1200" data-height="500" data-toggle="lightbox" data-gallery="remoteload"><i class="fa fa-tasks"></i>Historie</a></li>
-		'.($muuri ? '
-		<li class="muuri"><a href="?edit='.$edit.'&navid='.$navid.'&muuri=off"><i class="fa fa-arrows"></i></a></li>' : '
-		<li class="muuri"><a href="?edit='.$edit.'&navid='.$navid.'&muuri=on"><i class="fa fa-exchange"></i></a></li>').'
-	</ul>
-  </div>
--->
   <div class="panel-body pt1">
 	<ul class="navTop">
 		<li>'.$select_brick ." " .$select_stelle .'</li>'.'

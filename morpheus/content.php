@@ -239,6 +239,12 @@ elseif ($sort) {
 ///////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////
 
+$lang = $morpheus["lan_arr"][$sprache]; 
+$multilang = $morpheus["multilang"];
+$file = 'navID_'.$lang.'.inc';
+include('../nogo/'.$file);
+$PIN = md5(date("Ymd").'!XcDf5?');
+
 echo "
 <div class=\"row\">
 
@@ -263,7 +269,8 @@ echo "
 		 '.($sprache > 1 ? '<a href="link.php?edit='.$edit.'&navid='.$edit.'&de=1" class="button"><i class="fa fa-copy"></i>  DE Template GET</a>' : '')) .'
 
 <!--		 <a href="../index.php?vs=1&cid='.$edit.'&navid='.$edit.'&lan='.$sprache.'" class="button" target="_blank"><i class="fa fa-binoculars"></i> Vorschau</a> -->
-		 <a href="../index.php?vs=1&cid='.$edit.'&navid='.$edit.'&lan='.$sprache.'&morpheus_edit=xxx" class="button btn-success" style="color:#fff !important"><i class="fa fa-edit" style="color:#fff !important"></i> Live edit</a>
+		 <a href="../'.($multilang ? $lang.'/' : '').$navID[$edit].'" class="button btn-info" target="_blank">Live Url</a> 
+		 <a href="../index.php?vs=1&cid='.$edit.'&navid='.$edit.'&lan='.$sprache.'&morpheus_edit='.$PIN.'" class="button btn-success" style="color:#fff !important"><i class="fa fa-edit" style="color:#fff !important"></i> Live edit</a>
 
 		 <!--<a class="btn btn-info hideDIV"><i class="fa fa-eye"></i></a>-->
 	</div>

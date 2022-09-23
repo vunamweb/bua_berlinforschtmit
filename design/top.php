@@ -13,7 +13,7 @@
                     <ul class="navbar-nav navbar-mobile mr-0">
 						<li class="nav-item"><a class="nav-link" href="<?php echo $dir.($lang==1 ? '':'en/'); ?>"><i class="fa fa-home"></i></a></li>
 <?php 
-						echo $nav_h; 
+						echo $nav;
 						echo '<li class="nav-item"><a href="'.$dir.$lan.'/'.$navID[$kontakt_id].'" class="nav-link profile"><i class="fa fa-envelope"></i></a></li>';
 
 // VU: IF IS LOG IN, THEN SHOW OWN MENU

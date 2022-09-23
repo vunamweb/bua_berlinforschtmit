@@ -9,7 +9,7 @@ error_reporting(E_ALL);*/
 
 global $morpheus_edit;
 $PIN = md5(date("Ymd").'!XcDf5?');
-$PIN = 'xxx';
+
 if(isset($_GET["morpheus_edit"])) {
 	$morpheus_edit = $_GET["morpheus_edit"]==$PIN ? 1 : 0;
 	$_SESSION["morpheus_live_edit"]=$PIN;

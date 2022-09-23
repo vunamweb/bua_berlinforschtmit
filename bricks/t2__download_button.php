@@ -26,6 +26,6 @@ if($text) {
 	$closeDL = $ctDL == 2 ? 0 : 1;
 	$isDownload = 1;
 
-	$output .= '<a href="'.$dir.'pdf/'.$nm.'" target="_blank" title="'.$nm.' zum Download" class="btn btn-info btn-text mb-2 mb-lg-0 mr-2">'.$de.'</a>';
+	$output .= '<a href="'.$dir.'pdf/'.$nm.'" target="_blank" title="'.$nm.' zum Download" class="btn btn-info btn-text mb-2 mb-lg-0 mr-2"><i class="fa fa-download"></i> &nbsp; '.$de.'</a>';
 }
 $morp = '<b>Download:</b> '.$de.'<br/>';

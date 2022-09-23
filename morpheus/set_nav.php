@@ -13,9 +13,8 @@ $multilang = $morpheus["multilang"];
 
 foreach ($lang_arr as $lang_id=>$lan) {
 	include("../nogo/navID_".$lan.".inc");
-	// hauptnav, ohne meta menu, ohne footer menu
-	// $que  	= "SELECT * FROM `morp_cms_nav` WHERE (sichtbar=1 AND `lock` < 1 AND lang=$lang_id AND bereich < 2 AND ebene=1) ORDER BY `sort` ASC";
-	$que  	= "SELECT * FROM `morp_cms_nav` WHERE (sichtbar=1 AND lang=$lang_id AND bereich < 2 AND ebene=1) ORDER BY `sort` ASC";
+
+	$que  	= "SELECT * FROM `morp_cms_nav` WHERE ( sichtbar=1 AND lang=$lang_id AND bereich < 2 AND ebene=1  AND `lock`<1 ) ORDER BY `sort` ASC";
 	$res 	= safe_query($que);
 	$menge	= mysqli_num_rows($res);
 
@@ -113,9 +112,7 @@ foreach ($lang_arr as $lang_id=>$lan) {
 				</li>
 ';
 				else if($sub_on2) $footer_set .= '
-							</ul>
-						</div>
-					</div>
+					</ul>
 				</li>
 ';
 				$footer_set .= $start || $sub_on2 ? '' : '</li>';
@@ -146,9 +143,8 @@ foreach ($lang_arr as $lang_id=>$lan) {
 ';
 
 				$footer_set .= (!$sub_on2 ? '
-					<div class="dropdown-menu">
-						<div class="mega-content">
-							<ul>' : '						</li>');
+					<ul class="dropdown-menu fade-up">
+						' : '						</li>');
 
 				// parameter werden gesetzt. subnav vorhanden !!!!
 				$sub_on2 = 1;
@@ -156,9 +152,9 @@ foreach ($lang_arr as $lang_id=>$lan) {
 				$subsub_ende = 1;
 
 				$footer_set .= '
-						<li itemprop="url"><a'.($accesskey != '' ? ' accesskey="'.$accesskey.'"' : '').' href="'.
+						<li class="nav-item" itemprop="url"><a'.($accesskey != '' ? ' accesskey="'.$accesskey.'"' : '').' href="'.
 						($manuellerLink ? $manuellerLink : $xmlpfad.($multilang ? $lan.'/' : '').$navID[$val]).
-						'"'.($extern ? ' target="_blank"' : '').' class="DPDS s'.($nid).' dd'.($nid).'" itemprop="name">'.($image_link ? '<img src="data:image/png;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" data-src="'.$xmlpfad.'images/navbar/'.$image_link.'" alt="'.$nm.'" class="img-fluid">' : '').'<p>'.($nm).'</p></a></li>';
+						'"'.($extern ? ' target="_blank"' : '').' class="nav-link DPDS s'.($nid).' dd'.($nid).'" itemprop="name">'.($image_link ? '<img src="data:image/png;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" data-src="'.$xmlpfad.'images/navbar/'.$image_link.'" alt="'.$nm.'" class="img-fluid">' : '').''.($nm).'</a></li>';
 
 				$gesamtArray[] = $nid;
 				$par3 = $nid;

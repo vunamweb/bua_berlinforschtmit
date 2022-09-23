@@ -3,7 +3,15 @@
 				</ul>
 
 				<ul class="nav-child">
-					<li class="hn"><strong><a href="http://localhost:8888/berlinforscht/bua_berlinforschtmit/de/ueber-uns/">Über uns</a></strong></li>
+					<li class="hn"><strong><a href="http://localhost:8888/berlinforscht/bua_berlinforschtmit/de/home/">Home</a></strong></li>
+
+
+				</ul>
+
+				<ul class="nav-child">
+					<li class="hn"><strong>Über das Projekt</strong></li>
+					<li class="sn"><a href="http://localhost:8888/berlinforscht/bua_berlinforschtmit/de/ueber-das-projekt/ueber-uns/">Über uns</a></li>
+					<li class="sn"><a href="http://localhost:8888/berlinforscht/bua_berlinforschtmit/de/ueber-das-projekt/das-projekt/">Das Projekt</a></li>
 
 
 				</ul>
@@ -33,23 +41,23 @@
 				</ul>
 
 				<ul class="nav-child">
-					<li class="hn"><strong><a href="http://localhost:8888/berlinforscht/bua_berlinforschtmit/de/all-entries/">Stimmen</a></strong></li>
+					<li class="hn"><strong><a href="http://localhost:8888/berlinforscht/bua_berlinforschtmit/de/">Stimmen</a></strong></li>
 
 
 				</ul>
 
 				<ul class="nav-child">
-					<li class="hn"><strong><a href="http://localhost:8888/berlinforscht/bua_berlinforschtmit/de/categories/">Chart</a></strong></li>
+					<li class="hn"><strong><a href="http://localhost:8888/berlinforscht/bua_berlinforschtmit/de/">Chart</a></strong></li>
 
 
 				</ul>
 
 				<ul class="nav-child">
-					<li class="hn"><strong><a href="http://localhost:8888/berlinforscht/bua_berlinforschtmit/de/diary/">Diary</a></strong></li>
+					<li class="hn"><strong><a href="http://localhost:8888/berlinforscht/bua_berlinforschtmit/de/">Diary</a></strong></li>
 
 
 				</ul>
 
 				<ul class="nav-child">
-					<li class="hn"><strong><a href="http://localhost:8888/berlinforscht/bua_berlinforschtmit/de/hashtag/">Hashtag</a></strong></li>
+					<li class="hn"><strong><a href="http://localhost:8888/berlinforscht/bua_berlinforschtmit/de/">Hashtag</a></strong></li>
 </ul>'; ?>

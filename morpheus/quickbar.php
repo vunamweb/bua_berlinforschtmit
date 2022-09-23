@@ -54,7 +54,7 @@ foreach ($morpheus["lan_arr"] as $key=>$lang) {
 	$prio = 0.5;
 
 	for ($i = 1; $i <= 5; $i++) {
-		$sqlXML  = "SELECT * FROM `morp_cms_nav` WHERE ebene=$i AND lang=$key";
+		$sqlXML  = "SELECT * FROM `morp_cms_nav` WHERE ebene=$i AND lang=$key AND `lock`<1";
 		$resXML = safe_query($sqlXML);
 
 		while ($rowXML = mysqli_fetch_object($resXML)) {

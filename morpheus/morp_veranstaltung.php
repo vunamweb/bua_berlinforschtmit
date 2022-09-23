@@ -427,22 +427,22 @@ function edit($edit)
 
     $row->mail_text_user = $row_1->mail_text; */
 
-    if (!$cid) {
-        $sql = "INSERT `morp_cms_content` SET vorlage=1, `pos`='$pos', vorl_name='$tname',content='t1__fliesstext@@##t1__register@@##t1__fliesstext@@##t1__aufzaehlung_dots@@##t1__fliesstext@@About the instructor##t1__aufzaehlung_dots@@<strong>Contact Objective 2/Research Forums: Dr. Melanie Kryst | <a:melanie.kryst@berlin-university-alliance.de:>melanie.kryst@berlin-university-alliance.de</a></strong>##', edit=1";
-        $res = safe_query($sql);
-        $cid = mysqli_insert_id($mylink);
-        $sq = "UPDATE $table SET cid=$cid WHERE $tid=" . $edit . "";
-        // $sql    = "INSERT `morp_cms_content_live` SET vorlage=1, `pos`='$pos', vorl_name='$tname', edit=1";
-        $rs = safe_query($sq);
-    }
-    if (!$cidEn) {
-        $sql = "INSERT `morp_cms_content` SET vorlage=1, `pos`='$pos', vorl_name='$tname', content='t1__fliesstext@@##t1__register@@##t1__fliesstext@@##t1__aufzaehlung_dots@@##t1__fliesstext@@About the instructor##t1__aufzaehlung_dots@@<strong>Contact Objective 2/Research Forums: Dr. Melanie Kryst | <a:melanie.kryst@berlin-university-alliance.de:>melanie.kryst@berlin-university-alliance.de</a></strong>##', edit=1";
-        $res = safe_query($sql);
-        $cidEn = mysqli_insert_id($mylink);
-        $sq = "UPDATE $table SET cidEn=$cidEn WHERE $tid=" . $edit . "";
-        // $sql    = "INSERT `morp_cms_content_live` SET vorlage=1, `pos`='$pos', vorl_name='$tname', edit=1";
-        $rs = safe_query($sq);
-    }
+    // if (!$cid) {
+    //     $sql = "INSERT `morp_cms_content` SET vorlage=1, `pos`='$pos', vorl_name='$tname',content='t1__fliesstext@@##t1__register@@##t1__fliesstext@@##t1__aufzaehlung_dots@@##t1__fliesstext@@About the instructor##t1__aufzaehlung_dots@@<strong>Contact Objective 2/Research Forums: Dr. Melanie Kryst | <a:melanie.kryst@berlin-university-alliance.de:>melanie.kryst@berlin-university-alliance.de</a></strong>##', edit=1";
+    //     $res = safe_query($sql);
+    //     $cid = mysqli_insert_id($mylink);
+    //     $sq = "UPDATE $table SET cid=$cid WHERE $tid=" . $edit . "";
+    //     // $sql    = "INSERT `morp_cms_content_live` SET vorlage=1, `pos`='$pos', vorl_name='$tname', edit=1";
+    //     $rs = safe_query($sq);
+    // }
+    // if (!$cidEn) {
+    //     $sql = "INSERT `morp_cms_content` SET vorlage=1, `pos`='$pos', vorl_name='$tname', content='t1__fliesstext@@##t1__register@@##t1__fliesstext@@##t1__aufzaehlung_dots@@##t1__fliesstext@@About the instructor##t1__aufzaehlung_dots@@<strong>Contact Objective 2/Research Forums: Dr. Melanie Kryst | <a:melanie.kryst@berlin-university-alliance.de:>melanie.kryst@berlin-university-alliance.de</a></strong>##', edit=1";
+    //     $res = safe_query($sql);
+    //     $cidEn = mysqli_insert_id($mylink);
+    //     $sq = "UPDATE $table SET cidEn=$cidEn WHERE $tid=" . $edit . "";
+    //     // $sql    = "INSERT `morp_cms_content_live` SET vorlage=1, `pos`='$pos', vorl_name='$tname', edit=1";
+    //     $rs = safe_query($sq);
+    // }
 
     $echo .= '
 		<input type="Hidden" name="edit" id="edit" value="' . $edit . '">
@@ -459,22 +459,22 @@ function edit($edit)
     }
 
 
+	// $echo .= '
+	// <p>&nbsp;</p>
+	// <p><b>Auswahl Seite Dokumentation</b></p>
+	// <select id="ilink" name="ilink"><option value="0">Bitte Zielseite wählen</option>';
+	// $sql = "SELECT * from morp_cms_nav WHERE `parent`=3";
+	// $rs = safe_query($sql);
+	// while($rw = mysqli_fetch_object($rs)) {
+	// 	$navid = $rw->navid;
+	// 	$name = $rw->name;
+	// 	$echo .= '<option value="'.$navid.'"'.($ilink == $navid ? ' selected' : '').'>'.$name.'</option>';
+	// 	
+	// }
+	// $echo .= '</select>
+	
 	$echo .= '
-	<p>&nbsp;</p>
-	<p><b>Auswahl Seite Dokumentation</b></p>
-	<select id="ilink" name="ilink"><option value="0">Bitte Zielseite wählen</option>';
-	$sql = "SELECT * from morp_cms_nav WHERE `parent`=3";
-	$rs = safe_query($sql);
-	while($rw = mysqli_fetch_object($rs)) {
-		$navid = $rw->navid;
-		$name = $rw->name;
-		$echo .= '<option value="'.$navid.'"'.($ilink == $navid ? ' selected' : '').'>'.$name.'</option>';
-		
-	}
-	$echo .= '</select>
-	
-	</div><div class="col-md-12 mb3 mt2">
-	
+	</div><div class="col-md-12 mb3 mt2">	
 	';
 	
 	

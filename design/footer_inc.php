@@ -64,32 +64,15 @@
 	
 </div>
 
+<?php 
+if($morpheus_edit) { } else {
+?>
+
 <div id="waitbg"></div>
 <div id="nest5"></div>
 <div id="mp" class="megaphone"></div>
 
-<!-- <a class="btn btn-primary" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample">
-  Link with href
-</a> -->
-
-<?php if($firstLogin) { ?> 
-<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
-  <div id="myToastStart" class="toast fade hide" role="alert" aria-live="assertive" aria-atomic="true" data-bs-delay="10000">
-	<div class="toast-header">
-		<svg class="bd-placeholder-img rounded me-2" width="20" height="20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#007aff"></rect></svg>
-		
-		<strong class="me-auto">BUA message</strong>
-		<small>now</small>
-		<button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-	</div>
-	<div class="toast-body">
-		Welcome <?php echo $_SESSION["vname"].' '.$_SESSION["nname"]; ?> to BUA global health portal
-	</div>
-  </div>
-</div>
-<?php } ?>
-
-<?php
+<?php }
 if($morpheus_edit) include("design/edit.php");
 ?>
 
