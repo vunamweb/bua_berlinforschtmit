@@ -18,18 +18,15 @@ $template = '
 <section class="record_audio" ' . ($anker ? ' id="' . $anker . '"' : '') . '>
     <div class="container">
 		<div class="row">
-			<div class="col-12 col-lg-7 col-xl-6 ">
+			<div class="col-12 col-lg-6 col-xl-6 ">
 #cont#
 			</div>
-			<div class="col-12 col-lg-5 col-xl-6 ">
-     '.$img__header.'
-			</div>
 			
-			'.$audio_file.'
+'.$audio_file.'
 			
 		</div>
 	</div>
 </section>
 
-'.$modal;
+';
 

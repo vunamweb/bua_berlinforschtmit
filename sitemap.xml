@@ -3,10 +3,10 @@
 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 xsi:schemaLocation="http://www.google.com/schemas/sitemap/0.84 http://www.google.com/schemas/sitemap/0.84/sitemap.xsd">
 <!-- Created by www.pixel-dusche.de - CMS morpheus -->
-<!-- Last update of sitemap 2022-09-23 -->
+<!-- Last update of sitemap 2022-09-26 -->
 <url>
 <loc>http://localhost:8888/berlinforscht/bua_berlinforschtmit/</loc>
-<lastmod>2022-09-23T14:28:21+00:00</lastmod>
+<lastmod>2022-09-26T10:26:43+00:00</lastmod>
 <changefreq>weekly</changefreq>
 <priority>0.9</priority>
 </url>
@@ -48,7 +48,7 @@ xsi:schemaLocation="http://www.google.com/schemas/sitemap/0.84 http://www.google
 </url>
 <url>
 <loc>http://localhost:8888/berlinforscht/bua_berlinforschtmit/de/ueber-das-projekt/ueber-uns/</loc>
-<lastmod>2022-09-23T12:51:53+00:00</lastmod>
+<lastmod>2022-09-23T15:36:36+00:00</lastmod>
 <changefreq>weekly</changefreq>
 <priority>0.7</priority>
 </url>

@@ -21,7 +21,7 @@ if($lastUsedTemplateID && $lastUsedTemplateID != $fileID && !$templateIsClosed) 
 }
 
 if($tref == 1 || !$tref) $template = '
-<section'.($anker ? ' id="'.$anker.'"' : '').' class="section '.$klasse.' '.($tabstand ? ' pt0 ' : '').($tabstand_bottom? ' pb0 ' : '').($tclass ? $tclass.' bg-color' : '').'"'.($farbe ? ' style="background:#'.$farbe.'"' : $video_special).'>
+<section'.($anker ? ' id="'.$anker.'"' : '').' class="section '.$klasse.' '.($tabstand ? ' pt0 ' : '').($tabstand_bottom? ' pb0 ' : '').($class ? $class.' bg-color' : '').'"'.($farbe ? ' style="background:#'.$farbe.'"' : $video_special).'>
 
 '.$date_box.'
 

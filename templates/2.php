@@ -51,7 +51,7 @@ if($template2count == 1 || $templateIsClosed) { $template .= '
 <section class="section_multi'.($klasse2 ? ' '.$klasse2 : '').($tclass ? $tclass.' ' : '').($tabstand ? ' pt0 ' : '').($tabstand_bottom? ' pb0 ' : '').'"'.($farbe ? ' style="background:#'.$farbe.';"' : '').($anker ? ' id="'.$anker.'"' : '').'>
 '.($parallax ? '<div class="parallax " style="background: url('.$parallax.') no-repeat top center fixed; -webkit-background-size: cover; background-size: cover;">' : '').'
     <div class="container">
-        <div class="row'.($tref == 5 ? ' h-100' : '').'">';
+        <div class="row'.($tref == 5 ? ' h-100' : '').($tref == 6 ? ' h-100 d-flex align-items-center' : '').'">';
 	$templateIsClosed=0;
 }
 
@@ -62,8 +62,7 @@ if($tref == 1 || !$tref) $template .= '
 <div id="'.$uniqueID.'" class="directeditmode">#cont#</div>
             '.($class_inner ? '</div>' : '').'
 			'.edit_bar($content_id,"edit_class").'
-			</div>
-				
+			</div>				
 ';
 
 elseif($tref == 2) $template .= '
@@ -105,24 +104,13 @@ elseif($tref == 5) $template .= '
 ';
 
 elseif($tref == 6) $template .= '
-            <div class="'.$edit_mode_class.'col-12 col-md-6 col-lg-6'.($animation ? ' wow '.$animation : '').($animation_time ? ' animate__delay-'.$animation_time.'s' : '').'"'.($linkbox ? ' ref="'.$linkbox.'"' : '').'>
-				<div id="sturm'.$template_page_count.'" class="carousel carousel-std slide" data-bs-ride="carousel">
-					<div class="carousel-inner">
-
+			<div class="'.$edit_mode_class.'col-12 col-lg-6'.($klasse ? ' '.$klasse : '').($animation ? ' wow '.$animation : '').($animation_time ? ' animate__delay-'.$animation_time.'s' : '').'"'.($linkbox ? ' ref="'.$linkbox.'"' : '').'">
+			 '.($class_inner ? '<div class="text-center inner '.$class_inner .'">' : '').'
 <div id="'.$uniqueID.'" class="directeditmode">#cont#</div>
-            		</div>
-					
-					<button class="carousel-control-prev" type="button" data-bs-target="#sturm'.$template_page_count.'" data-bs-slide="prev">
-						<span class="carousel-control-prev-icon" aria-hidden="true"></span>
-						<span class="visually-hidden">Previous</span>
-					</button>
-					<button class="carousel-control-next" type="button" data-bs-target="#sturm'.$template_page_count.'" data-bs-slide="next">
-						<span class="carousel-control-next-icon" aria-hidden="true"></span>
-						<span class="visually-hidden">Next</span>
-					</button>
-            	</div>
+			'.($class_inner ? '</div>' : '').'
 			'.edit_bar($content_id,"edit_class").'
-            </div>
+			</div>
+
 ';
 
 elseif($tref == 7) $template .= '

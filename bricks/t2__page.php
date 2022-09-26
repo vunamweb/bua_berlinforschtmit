@@ -2,6 +2,8 @@
 # $output .= $text;
 $page = explode("?", trim($text));
 $ziel = $page[1];
-include("page/".$page[0]);
 
-?>
+if($justInfo)
+	$morp = ' INCLUDE '.$page[0] .' // ';
+else
+	include("page/".$page[0]);

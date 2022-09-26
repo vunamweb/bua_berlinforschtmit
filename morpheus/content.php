@@ -342,7 +342,7 @@ while ($row = mysqli_fetch_object($res)) {
 	}
 
 	else echo '
-			<a href="content_edit.php?edit='.$id.'&navid='.$edit.'" title="Content editieren" class="light ">'.substr(strip_tags($txt), 0, 200).'</a>
+			<a href="content_edit.php?edit='.$id.'&navid='.$edit.'" title="Content editieren" class="light ">'.substr(strip_tags($txt), 0, 150).'</a>
 		</div>
 		<div class="col-md-4 col-sm-4">
 			<a href="content_edit.php?edit='.$id.'&navid='.$edit.'" title="Content editieren" class="button bt4"><i class="fa fa-pencil-square-o "></i> edit</a>

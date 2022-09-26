@@ -74,6 +74,9 @@ if($morpheus_edit) { } else {
 
 <?php }
 if($morpheus_edit) include("design/edit.php");
+
+global $modal;
+echo $modal;
 ?>
 
 <script src="<?php echo $dir; ?>js/jquery.min.js"></script>
@@ -892,7 +895,7 @@ function setSection() {
 	nLeftH = ( wW / 1200 );
 	left = 350;
 	right = 80;
-	headerH = $(".headerIMG").height() / 1.25;
+	headerH = $(".headerIMG").height() / 1.15;
 	$(".header-img img").height(headerH);
 	if(wW >= 1200) {
 		$('.box_topbanner_item').css({"height":"500px"});

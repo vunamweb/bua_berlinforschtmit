@@ -2897,6 +2897,7 @@ function get_raw_text_morp($text, $lang = "de")
 
     $tx = explode("##", strip_tags($text));
     # print_r($tx);
+	$justInfo = 1;
 
     for ($i = 0; $i <= count($tx); $i++) {
         $txt = $tx[$i];
@@ -2906,8 +2907,8 @@ function get_raw_text_morp($text, $lang = "de")
         $brick = explode("__", $brick);
 
         # echo "bricks/" .$txt[0] .".php";
-
-        if (file_exists("../bricks/" . $txt[0] . ".php") && !preg_match("/page/", $brick[1])) {include "../bricks/" . $txt[0] . ".php";}
+		// if (file_exists("../bricks/" . $txt[0] . ".php") && !preg_match("/page/", $brick[1])) { include "../bricks/" . $txt[0] . ".php"; }
+        if (file_exists("../bricks/" . $txt[0] . ".php")) { include "../bricks/" . $txt[0] . ".php"; }
 
         if ($brick[1]) {
             $t .= $morp . ' &nbsp; ';

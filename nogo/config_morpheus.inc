@@ -70,7 +70,7 @@ $morpheus["news_formate"]	= array(1=>"News");
 $morpheus["templ_conf1"]	= array(1=>"Container", 2=>"Container Text zentriert", 3=>"Container volle Breite", 4=>"Keine Section / nur fuer Admin");
 // 3=>"Container Trennlinie", 5=>"Container BG Image ohne Text", 6=>"Image Slider", ); // 7=>'HTML', 8=>'HTML 2', 9=>"Container geringe Höhe / nur BG Image" );
 #$morpheus["templ_conf2"]	= array(1=>"1/3 Spalten", 2=>"2/3 Spalte", 3=>"1/4 Spalte", 3=>"3/4 Spalte" );
-$morpheus["templ_conf2"]	= array(1=>"1/2 Spalten", 2=>"3/4 Spalten",  3=>"1/4 Spalten",  4=>"2/3 Spalten", 5=>"1/3 Spalten", );
+$morpheus["templ_conf2"]	= array(1=>"1/2 Spalten", 2=>"3/4 Spalten",  3=>"1/4 Spalten",  4=>"2/3 Spalten", 5=>"1/3 Spalten", 6=> "1/2 Spalten vertikal zentriert");
 // 7=>"1/2 Spalten rechten Abstand",8=>"1/2 Spalten mit großem linken Abstand",9=>"1/2 Spalten mit extra großem linken Abstand", 10=>"1 Spalter", 11=>"leer", 12=>"1/2 Spalten für Parallax ohne Abstand");
 // $morpheus["templ_conf2"]		= array(1=>"1/3 Spalten", 2=>"1/4 Spalten", 3=>"1/2 Spalten", 4=>"2/3 Spalten", 5=>"1/6 Spalten", 6=>"1/2 Spalten linker Abstand", 7=>"1/2 Spalten rechten Abstand",8=>"1/2 Spalten mit großem linken Abstand",9=>"1/2 Spalten mit extra großem linken Abstand", 10=>"1 Spalter", 11=>"leer", 12=>"1/2 Spalten für Parallax ohne Abstand");
 //$morpheus["templ_conf3"]		= array(1=>"Logo // w=200 h=200", 2=>"Screens w=500");
