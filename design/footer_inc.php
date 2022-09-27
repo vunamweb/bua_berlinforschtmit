@@ -818,7 +818,7 @@ $(document).ready(function() {
 
 });
 
-$('.recordagain').click(function(){
+$('.recordagain, .reload').click(function(){
 	window.location.hash = "mitmachen";
 	$('.modal').modal('hide');
 	location.reload();
@@ -1027,4 +1027,13 @@ if($isForm==6) { ?>
     });
 <?php } ?>
 
+
+$( "#btn_text_start" )
+  .mouseenter(function() {
+	console.log("enter");
+  })
+  .mouseleave(function() {
+	console.log("leave");
+  });
+  
 </script>

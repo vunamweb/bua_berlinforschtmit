@@ -144,8 +144,8 @@ $(document).ready(function(){
 	if(target) {
 		$("html, body").animate({scrollTop: 0}, 0);
     $('html, body').stop().animate({
-      scrollTop: $(target).offset().top 
-    }, 2500);
+      scrollTop: $(target).offset().top - 100
+    }, 500);
 	}
     
 });

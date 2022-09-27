@@ -4,39 +4,38 @@ global $morpheus, $audio_file, $modal;
 $rubrik = $_POST["rubrik"] ? $_POST["rubrik"] : '';
 
 $output .= '
-    		
-			<div class="startbtn">
-				<b id="recordButton">
-					<span class="textstimme round">
-						<i class="fa fa-microphone"></i>
-					</span>
-					<em>Sprachnachricht einreichen</em>
-				</b>
+    		<div class="row">
+				<div class="col-12 col-lg-6 mt2">
+					<div class="startbtn">
+						<b id="recordButton">
+							<img src="'.$dir.'images/Sprachnachrichten.svg" alt="" class="img-fluid audio-btn" />
+						</b>
+					</div>	
+				</div>	
+    			
+				<div class="col-12 col-lg-6 mt2">
+					<div class="startbtn">
+						<a href="#" data-toggle="modal" data-target="#stimmeText" id="textstimme">
+								<img src="'.$dir.'images/Textnachrichten.svg" alt="" class="img-fluid audio-btn" />
+						</a>
+					</div>	
+				</div>	
 			</div>	
-    	
-			<div class="startbtn">
-				<a href="#" data-toggle="modal" data-target="#stimmeText" id="textstimme">
-					<span class="textstimme round">
-			   			<i class="fa fa-edit"></i>
-					</span>
-					<em>Textnachricht einreichen</em>
-				</a>
-			</div>	
-			
-			
-			<div class="on_record">
-				<div class="count_time hide"><label id="minutes">00</label>:<label id="seconds">00</label></div>
-    			<div id="display_wave"></div>
-				
-    			<a class="bntmic stop hide" role="button" href="#" data-toggle="modal" data-target="#audioModal" id="stopButton">
-        			<span></span>
-    			</a><br>
-    			<a class="bntmic restart hide" role="button" id="restartButton">
-        			<span></span>
-    			</a>
-			</div>
-	
-';
+					
+					
+			<div class="record-bg">
+				<div class="on_record">
+					<div class="count_time hide"><label id="minutes">00</label>:<label id="seconds">00</label></div>
+    				<div id="display_wave"></div>
+					
+    				<a class="bntmic stop hide" role="button" href="#" data-toggle="modal" data-target="#audioModal" id="stopButton">
+        				<span></span>
+    				</a><br>
+    				<a class="bntmic restart hide" role="button" id="restartButton">
+        				<span></span>
+    				</a>
+				</div>
+			</div>';
 
 
 $modal = '
@@ -46,9 +45,7 @@ $modal = '
 		<div class="modal-content">
 			<div class="modal-header">
 				<div id="hl">Haben wir Sie richtig verstanden?</div>
-				<button type="button" class="btn-close close reload" data-dismiss="modal" aria-label="Close">
-				<img src="'.$dir.'images/SVG/i_close.svg" alt="" class="img-fluid" width="20">
-				</button>
+				<button type="button" class="btn-close close reload" data-dismiss="modal" aria-label="Close"></button>
 			</div>
 		
 			<div class="modal-body">
