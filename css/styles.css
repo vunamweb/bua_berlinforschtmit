@@ -1447,6 +1447,15 @@ width: 100%; padding: 0 !important;
 #show_list_media .modal-dialog {
 	max-width: 70%;
 }
+#show_list_media .modal-content {
+	max-width: 100%;
+}
+#add_media_category {
+	display: none;
+}
+#show_export .modal-dialog {
+	
+}
 /* END */
 
 /* UPLOAD FILE */

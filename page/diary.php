@@ -159,7 +159,7 @@ if ($show_list_media) {
     while ($row = mysqli_fetch_object($res)) {
         $date = ' (' . $row->mdate . ')';
         $description = ($row->text != '') ? $row->text . $date : 'No description' . $date;
-        $response .= '<div><input type="checkbox" value=' . ($row->mediaID) . ' class="modal_checkbox_properties">&nbsp; &nbsp; &nbsp;<label>' . $description . '</label></div>';
+        $response .= '<div><input type="checkbox" value=' . ($row->mediaID) . ' class="modal_checkbox_properties modal_media">&nbsp; &nbsp; &nbsp;<label>' . $description . '</label></div>';
     }
 
     echo $response;die();
@@ -217,17 +217,13 @@ function liste()
 {
     global $show;
 
-    // modal show media
-    $modal = '<div class="modal" id="show_list_media" aria-hidden="true">
+    // show media
+    $showMedia = '<div id="show_list_media">
   <div class="modal-dialog">
       <div class="modal-content">
-          <!-- Modal Header -->
-          <div class="modal-header">
-                  <button type="button" class="close" data-dismiss="modal">×</button>
-          </div>
           <!-- Modal body -->
           <div class="modal-body">
-              <div class="data"></div>
+              <div class="data">No media</div>
               <br><br>
               <input type="button" class="btn btn-info" name="add_media_category" id="add_media_category" value="ADD"/>
           </div>
@@ -236,7 +232,7 @@ function liste()
 </div>';
 
     // modal show category
-    $modal .= '<div class="modal" id="show_export" aria-hidden="true">
+    $modal = '<div class="modal" id="show_export" aria-hidden="true">
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<!-- Modal Header -->
@@ -244,8 +240,18 @@ function liste()
 					<button type="button" class="close" data-dismiss="modal">×</button>
 			</div>
 			<!-- Modal body -->
-			<div class="modal-body">
-                ' . showExport() . '
+            <div class="modal-body">
+              <div class="row">  
+                 <div class="col-6">
+                    <label>Category</label>
+                    ' . showExport() . '
+                 </div>
+                 <div class="col-6">  
+                 <div id="nest5" class=""></div>  
+                  <label style="padding-left: 40%">Media</label>
+                    ' . $showMedia . '
+                 </div>
+               </div>
                 <br><br>
                 <input type="hidden" id="category_select" name="category_select" />
                 <input type="hidden" id="media_select" name="media_select" />

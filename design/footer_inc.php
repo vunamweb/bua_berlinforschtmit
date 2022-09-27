@@ -494,15 +494,22 @@ $(document).ready(function() {
 
 	// VU: make hightlight category of export
 	$('.show_category').click(function(){
-		$('.show_category').each(function(){
+		var idCategory = $(this).attr('href');
+		idCategory = idCategory.replace('#', '');
+
+		$('#category_select').val(idCategory);
+
+        $('.show_category').each(function(){
 			$(this).removeClass('bg_link');
-			$(this).parent().find('.show_list_media').removeClass('show');
+			//$(this).parent().find('.show_list_media').removeClass('show');
 		})
 		
 		$(this).addClass('bg_link');
-		$(this).parent().find('.show_list_media').addClass('show');
+		//$(this).parent().find('.show_list_media').addClass('show');
 
 		$('#action_export').val(1);
+
+		$(this).parent().find('.show_list_media').click();
 	})
 	// END
 
@@ -544,12 +551,23 @@ $(document).ready(function() {
 	$('.show_list_media').click(function(){
 		var idCategory = $('#category_select').val();
 
+		$('#show_export #nest5').removeClass('hide');
+
 		request = $.ajax({
             url: "./",
             type: "get",
             data: "show_list_media=1&idCategory="+idCategory+"",
             success: function(data) {
-              $('#show_list_media .modal-body .data').html(data)
+				//$('#show_export #nest5').addClass('hide');
+				setTimeout($('#show_export #nest5').addClass('hide'), 5000);
+
+				$('#show_list_media .modal-body .data').html(data);
+			  
+			  // VU: click checkbox of media of export
+				$('.modal_media').on('change', function(){ // on change of state
+					$('#add_media_category').click();
+				})
+	          // END
             }
           });
 	})

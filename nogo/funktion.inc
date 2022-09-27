@@ -4088,7 +4088,7 @@ function showExport()
 				   <i class="fa fa-plus fa1"></i>
 				   ' . $name . '
 				</a>
-				<a href="#" class="btn btn-info show_list_media" data-toggle="modal" data-target="#show_list_media">Select Media</a>
+				<a href="#" class="btn btn-info show_list_media hide">Select Media</a>
 			</h2>
 	   </div>
 	   <div id="collapse' . $stID . '" class="collapse"
