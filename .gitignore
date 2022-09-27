@@ -2,3 +2,5 @@
 nogo/nav_de.inc
 .htaccess
 *.wav
+.htaccess
+nogo/config.php
