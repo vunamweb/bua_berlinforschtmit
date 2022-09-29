@@ -513,6 +513,26 @@ $(document).ready(function() {
 	})
 	// END
 
+	// VU: select export
+	$('.choose_type_export').change(function(){
+		var value = $(this).val();
+		$('#type_export').val(value);
+
+		if(value == 3) {
+			$('#col-media').show();
+			$('#col-category').hide();
+		}
+		else if(value == 5) {
+			$('#col-media').hide();
+			$('#col-category').show();
+		} 
+		else {
+			$('#col-media').hide();
+			$('#col-category').hide();
+		} 
+	})
+	// END
+
 	// VU: search form
 	$('.navbar-form').click(function(e) {
         var search = $('#suche').val();

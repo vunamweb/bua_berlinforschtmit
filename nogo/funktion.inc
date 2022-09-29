@@ -4080,7 +4080,8 @@ function showExport()
         $echo .= '<div class="card">
 	   <div class="card-header" id="headingThree">
 		   <h2 class="mb-0">
-		        <a type="button"
+               <input type="checkbox" value="'.$stID.'" name="listCategories[]"> 
+               <a type="button"
 				   href="#' . $stID . '"
 				   class="btn btn-link show_category collapsed"
 				   data-toggle="collapse"
@@ -4141,7 +4142,8 @@ function showexportOfExport($parent, $level)
         $name = $row->name . '(Category)';
 
         $response .= '<h2 class="mb-0 mb-1" style="margin-left:' . $marginLeft . 'px">
-					   <a href="#' . $parentChild . '" class="btn btn-link btn-link-1 show_category">
+                       <input type="checkbox" value="'.$parentChild.'" name="listCategories[]"> 
+                       <a href="#' . $parentChild . '" class="btn btn-link btn-link-1 show_category">
 					      <p class="text_comment">' . $name . '</p>
 					   </a>
 					   <a href="#" class="btn btn-info show_list_media" data-toggle="modal" data-target="#show_list_media">Select Media</a>

@@ -70,6 +70,7 @@ $action_export = $_REQUEST['action_export'];
 $category_select = $_REQUEST['category_select'];
 $media_select = $_REQUEST['media_select'];
 $category = $_REQUEST['category'];
+$type_export = $_REQUEST['type_export'];
 
 // VU: update comment text
 if ($myNote) {
@@ -168,8 +169,32 @@ if ($show_list_media) {
 
 // VU: export
 if ($action_export) {
+   switch($type_export) {
+       case 3:
+         $sql = getSqlMediaExport($media_select);
+         break;
+       
+       case 5:
+        $sql = getSqlCategoryExport($category_select);
+        break;
 
-    $sql = ($media_select != '') ? getSqlMediaExport($media_select) : getSqlCategoryExport($category_select);
+       case 1:
+        $sql = 'SELECT * FROM morp_note WHERE parent = 0 ORDER BY date_time desc';
+        break;
+        
+        case 2:
+        $sql = 'SELECT * FROM morp_note WHERE parent = 0 and mediaID >0 ORDER BY date_time desc';
+        break; 
+
+        case 4:
+        $sql = 'SELECT * FROM morp_note WHERE parent = 0 and mediaID = 0 ORDER BY date_time desc';
+        break;     
+        
+        default:
+        $sql = 'SELECT * FROM morp_note WHERE parent = 0 ORDER BY date_time desc';
+    }
+    
+    //$sql = ($media_select != '') ? getSqlMediaExport($media_select) : getSqlCategoryExport($category_select);
     //echo $sql;
 
     header("Content-type: application/vnd.ms-word");
@@ -218,12 +243,28 @@ function liste()
     global $show;
 
     // show media
+    $response = '';
+
+    $sql = "SELECT * FROM morp_media ORDER BY mdate desc";
+    $res = safe_query($sql);
+
+    if (mysqli_num_rows($res) == 0) {
+        echo 'No Media';
+        die();
+    }
+
+    while ($row = mysqli_fetch_object($res)) {
+        $date = ' (' . $row->mdate . ')';
+        $description = ($row->text != '') ? $row->text . $date : 'No description' . $date;
+        $response .= '<div><input type="checkbox" value=' . ($row->mediaID) . ' class="modal_checkbox_properties modal_media">&nbsp; &nbsp; &nbsp;<label>' . $description . '</label></div>';
+    }
+
     $showMedia = '<div id="show_list_media">
   <div class="modal-dialog">
       <div class="modal-content">
           <!-- Modal body -->
           <div class="modal-body">
-              <div class="data">No media</div>
+              <div class="data">'.$response.'</div>
               <br><br>
               <input type="button" class="btn btn-info" name="add_media_category" id="add_media_category" value="ADD"/>
           </div>
@@ -242,20 +283,32 @@ function liste()
 			<!-- Modal body -->
             <div class="modal-body">
               <div class="row">  
-                 <div class="col-6">
-                    <label>Category</label>
-                    ' . showExport() . '
+                 <div class="col-12 text-center">
+                    <select class="choose_type_export">
+                    <option value="0">Select Type of Export</option>
+                      <option value="1">All</option>
+                      <option value="2">All Medias</option>
+                      <option value="3">Multi Medias</option>
+                      <option value="4">All Categories</option>
+                      <option value="5">Multi Categories</option>
+                      <option value="6">General</option>
+                    </select>
                  </div>
-                 <div class="col-6">  
-                 <div id="nest5" class=""></div>  
-                  <label style="padding-left: 40%">Media</label>
-                    ' . $showMedia . '
+                 <div class="col-12">  
+                    <div id="nest5" class=""></div>  
+                    <div id="col-media">
+                      ' . $showMedia . '
+                    </div>
+                    <div id="col-category">
+                      ' . showExport() . '
+                    </div>  
                  </div>
                </div>
                 <br><br>
                 <input type="hidden" id="category_select" name="category_select" />
                 <input type="hidden" id="media_select" name="media_select" />
                 <input type="hidden" name="action_export" id="action_export" />
+                <input type="hidden" name="type_export" id="type_export" />
                 <input type="submit" class="btn btn-info" name="export_list" id="export_list" value="Export"/>
 			</div>
 		</div>
