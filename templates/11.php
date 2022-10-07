@@ -26,7 +26,7 @@ for($i=1; $i<=$slCt; $i++) {
 
 $template = '
 <section class="'.$edit_mode_class.($tabstand ? ' pt0 ' : '').($klasse ? ' '.$klasse : '').'">
-	<div class="container-full">
+	<div class="container">
 		<div class="row">
 			<div class="col-12">
 				<div class="" id="BUASlider">

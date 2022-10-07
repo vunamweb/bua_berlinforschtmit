@@ -392,18 +392,19 @@ eventComment = () => {
 
   
   // Init on DOM ready
-  var waveHeight = 80; 
+  var waveHeight = 120; 
   if( $(window).width() < 800 ) var waveHeight = 40;
 	
   if($('#waveform').length > 0) {
 	document.addEventListener('DOMContentLoaded', function() {
-      wavesurfer = WaveSurfer.create({
-          container: '#waveform',
-          waveColor: '#428bca',
-          progressColor: '#31708f',
-          height: waveHeight,
-          barWidth: 3
-      });
+      	wavesurfer = WaveSurfer.create({
+			container: '#waveform',
+			waveColor: '#000',
+			progressColor: '#fff',
+			height: waveHeight,
+			barHeight: 6,
+			barWidth: 3
+      	});
     });
   }
   
@@ -430,7 +431,7 @@ eventComment = () => {
 	  
       // The playlist links
       var links = document.querySelectorAll('.slider__item a');
-      var currentTrack = 0;
+      var currentTrack = 1;
       // Load a track by index and highlight the corresponding link
       var setCurrentSong = function(index) {
           links[currentTrack].classList.remove('active');
