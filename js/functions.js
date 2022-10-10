@@ -6,22 +6,6 @@ const validateEmail = (email) => {
 	  );
 };
 
-autoplay = () => {
-  var count = 0;
-
-  $('.slider_2 .slider__wrapper .slider__item a.play_audio img').each(function(){
-	  if(count == 0) {
-      $(this).click();
-      setTimeout(function() {
-        $('#pause').click();
-        $('#play').click();
-      }, 5000);
-   }
-		
-	 count++;  
-  })
-}
-
 function checkMandatory() {
 	var name = $('#name').val();
 	var mail = $('#email').val();
@@ -181,7 +165,7 @@ $('body').imagesLoaded()
 	.always( function( instance ) {
 		// setTimeout(function () {
       $("#nest5, #waitbg, #mp").addClass("hide");
-      autoplay();
+      //autoplay();
       
 		// }, 500);
 	})

@@ -332,6 +332,26 @@ removeBg = (parent) => {
 		$(this).removeClass('bg_link');
 	})
 }
+
+autoplay = () => {
+  var count = 0;
+
+  $('.play_audio img').each(function(){
+	  if(count == 0)
+		 $(this).click();
+	  
+      count++; 		  
+  })
+}
+
+setCurrentSong_ = (index) => {
+	var links = document.querySelectorAll('.slider__item a');
+
+	//links[index].classList.remove('active');
+          currentTrack = index;
+          links[index].classList.add('active');
+          wavesurfer.load(links[index].href);
+      };
 // END
   
   
@@ -444,15 +464,15 @@ eventComment = () => {
           link.addEventListener('click', function(e) {
               e.preventDefault();
               setCurrentSong(index);
-              // wavesurfer.playPause();
-              $('.btn-berlin').addClass("show");
-          });
+              //wavesurfer.playPause();
+			  $('.btn-berlin').addClass("show");
+		 });
       });
       // Play on audio load
 	  if(wavesurfer != null && wavesurfer != undefined) {
 		wavesurfer.on('ready', function() {
-           wavesurfer.play();
-        });
+		   wavesurfer.play();
+		});
 		wavesurfer.on('error', function(e) {
 			//  console.warn(e);
 		})
@@ -462,11 +482,25 @@ eventComment = () => {
 		});
 	  }
 	  // Load the first track
-      // setCurrentSong(currentTrack);
-  });
+	  setCurrentSong(0);
+	  /*$('#playPause').show();
+	  $('#playPause').click();
+	  $('#playPause').click();
+	  $('#playPause').click();*/
+	  //autoplay();
+	  //wavesurfer.play();
+});
 
 
 $(document).ready(function() {
+	//$('#playPause').show();
+	//$('#play').show();
+	  //$('#playPause').click();
+	  //$('#playPause').click();
+	autoplay();
+	//setCurrentSong_ (0);
+	//setCurrentSong(0);
+
 	$('.uploadimg').click(function() {
 		// console.log('hit');
 		$('#imgModal .modal-body').load($(this).data('href'), function(e) {
