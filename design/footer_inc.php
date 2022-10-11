@@ -431,7 +431,7 @@ eventComment = () => {
 	  
       // The playlist links
       var links = document.querySelectorAll('.slider__item a');
-      var currentTrack = 1;
+      var currentTrack = 0;
       // Load a track by index and highlight the corresponding link
       var setCurrentSong = function(index) {
           links[currentTrack].classList.remove('active');

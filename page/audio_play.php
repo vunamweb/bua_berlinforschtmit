@@ -36,12 +36,12 @@ $output .= '
 		</div>
 	
  		<div class="row waveform_player">
-			<div class="col-sm-9">
+			<div class="col-9 col-md-10">
 				<div id="waveform">
 					<!-- Here be waveform -->
 				</div>
 			</div>
-			<div class="col-sm-3 align-self-center">
+			<div class="col-3 col-md-2 align-self-center">
 				<button class="btn btn-berlin btn-block" id="playPause">
 					<span id="play">                                                        
 						Play
