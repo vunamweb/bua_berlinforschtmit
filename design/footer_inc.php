@@ -478,30 +478,18 @@ eventComment = () => {
 		})
       // Go to the next track on finish
 		wavesurfer.on('finish', function() {
-			setCurrentSong((currentTrack + 1) % links.length);
+			//setCurrentSong((currentTrack + 1) % links.length);
 		});
 	  }
 	  // Load the first track
-	  setCurrentSong(0);
-	  /*$('#playPause').show();
-	  $('#playPause').click();
-	  $('#playPause').click();
-	  $('#playPause').click();*/
-	  //autoplay();
-	  //wavesurfer.play();
+	  //setCurrentSong(0);
 });
 
 
 $(document).ready(function() {
-	//$('#playPause').show();
-	//$('#play').show();
-	  //$('#playPause').click();
-	  //$('#playPause').click();
 	autoplay();
-	//setCurrentSong_ (0);
-	//setCurrentSong(0);
-
-	$('.uploadimg').click(function() {
+	
+    $('.uploadimg').click(function() {
 		// console.log('hit');
 		$('#imgModal .modal-body').load($(this).data('href'), function(e) {
 			$('#imgModal').modal('show')
