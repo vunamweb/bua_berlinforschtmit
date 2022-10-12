@@ -39,6 +39,7 @@ $output .= '
 			<div class="col-sm-9">
 				<div id="waveform">
 					<!-- Here be waveform -->
+					<div class="bg_wave"><img class="bg_wave_img" src="'.$dir.'images/wave_audio.jpeg"/></div>
 				</div>
 			</div>
 			<div class="col-sm-3 align-self-center">

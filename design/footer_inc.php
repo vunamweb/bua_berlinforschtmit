@@ -439,13 +439,13 @@ eventComment = () => {
 
 	  if(wavesurfer != null && wavesurfer != undefined) {
 		wavesurfer.on('play', function() {
-          document.querySelector('#play').style.display = 'none';
-          document.querySelector('#pause').style.display = '';
+          /*document.querySelector('#play').style.display = 'none';
+          document.querySelector('#pause').style.display = '';*/
         });
 
         wavesurfer.on('pause', function() {
-          document.querySelector('#play').style.display = '';
-          document.querySelector('#pause').style.display = 'none';
+          /*document.querySelector('#play').style.display = '';
+          document.querySelector('#pause').style.display = 'none';*/
         });
 	  }
 	  
@@ -465,29 +465,36 @@ eventComment = () => {
               e.preventDefault();
               setCurrentSong(index);
               //wavesurfer.playPause();
-			  $('.btn-berlin').addClass("show");
+			  //$('.btn-berlin').addClass("show");
 		 });
       });
       // Play on audio load
 	  if(wavesurfer != null && wavesurfer != undefined) {
 		wavesurfer.on('ready', function() {
 		   wavesurfer.play();
+		   $('#waveform wave').show();
+		   //$('#waveform .bg_wave').css('position', 'absolute');
+		   $('#waveform .bg_wave').hide();
 		});
 		wavesurfer.on('error', function(e) {
 			//  console.warn(e);
 		})
       // Go to the next track on finish
 		wavesurfer.on('finish', function() {
+			$('#waveform wave').hide();
+			//$('#waveform .bg_wave').css('position', 'relative');
+			$('#waveform .bg_wave').show();
+			//alert('done');
 			//setCurrentSong((currentTrack + 1) % links.length);
 		});
 	  }
 	  // Load the first track
-	  //setCurrentSong(0);
+	  setCurrentSong(0);
 });
 
 
 $(document).ready(function() {
-	autoplay();
+	//autoplay();
 	
     $('.uploadimg').click(function() {
 		// console.log('hit');
