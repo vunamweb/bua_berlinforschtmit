@@ -5,16 +5,8 @@
 global $morpheus, $sign_gruppe, $lan;
 $morpheus = array();
 
-$morpheus["dbname"] 		= "d039f7ed";
-$morpheus["user"]			= "d039f7ed";
-$morpheus["password"]		= "JcsMBVhCqm8Vurru";
+include("../../INC/bua-bf-config.php");
 
-$morpheus["dbname2"] 		= "d039d371";
-$morpheus["user2"]			= "d039d371";
-$morpheus["password2"]		= "AzzXfHZpATC2zeUM";
-
-$morpheus["dfile"]			= "morpheus_db.sql";
-$morpheus["server"]			= "85.13.164.136";
 $morpheus["url"]			= "http://localhost:8888/berlinforscht/bua_berlinforschtmit/";
 $morpheus["search_ID"]		= array("de"=>14, "en"=>"200" );
 
@@ -37,17 +29,6 @@ $morpheus["foto"]			= 0;
 $morpheus["imageName"]		= "BUA_";
 $morpheus["GaleryPath"]		= "BUA";
 
-// info@knowledge-exchange.berlin-university-alliance.de (m062df48)
-// s4NSoH4Qftat7fug
-// w01ac4ac.kasserver.com
-
-$morpheus["Host"] = "mail.zedat.fu-berlin.de"; 
-$morpheus["Port"] = 465; 
-$morpheus["Username"] = "knowledgebua"; 
-$morpheus["Password"] = "cmhpkCJo23wCNnkf";
-$morpheus["FromName"] = utf8_decode("Themenwerkstätten Urban Health");
-$morpheus["From"] = "globalhealth-forum@berlin-university-alliance.de";
-	
 $morpheus["imageFolder"] 	= 'image/';
 $morpheus["subFolder"] 	= '/berlinforschtmit/';
 
