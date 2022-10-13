@@ -164,7 +164,9 @@ $(".menu-button-circular").click(function(e) {
 $('body').imagesLoaded()
 	.always( function( instance ) {
 		// setTimeout(function () {
-			$("#nest5, #waitbg, #mp").addClass("hide");
+      $("#nest5, #waitbg, #mp").addClass("hide");
+      //autoplay();
+      
 		// }, 500);
 	})
 	.done( function( instance ) {

@@ -332,6 +332,26 @@ removeBg = (parent) => {
 		$(this).removeClass('bg_link');
 	})
 }
+
+autoplay = () => {
+  var count = 0;
+
+  $('.play_audio img').each(function(){
+	  if(count == 0)
+		 $(this).click();
+	  
+      count++; 		  
+  })
+}
+
+setCurrentSong_ = (index) => {
+	var links = document.querySelectorAll('.slider__item a');
+
+	//links[index].classList.remove('active');
+          currentTrack = index;
+          links[index].classList.add('active');
+          wavesurfer.load(links[index].href);
+      };
 // END
   
   
@@ -419,13 +439,13 @@ eventComment = () => {
 
 	  if(wavesurfer != null && wavesurfer != undefined) {
 		wavesurfer.on('play', function() {
-          document.querySelector('#play').style.display = 'none';
-          document.querySelector('#pause').style.display = '';
+          /*document.querySelector('#play').style.display = 'none';
+          document.querySelector('#pause').style.display = '';*/
         });
 
         wavesurfer.on('pause', function() {
-          document.querySelector('#play').style.display = '';
-          document.querySelector('#pause').style.display = 'none';
+          /*document.querySelector('#play').style.display = '';
+          document.querySelector('#pause').style.display = 'none';*/
         });
 	  }
 	  
@@ -444,30 +464,39 @@ eventComment = () => {
           link.addEventListener('click', function(e) {
               e.preventDefault();
               setCurrentSong(index);
-              // wavesurfer.playPause();
-              $('.btn-berlin').addClass("show");
-          });
+              //wavesurfer.playPause();
+			  //$('.btn-berlin').addClass("show");
+		 });
       });
       // Play on audio load
 	  if(wavesurfer != null && wavesurfer != undefined) {
 		wavesurfer.on('ready', function() {
-           wavesurfer.play();
-        });
+		   wavesurfer.play();
+		   $('#waveform wave').show();
+		   //$('#waveform .bg_wave').css('position', 'absolute');
+		   $('#waveform .bg_wave').hide();
+		});
 		wavesurfer.on('error', function(e) {
 			//  console.warn(e);
 		})
       // Go to the next track on finish
 		wavesurfer.on('finish', function() {
-			setCurrentSong((currentTrack + 1) % links.length);
+			$('#waveform wave').hide();
+			//$('#waveform .bg_wave').css('position', 'relative');
+			$('#waveform .bg_wave').show();
+			//alert('done');
+			//setCurrentSong((currentTrack + 1) % links.length);
 		});
 	  }
 	  // Load the first track
-      // setCurrentSong(currentTrack);
-  });
+	  setCurrentSong(0);
+});
 
 
 $(document).ready(function() {
-	$('.uploadimg').click(function() {
+	//autoplay();
+	
+    $('.uploadimg').click(function() {
 		// console.log('hit');
 		$('#imgModal .modal-body').load($(this).data('href'), function(e) {
 			$('#imgModal').modal('show')
