@@ -439,13 +439,13 @@ eventComment = () => {
 
 	  if(wavesurfer != null && wavesurfer != undefined) {
 		wavesurfer.on('play', function() {
-          /*document.querySelector('#play').style.display = 'none';
-          document.querySelector('#pause').style.display = '';*/
+          document.querySelector('#play').style.display = 'none';
+          document.querySelector('#pause').style.display = '';
         });
 
         wavesurfer.on('pause', function() {
-          /*document.querySelector('#play').style.display = '';
-          document.querySelector('#pause').style.display = 'none';*/
+          document.querySelector('#play').style.display = '';
+          document.querySelector('#pause').style.display = 'none';
         });
 	  }
 	  
@@ -465,7 +465,7 @@ eventComment = () => {
               e.preventDefault();
               setCurrentSong(index);
               //wavesurfer.playPause();
-			  //$('.btn-berlin').addClass("show");
+			  $('.btn-berlin').addClass("show");
 		 });
       });
       // Play on audio load
@@ -490,6 +490,7 @@ eventComment = () => {
 	  }
 	  // Load the first track
 	  setCurrentSong(0);
+	  //$('.btn-berlin').addClass("show");
 });
 
 
