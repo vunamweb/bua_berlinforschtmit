@@ -472,18 +472,18 @@ eventComment = () => {
 	  if(wavesurfer != null && wavesurfer != undefined) {
 		wavesurfer.on('ready', function() {
 		   wavesurfer.play();
-		   $('#waveform wave').show();
+		   //$('#waveform wave').show();
 		   //$('#waveform .bg_wave').css('position', 'absolute');
-		   $('#waveform .bg_wave').hide();
+		   //$('#waveform .bg_wave').hide();
 		});
 		wavesurfer.on('error', function(e) {
 			//  console.warn(e);
 		})
       // Go to the next track on finish
 		wavesurfer.on('finish', function() {
-			$('#waveform wave').hide();
+			//$('#waveform wave').hide();
 			//$('#waveform .bg_wave').css('position', 'relative');
-			$('#waveform .bg_wave').show();
+			//$('#waveform .bg_wave').show();
 			//alert('done');
 			//setCurrentSong((currentTrack + 1) % links.length);
 		});
