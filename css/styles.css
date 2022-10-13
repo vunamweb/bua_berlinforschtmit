@@ -251,9 +251,9 @@ textarea.form-control { min-height: 100px; }
 .spacing {
 	height: 96px;
 }
-section {
-	padding: 60px 0;
-}
+section { padding: 60px 0; }
+section#mitmachen { padding: 85px 0; }
+
 .bsnav-dark {
 	/* background: rgba(255,255,255,.9); */
 	background: #ecebeb;
@@ -1583,7 +1583,7 @@ body.hashtag:before {
 	}
 }
 .carousel-inner, .main-carousel, .flickity-viewport {
-	/* height: 80vH !important; */
+	height: 660px !important;
 }
 .main-carousel .carousel-cell img { width: 100% } 
 /* .carousel-item {
@@ -1591,7 +1591,7 @@ body.hashtag:before {
 	min-height: 300px;
 } */
 .carousel-caption {
-	bottom: 30%;
+	top: 30%;
 }
 .carousel-caption h3 {
 	font-size: 3em;
@@ -1621,9 +1621,9 @@ body.hashtag:before {
   margin-right: 0;
 }
 .flickity-page-dots {
-	bottom: 0;
+	bottom: -40px; z-index: 999;
 }
-.flickity-page-dots .dot { background: #fff; }
+.flickity-page-dots .dot { background: #1b3a63; }
 .flickity-button { background: transparent; color: #fff; }
 .flickity-button:hover { background: rgba(0,0,0,.3); color: #fff; }
 
@@ -1724,7 +1724,7 @@ body.hashtag:before {
   .tri_4:hover:before {
 	  transform: rotate(0);
 	  transition: 5s;
-	  right: calc(100% - 150px);  */
+	  right: calc(100% - 150px);  
 	  /* left: 0;  */
 	}
 .testcontainer {

@@ -178,7 +178,7 @@ $auths_arr = array(
 
 
 				<?php if(in_array(30,$auths) || $admin) { ?>
-					<li><a href="pdf_group.php?sec=off" title="PDF\'s verwalten"><i class="fa fa-file-pdf-o "></i> Downloads</a></li>
+					<li><a href="pdf_group.php?sec=off" title="PDF\'s verwalten"><i class="fa fa-file-pdf-o "></i> Downloads / Video</a></li>
 
 					<li class="panel panel-default">
 					    <a data-toggle="collapse" href="#dropdown-lvl4">
