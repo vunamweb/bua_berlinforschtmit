@@ -5,7 +5,8 @@
 global $morpheus, $sign_gruppe, $lan;
 $morpheus = array();
 
-include("../../INC/bua-bf-config.php");
+$root = $_SERVER['HOME'];
+include($root."/INC/bua-bf-config.php");
 
 $morpheus["url"]			= "http://localhost:8888/berlinforscht/bua_berlinforschtmit/";
 $morpheus["search_ID"]		= array("de"=>14, "en"=>"200" );
