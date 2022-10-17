@@ -26,7 +26,7 @@ $h= 484;
 
 $videoPlay = 1;
 $image .= '	            <div class="video-html5" >
-                <video src="'.$dir.'pdf/'.$file.'.mp4" autoplay controls playsinline class="video-absolute my-video" poster="'.$img_pfad.str_replace(" ", "-", strtolower($file)).'.jpg"></video>
+                <video src="'.$dir.'pdf/'.$file.'.mp4" controls playsinline class="video-absolute my-video" poster="'.$img_pfad.str_replace(" ", "-", strtolower($file)).'.jpg"></video>
             </div>
 ';
 
