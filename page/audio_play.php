@@ -19,12 +19,14 @@ $output .= '
 					$x++;
         			$output .= '
 					<div class="slider__item">
-        				<a class="play_audio playme play1" href="'.$dir.''.$url_media.'">
-          	  				<img src="'.$dir.'images/wave5.svg"/>
+        				<a class="play_audio playme play1 row h-100 d-flex align-items-center " href="'.$dir.''.$url_media.'">
+          	  				<div class="col-4 col-lg-3">
+								<img src="'.$dir.'images/playme.svg"/>
+							</div>
+							<div class="col-8  col-lg-9">
+          	  					<span>Informationen zur<br/>Sprachnachricht '.$x.'</span>
+							</div>
         				</a>
-        				<div class="border_top">
-          	  				<p>Informationen zur Nachricht '.$x.'</p>
-        				</div>
      				</div>';
     			}    
       		

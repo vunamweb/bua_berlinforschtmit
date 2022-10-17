@@ -185,6 +185,9 @@
 	.carousel-inner, .main-carousel, .flickity-viewport {
 		height: 501px !important;
 	}
+	.slider_2 .slider__item {
+		flex: 0 0 45%;
+	}
 }
 
 @media (max-width: 1050px) {

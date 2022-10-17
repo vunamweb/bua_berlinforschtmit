@@ -5,7 +5,11 @@
 global $morpheus, $sign_gruppe, $lan;
 $morpheus = array();
 
-$root = $_SERVER['HOME'];
+$root_doc = $_SERVER['DOCUMENT_ROOT'];
+$root_arr = explode("/", $root_doc);
+$n = count($root_arr);
+$root = '';
+for($i=0;$i<=($n-2);$i++) $root.=$root_arr[$i].'/'; 
 include($root."/INC/bua-bf-config.php");
 
 $morpheus["url"]			= "http://localhost:8888/berlinforscht/bua_berlinforschtmit/";

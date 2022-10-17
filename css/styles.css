@@ -1092,7 +1092,7 @@ width: 100%; padding: 0 !important;
  }
  .slider_2 .slider__item {
 	flex: 0 0 26%;
-	padding-left: 20px;
+	/* margin-left: 20px !important; */
 	padding-top: 12px;
  }
  .slider__item {
@@ -1132,6 +1132,9 @@ width: 100%; padding: 0 !important;
   }
   .slider__control_right {
 	right: 0;
+  }
+  .slider_2 .slider__control_right {
+	  /* right: 23px; */
   }
   .slider__control::before {
 	content: '';
@@ -1189,18 +1192,28 @@ width: 100%; padding: 0 !important;
 	font-size: 12px; text-align: center;
 }
 .slider__item a {
-	padding-left: 25px;
+	margin-left: 25px; 
 }
-.slider__item .fa {
+/* .slider__item .fa {
 	position: absolute;
 	font-size: 1.5em;
 	display: block;
-}
+} */
 .slider_2, .slider {
 	position: relative;
 	margin-top: 50px; overflow: hidden;
 }
-
+.play_audio img { width: 40px; height: 40px; }
+.play_audio {
+	opacity: 1; height: 60px; display: flex; padding-top: 10px; padding-bottom: 10px;
+	background: #dad8c8;
+	width: 100%;
+}
+.play_audio span {
+	color: #1b3a63;
+	font-family: 'Merriweather';
+	font-weight: 700;
+}
 /* END */
 
 /* TRIANGLES */
