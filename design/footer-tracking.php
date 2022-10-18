@@ -12,7 +12,7 @@
         <p>We would like to adapt the information on this website to your needs. For this purpose, we use so-called cookies. Please decide for yourself which types of cookies to use when using the website. For more information, please see our';
 ?>
 
-	<div id="cookie_disclaimer<?php echo isset($_COOKIE["disclaimer_v21"]) ? " hide" : ""; ?>">
+	<div id="cookie_disclaimer"<?php echo isset($_COOKIE["disclaimer_v21"]) ? ' class="hide"' : ""; ?>>
 		<?php echo $dsgvo_text; ?> <a href="<?php echo $dir.$lan.'/'.$navID[$sprungID[$lan]]; ?>"><?php echo $wl; ?></a>.</p>
 		<table>
 			 <tr class="ul">
@@ -29,7 +29,7 @@
 				 </td>
 				<td valign="top">
 					<span class="mobileOn">Analyse-Cookie</span>
-					und ähnliche Technologien würden wir gerne verwenden, um die Präferenzen unserer Besucher besser zu verstehen und auch auf anderen Plattformen personalisierte Informationen bereitstellen zu können.
+					und ähnliche Technologien würden wir gerne verwenden, um die Präferenzen unserer Besucher besser zu verstehen.
 				</td>
 			</tr>
 		</table>
@@ -40,82 +40,7 @@
 		
 	</div>
    
-
-	<style>
-	/********COOKIES*******/
-	.cookie_disclaimer.hide { display: none; }
-	#cookie_detail:after {
-	    content: "\f107";
-	    font: normal normal normal 25px/1 FontAwesome;
-	    position: absolute;    
-		margin-top: -3px;
-    	margin-left: 6px; text-decoration: none;
-	}
-	#cookie_detail.on:after {
-	    content: "\f106";
-	    font: normal normal normal 25px/1 FontAwesome;
-	    position: absolute;    
-		margin-top: 2px;
-    	color: #0f407a;
-    	margin-left: 10px;
-	}
-	.cookie_detail td { padding: 5px; }
-	#cookie_disclaimer{
-	    position: fixed;
-	    bottom: 10px;
-	    z-index: 9999999;
-	    width: 800px;
-	    background: #fff;
-	    left:50%; margin-left: -400px;
-	    color: #666;padding: 10px; line-height: 1.25em; -webkit-box-shadow: 0px 6px 22px 0px rgba(0,0,0,0.75); -moz-box-shadow: 0px 6px 22px 0px rgba(0,0,0,0.75); box-shadow: 0px 6px 22px 0px rgba(0,0,0,0.75);  }
-	#cookie_disclaimer a {  }
-	#cookie_disclaimer .btn { font-size: 1em; }
-	#acceptall { top: -10px; font-size: 1rem; }
-	#cookie_disclaimer input {
-	    width: inherit;
-	    float: none;
-	    border: solid 1px; height: auto; margin: 0;
-	}
-	#cookie_disclaimer table { margin-bottom: 1em; width: 100%; }
-	#cookie_disclaimer tr.ul { border-bottom: solid 1px #ccc; }
-	#cookie_disclaimer h4 { font-size: 1em; margin: 1em 0 0; }
-	#cookie_disclaimer, #cookie_disclaimer td { font-weight: 200; vertical-align: top; margin-bottom: 0; }
-	#cookie_disclaimer { font-size: .8em; }
-	#cookie_disclaimer .btn-info { background: #95C11F; }
-	.btn-det { color: #95C11F; padding-right: 50px; }
-	.cookie{float: right;
-	    padding: 5px 35px;
-	    color: #fff !important; text-decoration: none !important;
-	    border-radius: 10px; margin-right: 50px; margin-top: 20px; text-decoration: none; }
-	.nocookie{float: right;
-	    padding: 5px 35px;
-	    color: #999 !important; text-decoration: none !important;
-	    border-radius: 10px; margin-right: 50px; margin-top: 20px; text-decoration: none; }
-		.acc { margin-left: 30px; }
-	@media (max-width: 1200px) {
-		#cookie_disclaimer{ width: 90%; left:5%; margin-left: inherit}
-	}
-	@media (max-width: 990px) {
-	}
-	@media (max-width: 540px) {
-		#cookie_disclaimer { font-size: 1em; }
-		#acceptall { display: block; margin-bottom: 0;}
-		#cookie_disclaimer{ width: 90%; }
-		#cookie_disclaimer{ bottom: 20px; width: 100%; left:0; padding: 20px ;  line-height: 1.15em;  }
-		#cookie_disclaimer .inner { padding: 20px !important; }
-		#cookie_disclaimer .btn { display: block; width: 100%; border: solid 1px #95C11F; margin-bottom: .5em; line-height: 28px }
-		.acc { margin-left: 0; line-height: 16px; }
-		.btn-det { line-height: 40px !important; }
-		td{ width: 100%; display: block; }
-		#cookie_disclaimer .mobileOn { color: #000; }
-		#cookie_detail.on:after, #cookie_detail:after { margin-top: 7px; }
-	}		
-	/********END*******/
-	</style>
-	<!-- Cookies -->
-	<script type="text/javascript">
-
-	
+	<script type="text/javascript">	
 	$(function(){
 	    $('#cookie_detail').click(function(){
 			event.preventDefault();
@@ -138,6 +63,9 @@
 
 	        var cookieName = "disclaimer_v21";
 			document.cookie = cookieName+"="+escape(cookieValue)+";expires="+expire.toGMTString()+";path=/";
+			
+			window.MatomoConsent.consentGiven();
+			showContent(true);
 	     });
 	     $('#cookie_stop').click(function(){
 		    var komfort =$('#komfort').prop('checked');
@@ -160,10 +88,6 @@
 	    });
 	});
 
-	</script>
-	<!-- END COOKIES-->
-		
-	<script>    
 		var settings = {"showIntro":true,"divId":"matomo-opt-out","useSecureCookies":true,"cookiePath":null,"cookieDomain":null,"cookieSameSite":"Lax","OptOutComplete":"","OptOutCompleteBis":"","YouMayOptOut2":"","YouMayOptOut3":"","OptOutErrorNoCookies":"","OptOutErrorNotHttps":"Die Tracking opt-out Funktion wird m\u00f6glicherweise nicht funktionieren, weil diese Seite nicht \u00fcber HTTPS geladen wurde. Bitte die Seite neu laden um zu pr\u00fcfen ob der opt out Status ge\u00e4ndert hat.","YouAreNotOptedOut":"","UncheckToOptOut":" &nbsp; Analyse Cookie","YouAreOptedOut":"&nbsp; Analyse Cookie","CheckToOptIn":""};     
 		    
 		document.addEventListener('DOMContentLoaded', function() {                             

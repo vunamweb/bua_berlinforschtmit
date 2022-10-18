@@ -142,7 +142,6 @@ if ($logout) {
 // + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + 
 
 
-
 $weiterleitung = array(
 	"beschwerdemanagement"=>13,
 	"ds-gvo"=>12,

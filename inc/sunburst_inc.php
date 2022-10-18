@@ -1,7 +1,11 @@
+<?php   
+
+$output .= '
 <link href="https://playground.anychart.com/gallery/src/Sunburst_Charts/Employee_Count_by_Country/iframe" rel="canonical">
 <link href="https://cdn.anychart.com/releases/v8/css/anychart-ui.min.css" rel="stylesheet" type="text/css">
 <link href="https://cdn.anychart.com/releases/v8/fonts/css/anychart-font.min.css" rel="stylesheet" type="text/css">
- <link href="/css/anychart-ui.min.css" rel="stylesheet" type="text/css">
+
+ <link href="'.$dir.'css/anychart-ui.min.css" rel="stylesheet" type="text/css">
 
   <style>
 #container {
@@ -12,15 +16,14 @@
 .c100 { color: yellow !important; }
 .sunburst, #container { height: 570px; } 
 @media (max-width: 992px) { 
-  .sunburst, #container { height: 350px; }   
+  .sunburst, #container { height: 850px; border: solid 1px #000; }   
 }
 h1 { color: green; }
 </style>
- 
+';
    
-<?php   
 
-global $table, $tid, $sortField, $nameField, $dropdown;
+global $table, $tid, $sortField, $nameField, $dropdown, $js;
 
 $table 		  = 'morp_stimmen';
 $tid 		    = 'stID';
@@ -41,9 +44,10 @@ $dropdown = '<select id="goto" class="form-control">';
 
 $data = '
 { name: "Berlin forscht mit", kind:"'.$row->$tid.'", value: 100, level: "0", normal: {fill: "#fff"}, "label": { "fontColor": "#2a333d","fontWeight": "bold" }, children: [';
+
       
-        $sql = "SELECT * FROM $table WHERE ebene=1 ORDER BY $sortField";
-        $res = safe_query($sql);
+    $sql = "SELECT * FROM $table WHERE ebene=1 ORDER BY $sortField";
+    $res = safe_query($sql);
     $n = mysqli_num_rows($res);
     $percent = 100 / $n;
     $y = 0;
@@ -64,7 +68,38 @@ $data = '
             $y++;
         }
     
-// echo $dropdown .= '</select>';
+	$output .= $dropdown . '</select>
+	
+<section class="section_heard" id="ansehen">
+					<div class="container">
+						<div class="row no-gutters">
+							<div class="col-12 col-lg-6 align-self-center ">
+								<div class="box_graphics">
+									<p>Klicken Sie auf die Themen in der<br>
+									Graﬁk für eine Übersicht über den aktuellen Diskurs.</p>                                
+								</div>
+								<div class="sunburst"><div id="container"></div></div>      
+	
+								<div class="w-100 text-center"><a onclick="drillUpALevel()" class="btn btn-blue btn-fl">1 Ebene zurück</a>
+								<a onclick="drillToLevel(\'Berlin forscht\')" class="btn btn-blue btn-fl">Zurück zum Anfang</a></div>
+								<ol id="bc"></ol>
+							</div>
+							<div class="col-12 col-lg-6 align-self-center">
+								 <div class="box_townhall" id="gesagt"> 
+									<p id="breadc">Berlin forscht</p>
+									<div class="overflow-auto">       
+	
+	<p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p> 
+	
+	
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</section>
+	
+	';
 
  
 function get_par($id, $ebene, $percent, $color, $hover)
@@ -112,27 +147,18 @@ function get_par($id, $ebene, $percent, $color, $hover)
     
  // echo '<pre>'.$data.'</pre>';
     
-?>  
-  <script src="/js/anychart-base.min.js"></script>
-  <script src="/js/anychart-sunburst.min.js"></script>
-  <script src="/js/anychart-ui.min.js"></script>
-  <script src="/js/anychart-exports.min.js"></script>
-  <script src="/js/anychart-data-adapter.min.js"></script>
-  <script type="text/javascript">
+$js .= '
+
   
  anychart.onDocumentReady(function () {
     
 var data = [    
-    <?php echo $data; ?>
+    '.$data.'
     ]},
   ]},       
 ];
-    
-    
-    // https://docs.anychart.com/Basic_Charts/Sunburst_Chart
-    
-    
-    
+
+    // https://docs.anychart.com/Basic_Charts/Sunburst_Chart    
     anychart.licenseKey("stimmenaufknopfdruck.de-34a259b8-8855f78");
     treeData = anychart.data.tree(data, "as-tree");
     chart = anychart.sunburst(treeData);
@@ -147,7 +173,7 @@ var data = [
     chart.listen("chartDraw",function(e) {
       var text = printPath(chart.getDrilldownPath());
       // var ebene = printPath(chart.getDrilldownPath());
-      // console.log('ebene: '+text);
+      // console.log(\'ebene: \'+text);
       $("#bc").html(text);
     });
 
@@ -155,11 +181,11 @@ var data = [
     chart.labels().useHtml(true);
 
     // configure labels
-    // chart.labels().format("<span style='font-weight:bold'>{%name}</span><br>{%value}");
-    chart.labels().format("<span class='c{%value}'>{%name}</span>");
+    // chart.labels().format("<span style=\'font-weight:bold\'>{%name}</span><br>{%value}");
+    chart.labels().format("<span class=\'c{%value}\'>{%name}</span>");
 
     // configure labels of leaves
-    chart.leaves().labels().format("<span style='font-weight:normal'>{%name}</span>");
+    chart.leaves().labels().format("<span style=\'font-weight:normal\'>{%name}</span>");
 
     // configure tooltips
     // chart.tooltip().format("{%name}\n\nWert: {%value}\n{%level}");
@@ -185,31 +211,31 @@ var data = [
     chart.container("container");
     
     // https://docs.anychart.com/Common_Settings/Event_Listeners
-    // chart.listen('pointsHover', function (e) {
-     chart.listen('pointClick', function (e) {
-    // chart.listen('pointsSelect', function (e) {
+    // chart.listen(\'pointsHover\', function (e) {
+     chart.listen(\'pointClick\', function (e) {
+    // chart.listen(\'pointsSelect\', function (e) {
       // chart.level(5).enabled(false);
-        // $("#xxx").html(e.point.get('level'));
-        data = e.point.get('name');
-        level = e.point.get('level');
-        kind = e.point.get('kind');
+        // $("#xxx").html(e.point.get(\'level\'));
+        data = e.point.get(\'name\');
+        level = e.point.get(\'level\');
+        kind = e.point.get(\'kind\');
         
         // level = getlvl(chart.getDrilldownPath());
          drillToItem(data, level);
         // kind = getkind(chart.getDrilldownPath());
         
-        console.log('?: '+kind+' : '+level);
+        console.log(\'?: \'+kind+\' : \'+level);
         
         if(kind) {
-          // title.text('The point with name ' + e.point.get('x') + ' has been clicked on')
+          // title.text(\'The point with name \' + e.point.get(\'x\') + \' has been clicked on\')
           request = $.ajax({
-  		        url: "../get.php",
+  		        url: "../../get.php",
   		        type: "post",
-  		        datatype:'json',
-  		        data: 'data='+data+'&level='+level+'&kind='+kind,
+  		        datatype:\'json\',
+  		        data: \'data=\'+data+\'&level=\'+level+\'&kind=\'+kind,
   		        success: function(msg) {
                 // console.log(msg);
-  	            $('#gesagt').html(msg);
+  	            $(\'#gesagt\').html(msg);
               }
   		    });
         }
@@ -230,13 +256,13 @@ var data = [
     and use the get() method to obtain the "name" field */
     var text = "";
     var n = 0;
-    // console.log('path.length: '+path.length);
+    // console.log(\'path.length: \'+path.length);
     for (i = 0; i <  path.length; i++){ 
       // console.log(path[i].get("name"));
-      text += '<span class="bc" ref="'+path[i].get("name")+'">'+path[i].get("name")+'</span>';
+      text += \'<span class="bc" ref="\'+path[i].get("name")+\'">\'+path[i].get("name")+\'</span>\';
       n= i;
     }
-    // console.log('n: '+n);
+    // console.log(\'n: \'+n);
     
     return text;
     // return n;
@@ -263,7 +289,7 @@ var data = [
   function drillToItem(noode, ebene) {
     // console.log(ebene);
     visible = parseInt(ebene) + 2;
-    // console.log('e: '+visible);
+    // console.log(\'e: \'+visible);
     var item = treeData.search("name", noode);
     // chart.level(visible).enabled(true);
     chart.drillTo(item);
@@ -271,14 +297,15 @@ var data = [
   
   // drill up a level
   function drillUpALevel() {
-    // console.log(chart.current.get('name'));
+    // console.log(chart.current.get(\'name\'));
      chart.drillUp();
   }
 
 function drillToLevel(goto) {
   // console.log(goto);
-  var item = treeData.search('name', goto);
+  var item = treeData.search(\'name\', goto);
   chart.drillTo(item);
 }
   
-  </script>
+';
+

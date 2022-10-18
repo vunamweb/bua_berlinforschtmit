@@ -11,7 +11,7 @@
 ini_set('display_startup_errors', '1');
 error_reporting(E_ALL);*/
 
-global $arr_form, $table, $tid, $filter, $nameField, $sortField, $imgFolderShort, $ebene, $parent, $morpheus;
+global $arr_form, $table, $tid, $filter, $nameField, $sortField, $imgFolderShort, $ebene, $parent, $morpheus, $cid, $navID;
 
 $myauth = 10;
 $stimmen_in = 'in';
@@ -140,7 +140,7 @@ $arr_form = array(
 	array("ebene", "Ebene", '<input type="Text" value="#v#" class="form-control" name="#n#"  style="width:120px" />', 'GET'),
 	array("parent", "Parent", '<input type="Text" value="#v#" class="form-control" name="#n#"  style="width:120px" />', 'GET'),
 	// VU: add mid
-	array("mid", "mid", '<input type="hidden" value="#v#" class="form-control" name="#n#" />'),
+	array("mid", "", '<input type="hidden" value="#v#" class="form-control" name="#n#" />'),
 	// END
 
 #	array("word", "Buchstabe", '<input type="Text" value="#v#" class="form-control" name="#n#" />'),
@@ -463,7 +463,7 @@ function edit($edit) {
     
 	//$echo = '<form action="" onsubmit="" name="verwaltung" method="post">';
 	
-	$echo .= '<a onclick="history.back()" class="btn btn-success"><i class="fa fa-arrow-circle-left"></i> zurück</a><br><br>';
+	$echo .= '<a href="?" class="btn btn-success"><i class="fa fa-arrow-circle-left"></i> zurück</a><br><br>';
 
 	$echo .= '
 		<input type="Hidden" name="edit" value="'.$edit.'">
@@ -606,6 +606,31 @@ if($save_note) {
 	<?php
 }
 
+else if ($save) {
+	$neu = isset($_POST["neu"]) ? $_POST["neu"] : 0;
+	$edit = saveMorpheusForm($edit, $neu, 0, $zusatz);
+	$scriptname = $morpheus['url'] . 'de/' . $_REQUEST['hn'] . '/';	
+	$ebene = isset($_POST["ebene"]) ? $_POST["ebene"] : 1;
+	$parent = isset($_POST["parent"]) ? $_POST["parent"] : 0;
+
+	if($back) {
+?>
+	<script>
+		location.href='<?php echo $scriptname; ?>?ebene=<?php echo $ebene; ?>&parent=<?php echo $parent; ?>';
+	</script>
+<?php
+	}
+	elseif($neu) {
+?>
+	<script>
+		location.href='<?php echo $scriptname; ?>?edit=<?php echo $edit; ?>&ebene=<?php echo $ebene; ?>&parent=<?php echo $parent; ?>';
+	</script>
+<?php
+	}
+
+	// unset($edit);
+}
+
 elseif ($delimg) {
 	deleteImage($delimg, $edit, $imgFolder, 0);
 }
@@ -706,8 +731,3 @@ else						$output .= $new . $audio . $modal . liste();
 $output .='
 </form>
 ';
-?>
-
-
-
-

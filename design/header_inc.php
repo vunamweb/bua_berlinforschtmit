@@ -26,7 +26,6 @@
     <link rel="apple-touch-icon" sizes="152x152" href="<?php echo $dir; ?>favicon_package_v0.16/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="<?php echo $dir; ?>favicon_package_v0.16/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="<?php echo $dir; ?>favicon_package_v0.16/favicon-16x16.png">
-    <link rel="manifest" href="<?php echo $dir; ?>favicon_package_v0.16/site.webmanifest">
     <link rel="stylesheet" href="<?php echo $dir; ?>css/bootstrap.min.css">
     <link rel="stylesheet" href="<?php echo $dir; ?>css/bootstrap-popover-x.css">
 	<link rel="stylesheet" href="<?php echo $dir; ?>css/dragula.min.css">

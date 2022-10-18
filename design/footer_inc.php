@@ -114,6 +114,15 @@ echo $modal;
  new WOW().init();
 </script>
 <!-- <script src="https://unpkg.com/wavesurfer.js"></script> !-->
+	
+<!-- IF ANY CHART -->
+<script src="<?php echo $dir; ?>js/anychart-base.min.js"></script>
+<script src="<?php echo $dir; ?>js/anychart-sunburst.min.js"></script>
+<script src="<?php echo $dir; ?>js/anychart-ui.min.js"></script>
+<script src="<?php echo $dir; ?>js/anychart-exports.min.js"></script>
+<script src="<?php echo $dir; ?>js/anychart-data-adapter.min.js"></script>
+
+
 <?php 
 global $audio;
 if(true) { ?>
@@ -422,7 +431,7 @@ eventComment = () => {
 			waveColor: '#000',
 			progressColor: '#fff',
 			height: waveHeight,
-			barHeight: 6,
+			barHeight: 1,
 			barWidth: 3
       	});
     });
@@ -1013,6 +1022,7 @@ $('.linkbox').on("click", function() {
 });
   
 <?php
+
 	global $jsFunc, $js;
 
 	echo $js . $jsFunc;
