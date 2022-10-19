@@ -92,7 +92,7 @@ $modal = '
 
 		  <!-- Modal Header -->
 		  <div class="modal-header">
-			<button type="button" class="close" data-dismiss="modal">&times;</button>
+			<button type="button" class="btn close" data-dismiss="modal">&times;</button>
 		  </div>
 
 		  <!-- Modal body -->
@@ -102,8 +102,8 @@ $modal = '
 
 		  <!-- Modal footer -->
 		  <div class="modal-footer">
-			<button type="submit" class="btn save_properties" data-dismiss="modal">Add</button>
-			<button type="submit" class="btn delete_properties" data-dismiss="modal">Delete</button>
+			<button type="submit" class="btn btn-info save_properties" data-dismiss="modal">Add</button>
+			<button type="submit" class="btn btn-info delete_properties" data-dismiss="modal">Delete</button>
 			<input type="hidden" value="" id="list">
 		  </div>
 
@@ -258,14 +258,14 @@ function liste() {
 				<!-- END !-->
 			</div>
 			<div class="col-md-1 pull-left">
-				<a href="?ebene='.($ebene+1).'&parent='.$edit.'" class="btn btn-info"><i class="fa fa-level-down"></i></a>
+				<a href="?ebene='.($ebene+1).'&parent='.$edit.'" class="btn btn-info btn-smal"><i class="fa fa-level-down"></i></a>
 			</div>
 			<div class="col-md-1 pull-left">
-				<a href="?edit='.$edit.'" class="btn btn-info mb0 pb0">
+				<a href="?edit='.$edit.'" class="btn btn-info btn-smal">
 					<i class="fa fa-pencil-square-o"></i>
 				</a>
 			</div>			
-			<div class="col-md-5 pull-left">
+			<div class="col-md-5 pull-left"> &nbsp; 
 				<a href="?edit='.$edit.'">'.$row->$anz.' </a>
 			</div>
 			<div class="col-md-1 pull-left">
