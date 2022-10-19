@@ -105,7 +105,7 @@ else if($edit) {
 		array("textonline", "Online Version öffentlich", '<textarea class="form-control" name="#n#" />#v#</textarea>'),
 		//array("mname", "MP3", 'file'),
 		array("", "CONFIG", '<hr><p>Vom Teilnehmer gesetzte Angagen zur Veröffentlichung und Newsletter</p>'),
-		array("ck02", "Tonaufnahme veröffentlichen", 'chk'),
+		array("ck02", "Tonaufnahme / Text veröffentlichen", 'chk'),
 		array("ck03", "Newsletter", 'chk'),
 		array("ck01", "DSGVO", 'chk'),
 	
@@ -133,7 +133,7 @@ function liste()
 	$where = 1;
 
 	$echo .= '<p>&nbsp;</p>
-	<p><a href="?neu=1" class="btn btn-success"><i class="fa fa-plus"></i> &nbsp; Neuen Text Kommentar hinzufügen</a></p>
+	<p><a href="?neu=1" class="btn btn-success"><i class="fa fa-plus"></i> &nbsp; Neue Nachricht hinzufügen</a></p>
 	<style>th { text-align:left; font-size:13px; }
   .player
   {

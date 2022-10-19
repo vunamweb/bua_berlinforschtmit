@@ -30,15 +30,20 @@ $tid 		    = 'stID';
 $nameField 	= "name";
 $sortField 	= 'reihenfolge';
 
-$color1 = '#CCA372';
-$color2 = '#2EA598';
-$color26 = '#1E1D70';
-$color27 = '#57289C';
+$color1 = '#de1621';
+$color2 = '#9d9c9d';
+$color3 = '#98bf3d';
+$color4 = '#1b3962';
 
-$hover1 = '#8a673d';
-$hover2 = '#126b61';
-$hover26 = '#131055';
-$hover27 = '#35106b';
+// $hover1 = '#8a673d';
+// $hover2 = '#126b61';
+// $hover3 = '#131055';
+// $hover4 = '#35106b';
+
+$hover1 = '#de1621';
+$hover2 = '#9d9c9d';
+$hover3 = '#98bf3d';
+$hover4 = '#1b3962';
 
 $dropdown = '<select id="goto" class="form-control">';
 

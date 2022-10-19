@@ -428,6 +428,11 @@ footer a.active { font-weight: 600;; }
 h1.leistung { font-weight: bolder; }
 h1.leistung strong { font-weight: 400 !important; }
 
+#gesagt article { padding: 10px; }
+#gesagt h2 { margin-bottom: 0; font-size: 1.2em; }
+.bc { margin-right: .5em; }
+.bc:after { content: "/"; margin-left: .5em; }
+
 /* .hide {
 	display: none !important; 
 }  */

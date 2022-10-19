@@ -15,6 +15,17 @@
   .sunburst, #container { height: 350px; }   
 }
 h1 { color: green; }
+.chk {
+	color : #CCA372;
+	color : #2EA598;
+	color : #1E1D70;
+	color : #57289C;
+	
+	color : #8a673d;
+	color : #126b61;
+	color : #131055;
+	color : #35106b;
+}
 </style>
  
    
@@ -27,7 +38,7 @@ $tid 		    = 'stID';
 $nameField 	= "name";
 $sortField 	= 'reihenfolge';
 
-$color1 = '#CCA372';
+$color1 = '#ff0000';
 $color2 = '#2EA598';
 $color26 = '#1E1D70';
 $color27 = '#57289C';
