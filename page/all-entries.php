@@ -47,6 +47,8 @@ $message_comment = $_REQUEST['message_comment'];
 $listHashtag = $_POST['listHashTag'];
 $edit = isset($_REQUEST["edit"]) ? $_REQUEST["edit"] : 0;
 $cid = $_REQUEST['cid'];
+$del = $_GET['del'];
+$delete = $_GET['delete'];
 
 // VU: add code for comment
 // add comment for media
@@ -346,7 +348,27 @@ function edit($edit)
 			<div class="col-md-6">
 				'.$charts.'
 				
-				<hr class="mt4"><button class="btn btn-info" type="submit">Speichern</button>
+				<hr class="mt4">
+				<button class="btn btn-info" type="submit">Speichern</button> &nbsp; 							
+				<button type="button" class="btn btn-info btn-danger" data-toggle="modal" data-target="#deleteModal">
+				  <i class="fa fa-trash-o"></i>
+				</button>
+								
+				<div class="modal fade modal-sm" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+				  <div class="modal-dialog">
+					<div class="modal-content">
+					  <div class="modal-body">
+						<b>Teilnehmer Meinung</b> wirklich löschen?<br><br>
+						<i>Was soll mit den Diary Einträgen passieren?</i> 
+					  </div>
+					  <div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+						<a href="?delete='.$edit.'" class="btn btn-primary">Löschen</a>
+					  </div>
+					</div>
+				  </div>
+				</div>
+				
 			</div>
 		</div>
 	</div>
@@ -440,6 +462,10 @@ elseif($save_note) {
 		location.href='<?php echo $scriptname; ?>';
 	  </script> 
 	<?php
+}
+elseif($delete) {
+	$sql = "DELETE FROM `$table` WHERE $tid=$delete ";
+	safe_query($sql);
 }
 
 if ($edit) {

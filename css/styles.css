@@ -1309,6 +1309,11 @@ width: 100%; padding: 0 !important;
 	border-color: #E5E5E5;
 	color: #003D66;
 }
+.btn-info.btn-danger {
+	background-color: #ff0000;
+	border-color: #ff0000;
+	color: #fff;
+}
 .width1 {
 	width: 200px;
 	display: inline-block;
@@ -1488,6 +1493,12 @@ width: 100%; padding: 0 !important;
 }
 /* END */
 
+.modal-sm .modal-footer {
+	display: block;
+}
+.modal-sm  {
+	left: 50%; margin-left: -150px;
+}
 /* UPLOAD FILE */
 .upload_audio {
 	margin-top: -48px;
