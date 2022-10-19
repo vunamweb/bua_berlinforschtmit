@@ -421,7 +421,9 @@ eventComment = () => {
 
   
   // Init on DOM ready
-  var waveHeight = 120; 
+  var waveHeight = 120;
+  var firstPlay = false;
+
   if( $(window).width() < 800 ) var waveHeight = 40;
 	
   if($('#waveform').length > 0) {
@@ -480,7 +482,10 @@ eventComment = () => {
       // Play on audio load
 	  if(wavesurfer != null && wavesurfer != undefined) {
 		wavesurfer.on('ready', function() {
-		   wavesurfer.play();
+		   if(firstPlay)
+		     wavesurfer.play();
+
+			 firstPlay = true; 	 
 		   //$('#waveform wave').show();
 		   //$('#waveform .bg_wave').css('position', 'absolute');
 		   //$('#waveform .bg_wave').hide();
