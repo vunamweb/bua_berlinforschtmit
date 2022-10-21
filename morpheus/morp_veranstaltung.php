@@ -96,12 +96,12 @@ $arr_form = array(
 //        array("eventKat", "Kategorie", '<input type="Text" value="#v#" class="form-control" name="#n#"  />'),
 
 	array("eventName", "Titel Event", '<textarea class="form-control" name="#n#" />#v#</textarea>'),
-	array("kid", "Phase", 'sel2', 'morp_event_kategorie', 'bezeichnung', 'kid'),
+	// array("kid", "Phase", 'sel2', 'morp_event_kategorie', 'bezeichnung', 'kid'),
 	
 	array("aktiv", "Online sichtbar", 'chk'),
 	
-	array("eventText", "Beschreibung", '<textarea class="form-control" name="#n#" />#v#</textarea>'),
-	array("event_reg_text1", "Beschreibung Ablauf Veranstaltung DE", '<textarea class="form-control" name="#n#" />#v#</textarea>'),
+	array("eventText", "Beschreibung", '<textarea class="summernote form-control" name="#n#" />#v#</textarea>'),
+	array("event_reg_text1", "Beschreibung Ablauf Veranstaltung DE", '<textarea class="summernote form-control" name="#n#" />#v#</textarea>'),
 	// array("event_reg_text2", "Registrierund End Datum DE", '<textarea class="form-control" name="#n#" />#v#</textarea>'),
 
 // array("eventTextEn", "Beschreibung EN", '<textarea class="form-control" name="#n#" />#v#</textarea>'),
@@ -762,7 +762,7 @@ if ($save) {
         }
     } else {
         // echo "save";
-		$zusatz = ", ilink=$ilink";
+		// echo $zusatz = ", ilink=$ilink";
 		
         $edit = saveMorpheusForm($edit, $neu, 0, $zusatz);
 

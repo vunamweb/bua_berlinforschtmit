@@ -29,7 +29,7 @@ $headerMail = $morpheus["mail_start"];
 $footerMail = $morpheus["mail_end"];
 
 $mail_txt_confirm_yes = '
-Dear {name}
+Liebe*r {name}
 
 event {event} has approved
 

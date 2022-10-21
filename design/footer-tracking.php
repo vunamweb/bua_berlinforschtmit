@@ -1,5 +1,5 @@
 <?php
-		$sprungID = array("de"=>9, "en"=>57 );
+		$sprungID = array("de"=>6, "en"=>57 );
 
 	    $ac = $lan == "de" ? "Ich akzeptiere" : "I accept";
 		$wl = $lan == "de" ? "Datenschutzerklärung" : "Privacy Statement";
@@ -12,31 +12,28 @@
         <p>We would like to adapt the information on this website to your needs. For this purpose, we use so-called cookies. Please decide for yourself which types of cookies to use when using the website. For more information, please see our';
 ?>
 
-	<div id="cookie_disclaimer"<?php echo isset($_COOKIE["disclaimer_v21"]) ? ' class="hide"' : ""; ?>>
-		<?php echo $dsgvo_text; ?> <a href="<?php echo $dir.$lan.'/'.$navID[$sprungID[$lan]]; ?>"><?php echo $wl; ?></a>.</p>
-		<table>
-			 <tr class="ul">
-				<td width="50%"><h4><input type="checkbox" id="komfort" checked="" disabled> &nbsp; Technisch notwendige Cookies</h4></td>
-				<td width="50%">
-				<div id="optout-form">
-					<div id="matomo-opt-out" ></div>
-				</div>	
-				</td>
-			</tr>
-			<tr class="cookie_detail hide">
-				 <td valign="top">
-					<span class="mobileOn">Technisch notwendige Cookies</span> sind erforderlich, um alle Funktionen dieser Website bereitzustellen und standardmäßig aktiviert
-				 </td>
-				<td valign="top">
-					<span class="mobileOn">Analyse-Cookie</span>
-					und ähnliche Technologien würden wir gerne verwenden, um die Präferenzen unserer Besucher besser zu verstehen.
-				</td>
-			</tr>
-		</table>
-	
+	<div id="cookie_disclaimer" class="row<?php echo isset($_COOKIE["disclaimer_v21"]) ? ' hide' : ""; ?>">
+		<div class="col-12 col-lg-10 col-md-8">
+			<?php echo $dsgvo_text; ?> <a href="<?php echo $dir.$lan.'/'.$navID[$sprungID[$lan]]; ?>"><u><?php echo $wl; ?></u></a>.</p>
+			<table>
+			 	<tr class="ul">
+					<td width="50%">
+						<h4><input type="checkbox" id="komfort" checked="" disabled> &nbsp; Technisch notwendige Cookies</h4>
+						<p class="mt1"><span class="mobileOn">Technisch notwendige Cookies</span> sind erforderlich, um alle Funktionen dieser Website bereitzustellen und standardmäßig aktiviert</p>
+					</td>
+					<td width="50%">
+					<div id="optout-form">
+						<h4><input type="checkbox" id="komfort" <?php echo $komfort ? 'checked' : ''; ?>> &nbsp; Dienste Dritter</h4>
+						<p class="mt1"><span class="mobileOn">Dienste Dritter </span> und ähnliche Technologien würden wir gerne verwenden, um u.A. Videos auf unserer Seite direkt einzubinden.</p>
+					</div>	
+					</td>
+				</tr>			
+			</table>			
+		</div>	
+		<div class="col-12 col-lg-2 col-md-4">
 			<a href="#" id="acceptall" class="btn btn-info btnMore font_weiss"><?php echo $acall; ?></a> 
 			<a href="#" id="cookie_stop" class="btn acc"><?php echo $ac; ?></a>
-			<a href="#" id="cookie_detail" class="btn btn-det acc">Details</a>
+		</div>
 		
 	</div>
    
@@ -63,9 +60,9 @@
 
 	        var cookieName = "disclaimer_v21";
 			document.cookie = cookieName+"="+escape(cookieValue)+";expires="+expire.toGMTString()+";path=/";
+			var cookieName = "komfort";
+			document.cookie = cookieName+"="+escape(cookieValue)+";expires="+expire.toGMTString()+";path=/";
 			
-			window.MatomoConsent.consentGiven();
-			showContent(true);
 	     });
 	     $('#cookie_stop').click(function(){
 		    var komfort =$('#komfort').prop('checked');
@@ -84,118 +81,24 @@
 
 	        var cookieName = "disclaimer_v21";
 			document.cookie = cookieName+"="+escape(cookieValue)+";expires="+expire.toGMTString()+";path=/";
-
+			if(komfort==true) {
+				var cookieName = "komfort";
+				expire.setTime(today.getTime() + 3600000*24*nDays);
+				document.cookie = cookieName+"="+escape(cookieValue)+";expires="+expire.toGMTString()+";path=/";
+				location.reload();
+			}
+			else if(komfort==false) {
+				var cookieName = "komfort";
+				document.cookie = cookieName+"='';expires="+expireDel.toGMTString()+";path=/";
+			}
 	    });
-	});
-
-		var settings = {"showIntro":true,"divId":"matomo-opt-out","useSecureCookies":true,"cookiePath":null,"cookieDomain":null,"cookieSameSite":"Lax","OptOutComplete":"","OptOutCompleteBis":"","YouMayOptOut2":"","YouMayOptOut3":"","OptOutErrorNoCookies":"","OptOutErrorNotHttps":"Die Tracking opt-out Funktion wird m\u00f6glicherweise nicht funktionieren, weil diese Seite nicht \u00fcber HTTPS geladen wurde. Bitte die Seite neu laden um zu pr\u00fcfen ob der opt out Status ge\u00e4ndert hat.","YouAreNotOptedOut":"","UncheckToOptOut":" &nbsp; Analyse Cookie","YouAreOptedOut":"&nbsp; Analyse Cookie","CheckToOptIn":""};     
-		    
-		document.addEventListener('DOMContentLoaded', function() {                             
-			window.MatomoConsent.init(settings.useSecureCookies, settings.cookiePath, settings.cookieDomain, settings.cookieSameSite);                
-			showContent(window.MatomoConsent.hasConsent());        
-		});    
-				
-		function showContent(consent, errorMessage = null, useTracker = false) {	
-			var errorBlock = '<p style="color: red; font-weight: bold;">';
-			var div = document.getElementById(settings.divId);
-			if (!div) {
-				const warningDiv = document.createElement("div");
-				var msg = 'Unable to find opt-out content div: "'+settings.divId+'"';
-				warningDiv.id = settings.divId+'-warning';
-				warningDiv.innerHTML = errorBlock+msg+'</p>';
-				document.body.insertBefore(warningDiv, document.body.firstChild);
-				console.log(msg);
-				return;
-			}			
-			if (!navigator || !navigator.cookieEnabled) {
-				div.innerHTML = errorBlock+settings.OptOutErrorNoCookies+'</p>';
-				return;
-			}
-			if (location.protocol !== 'https:') {
-				div.innerHTML = errorBlock+settings.OptOutErrorNotHttps+'</p>';
-				return;
-			}        
-			if (errorMessage !== null) {
-				div.innerHTML = errorBlock+errorMessage+'</p>';
-				return;
-			}
-			var content = '';        
-			if (consent) {
-				if (settings.showIntro) {
-					content += '<p>'+settings.YouMayOptOut2+' '+settings.YouMayOptOut3+'</p>';                       
-				}
-				if (useTracker) {
-					content += '<input onclick="_paq.push([\'optUserOut\']);showContent(false, null, true);" id="trackVisits" type="checkbox" checked="checked" />';
-				} else {
-					content += '<input onclick="window.MatomoConsent.consentRevoked();showContent(false);" id="trackVisits" type="checkbox" checked="checked" />';
-				}
-				content += '<label for="trackVisits"><strong><span>'+settings.YouAreNotOptedOut+' '+settings.UncheckToOptOut+'</span></strong></label>';                               
-			} else {
-				if (settings.showIntro) {
-					content += '<p>'+settings.OptOutComplete+' '+settings.OptOutCompleteBis+'</p>';
-				}
-				if (useTracker) {
-					content += '<input onclick="_paq.push([\'forgetUserOptOut\']);showContent(true, null, true);" id="trackVisits" type="checkbox" />';
-				} else {
-					content += '<input onclick="window.MatomoConsent.consentGiven();showContent(true);" id="trackVisits" type="checkbox" />';
-				}
-				content += '<label for="trackVisits"><strong><span>'+settings.YouAreOptedOut+' '+settings.CheckToOptIn+'</span></strong></label>';
-			}                   
-			div.innerHTML = content;      
-		};   
-
-		window.MatomoConsent = {                         
-			cookiesDisabled: (!navigator || !navigator.cookieEnabled),        
-			CONSENT_COOKIE_NAME: 'mtm_consent', CONSENT_REMOVED_COOKIE_NAME: 'mtm_consent_removed', 
-			cookieIsSecure: false, useSecureCookies: true, cookiePath: '', cookieDomain: '', cookieSameSite: 'Lax',     
-			init: function(useSecureCookies, cookiePath, cookieDomain, cookieSameSite) {
-				this.useSecureCookies = useSecureCookies; this.cookiePath = cookiePath;
-				this.cookieDomain = cookieDomain; this.cookieSameSite = cookieSameSite;
-				if(useSecureCookies && location.protocol !== 'https:') {
-					console.log('Error with setting useSecureCookies: You cannot use this option on http.');             
-				} else {
-					this.cookieIsSecure = useSecureCookies;
-				}
-			},               
-			hasConsent: function() {
-				var value = this.getCookie(this.CONSENT_COOKIE_NAME);
-				if (this.getCookie(this.CONSENT_REMOVED_COOKIE_NAME) && value) {                
-					this.setCookie(this.CONSENT_COOKIE_NAME, '', -129600000);              
-					return false;
-				}                
-				return (value || value !== 0);            
-			},        
-			consentGiven: function() {                                                        
-				this.setCookie(this.CONSENT_REMOVED_COOKIE_NAME, '', -129600000);
-				this.setCookie(this.CONSENT_COOKIE_NAME, new Date().getTime(), 946080000000);
-			},      
-			consentRevoked: function() {    
-				this.setCookie(this.CONSENT_COOKIE_NAME, '', -129600000);
-				this.setCookie(this.CONSENT_REMOVED_COOKIE_NAME, new Date().getTime(), 946080000000);                
-			},                   
-			getCookie: function(cookieName) {            
-				var cookiePattern = new RegExp('(^|;)[ ]*' + cookieName + '=([^;]*)'), cookieMatch = cookiePattern.exec(document.cookie);
-				return cookieMatch ? window.decodeURIComponent(cookieMatch[2]) : 0;
-			},        
-			setCookie: function(cookieName, value, msToExpire) {                       
-				var expiryDate = new Date();
-				expiryDate.setTime((new Date().getTime()) + msToExpire);            
-				document.cookie = cookieName + '=' + window.encodeURIComponent(value) +
-					(msToExpire ? ';expires=' + expiryDate.toGMTString() : '') +
-					';path=' + (this.cookiePath || '/') +
-					(this.cookieDomain ? ';domain=' + this.cookieDomain : '') +
-					(this.cookieIsSecure ? ';secure' : '') +
-					';SameSite=' + this.cookieSameSite;               
-				if ((!msToExpire || msToExpire >= 0) && this.getCookie(cookieName) !== String(value)) {
-					console.log('There was an error setting cookie `' + cookieName + '`. Please check domain and path.');                
-				}
-			}
-		};           
+	});		
 	</script>
-
-	<!-- Matomo -->
 	<script>
 	  var _paq = window._paq = window._paq || [];
+	  /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+	  _paq.push(["setDoNotTrack", true]);
+	  _paq.push(["disableCookies"]);
 	  _paq.push(['trackPageView']);
 	  _paq.push(['enableLinkTracking']);
 	  (function() {
@@ -206,4 +109,3 @@
 		g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
 	  })();
 	</script>
-	<!-- End Matomo Code -->

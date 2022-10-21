@@ -626,11 +626,13 @@ if ($edit || $del) {
 				if (preg_match("/galerie/", $b_chk)) 									$galerie = 1;
 				elseif (preg_match("/texteditor/", $b_chk)) 							$fck = 1;
 				elseif (preg_match("/formular/", $b_chk)) 								$insert_form = 1;
+				elseif (preg_match("/veranstaltung startseite/", $b_chk))				$insert_event = 1;
+				
 				elseif (preg_match("/umbruch/", $b_chk) || preg_match("/sitemap/", $b_chk) ||
 					preg_match("/^kunden/", $b_chk) || preg_match("/^spalte/", $b_chk) ||
 					preg_match("/stellenangebote/", $b_chk) ||
 					preg_match("/pfeil/", $b_chk) ||
-					preg_match("/veranstaltungen/", $b_chk) ||
+					preg_match("/veranstaltung/", $b_chk) ||
 					preg_match("/^filialen/", $b_chk) ||
 					preg_match("/textfluss/", $b_chk) ||
 					preg_match("/linie/", $b_chk) ||
@@ -939,7 +941,7 @@ if ($edit || $del) {
 
 
 				# # # # # # # # # # # ohne image - nur text
-				elseif ($insert_form || $insert_templ || $insert_termin || $insert_news || $insert_loesung || $galerie || $insert_branche || $insert_pdf || $insert_shop || $insert_anwendung || $insert_mindflash || $insert_kunde || $insert_mitarbeiter || $insert_objekt || $insert_presse || $insert_video || $insert_menu || $insert_vorlage || $insert_warengruppe || $insert_land || $insert_farbe || $insert_icon || $insert_colour || $insert_klasse || $insert_pdf_group || $insert_buchung || $insert_referenz || $insert_pdf_vcard || $insert_leistungen ) {
+				elseif ($insert_form || $insert_templ || $insert_termin || $insert_news || $insert_loesung || $galerie || $insert_branche || $insert_pdf || $insert_shop || $insert_anwendung || $insert_mindflash || $insert_kunde || $insert_mitarbeiter || $insert_objekt || $insert_presse || $insert_video || $insert_menu || $insert_vorlage || $insert_warengruppe || $insert_land || $insert_farbe || $insert_icon || $insert_colour || $insert_klasse || $insert_pdf_group || $insert_buchung || $insert_referenz || $insert_pdf_vcard || $insert_leistungen || $insert_event ) {
 
 					$icon = '';
 					if($insert_icon) {
@@ -960,6 +962,10 @@ if ($edit || $del) {
 					if ($insert_form) {
 						unset($insert_form);
 						$pdf_pd = pulldownContent ($txt, "morp_cms_form", "fname", "fid");
+					}
+					elseif ($insert_event) {
+						unset($insert_event);
+						$pdf_pd = pulldownContent ($txt, "morp_events", "eventName", "eventid");
 					}
 					elseif ($insert_objekt) {
 						unset($insert_objekt);

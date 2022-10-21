@@ -21,9 +21,9 @@ $row = mysqli_fetch_object($res);
 
 $text = explode("\n", $row->text);
 
-$ret = '                                <p id="breadc">Berlin forscht | '.$row->name.'</p>
+$ret = '                    <p id="breadc"><b>'.$row->name.'</b></p>
                                 <div class="overflow-auto">                                
-                                        <div id="gesagt">'.($row->einfuehrungstext ? '<p>'.nl2br($row->einfuehrungstext).'</p>' : '');
+                                    '.($row->einfuehrungstext ? '<p>'.nl2br($row->einfuehrungstext).'</p>' : '');
 $ret .= '<h2>Stimmen</h2>';
 
 $sql = "SELECT mediaID FROM morp_stimmen_media WHERE $tid=".$kind."";
@@ -34,26 +34,36 @@ $tid 	= 'mediaID';
 $nameField 	= "mp3";
 while($row = mysqli_fetch_object($res)) {
     $media = $row->mediaID;
-    $sql = "SELECT $nameField, dauer, textonline FROM $table WHERE ck01=1 AND ck02=1 AND ck03=1 AND $tid=$media";
+    $sql = "SELECT $nameField, dauer, textonline FROM $table WHERE ck01=1 AND ck02=1 AND $tid=$media";
     $rs = safe_query($sql);
     $rw = mysqli_fetch_object($rs);
 	
     $filename = 'mp3/'.$rw->$nameField;
     if($rw->$nameField && file_exists($filename)) $ret .= '<audio controls class=""><source src="'.$morpheus["url"].$filename.'" type="audio/mpeg"></audio>';
-    if($rw->textonline) $ret .= '<article><p>'.nl2br($rw->textonline).'</p></article>'; 
+    if($rw->textonline) {
+		$list = explode("\n", $rw->textonline);
+		$ret .= '<article><ul>'; 
+		foreach($list as $val) {
+			$ret .= '<li>'.nl2br($rw->textonline).'</li>'; 
+			
+		}
+		$ret .= '</ul></article>'; 
+	}
 }
     
-    $tmp .= implode('</li><li>', $text);    
+if($row->text) {
+	$tmp .= implode('</li><li>', $text);    
     $ret .= '
 	<h2>Aussagen</h2>
 <article>
     <ul><li>'.$tmp.'</li></ul>
 ';
 
-$ret .= '</article>
+	$ret .= '</article>
 ';
-// }
+}
+
 
 echo $ret .= '
-                                        </div>                                        
+                                                                            
                                 </div>';

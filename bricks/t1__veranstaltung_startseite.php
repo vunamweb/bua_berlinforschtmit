@@ -5,7 +5,7 @@ global $templCt, $cid, $dir, $monate, $lang, $month, $navID, $lan;
 
 $table = "morp_events";
 $tid = "eventid";
-$sql = "SELECT * FROM $table WHERE aktiv=1 ORDER BY eventDatum ASC LIMIT 0,1";
+$sql = "SELECT * FROM $table WHERE $tid=$text ORDER BY eventDatum ASC LIMIT 0,1";
 $res = safe_query($sql);
 
 $reg_btn = $lang == 1 ? 'Jetzt anmelden' : 'Details and register';
@@ -13,6 +13,7 @@ $erf_btn = $lang == 1 ? 'Mehr anzeigen' : 'Details in archive';
 $archive_btn = $lang == 1 ? 'Im Archiv anzeigen' : 'Details in archive';
 $month_arr = $lang == 1 ? $monate : $month;
 $event_url_id = $lang == 1 ? 2 : 13;
+$reg_id = $lang == 1 ? 29 : 130;
 $cid_lan = $lang == 1 ? "cid" : "cidEn";
 $x = 0;
 
@@ -25,6 +26,7 @@ while($row = mysqli_fetch_object($res)) {
 	
 	$eventText = $lang == 1 ? $row->eventText : $row->eventTextEn;
 	$eventName = $lang == 1 ? $row->eventName : $row->eventNameEn;
+	$event_reg_text1 = $row->event_reg_text1;
 	$eventAnzahlTeilnehmer = $row->eventAnzahlTeilnehmer;
 	// $eventAnzahlReserviert = $row->eventAnzahlRest;
 	
@@ -36,8 +38,8 @@ while($row = mysqli_fetch_object($res)) {
 	if($eventAnzahlReserviert >= $eventAnzahlTeilnehmer) $full = 1;
 	$x++;
 		
+	
 	$output .= '
-
 <div class="box_content_items event'.($full ? ' overbooked' : '').'">
 	<div class="row">
 		<div class="col-12 col-md-4 col-lg-5 col-xl-3 offset-xl-1">
@@ -49,8 +51,9 @@ while($row = mysqli_fetch_object($res)) {
 		</div>
 		<div class="col-12 col-md-8 col-lg-7 col-xl-7 offset-xl-1 ">
 			<h2>'.nl2br($eventName).'</h2>
-			<p>'.nl2br($eventText).'</p>
-			<p><a href="'.$dir.$lan.'/'.$navID[$event_url_id].eliminiere($eventName).'+'.$row->eventid.'/" class="btn btn-info btn-register">'.($full ? $archive_btn : $reg_btn).'</a></p>
+			'.nl2br($eventText).'
+			'.($event_reg_text1 ? $event_reg_text1 : '').'
+			<p><a href="'.$dir.$lan.'/'.$navID[$reg_id].'registerien+'.$row->eventid.'/" class="btn btn-info btn-register">'.($reg_btn).'</a></p>
 		</div>		
 	</div>
 </div>';

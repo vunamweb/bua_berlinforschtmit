@@ -19,9 +19,8 @@ else {
 // .    .    .    .    .    .    .    .    .    .    .    .    .    .    .    .    .    .    .    .    .    .
 // .    .    .    .    .    .    .    .    .    .    .    .    .    .    .    .    .    .    .    .    .    .
 
-	$uploadForm = 0;
-	$event = isset($_GET["nid"]) ? $_GET["nid"] : 0;
-		
+$uploadForm = 0;
+
 	$designStart = '
 			<div class="form-group">
 	';
@@ -256,8 +255,7 @@ Detailed information on handling user data can be found in our <a href="'.$dir.(
 	
 	$js = str_replace(array('<!-- rules -->', '<!-- optional -->', '<!-- messages -->'), array($rules, $optional, $messages), $js);
 
-	if($fid == 3) $output .= '<div class="row"><div class="col-6">';
-	else if($fid == 6) $output .= '
+	if($fid == 6) $output .= '
 <div class="modal fade" id="stimmeText" aria-labelledby="stimmeTextLabel" aria-hidden="true">
 	<div class="modal-dialog">
 		<div class="modal-content">
@@ -297,39 +295,7 @@ Detailed information on handling user data can be found in our <a href="'.$dir.(
 				</div>
 	';
 					
-	
-	if($fid == 3){ 
-		$table = "morp_events";
-		$tid = "eventid";
-		$sql = "SELECT * FROM $table WHERE $tid=$event";
-		$res = safe_query($sql);		
-		$row = mysqli_fetch_object($res);
-		$datum = explode("-",$row->eventDatum);
-		$tag = $datum[2];
-		$monat = intval($datum[1]);
-		$jahr = $datum[0];
-		$event_id = $row->$cid_lan;		
-		$eventText = $lang == 1 ? $row->eventText : $row->eventTextEn;
-		$eventName = $lang == 1 ? $row->eventName : $row->eventNameEn;
-		$event_reg_text1 = $row->event_reg_text1;
-		$eventAnzahlTeilnehmer = $row->eventAnzahlTeilnehmer;
-			
-		$output .= '
-			</div>
-			<div class="col-6">
-				<div class="box_content_items event">
-					<div class="date_box db'.$x.' flag">
-						<span class="tag">'.$tag.'</span>
-						<span class="monat">'.$month_arr[$monat].'</span>
-						<span class="jahr">'.$jahr.'</span>
-					</div>
-					<h2>'.nl2br($eventName).'</h2>
-					'.nl2br($eventText).'					
-				</div>
-			</div>
-		</div>';	
-	}
-	else if($fid == 6) $output .= '
+	if($fid == 6) $output .= '
 				
 			</div>
 		</div>

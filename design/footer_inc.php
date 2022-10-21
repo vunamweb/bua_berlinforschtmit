@@ -115,12 +115,13 @@ echo $modal;
 </script>
 <!-- <script src="https://unpkg.com/wavesurfer.js"></script> !-->
 	
-<!-- IF ANY CHART -->
+<?php global $anychart; if($anychart) { ?>
 <script src="<?php echo $dir; ?>js/anychart-base.min.js"></script>
 <script src="<?php echo $dir; ?>js/anychart-sunburst.min.js"></script>
 <script src="<?php echo $dir; ?>js/anychart-ui.min.js"></script>
 <script src="<?php echo $dir; ?>js/anychart-exports.min.js"></script>
 <script src="<?php echo $dir; ?>js/anychart-data-adapter.min.js"></script>
+<?php } ?>
 
 
 <?php 
@@ -907,6 +908,16 @@ $('.recordagain, .reload').click(function(){
 	location.reload();
 });
 
+$('.youtubeHack').on('click', function() {
+	ziel = $(this).attr("refid");
+	w = $("#"+ziel+" img").width();
+	h = $("#"+ziel+" img").height();
+	yt = $(this).attr("ref");
+	$("#"+ziel).css({ "width":w+"px", "height":h+"px" });
+	$("#"+ziel).html('<iframe width="560" height="349" src="https://www.youtube-nocookie.com/embed/'+yt+'?autoplay=1&amp;rel=0&amp;hd=1" frameborder="0" allowfullscreen></iframe>');
+});
+
+// <img src="/images/userfiles/image/yt-thumbnail_haus_und_wohnungstausch_so_einfach_gehts_mit_homelink_970x546.webp" ref="da_1D-5bWf0" refid="yt1" alt="" class="youtubeHack img-responsive" onerror="this.onerror=null; this.src='/images/userfiles/image/yt-thumbnail_haus_und_wohnungstausch_so_einfach_gehts_mit_homelink_970x546.jpg'">
 
 $(window).resize(function() {
 	setSection();

@@ -84,7 +84,7 @@ if( $sec && ($sec == $checkMySec) && $send ) {
 	$Empfaenger = $row->post;
 	$mailcopy 	= $row->mailcopy;
 	
-	// $Empfaenger	= "post@pixel-dusche.de";
+	 $Empfaenger	= "post@pixel-dusche.de";
 	$kundemail 	= $morpheus["email"];
 	$name 		= $morpheus["emailname"]; 
 	// $kundemail	= "post@pixel-dusche.de";
