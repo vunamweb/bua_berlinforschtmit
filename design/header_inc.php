@@ -49,7 +49,13 @@
 <?php } ?>
     <?php $size = $fbimage ? getimagesize($fbimage) : array(200,200); ?>
 	<script type='application/ld+json' class='yoast-schema-graph yoast-schema-graph--main'>{"@context":"https://schema.org","@graph":[{"@type":"WebSite","@id":"<?php echo $dir; ?>#website","url":"<?php echo $dir; ?>","name":"<?php echo $morpheus["client"]; ?>","potentialAction":{"@type":"SearchAction","target":"<?php echo $dir; ?>?s={suche}","query-input":"required name=suche"}},{"@type":"ImageObject","@id":"<?php echo substr($dir, 0, -1).$uri; ?>#primaryimage","url":"<?php echo $fbimage; ?>","width":<?php echo $size[0]; ?>,"height":<?php echo $size[1]; ?>,"caption":"<?php echo $morpheus["client"]; ?>"},{"@type":"WebPage","@id":"<?php echo substr($dir, 0, -1).$uri; ?>#webpage","url":"<?php echo substr($dir, 0, -1).$uri; ?>","inLanguage":"de-DE","name":"<?php echo $title; ?>","isPartOf":{"@id":"<?php echo $dir; ?>#website"},"primaryImageOfPage":{"@id":"<?php echo $fbimage; ?>"},"datePublished":"2019-07-30T10:00:00+00:00","dateModified":"<?php echo $changeDat; ?>T12:00:00+00:00","description":"<?php echo $desc; ?>"}]}</script>
-
+	<script>
+	var _mtm = window._mtm = window._mtm || [];
+	_mtm.push({'mtm.startTime': (new Date().getTime()), 'event': 'mtm.Start'});
+	var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+	g.async=true; g.src='https://knowledge-exchange.berlin-university-alliance.de/berlinforschtmit/analytics/js/container_t7O6oHNp.js'; s.parentNode.insertBefore(g,s);
+	</script>
+	
     <?php global $css;
 echo $css ? '
 <style>
