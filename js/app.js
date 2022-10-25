@@ -24,10 +24,17 @@ var auto = true;
 var runSetInterval = true;
 
 //add events to those 2 buttons
-recordButton.addEventListener("click", startRecording);
-stopButton.addEventListener("click", stopRecording);
-restartButton.addEventListener("click", restartRecording);
-pauseButton.addEventListener("click", pauseRecording);
+if(recordButton != null)
+  recordButton.addEventListener("click", startRecording);
+
+if(stopButton != null)  
+  stopButton.addEventListener("click", stopRecording);
+
+if(restartButton != null)  
+  restartButton.addEventListener("click", restartRecording);
+  
+if(pauseButton != null)  
+  pauseButton.addEventListener("click", pauseRecording);
 
 function showCountTime() {
 	var minutesLabel = document.getElementById("minutes");

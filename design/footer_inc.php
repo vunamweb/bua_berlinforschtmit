@@ -140,7 +140,8 @@ if($morpheus_edit) {
 	<script type="text/javascript" src="<?php echo $dir; ?>morpheus/js/muuri.js"></script>
 	
 	<script>
-	var grid = new Muuri('.grid', {
+	if($('.grid').length > 0) {
+		var grid = new Muuri('.grid', {
 		dragEnabled: true,
 		dragAxis: 'y',
 		threshold: 10,
@@ -176,6 +177,7 @@ if($morpheus_edit) {
 		// MuuriPosition = ($.inArray(ref, order));
 	
 	});
+	}
 	</script> 
 	
 <?php } ?>
@@ -440,8 +442,9 @@ eventComment = () => {
     });
   }
   
-  // Bind controls
-  document.addEventListener('DOMContentLoaded', function() {
+ if($('.slider__item a').length > 0) {
+// Bind controls
+document.addEventListener('DOMContentLoaded', function() {
       var playPause = document.querySelector('#playPause');
 
 	  if(playPause != null)
@@ -506,9 +509,9 @@ eventComment = () => {
 	  // Load the first track
 	  setCurrentSong(0);
 	  //$('.btn-berlin').addClass("show");
-});
-
-
+  });
+} 
+  
 $(document).ready(function() {
 	//autoplay();
 	
