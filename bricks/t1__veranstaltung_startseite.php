@@ -53,11 +53,11 @@ while($row = mysqli_fetch_object($res)) {
 			<h2>'.nl2br($eventName).'</h2>
 			'.nl2br($eventText).'
 			'.($event_reg_text1 ? $event_reg_text1 : '').'
-			<p><a href="'.$dir.$lan.'/'.$navID[$reg_id].'registerien+'.$row->eventid.'/" class="btn btn-info btn-register">'.($reg_btn).'</a></p>
 		</div>		
 	</div>
 </div>';
 
+			// <p><a href="'.$dir.$lan.'/'.$navID[$reg_id].'registerien+'.$row->eventid.'/" class="btn btn-info btn-register">'.($reg_btn).'</a></p>
 }
 
 $morp = "Veranstaltungen / ";

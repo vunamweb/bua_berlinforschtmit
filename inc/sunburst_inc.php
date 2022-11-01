@@ -1,5 +1,6 @@
 <?php   
 global $anychart;
+$anychart = 1;
 
 $output .= '
 <link href="https://playground.anychart.com/gallery/src/Sunburst_Charts/Employee_Count_by_Country/iframe" rel="canonical">
@@ -94,10 +95,7 @@ $data = '
 								 <div class="box_townhall" id="gesagt"> 
 									<p id="breadc">Berlin forscht</p>
 									<div class="overflow-auto">       
-	
-	<p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p> 
-	
-	
+										<p>'.textvorlage(69).'</p> 	
 									</div>
 								</div>
 							</div>
@@ -133,7 +131,7 @@ function get_par($id, $ebene, $percent, $color, $hover)
 
             $dropdown .= '<option value="'.$row->name.'">'.$row->name.'</option>';
 
-            if ($ebene_exists) {
+            if ($ebene_exists && $parent_percent > 0) {
                 $data .= '
           {name: "'.$row->name.'", kind:"'.$row->$tid.'", value: '.$parent_percent.', level: "'.$ebene.'", normal: {fill: "'.$color.'"}, selected: {fill: "'.$hover.'"}, children: [';
                 $data .= get_par($this_id, $next_ebene, $parent_percent, $color, $hover);

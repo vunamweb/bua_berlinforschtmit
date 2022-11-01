@@ -247,9 +247,11 @@ function liste() {
 	if(mysqli_num_rows($res) == 0)
 	  return '<br><br>No Categories';
 	// END 
-
+	$total = 0;
 	while ($row = mysqli_fetch_object($res)) {
 		$edit = $row->$tid;
+		$percent = $row->wert;
+		$total += $percent;
 		$echo .= '
 	<div class="zeile item row"  id="'.$row->$tid.'">
 			<div class="col-md-1 pull-left">
@@ -269,7 +271,7 @@ function liste() {
 				<a href="?edit='.$edit.'">'.$row->$anz.' </a>
 			</div>
 			<div class="col-md-1 pull-left">
-				'.$row->wert.'%
+				'.$percent.'%
 			</div>
 			<div class="col-md-2pull-left"></div>
 			<div class="col-md-1 text-right pull-right">
@@ -283,7 +285,16 @@ function liste() {
 	
 	$echo .= '
 </div>
+<div class="row">
+	<div class="col-8">
+	</div>
+	<div class="col-4">
+		<p>'.$total.'%</p>
+	</div>
+</div>
+
 <p>&nbsp;</p>
+
 ';
 	
 	

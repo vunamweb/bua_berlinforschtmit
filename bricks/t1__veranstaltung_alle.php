@@ -44,7 +44,7 @@ while($row = mysqli_fetch_object($res)) {
 <div class="box_content_items event'.($full ? ' overbooked' : '').'">
 	<div class="row">
 		<div class="col-12 col-md-4 col-lg-5 col-xl-3 offset-xl-1">
-			<div class="date_box db'.$x.' flag">
+			<div class="date_box db'.$x.' flag'.($x < 2 ?' man' : '').'">
 				<span class="tag">'.$tag.'</span>
 				<span class="monat">'.$month_arr[$monat].'</span>
 				<span class="jahr">'.$jahr.'</span>
@@ -54,11 +54,11 @@ while($row = mysqli_fetch_object($res)) {
 			<h2>'.nl2br($eventName).'</h2>
 			'.nl2br($eventText).'
 			'.($event_reg_text1 ? $event_reg_text1 : '').'
-			<p><a href="'.$dir.$lan.'/'.$navID[$reg_id].'registerien+'.$row->eventid.'/" class="btn btn-info btn-register">'.($reg_btn).'</a></p>
 		</div>		
 	</div>
 </div>';
 
+			// <p><a href="'.$dir.$lan.'/'.$navID[$reg_id].'registerien+'.$row->eventid.'/" class="btn btn-info btn-register">'.($reg_btn).'</a></p>
 }
 
 $morp = "Veranstaltungen / ";
