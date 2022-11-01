@@ -15,9 +15,9 @@ $imageFolder = 'images/userfiles/image/';
 
 $ausrichtungArray = array(
     1 => '',
-    2 => ' la',
-    3 => ' center',
-    4 => ' ra',
+    2 => ' img-la',
+    3 => ' img-center',
+    4 => ' img-ra',
 );
 
 $fileTypes = array('jpg', 'jpeg', 'png', 'pdf', 'swf', 'ai', 'eps', 'tif', 'tiff', 'psd', 'svg'); // Allowed file extensions
@@ -1058,7 +1058,7 @@ function setLink($input, $icon = ' <i class="fa fa-external-link textLink"></i> 
                 $add_text = $array_inner[1];
 
                 if (isin('^http', $link)) {
-                    $set_link = '<a href="' . $link . '" target="_blank" ' . $class . '>' . $icon;
+                    $set_link = '<a href="' . $link . '" target="_blank" class="' . $class . '">' . $icon;
                 } elseif (isin('@', $link)) {
                     $set_link = '<a href="mailto:' . $link . '" class="mail">';
                 } else {

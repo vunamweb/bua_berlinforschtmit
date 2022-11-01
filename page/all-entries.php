@@ -168,8 +168,8 @@ function liste()
 		$edit = $row->$tid;
 		$rubrik = $row->rubrik;
 		$mtyp = $row->mtyp;
-
-		if($mtyp) {			
+		$dauer = '';
+		if($mtyp || $row->mp3) {			
 			$file = substr($row->$anz, 0, strlen($row->$anz) - 4);
 
 			$wavfile = (strpos($row->mname, 'wav') || strpos($row->mname, 'mp3')) ? $morpheus['url'] . 'wav/' . $row->mname : '#';
@@ -298,7 +298,7 @@ function edit($edit)
 
 	$mtyp = $row->mtyp;
 	
-	if($mtyp) {			
+	if($mtyp || $row->mp3) {			
 		$file = substr($row->$anz, 0, strlen($row->$anz) - 4);
 		$wavfile = (strpos($row->mname, 'wav')) ? $morpheus['url'] . 'wav/' . $row->mname : '#';
 		$filename = $dir.'mp3/' . $row->mp3;
@@ -309,12 +309,13 @@ function edit($edit)
 		if ($row->mp3) {
 			$mp3exists = 1;
 			$player = '<audio controls src="' . $filename . '"></audio>';
-			$player .= '<a href="#" data-toggle="modal" data-target="#myModalUploadMedia" class="btn btn-info upload_audio"><i class="fa fa-upload"></i></a>';
+			$player .= '<a href="#" data-toggle="modal" data-target="#myModalUploadMedia" class="btn btn-info btn-danger upload_audio"><i class="fa fa-bullhorn"></i> <i class="fa fa-upload"></i></a>';
 		} else {
 			$player = '<audio controls src="' . $wav . '"></audio>';
-			$player .= '<a href="#" data-toggle="modal" data-target="#myModalUploadMedia" class="btn btn-info upload_audio"><i class="fa fa-upload"></i></a>';
+			$player .= '<a href="#" data-toggle="modal" data-target="#myModalUploadMedia" class="btn btn-info btn-danger upload_audio"><i class="fa fa-bullhorn"></i> <i class="fa fa-upload"></i></a>';
 		}
 	}
+	else $player .= '<a href="#" data-toggle="modal" data-target="#myModalUploadMedia" class="btn btn-info btn-danger upload_audio"><i class="fa fa-bullhorn"></i> <i class="fa fa-upload"></i></a>';
 	
 	$echo .= '
 	<p><a href="'.$scriptname.'" class="btn btn-success"><i class="fa fa-arrow-circle-left"></i> zurück</a></p>

@@ -16,7 +16,7 @@ if($text) {
 	$altText = $itext ? $itext : $ltext; if(!$altText) $altText = $morpheus["client"].' '.$inm;
 	$folder	= str_replace(array(";", " / ", "/", "  ", " "), array("","-","-", "-", "-"), $rw->name);
 
-	$output .= '						<img src="'.$img_pfad.$inm.'" alt="'.$altText.'" class="img-fluid" />';
+	$output .= '						<img src="'.$img_pfad.$inm.'" alt="'.$altText.'" class="img-fluid '.$ausrichtungArray[$ausrichtung].'" />';
 	// $bild_box = '<img src="'.$dir.$imageFolder.urlencode($folder).'/'.($inm).'?w='.$w.'" alt="'.$altText.'" class="img-fluid" />';
 }
 
@@ -25,4 +25,3 @@ $morp = $inm;
 $socialImage = urlencode($inm);
 global $socialImg; if(!$socialImg) $socialImg = $dir.$imageFolder.urlencode($folder).'/'.($inm).'?w='.$w;
 
-?>

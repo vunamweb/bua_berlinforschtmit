@@ -20,7 +20,7 @@ if($text) {
 	$img_w = $img_size[0];
 	$img_h = $img_size[1];
 
-	$output .= '						<img src="'.$img_pfad.$inm.'" alt="'.$altText.'" class="img-logo"'.($img_w ? ' width="'.$img_w.'" height="'.$img_h.'"' : '').' />';
+	$output .= '<img src="'.$img_pfad.$inm.'" alt="'.$altText.'" class="img-logo '.$ausrichtungArray[$ausrichtung].'"'.($img_w ? ' width="'.$img_w.'" height="'.$img_h.'"' : '').' />';
 	// $bild_box = '<img src="'.$dir.$imageFolder.urlencode($folder).'/'.($inm).'?w='.$w.'" alt="'.$altText.'" class="img-fluid" />';
 }
 
