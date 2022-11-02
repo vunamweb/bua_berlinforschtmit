@@ -23,6 +23,7 @@ $typ = explode(".", $nm);
 $c	 = (count($typ)-1);
 $img = $typ[$c]."_s.gif";
 
+$prev = substr($nm, 0, strlen($nm)-4);
 $w = 820;
 $h= 484;
 $videoPlay = 0;
@@ -44,9 +45,9 @@ else {
 				</div>' : '').'
 
 	            <div class="video-html5" >
-	                <video src="'.$dir.'pdf/'.$typ[0].'.mp4"  controls playsinline  class="video-absolute my-video" poster="'.$dir.'pdf/'.$typ[0].'.jpg"></video>
+	                <video src="'.$dir.'pdf/'.$typ[0].'.mp4"  controls playsinline  class="video-absolute my-video" poster="'.$dir.'pdf/'.$prev.'.jpg"></video>
 	            </div>
 ';
 // }
+
 	$morp = $typ[0];
-?>

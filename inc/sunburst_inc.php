@@ -200,15 +200,19 @@ var data = [
     // chart.listen(\'pointsHover\', function (e) {
     chart.listen(\'pointClick\', function (e) {
     // chart.listen(\'pointsSelect\', function (e) {
-      // chart.level(5).enabled(false);
+       // chart.level(3).enabled(false);
         // $("#xxx").html(e.point.get(\'level\'));
         data = e.point.get(\'name\');
         level = e.point.get(\'level\');
         kind = e.point.get(\'kind\');        
-        // level = getlvl(chart.getDrilldownPath());
+    	levely = getlvl(chart.getDrilldownPath());
+		// console.log(level+" - "+levely+" - "+data);
         drillToItem(data, level);
-        // kind = getkind(chart.getDrilldownPath());
-        
+        kindy = getkind(chart.getDrilldownPath());
+		// console.log(kindy);
+        // drillToLevel("Tod");
+		// if(kindy>3) drillUpALevel();		
+		if(levely>0) drillUpALevel();
         if(kind) {
           request = $.ajax({
   		        url: "../../get.php", type: "post", datatype:\'json\', data: \'data=\'+data+\'&level=\'+level+\'&kind=\'+kind,success: function(msg) {  $(\'#gesagt\').html(msg); }
@@ -255,7 +259,7 @@ var data = [
   }
 
   function drillToItem(noode, ebene) {
-    visible = parseInt(ebene) + 2;
+    // visible = parseInt(ebene) + 2;
     var item = treeData.search("name", noode);
     chart.drillTo(item);
   }  

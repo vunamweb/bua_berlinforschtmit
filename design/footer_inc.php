@@ -916,7 +916,9 @@ $('.youtubeHack').on('click', function() {
 	w = $("#"+ziel+" img").width();
 	h = $("#"+ziel+" img").height();
 	yt = $(this).attr("ref");
+<?php if($cid == 1) { ?>
 	$("#"+ziel).css({ "width":w+"px", "height":h+"px" });
+<?php }	?>
 	$("#"+ziel).html('<iframe width="560" height="349" src="https://www.youtube-nocookie.com/embed/'+yt+'?autoplay=1&amp;rel=0&amp;hd=1" frameborder="0" allowfullscreen></iframe>');
 });
 
