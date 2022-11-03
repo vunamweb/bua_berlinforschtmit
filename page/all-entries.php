@@ -128,12 +128,24 @@ function liste()
 	//// EDIT_SKRIPT
 	$ord = "$tid DESC";
 	$anz = $nameField;
-
+	
+	$sstring = isset($_GET["sstring"]) ? $_GET["sstring"] : '';
 	////////////////////
-	$where = 1;
+	$where = $sstring ? "( `mdesc` LIKE '%$sstring%' OR `text` LIKE '%$sstring%' OR `textonline` LIKE '%$sstring%' OR `name` LIKE '%$sstring%' OR `email` LIKE '%$sstring%' ) " : 1;
 
-	$echo .= '<p>&nbsp;</p>
-	<p><a href="?neu=1" class="btn btn-success"><i class="fa fa-plus"></i> &nbsp; Neue Nachricht hinzufügen</a></p>
+	$echo .= '
+	
+	<div class="row">
+	<div class="col-md-6">
+		<p><a href="?neu=1" class="btn btn-success"><i class="fa fa-plus"></i> &nbsp; Neue Nachricht hinzufügen</a></p>
+	</div>
+	<div class="col-md-6">
+		<form method="get">
+			<input type="text" class="form-control" value="'.$sstring.'" style="width:250px;float:left" placeholder="suche" name="sstring"> &nbsp; 
+			<button type="submit" class="btn"><i class="fa fa-search"></i></button>
+		<form>
+	</div>
+	</div>
 	<style>th { text-align:left; font-size:13px; }
   .player
   {
@@ -230,6 +242,28 @@ function liste()
 			</td>
 			<td>
 				<a href="?edit=' . $edit . '">' . euro_dat($row->mdate) . ' </a>
+			</td>
+			<td>
+			
+					<button type="button" class="btn btn-danger small" data-toggle="modal" data-target="#deleteModal_'.$edit.'">
+			  		<i class="fa fa-trash-o"></i>
+					</button>
+									
+					<div class="modal fade modal-sm" id="deleteModal_'.$edit.'" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+			  		<div class="modal-dialog">
+						<div class="modal-content">
+				  		<div class="modal-body">
+							<b>Teilnehmer Meinung</b> wirklich löschen?<br><br>
+							<i>Was soll mit den Diary Einträgen passieren?</i> 
+				  		</div>
+				  		<div class="modal-footer">
+							<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+							<a href="?delete='.$edit.'" class="btn btn-primary">Löschen</a>
+				  		</div>
+						</div>
+			  		</div>
+					</div>
+			
 			</td>
 		</tr>
 ';

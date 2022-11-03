@@ -1104,7 +1104,7 @@ if($isForm==6) { ?>
 					
 					setTimeout(function(){
 						$('#stimmeText').modal('hide');
-					},3000);
+					},10000);
 					
 	                 //else if(msg == "Captcha") $('#kontaktformular').html("Die Anfrage wurde nicht gesendet. Es gab einen Fehler.");
 	                // else $('#kontaktformular').html("The request was not sent. There was an error: "+msg+". Please contact us directly.<br/><br/>Die Anfrage wurde nicht gesendet. Es gab einen Fehler: "+msg+". Bitte nehmen Sie direkt Kontakt zu uns auf.");

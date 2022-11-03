@@ -57,7 +57,7 @@ for($i=0; $i<($x-1); $i++) {
 	if(isin("mail", $data[$i]["name"])) $customer_mail = trim($data[$i]["value"]);
 }
 
-$mail_txt = $mail_start.$mail_content.'</table>'.utf8_decode($morpheus["mail_end"]);
+$mail_txt = $mail_start.$mail_content.'</table>';
 
 	include("../nogo/db.php");
 	dbconnect();
@@ -87,8 +87,9 @@ if( $sec && ($sec == $checkMySec) && $send ) {
 	$result 	= safe_query($query);
 	$row 		= mysqli_fetch_object($result);
 	
-	//$Empfaenger = $row->post;
-	$Empfaenger	= 'b@7sc.eu';
+	$Empfaenger = $row->post;
+	$Empfaenger = $morpheus["From"];
+	// $Empfaenger	= 'b@7sc.eu';
 	//$Empfaenger = 'vukynamkhtn@gmail.com';
 	
 	$betreff 	= $row->betreff;	

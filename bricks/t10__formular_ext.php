@@ -287,7 +287,7 @@ else {
 							<div class="frm_contact_body">
 								'.$form .'
 								'.$dsText.'
-								<span class="">* '.$Pflichtfelder.'</span>
+								<span class="lb">* '.$Pflichtfelder.'</span>
 								<p class="mt2"><button class="btn btn-send sendform" type="submit">'.$senden.'</button></p class="mt2">
 							</div>
 						</form>

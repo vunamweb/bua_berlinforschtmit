@@ -265,9 +265,8 @@ function createDownloadLink(blob) {
 		xhr.onload = function (e) {
 			if (this.readyState === 4) {
 				//$('#myPopover2').popoverX('refreshPosition');
-				$("#hl").html('Vielen Dank für Ihre Stimme!');
-
-				$("#danke").html('<p class="mb-0 thankyou">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>');
+				$("#hl").html('<h2>Vielen Dank f&uuml;r Deine Frage!</h2>');
+				$("#danke").html('<p>Und wie geht es weiter? Die Einreichungen werden zun&auml;chst redaktionell bearbeitet. Es wird zum Beispiel gepr&uuml;ft, dass keine Pers&ouml;nlichkeitsrechte Dritter betroffen sind und die Fragen nicht rassistisch oder beleidigend sind. Und dann werden die Fragen und Ideen online hochgeladen und sind f&uuml;r alle sichtbar. Fragen, die per Audiofunktion hochgeladen werden, werden automatisch zus&auml;tzlich in Textform angezeigt. </p>');
 
 				$('#myPopover1').addClass('psmall');
 

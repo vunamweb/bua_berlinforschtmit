@@ -16,7 +16,7 @@ $output .= '
 				<div class="col-12 col-lg-6 mt2">
 					<div class="startbtn">
 						<a href="#" data-toggle="modal" data-target="#stimmeText" id="textstimme">
-								<img src="'.$dir.'images/Textnachrichten.svg" alt="" class="img-fluid audio-btn" />
+							<img src="'.$dir.'images/Textnachrichten.svg" alt="" class="img-fluid audio-btn" />
 						</a>
 					</div>	
 				</div>	
@@ -71,7 +71,7 @@ $modal = '
             					<div class="custom-control custom-checkbox">
                 					<label class="custom-control-label" for="ck01">
                 						<input type="checkbox" class="custom-control-input" id="ck01" required>
-										Ja, ich stimme der Nutzung meiner Daten gemäß <a href="'.$dir.'datenschutz/">AGB und DSGVO</a> zu*
+										Ja, ich stimme der Nutzung meiner Daten gemäß <a href="'.$dir.'datenschutz/">AGB und DSGVO</a> zu.*
 									</label>
             					</div>
             					<div class="custom-control custom-checkbox mt1">
@@ -83,7 +83,7 @@ $modal = '
             					<div class="custom-control custom-checkbox mt1">
                 					<label class="custom-control-label" for="ck03">
                 						<input type="checkbox" class="custom-control-input" id="ck03">
-										Ja, ich möchte über weitere Aktionen von Forschung von der Straße informiert werden
+										Ja, ich möchte über weitere Aktionen von <em>#Berlin forscht</em> mit informiert werden
 									</label>
                 					<a class="submit_form_audio" href="javascript:void(0)">Aufnahme senden</a>  
             					</div>   

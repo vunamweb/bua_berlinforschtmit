@@ -82,11 +82,10 @@ $data = '
 								</div>
 							</div>
 							<div class="col-12 col-md-12 col-lg-6 col-xl-5 align-self-center">
-								<ol id="bc"></ol>
-								 <div class="box_townhall" id="gesagt"> 
-									<p id="breadc">Berlin forscht</p>
+								<!--<ol id="bc"></ol>-->
+								 <div class="box_townhall" id="gesagt"> 									
 									<div class="overflow-auto">       
-										<p>'.textvorlage(69).'</p> 	
+										'.textvorlage(69).' 	
 									</div>
 								</div>
 							</div>
@@ -164,7 +163,7 @@ var data = [
     chart.listen("chartDraw",function(e) {
       var text = printPath(chart.getDrilldownPath());
       // var ebene = printPath(chart.getDrilldownPath());      
-      $("#bc").html(text);
+      // $("#bc").html(text);
     });
     chart.labels().useHtml(true);
     chart.labels().format("<span class=\'c{%value}\'>{%name}</span>");

@@ -111,7 +111,7 @@ if (($neu  || $edit) && $admin) {
 		foreach($morpheus["lan_nm_arr"] as $lang=>$bez)	{
 			echo '<p style="margin: 10px 0px 10px 0px;">
 			'.$bez.'<br>
-			<textarea cols="120" rows="6" name='.$lang.'>'.$$lang.'</textarea></p>
+			<textarea cols="120" rows="12" name='.$lang.' style="height:200px;">'.$$lang.'</textarea></p>
 ';
 		}
 

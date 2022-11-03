@@ -119,7 +119,7 @@ if( $sec && ($sec == $checkMySec) && $send ) {
 	
 	$Empfaenger = $row->post;
 	$Empfaenger	= $event_zusage;
-	$Empfaenger	= 'b@7sc.eu';
+	// $Empfaenger	= 'b@7sc.eu';
 	$betreff 	= $row->betreff.' / '.str_replace("\n", "", $eventName);
 	
 	$kundemail 	= $morpheus["email"];

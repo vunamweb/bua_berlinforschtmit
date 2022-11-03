@@ -233,7 +233,7 @@ $uploadForm = 0;
 
 	$dsText = '<div class="form-group cb"><input id="datenschutz" type="checkbox" name="datenschutz" required ><label for="datenschutz" class="lb">';
 
-	if($fid == 6) $dsText .= 'Ja, ich stimme der Nutzung meiner Daten gemäß <a href="'.$dir.$navID[$datenschutzID].'" target="_blank">AGB und DSGVO</a> zu.</label></div>';
+	if($fid == 6) $dsText .= 'Ja, ich stimme der Nutzung meiner Daten gemäß <a href="'.$dir.$navID[$datenschutzID].'" target="_blank">AGB und DSGVO</a> zu.*</label></div>';
 	
 	else if($lan == "de") $dsText .= 'Ich stimme zu, dass meine Angaben aus dem Kontaktformular zur Beantwortung meiner Anfrage erhoben und verarbeitet werden. Die Daten werden nach abgeschlossener Bearbeitung Ihrer Anfrage gelöscht. Hinweis: Sie können Ihre Einwilligung jederzeit für die Zukunft per E-Mail an <a href="mailto:'.$morpheus['email'].'">'.$morpheus['email'].'</a> widerrufen. Detaillierte Informationen zum Umgang mit Nutzerdaten finden Sie in unserer <a href="'.$dir.$navID[$datenschutzID].'" target="_blank"><u>Datenschutzerklärung</u></a>.</label></div>';
 
@@ -284,7 +284,7 @@ Detailed information on handling user data can be found in our <a href="'.$dir.(
 									'.$form .'
 								<div class="frm_contact_body">
 									'.$dsText.'
-									<span class="">* '.$Pflichtfelder.'</span>
+									<span class="lb">* '.$Pflichtfelder.'</span>
 									<p class="mt2"><button class="btn btn-success btn-send'.($uploadForm ? '' : ' sendform').'" type="submit">'.$senden.'</button></p class="mt2">
 								</div>
 							</form>
