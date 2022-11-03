@@ -7,15 +7,15 @@ $output .= '
 		<h1 class="mw">Aktuelle Nachrichten</h1>
 		<div class="slider_2">
     		<div class="slider__wrapper">';
-    			$query  = "SELECT * FROM morp_media WHERE mtyp='wav' AND public='true'";
-				$query  = "SELECT * FROM morp_media WHERE mtyp='wav'";
-				$query  = "SELECT * FROM morp_media WHERE 1";
+    			$query  = "SELECT mp3, mdesc, name, email FROM morp_media WHERE mp3<>'' AND (ck02='true' OR ck02='1')";
+				// $query  = "SELECT * FROM morp_media WHERE mtyp='wav'";
+				// $query  = "SELECT * FROM morp_media WHERE 1";
 				$result = safe_query($query);
 				$x = 0;
 				while ($row = mysqli_fetch_object($result)) {
         			$name = $row->name;
         			$date = $row->email;
-        			$url_media = 'wav/' . $row->mname; 
+        			$url_media = 'mp3/' . $row->mp3; 
 					$x++;
         			$output .= '
 					<div class="slider__item">
@@ -24,7 +24,7 @@ $output .= '
 								<img src="'.$dir.'images/playme.svg"/>
 							</div>
 							<div class="col-8  col-lg-9">
-          	  					<span>Informationen zur<br/>Sprachnachricht '.$x.'</span>
+          	  					<span>'.$row->mdesc.'</span>
 							</div>
         				</a>
      				</div>';
