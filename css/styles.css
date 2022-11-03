@@ -1917,7 +1917,9 @@ body.hashtag:before {
 	}}/** END of nest5*/
   /*-----------------------------------------------------------------------*/
   
-  
+  table td, table th { vertical-align: text-top; text-align: left !important; padding: 5px; border: solid 1px #efefef; }
+  table td p, table th p { margin-left: 0; }
+  table { margin-bottom: 2em; }
   
   /********COOKIES*******/
   /* #cookie_disclaimer.hide { display: none; } */

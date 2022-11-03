@@ -423,13 +423,12 @@ eventComment = () => {
 // END
 
   
-  // Init on DOM ready
-  var waveHeight = 120;
-  var firstPlay = false;
-
-  if( $(window).width() < 800 ) var waveHeight = 40;
+// Init on DOM ready
+var waveHeight = 120;
+var firstPlay = false;
+if( $(window).width() < 800 ) var waveHeight = 40;
 	
-  if($('#waveform').length > 0) {
+if($('#waveform').length > 0) {
 	document.addEventListener('DOMContentLoaded', function() {
       	wavesurfer = WaveSurfer.create({
 			container: '#waveform',
@@ -440,76 +439,70 @@ eventComment = () => {
 			barWidth: 3
       	});
     });
-  }
+}
   
- if($('.slider__item a').length > 0) {
-// Bind controls
-document.addEventListener('DOMContentLoaded', function() {
-      var playPause = document.querySelector('#playPause');
+if($('.slider__item a').length > 0) {
+	// Bind controls
+	document.addEventListener('DOMContentLoaded', function() {
+      	var playPause = document.querySelector('#playPause');
 
-	  if(playPause != null)
-		playPause.addEventListener('click', function() {
-			wavesurfer.playPause();
-		});
+	  	if(playPause != null)
+			playPause.addEventListener('click', function() {
+				wavesurfer.playPause();
+			});
 
-	  if(wavesurfer != null && wavesurfer != undefined) {
-		wavesurfer.on('play', function() {
-          document.querySelector('#play').style.display = 'none';
-          document.querySelector('#pause').style.display = '';
-        });
-
-        wavesurfer.on('pause', function() {
-          document.querySelector('#play').style.display = '';
-          document.querySelector('#pause').style.display = 'none';
-        });
-	  }
+		if(wavesurfer != null && wavesurfer != undefined) {
+			wavesurfer.on('play', function() {
+            	document.querySelector('#play').style.display = 'none';
+          	  	document.querySelector('#pause').style.display = '';
+        	});
+			wavesurfer.on('pause', function() {
+				document.querySelector('#play').style.display = '';
+				document.querySelector('#pause').style.display = 'none';
+			});
+		}
 	  
-      // The playlist links
-      var links = document.querySelectorAll('.slider__item a');
-      var currentTrack = 0;
-      // Load a track by index and highlight the corresponding link
-      var setCurrentSong = function(index) {
-          links[currentTrack].classList.remove('active');
-          currentTrack = index;
-          links[currentTrack].classList.add('active');
-          wavesurfer.load(links[currentTrack].href);
-      };
-      // Load the track on click
-      Array.prototype.forEach.call(links, function(link, index) {
-          link.addEventListener('click', function(e) {
-              e.preventDefault();
-              setCurrentSong(index);
-              //wavesurfer.playPause();
-			  $('.btn-berlin').addClass("show");
-		 });
-      });
-      // Play on audio load
-	  if(wavesurfer != null && wavesurfer != undefined) {
-		wavesurfer.on('ready', function() {
-		   if(firstPlay)
-		     wavesurfer.play();
+		// The playlist links
+		var links = document.querySelectorAll('.slider__item a');
+		var currentTrack = 0;
+		
+		// Load a track by index and highlight the corresponding link
+		var setCurrentSong = function(index) {
+			links[currentTrack].classList.remove('active');
+			currentTrack = index;
+			links[currentTrack].classList.add('active');
+			wavesurfer.load(links[currentTrack].href);
+		};
+		
+		// Load the track on click
+		Array.prototype.forEach.call(links, function(link, index) {
+			link.addEventListener('click', function(e) {
+				e.preventDefault();
+				setCurrentSong(index);
+				wavesurfer.playPause();
+				$('.btn-berlin').addClass("show");
+			});
+		});
+		
+		// Play on audio load
+		if(wavesurfer != null && wavesurfer != undefined) {
+			wavesurfer.on('ready', function() {
+				if(firstPlay)
+				wavesurfer.play();
+				firstPlay = true; 	 
+			});
+			wavesurfer.on('error', function(e) {
 
-			 firstPlay = true; 	 
-		   //$('#waveform wave').show();
-		   //$('#waveform .bg_wave').css('position', 'absolute');
-		   //$('#waveform .bg_wave').hide();
-		});
-		wavesurfer.on('error', function(e) {
-			//  console.warn(e);
-		})
-      // Go to the next track on finish
-		wavesurfer.on('finish', function() {
-			//$('#waveform wave').hide();
-			//$('#waveform .bg_wave').css('position', 'relative');
-			//$('#waveform .bg_wave').show();
-			//alert('done');
-			//setCurrentSong((currentTrack + 1) % links.length);
-		});
-	  }
-	  // Load the first track
-	  setCurrentSong(0);
-	  //$('.btn-berlin').addClass("show");
-  });
+			})
+      
+	  		// Go to the next track on finish
+			wavesurfer.on('finish', function() {
+			});
+		}
+		
+		// Load the first track
+		setCurrentSong(0);
+	});
 } 
   
 $(document).ready(function() {
