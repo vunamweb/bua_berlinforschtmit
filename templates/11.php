@@ -51,8 +51,8 @@ var fcarousel = $('.main-carousel').flickity({
 });
 
 fcarousel.on( 'scroll.flickity', function( event, progress ) {
-  $('.carousel-caption h3').removeClass('animate__animated');
-  $('.carousel-caption h3').addClass('animate__animated');
+  // $('.carousel-caption h3').removeClass('animate__animated');
+  // $('.carousel-caption h3').addClass('animate__animated');
 });
 
 ";

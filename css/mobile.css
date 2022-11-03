@@ -362,6 +362,7 @@
 	.modal-body {
 		padding: 0 1rem;
 	}
+	#BUASlider { margin-top: 0; }
 }
 
 @media (max-width: 600px) {
@@ -410,9 +411,8 @@
 		line-height: 1em;
 	}
 	.date_box .jahr { font-size: 1.75em; }
-	.date_box {
-		max-width: 50%; margin-left: 30%;
-	}
+	.date_box {	max-width: 50%; margin-left: 0; height: 160px; }
+	.date_box.man {	margin-left: 30%; }
 	.date_box_abs {
 		margin-top: 0;
 	}
@@ -493,6 +493,12 @@
 		padding: 4em 30px 0;
 	}
 	.bmbf-bot { margin-bottom: 1em; }
+	.BMBF img {
+		height: 100px;
+	}
+	.partner img {
+		height: 52px;
+	}
 	.slider_2 .slider__item {
 		flex: 0 0 80%;
 		padding-left: 20px;
@@ -500,5 +506,17 @@
 	}
 	.slider__item .border_top {
 		margin-left: 36px;
+	}
+	.carousel-inner, .main-carousel, .flickity-viewport {
+		height: 450px !important;
+	}
+	.carousel-caption h3 { font-size: 2.5em; margin-top: 2em; }
+	.flickity-slider { background: #000; }
+	footer .footer_bottom {
+		padding-bottom: 50px;
+	}
+	
+	.event .col-12 + .col-12 {
+		margin-top: 0;
 	}
 }

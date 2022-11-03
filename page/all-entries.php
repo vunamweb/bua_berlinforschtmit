@@ -169,6 +169,8 @@ function liste()
 		$rubrik = $row->rubrik;
 		$mtyp = $row->mtyp;
 		$dauer = '';
+		$mp3exists = 0;
+		$player = '';
 		if($mtyp || $row->mp3) {			
 			$file = substr($row->$anz, 0, strlen($row->$anz) - 4);
 
@@ -195,8 +197,6 @@ function liste()
 				$dauer = $ThisFileInfo['playtime_string'];
 				$dauer = duplicate_time($dauer);
 				//return 'nambuzz';
-				$mp3exists = 0;
-				$player = '';
 			}
 		}
 
@@ -211,7 +211,7 @@ function liste()
 				<a href="?edit=' . $edit . '">' . $row->$tid . ' </a>
 			</td>
 			<td>
-				'.( $mtyp ? '<a ' . $target . ' href="' . $wavfile . '">' : '') . ($mtyp ? '<i class="fa fa-microphone"></i>' : '<i class="fa fa-language"></i>') . ($mp3exists ? ' &nbsp; <span class="label label-danger">MP3</span>' : '') . ($mtyp ? '</a>' : '') . $player . '
+				'.( $mtyp || $row->mp3 ? '<a ' . $target . ' href="' . $wavfile . '">' : '') . ($mtyp ? '<i class="fa fa-microphone"></i>' : '<i class="fa fa-language"></i>') . ($mp3exists ? ' &nbsp; <span class="label label-danger">MP3</span>' : '') . ($mtyp ? '</a>' : '') . $player . '
 			</td>
 			<td>
 				<a href="?edit=' . $edit . '">' . ($row->ck02 ? 'x' : '-') . '</a>

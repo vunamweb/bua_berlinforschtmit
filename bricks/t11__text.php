@@ -6,7 +6,7 @@ if(!$slCt) $slCt=1;
 else $slCt++;
 
 $output .= '
-<div class="carousel-cell'.($slCt < 2 ? ' act ive' : '').'">
+<div class="carousel-cell'.($slCt < 2 ? ' active' : '').'">
 	'.$image.'
 	<div class="carousel-caption">
 		<h3 class="">'.$zeilen[0].'</h3>
