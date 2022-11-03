@@ -7,20 +7,6 @@ $output .= '
 <link href="https://cdn.anychart.com/releases/v8/css/anychart-ui.min.css" rel="stylesheet" type="text/css">
 <link href="https://cdn.anychart.com/releases/v8/fonts/css/anychart-font.min.css" rel="stylesheet" type="text/css">
 <link href="'.$dir.'css/anychart-ui.min.css" rel="stylesheet" type="text/css">
-
-  <style>
-#sunburst {
-  width: 100%;
-  margin: 0;
-  padding: 0; background:#edebe4;
-}
-.c100 { color: yellow !important; }
-.sunburst, #sunburst { height: calc(65vH);  } 
-@media (max-width: 992px) { 
-  .sunburst, #sunburst { height: 850px; border: solid 1px #000; }   
-}
-h1 { color: green; }
-</style>
 ';
    
 
@@ -77,20 +63,25 @@ $data = '
     
 	$output .= '					<div class="container">
 						<div class="row no-gutters">
-							<div class="col-12 col-lg-7 align-self-center ">
+							<div class="col-12 col-md-12 col-lg-6 col-xl-7 align-self-center ">
 								
-								<div class="box_graphics">
-									<h4>Klicken Sie auf die Themen in der<br>
-									Graﬁk für eine Übersicht über den aktuellen Diskurs.</h4> 
-								</div>
-								<div class="sunburst"><div id="sunburst"></div></div>      
-	
-								<div class="w-100 text-center mb2">
-									<a onclick="drillUpALevel()" class="btn btn-info">1 Ebene zurück</a>
-									<a onclick="drillToLevel(\'Berlin forscht mit\')" class="btn btn-info">Zurück zum Anfang</a>
+								<div class="row">
+									<div class="col-12 col-md-9 col-lg-12">
+										<div class="box_graphics">
+											<h4>Klicken Sie auf die Themen in der<br>
+											Graﬁk für eine Übersicht über den aktuellen Diskurs.</h4> 
+										</div>
+										<div class="sunburst"><div id="sunburst"></div></div>      
+									</div>
+									<div class="col-12 col-md-3 col-lg-12 sunb-mobile">
+										<div class="w-100 text-center mb2 sunb-btn">
+											<a onclick="drillUpALevel()" class="btn btn-info">1 Ebene zurück</a>
+											<a onclick="drillToLevel(\'Berlin forscht mit\')" class="btn btn-info">Zurück zum Anfang</a>
+										</div>
+									</div>
 								</div>
 							</div>
-							<div class="col-12 col-lg-5 align-self-center">
+							<div class="col-12 col-md-12 col-lg-6 col-xl-5 align-self-center">
 								<ol id="bc"></ol>
 								 <div class="box_townhall" id="gesagt"> 
 									<p id="breadc">Berlin forscht</p>

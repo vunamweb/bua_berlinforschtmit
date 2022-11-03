@@ -190,6 +190,14 @@
 	}
 }
 
+@media (max-width: 992px) { 
+	.sunburst, #sunburst { height: calc(35vH);  } 
+	.sunb-btn { margin-top: 4em; text-align: left !important; }
+	.sunb-btn .btn { margin-top: 1em; }
+	#gesagt { height: 40vH; }
+	.overflow-auto { height: 35vH; }
+}
+
 @media (max-width: 1050px) {
 	.text-top-home {
 		width: 80% !important;
@@ -200,6 +208,7 @@
     section {
         padding: 30px 0;
     }
+	.sunb-mobile { display: none; }
 	.mehrspaltig {
 		column-count: 1;
 	}
@@ -366,6 +375,16 @@
 }
 
 @media (max-width: 600px) {
+	.dropdown-menu { min-width: 15rem; background: transparent; border: none; padding: 0; }
+	.dropdown-menu li a.nav-link { padding: 6px 45px 6px 15px !important; }
+	#gesagt { height: 36vH; }
+	.overflow-auto { height: calc(36vH - 60px); }
+	.sitzend {
+		margin-top: 8em;
+	}
+	.tri_1 {
+		padding: 150px 0 200px;
+	}
 	.spacing {
 		height: 56px;
 	}

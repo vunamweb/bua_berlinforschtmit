@@ -371,6 +371,15 @@ ul.dreieck li:before {
 .time { margin: 2em -15px; }
 
 
+#sunburst {
+  width: 100%;
+  margin: 0;
+  padding: 0; background:#edebe4;
+}
+.sunburst, #sunburst { height: calc(65vH);  } 
+
+
+
 footer hr { border-bottom: solid 1px #fff; margin-bottom: 1.75em; }
 footer ul {
 	margin: 0;
@@ -421,8 +430,8 @@ h1.leistung { font-weight: bolder; }
 h1.leistung strong { font-weight: 400 !important; }
 
 #meinefragen { height: calc(100vH - 90px); background: #edebe4; }
-#gesagt { border: solid 3px #efefef; height: calc(100vH - 200px); padding: 1em; padding-right: 0; }
-.overflow-auto { overflow-y: scroll;  height: calc(100vH - 260px); }
+#gesagt { border: solid 3px #efefef; height: calc(100vH - 300px); padding: 1em; padding-right: 0; }
+.overflow-auto { overflow-y: scroll;  height: calc(100vH - 360px); }
 #gesagt article { padding-left: 10px; }
 #gesagt ul { padding-left: 5px; margin-bottom: 0; }
 #gesagt li { margin-bottom: .5em; }
