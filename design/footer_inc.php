@@ -118,11 +118,7 @@ echo $modal;
 <?php global $anychart; if($anychart) { ?>
 <script src="<?php echo $dir; ?>js/anychart-base.min.js"></script>
 <script src="<?php echo $dir; ?>js/anychart-sunburst.min.js"></script>
-<script src="<?php echo $dir; ?>js/anychart-ui.min.js"></script>
-<script src="<?php echo $dir; ?>js/anychart-exports.min.js"></script>
-<script src="<?php echo $dir; ?>js/anychart-data-adapter.min.js"></script>
 <?php } ?>
-
 
 <?php 
 global $audio;

@@ -139,20 +139,14 @@ var data = [
   ]},       
 ];
     
-    
     // https://docs.anychart.com/Basic_Charts/Sunburst_Chart
-    
-    
-    
-    anychart.licenseKey("stimmenaufknopfdruck.de-34a259b8-8855f78");
+    anychart.licenseKey("freiheit-gruppe.de-3c3edf46-4a5f1d98");
     treeData = anychart.data.tree(data, "as-tree");
     chart = anychart.sunburst(treeData);
-    // var chart = anychart.sunburst(data, "as-tree");
-  
+    // var chart = anychart.sunburst(data, "as-tree");  
     // set the calculation mode
     // chart.calculationMode("ordinal-from-root");
     chart.calculationMode("parent-dependent");
-    
     /* listen to the chartDraw event
     and add the drilldown path to the chart title */
     chart.listen("chartDraw",function(e) {

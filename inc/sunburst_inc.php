@@ -3,10 +3,7 @@ global $anychart;
 $anychart = 1;
 
 $output .= '
-<link href="https://playground.anychart.com/gallery/src/Sunburst_Charts/Employee_Count_by_Country/iframe" rel="canonical">
-<link href="https://cdn.anychart.com/releases/v8/css/anychart-ui.min.css" rel="stylesheet" type="text/css">
-<link href="https://cdn.anychart.com/releases/v8/fonts/css/anychart-font.min.css" rel="stylesheet" type="text/css">
-<link href="'.$dir.'css/anychart-ui.min.css" rel="stylesheet" type="text/css">
+
 ';
    
 
@@ -151,8 +148,7 @@ var data = [
     ]},
   ]},       
 ];
-
-    // https://docs.anychart.com/Basic_Charts/Sunburst_Chart anychart.licenseKey("stimmenaufknopfdruck.de-34a259b8-8855f78");
+	anychart.licenseKey("freiheit-gruppe.de-3c3edf46-4a5f1d98");
     treeData = anychart.data.tree(data, "as-tree");
     chart = anychart.sunburst(treeData);
     // alle bereiche gleich gross
@@ -210,12 +206,7 @@ var data = [
         }
     });
     
-  // chart.title().listen("click", function() {
-  // //   chart.level(5).enabled(false);
-  //    $("#xxx").text("222");
-  // });
   // initiate drawing the chart
-
   chart.draw();
 }); 
   
@@ -230,8 +221,7 @@ var data = [
     }    
     return text;
     // return n;
-  }
-  
+  }  
   function fullScreen() {
     chart.fullScreen(true)
   }
@@ -247,7 +237,6 @@ var data = [
     }
     return text;
   }
-
   function drillToItem(noode, ebene) {
     // visible = parseInt(ebene) + 2;
     var item = treeData.search("name", noode);
@@ -260,6 +249,5 @@ var data = [
   	var item = treeData.search(\'name\', goto);
   	chart.drillTo(item);
   }
-
 ';
 
