@@ -6,7 +6,7 @@ session_start();
 * Last Modified..: 2022-07-14
 */
 
-	print_r($_POST);
+//	print_r($_POST);
 
 include("../nogo/config.php");
 $pixel = isset($_POST["pixel"]) ? $_POST["pixel"] : 0;

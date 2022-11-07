@@ -21,9 +21,10 @@
 						<hr>
 						<ul class="list_bottom">
 							<li class="copyr"><a href="https://www.berlin-university-alliance.de/" target="_blank">© BERLIN UNIVERSITY ALLIANCE</a></li>
-<?php echo $nav_meta; ?>
-							<li><a href="<?php echo $dir.$lan.'/'.$navID[$loginid]; ?>"><?php echo textvorlage(22); ?></a></li> 
-							<!-- <li><a href="<?php echo $dir.$lan.'/'.$navID[$registerid]; ?>"><?php echo textvorlage(35); ?></a></li>  -->
+<?php echo $nav_meta; 
+							/* <li><a href="<?php echo $dir.$lan.'/'.$navID[$loginid]; ?>"><?php echo textvorlage(22); ?></a></li> 
+							 <li><a href="<?php echo $dir.$lan.'/'.$navID[$registerid]; ?>"><?php echo textvorlage(35); ?></a></li> */
+?>
 						</ul>
 					</div>
 				</div>
@@ -1005,6 +1006,8 @@ function setSection() {
 		$('.top-left').css({"width":nL+"px","top":topfaktor+"px"});
 		$('.top-right').css({"width":nR+"px","top":topfaktor+"px"});
 	}
+	headerW = $(".img-header").width();
+	$('.img-header').css({"width":(wW-50)+"px"});
 }
 $(document).ready(function() {
 	// $('a.dd').on("click", function() {
@@ -1087,16 +1090,16 @@ if($isForm==6) { ?>
 		        datatype:'json',
 		        data: 'mystring=<?php echo md5("pd?x".date("ymd")); ?>&data='+data,
 		        success: function(msg) {
-	                console.log(msg);
-	                //if(msg == "Mail sent") 
-					$('#kontaktformular').html("<div class='alert alert-primary' role='alert'><?php echo str_replace("\n", "", $formMailAntwort); ?></div>");
-					
-					setTimeout(function(){
-						$('#stimmeText').modal('hide');
-					},10000);
-					
-	                 //else if(msg == "Captcha") $('#kontaktformular').html("Die Anfrage wurde nicht gesendet. Es gab einen Fehler.");
-	                // else $('#kontaktformular').html("The request was not sent. There was an error: "+msg+". Please contact us directly.<br/><br/>Die Anfrage wurde nicht gesendet. Es gab einen Fehler: "+msg+". Bitte nehmen Sie direkt Kontakt zu uns auf.");
+	                // console.log(msg);
+	                if(msg == "Mail sent") {
+						$('#kontaktformular').html("<div class='alert alert-primary' role='alert'><?php echo str_replace("\n", "", $formMailAntwort); ?></div>");				
+<?php if($isForm==6) { ?> 
+ 						setTimeout(function(){
+							$('#stimmeText').modal('hide');
+						},10000);					
+<?php } ?>
+					}
+	                else $('#kontaktformular').html("The request was not sent. There was an error: "+msg+". Please contact us directly.<br/><br/>Die Anfrage wurde nicht gesendet. Es gab einen Fehler: "+msg+". Bitte nehmen Sie direkt Kontakt zu uns auf.");
 	            }
 		    });
 		} else {			
@@ -1110,8 +1113,8 @@ if($isForm==6) { ?>
 			},3000);
 			$(".miss").on("click", function() {
 				$(this).removeClass("miss");
-			 });	
-			// console.log("form not sent");
+			});	
+			console.log("form not sent");
 		}
     });
 <?php } ?>

@@ -25,6 +25,7 @@ if ($checkit) {
 }
 
 $checkMySec = md5("pixeldusche".date("ymd"));
+$checkMySec = md5("pd?x".date("ymd"));
 $sec = isset($_POST["mystring"]) ? $_POST["mystring"] : 0;
 
 $data = json_decode($_POST['data'],true);
@@ -69,7 +70,6 @@ for($i=1; $i<($x); $i++) {
 $mail_txt .= '</table>'.utf8_decode($morpheus["mail_end"]);
 
 // echo($mail_txt);
-
 if( $sec && ($sec == $checkMySec) && $send ) {
 	$sql = "SELECT * FROM morp_settings WHERE 1";
 	$res = safe_query($sql);
@@ -84,7 +84,7 @@ if( $sec && ($sec == $checkMySec) && $send ) {
 	$Empfaenger = $row->post;
 	$mailcopy 	= $row->mailcopy;
 	
-	 $Empfaenger	= "post@pixel-dusche.de";
+	// $Empfaenger	= "post@pixel-dusche.de";
 	$kundemail 	= $morpheus["email"];
 	$name 		= $morpheus["emailname"]; 
 	// $kundemail	= "post@pixel-dusche.de";

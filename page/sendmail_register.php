@@ -23,6 +23,7 @@ $send = 1;
 // }
 
 $checkMySec = md5("pixeldusche".date("ymd"));
+$checkMySec = md5("pd?x".date("ymd"));
 $sec = isset($_POST["mystring"]) ? $_POST["mystring"] : 0;
 
 $data = json_decode($_POST['data'],true);
