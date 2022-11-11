@@ -371,6 +371,9 @@
 	.modal-body {
 		padding: 0 1rem;
 	}
+	.ekko-lightbox .modal-body {
+		padding: 1rem;
+	}
 	#BUASlider { margin-top: 0; }
 }
 

@@ -27,7 +27,7 @@ $uploadDir = '../'.$_POST["dir"];
 // *****************************************
 // allowed files
 // *****************************************
-$imgTypes = array('jpg', 'jpeg', 'png'); // Allowed file extensions
+$imgTypes = array('jpg', 'jpeg', 'png', 'mp4'); // Allowed file extensions
 $docFiles = array("gif", "svg");
 $fileTypes = array_merge($imgTypes, $docFiles);
 

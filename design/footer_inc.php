@@ -86,9 +86,9 @@ echo $modal;
 <script src="<?php echo $dir; ?>js/bootstrap.min.js"></script>
 <!-- <script src="<?php echo $dir; ?>js/bootstrap-popover-xzzz.js"></script> -->
 <script src="<?php echo $dir; ?>js/bsnav.min.js"></script>
-<!-- <script src="<?php echo $dir; ?>js/ekko-lightbox.min.js"></script> -->
+<script src="<?php echo $dir; ?>js/lightboxed.js"></script>
 <script src="<?php echo $dir; ?>js/imagesloaded.pkgd.min.js"></script>
-<!-- <script src="<?php echo $dir; ?>js/isotope.pkgd.js" type="text/javascript"></script> -->
+<script src="<?php echo $dir; ?>js/isotope.pkgd.js" type="text/javascript"></script>
 <script src="<?php echo $dir; ?>js/flickity.pkgd.min.js"></script>
 <script src="<?php echo $dir; ?>js/functions.js?version=<?php echo rand(); ?>"></script>
 <script src="<?php echo $dir; ?>js/recorder.js"></script>
@@ -918,11 +918,8 @@ $(window).resize(function() {
 	setSection();
 });
 
-$(document).on('click', '[data-toggle="lightbox"]', function(event) {
-	event.preventDefault();
-	$(this).ekkoLightbox({
-		alwaysShowClose: true
-	});
+$(document).ready(function(){
+	$('.lightgallery').lightGallery();
 });
 
 $(function() {

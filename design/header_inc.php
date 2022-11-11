@@ -30,7 +30,7 @@
     <link rel="stylesheet" href="<?php echo $dir; ?>css/bootstrap-popover-x.css">
 	<link rel="stylesheet" href="<?php echo $dir; ?>css/dragula.min.css">
 	<link rel="stylesheet" href="<?php echo $dir; ?>css/flickity.min.css">
-    <!-- <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.css">   -->
+    <link href="<?php echo $dir; ?>css/lightboxed.css" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="<?php echo $dir; ?>css/animate.min.css" type="text/css">
     <link rel="stylesheet" type="text/css" href="<?php echo $dir; ?>css/bsnav.min.css">
     <link rel="stylesheet" href="https://semantic-ui.com/dist/semantic.css" type="text/css">

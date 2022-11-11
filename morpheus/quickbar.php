@@ -54,7 +54,8 @@ foreach ($morpheus["lan_arr"] as $key=>$lang) {
 	$prio = 0.5;
 
 	for ($i = 1; $i <= 5; $i++) {
-		$sqlXML  = "SELECT * FROM `morp_cms_nav` WHERE ebene=$i AND lang=$key AND `lock`<1";
+		// $sqlXML  = "SELECT * FROM `morp_cms_nav` WHERE ebene=$i AND lang=$key AND `lock`<1";
+		$sqlXML  = "SELECT * FROM `morp_cms_nav` WHERE ebene=$i AND lang=$key ";
 		$resXML = safe_query($sqlXML);
 
 		while ($rowXML = mysqli_fetch_object($resXML)) {
@@ -65,6 +66,7 @@ foreach ($morpheus["lan_arr"] as $key=>$lang) {
 			$nmXML 	= strtolower(eliminiere($nmXML));
 			$setlink = $rowXML->setlink;
 			$dat	= $rowXML->updated_dat;
+			$lock	= $rowXML->lock;
 
 			$ebeneXML 		= $rowXML->ebene;
 			$bereichXML 	= $rowXML->bereich;
@@ -81,14 +83,14 @@ foreach ($morpheus["lan_arr"] as $key=>$lang) {
 				$arrXML[$idXML] 	= $path;
 				$arrDate[$idXML] 	= $dat;
 				$arrPrio[$idXML] 	= $prio;
-				if ($vi) $arrSmap[$idXML] = $path;
+				if ($vi && !$lock) $arrSmap[$idXML] = $path;
 			}
 			else {
 #				if ($homeID != $idXML) {
 					$arrXML[$idXML] 	= $setlink."/";
 					$arrDate[$idXML] 	= $dat;
 					$arrPrio[$idXML] 	= $prio;
-					if ($vi) $arrSmap[$idXML] = $setlink."/";
+					if ($vi && !$lock) $arrSmap[$idXML] = $setlink."/";
 /*				}
 				else {
 					$arr[$idXML] 	= "";

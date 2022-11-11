@@ -1962,6 +1962,20 @@ body.hashtag:before {
   #cookie_disclaimer { font-size: .8em; }
   #cookie_disclaimer .btn-info, .acc { background: #95C11F; width: 100% }
   .btn-det { color: #95C11F; padding-right: 50px; }
+  
+.close {
+	border: none;
+	background: transparent; font-size: 1.5em; font-weight: 500;
+}
+.ekko-lightbox .modal-content {
+	background: #fff;
+}
+.ekko-lightbox .show {
+	/* display: flex !important; */
+}
+.ekko-lightbox-nav-overlay a:hover { color: #000; }
+.ekko-lightbox .modal-content { width: 100%; max-width: inherit; }
+  
   .cookie{float: right;
 	  padding: 5px 35px;
 	  color: #fff !important; text-decoration: none !important;
