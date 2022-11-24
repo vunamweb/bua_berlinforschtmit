@@ -17,12 +17,15 @@ $reg_id = $lang == 1 ? 29 : 130;
 $cid_lan = $lang == 1 ? "cid" : "cidEn";
 $x = 0;
 
+$heute = date("Y-m-d");
+
 while($row = mysqli_fetch_object($res)) {
 	$datum = explode("-",$row->eventDatum);
 	$tag = $datum[2];
 	$monat = intval($datum[1]);
 	$jahr = $datum[0];
 	$event_id = $row->$cid_lan;
+	$datum = $row->eventDatum;
 	
 	$eventText = $lang == 1 ? $row->eventText : $row->eventTextEn;
 	$eventName = $lang == 1 ? $row->eventName : $row->eventNameEn;
@@ -41,7 +44,7 @@ while($row = mysqli_fetch_object($res)) {
 	// <p><a href="'.$dir.$lan.'/'.$navID[$reg_id].eliminiere($eventName).'+'.$row->eventid.'/" class="btn btn-info btn-register">'.($reg_btn).'</a></p>
 		
 	$output .= '
-<div class="box_content_items event'.($full ? ' overbooked' : '').'">
+<div class="box_content_items event'.($datum < $heute ? ' past overbooked' : '').'">
 	<div class="row">
 		<div class="col-12 col-md-4 col-lg-5 col-xl-3 offset-xl-1">
 			<div class="date_box db'.$x.' flag'.($x < 2 ?' man' : '').'">
@@ -50,7 +53,7 @@ while($row = mysqli_fetch_object($res)) {
 				<span class="jahr">'.$jahr.'</span>
 			</div>
 		</div>
-		<div class="col-12 col-md-8 col-lg-7 col-xl-7 offset-xl-1 ">
+		<div class="col-12 col-md-8 col-lg-7 col-xl-7 offset-xl-1 description">
 			<h2>'.nl2br($eventName).'</h2>
 			'.nl2br($eventText).'
 			'.($event_reg_text1 ? $event_reg_text1 : '').'

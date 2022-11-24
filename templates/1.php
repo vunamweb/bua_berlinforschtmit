@@ -151,3 +151,4 @@ $tabstand = '';
 $tabstand_bottom = '';
 $accordion = '';
 $imgGal = '';
+$klasse='';

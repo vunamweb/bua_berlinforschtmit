@@ -2,7 +2,7 @@
 /* pixel-dusche.de */
 
 global $emotional, $headerImg, $image_overlay;
-global $uniqueID, $fileID, $lastUsedTemplateID, $anzahlOffenerDIV, $templateIsClosed, $slCt, $klasse, $tabstand, $js;
+global $uniqueID, $fileID, $lastUsedTemplateID, $anzahlOffenerDIV, $templateIsClosed, $slCt, $klasse, $tabstand, $js, $farbe, $klasse, $class, $tabstand_bottom;
 
 $fileID = basename(__FILE__, '.php');
 $lastUsedTemplateID = $fileID;
@@ -25,7 +25,7 @@ for($i=1; $i<=$slCt; $i++) {
 }
 
 $template = '
-<section class="'.$edit_mode_class.($tabstand ? ' pt0 ' : '').($klasse ? ' '.$klasse : '').'">
+<section class="slider-section '.$edit_mode_class.($tabstand ? ' pt0 ' : '').($tabstand_bottom? ' pb2 ' : '').($klasse ? ' '.$klasse : '').($class ? ' '.$class : '').'"'.($farbe ? ' style="background:#'.$farbe.'"' : '').'>
 	<div class="container">
 		<div class="row">
 			<div class="col-12">
@@ -56,3 +56,10 @@ fcarousel.on( 'scroll.flickity', function( event, progress ) {
 });
 
 ";
+
+
+
+$class = '';
+$klasse = '';
+$farbe = '';
+$tabstand_bottom = '';

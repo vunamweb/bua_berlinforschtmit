@@ -19,7 +19,7 @@ if($text) {
 	$img_w = $img_size[0];
 	$img_h = $img_size[1];
 	
-	$output .= '						<img src="'.$dir.$imageFolder.urlencode($folder).'/'.($inm).'?w='.$w.'" alt="'.$altText.'" class="img-fluid" '.($img_w ? ' width="'.$img_w.'" height="'.$img_h.'"' : '').' />
+	$output .= '<img src="'.$dir.$imageFolder.urlencode($folder).'/'.($inm).'?w='.$w.'" alt="'.$altText.'" class="img-fluid '.$ausrichtungArray[$ausrichtung].'" '.($img_w ? ' width="'.$img_w.'" height="'.$img_h.'"' : '').' />
 ';
 }
 

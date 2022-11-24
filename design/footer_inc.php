@@ -918,9 +918,6 @@ $(window).resize(function() {
 	setSection();
 });
 
-$(document).ready(function(){
-	$('.lightgallery').lightGallery();
-});
 
 $(function() {
 // 	var tri = $('div#svg svg').svgTriangles({
@@ -1003,8 +1000,12 @@ function setSection() {
 		$('.top-left').css({"width":nL+"px","top":topfaktor+"px"});
 		$('.top-right').css({"width":nR+"px","top":topfaktor+"px"});
 	}
-	headerW = $(".img-header").width();
-	$('.img-header').css({"width":(wW-50)+"px"});
+	if(wW < 900) {
+		headerW = $(".img-header").width();
+		$('.img-header').css({"width":(wW-50)+"px"});
+		// $('.img-header').css({"margin-left":"-"+(wW-headerW)+"px"});
+		
+	}
 }
 $(document).ready(function() {
 	// $('a.dd').on("click", function() {

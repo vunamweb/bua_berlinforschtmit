@@ -21,6 +21,7 @@
 			} 
 		);
 		this.init(); 
+		
 	}
 	
 	function debounce(func, wait, immediate) { var timeout; return function() { var context = this, args = arguments; var later = function() { timeout = null; if (!immediate) func.apply(context, args); }; var callNow = immediate && !timeout; clearTimeout(timeout); timeout = setTimeout(later, wait); if (callNow) func.apply(context, args); }; };
@@ -113,7 +114,7 @@
 					.append( jQuery( '<img />' ).attr( 'src' , ( jQuery( element ).attr( 'data-src' ) || jQuery( element ).attr( 'src' ) || jQuery( element ).attr( 'data-link' ) || jQuery( element ).attr( 'href' ) ) ) ) 
 				)
 				.appendTo( this.cache.thumbs );
-			}
+			}					
 		} , 
 		
 		resizeContent : function () {
@@ -155,6 +156,7 @@
 			this.registerEvents( 'lightbox' );
 			this.lightbox.container.toggleClass( this.options.lightboxCloseClass + ' ' + this.options.lightboxOpenClass ).fadeIn( this.options.delay );
 			disableScroll();
+		
 		} , 
 		
 		close : function ( event ) {
