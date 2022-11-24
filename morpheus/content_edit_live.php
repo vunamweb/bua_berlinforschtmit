@@ -11,6 +11,7 @@
 header('Access-Control-Allow-Origin: *');
 
 session_start();
+$ekko=1;
 $box=1;
 $live=1;
 $myauth = 10;

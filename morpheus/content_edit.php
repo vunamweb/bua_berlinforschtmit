@@ -11,6 +11,7 @@
 session_start();
 
 $myauth = 10;
+$ekko=1;
 $redaktion_in = 'in';
 $box = isset($_REQUEST["box"]) ? $_REQUEST["box"] : 0;
 if(isset($_GET["navbar"])) $box = 1;
