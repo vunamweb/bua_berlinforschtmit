@@ -3,8 +3,7 @@ global $img_pfad, $ausrichtung, $ausrichtungArray, $dir, $imgGal, $imageFolder;
 
 $data = explode("|", $text); $imgid = $data[0]; $ausrichtung = $data[1]; if(!$ausrichtung) $ausrichtung = 1;
 
-$w = $ausrichtung > 1 ? 600 : 1170;
-
+$w = 200;
 
 if($text) {
 	$que  	= "SELECT `longtext`, itext, imgname, name FROM `morp_cms_image` i, `morp_cms_img_group` g WHERE g.gid=i.gid AND imgid=$imgid";
@@ -20,7 +19,7 @@ if($text) {
 	$img_w = $img_size[0];
 	$img_h = $img_size[1];
 	
-	$output .= '<div class="relative'.$ausrichtungArray[$ausrichtung].'"><img src="'.$dir.$imageFolder.urlencode($folder).'/'.($inm).'?w='.$w.'" alt="'.$altText.'" class="img-fluid" '.($img_w ? ' width="'.$img_w.'" height="'.$img_h.'"' : '').' />
+	$output .= '<div class="relative"><img src="'.$dir.$imageFolder.urlencode($folder).'/'.($inm).'?w='.$w.'" alt="'.$altText.'" class="img-fluid '.$ausrichtungArray[$ausrichtung].'" '.($img_w ? ' width="'.$img_w.'" height="'.$img_h.'"' : '').' />
 	'.($ltext ? '<div class="BU BU2">'.$ltext.'</div>' : '').'</div>';
 }
 

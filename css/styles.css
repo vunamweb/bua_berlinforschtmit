@@ -1037,9 +1037,12 @@ width: 100%; padding: 0 !important;
 	width: 100px;
 }
 
-img.img-la { float: left; max-width: 30%; margin-right: 2em; }
+img.img-la { float: left; max-width: 40%; margin-right: 2em; }
 img.img-center { margin: 0 auto; }
-img.img-ra { float: right; max-width: 20%; margin-left: 2em; }
+img.img-ra { float: right; max-width: 40%; margin-left: 2em; }
+div.img-la { float: left; max-width: 40%; margin-right: 2em; }
+div.img-center { margin: 0 auto; }
+div.img-ra { float: right; max-width: 40%; margin-left: 2em; }
 
 /* #edit_74 {
 	position: relative;
@@ -1655,6 +1658,7 @@ body.hashtag:before {
 	min-height: 300px;
 } */
 .BU { position: absolute; left: 0; top:600px; background: rgba(255,255,255,.6); padding: 10px;  }
+.BU2 { top:inherit; bottom: 20px; }
 .home #BUASlider { padding-bottom: 0; }
 .carousel-caption {
 	top: 0; 
@@ -2039,4 +2043,62 @@ body.hashtag:before {
 	  #cookie_disclaimer .mobileOn { color: #000; }
 	  #cookie_detail.on:after, #cookie_detail:after { margin-top: 7px; }
   }		
+  /********END*******/
+  
+  .video_trigger p, .video_trigger a { color: #fff; }
+  .video_trigger .btn { margin: 0 auto 2em; display: block; background: #364a74; }
+  .video_wrapper {
+	background-image: url("bg_image.jpg");
+	background-size: cover;
+	position: relative;
+	box-shadow: 0px 3px 5px #333;
+	height: 350px; background-position: center;
+	width: 100%;  margin-bottom: 2em;
+  }
+  .video_wrapper .video_trigger {
+	padding: 130px 30px;
+	height: -webkit-calc(100%);
+	height: -moz-calc(100%);
+	height: -o-calc(100%);
+	height: calc(100%);
+	width: -webkit-calc(100%);
+	width: -moz-calc(100%);
+	width: -o-calc(100%);
+	width: calc(100%);
+	position: absolute;
+	bottom: 0;
+	z-index: 9;
+	background-color: rgba(0, 0, 0, 0.5);
+	color: #fff;
+  }
+  .video_wrapper .video_trigger:before {
+	content: "";
+	font-family: "FontAwesome";
+	position: absolute;
+	z-index: -1;
+	font-size: 120px;
+	color: rgba(255, 255, 255, 0.2);
+	width: 120px;
+	height: 120px;
+	line-height: 120px;
+	text-align: center;
+	top: -webkit-calc(50% - 60px);
+	top: calc(50% - 60px);
+	left: -webkit-calc(50% - 60px);
+	left: calc(50% - 60px);
+  }
+  .video_wrapper .video_layer {
+	position: relative;
+	display: none;
+	height: inherit;
+	width: inherit;
+	margin: auto;
+  }
+  .video_wrapper .video_layer iframe {
+	border: 0px none transparent;
+	height: inherit;
+	width: inherit;
+	vertical-align: middle;
+  }
+  .video_square.video_wrapper { height: 560px; }
   /********END*******/

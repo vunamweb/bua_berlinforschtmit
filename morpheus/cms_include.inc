@@ -16,9 +16,10 @@ global $mylink, $auditor;
 			include("cms_header.php");
 			
 			if(isset($useUserDB)) {
-				//echo 'dd'; die();
+				//die();
 				include("../nogo/db2.php");
 				dbconnect2();
+				// echo 'ddd'; 
 			}
 			
 			include("../nogo/db.php");
@@ -32,7 +33,7 @@ while($row = mysqli_fetch_object($res)) {
 	$morpheus[$row->var] = $row->value;
 }
 
-			include("../nogo/funktion.inc");
+include("../nogo/funktion.inc");
 // if ($shop)	include("../nogo/shop.inc");
 if (!$box) 	include("cms_navigation.php");
 
@@ -53,4 +54,3 @@ else {
 
 
 # redaktions- / live-system muss noch ermoeglicht werden
-?>

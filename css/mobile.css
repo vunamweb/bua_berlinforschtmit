@@ -33,6 +33,7 @@
 	/* .zitat.hashtag { margin-left: 250px; } */
 	.BU { top:550px; }
 	.home .carousel-inner, .home .main-carousel, .home .flickity-viewport { height: 520px !important; }
+	.video_square.video_wrapper { height: 440px; }
 }
 @media (max-width: 1100px) {
 	.partner img { height: 80px; }
@@ -581,4 +582,8 @@
 		right: -15%;
 		top: 40%;
 	}
+}
+
+@media (max-width: 440px) {
+	.video_square.video_wrapper { height: 100vw; }
 }

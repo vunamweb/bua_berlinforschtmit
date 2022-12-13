@@ -21,6 +21,8 @@ $stimmen_in = 'in';
 $css = "style_blue.css";
 include("cms_include.inc");
 require_once('getid3/getid3.php');
+include('SimpleXLSXGen.php');
+
 ///////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////
 
@@ -116,8 +118,25 @@ function liste() {
 
 	////////////////////
 	$where = 1;
+	
+	if(isset($_GET["rf"])) {
+		$rf = $_GET["rf"];
+		$_SESSION["rf"] = $rf;
+	}
+	if(isset($_GET["asc"])) {
+		$asc = $_GET["asc"];
+		$_SESSION["asc"] = $asc;
+	}
+	if($rf) { 
+		$ord = ''.$rf.' '.($asc ? ' ASC' : ' DESC');
+		$urlString = 'asc='.$asc.'&rf='.$rf;
+	}	
+	$desc = $asc ? 0 : 1;
 
-	$echo .= '<p>&nbsp;</p>	
+	$echo .= '
+	
+	<p><a href="BUA-Fragen.xlsx" class="btn btn-info">download Fragen als XLSX</a></p>
+	
 	
 	<style>th { text-align:left; font-size:13px; } 
   .player
@@ -136,17 +155,27 @@ function liste() {
 	<table class="autocol p20 newTable" style="width:100%">
 	<tr>
 		<th></th>
-		<th>ID</th>
-		<th>Frage</th>
-		<th>Dateiname</th>
+		<th><a href="?&asc='.$desc.'&rf=mediaID'.$urlString2.'">'.$sum.' ID</a></th>
+		<th><a href="?&asc='.$desc.'&rf=mdesc'.$urlString2.'">Kommentar</a></th>
 		<th></th>
+		<th><a href="?&asc='.$desc.'&rf=online'.$urlString2.'">Online</a></th>
 		<th>Dauer</th>
-		<th>Kommentar</th>
-		<th>Online Text</th>
-		<th>DSGVO</th>
-		<th>Public</th>
-		<th>Datum</th>
+		<th><a href="?&asc='.$desc.'&rf=textonline'.$urlString2.'">Online Text</th>
+		<th><a href="?&asc='.$desc.'&rf=mediaID'.$urlString2.'">Datum</a></th>
+		<th><a href="?&asc='.$desc.'&rf=mediaID'.$urlString2.'">Nutzung</a></th>
+		<th><a href="?&asc='.$desc.'&rf=mediaID'.$urlString2.'">Veröffentlichung</a></th>
 	</tr>';
+	
+	$cols = array();
+	$cols[]='ID';
+	$cols[]='Beschreibung';
+	$cols[]='Datum';
+	$cols[]='Name';
+	$cols[]='E-Mail';
+	$cols[]='Übersetzung';
+	$cols[]='Online Version';
+	$excel = array(); 
+	$excel[] = $cols;
 
 	$sql = "SELECT * FROM $table WHERE $where ORDER BY ".$ord."";
 	//echo $sql;
@@ -193,8 +222,8 @@ function liste() {
 			<td width="50" align="center">
 				<a href="?edit='.$edit.'">'.$row->$tid.' </a>
 			</td>
-			<td align="center">
-				<a href="?edit='.$edit.'" data-toggle="tooltip" title="'.$frage.'">'.($rubrik ? '<span class="label label-info">'.$rubrik.'</span>' : '-').' </a>
+			<td>
+				<a href="?edit='.$edit.'">'.substr($row->mdesc,0,30).'</a>
 			</td>
 			<td>
 				<a '.$target.' href="'.$wavfile.'">'.$file.($mp3exists ? ' &nbsp; <span class="label label-danger">MP3</span>' : '').'</a>'.$player.'
@@ -206,25 +235,36 @@ function liste() {
 				<a href="?edit='.$edit.'">'.$dauer.'</a>
 			</td>
 			<td>
-				<a href="?edit='.$edit.'">'.substr($row->mdesc,0,30).'</a>
-			</td>
-			<td>
 				<a href="?edit='.$edit.'">'.substr($row->textonline,0,30).'</a>
-			</td>
-			<td>
-				<a href="?edit='.$edit.'">'.$row->dsgvo.' </a>
-			</td>
-			<td>
-				<a href="?edit='.$edit.'">'.$row->public.' </a>
 			</td>
 			<td>
 				<a href="?edit='.$edit.'">'. euro_dat($row->mdate).' </a>
 			</td>
+			<td>
+				<a href="?edit='.$edit.'">'.$row->ck01.' </a>
+			</td>
+			<td>
+				<a href="?edit='.$edit.'">'.$row->ck02.' </a>
+			</td>
 		</tr>
 ';
+		$cols = array();
+		$cols[]=$row->$tid;
+		$cols[]=$row->mdesc;
+		$cols[]=euro_dat($row->mdate);
+		$cols[]=$row->name;
+		$cols[]=$row->email;
+		$cols[]=$row->text;
+		$cols[]=$row->textonline;
+		$excel[] = $cols;
+
 	}
 
 	$echo .= '</table><p>&nbsp;</p>';
+
+	unlink('BUA-Fragen.xlsx'); 
+	$xlsx = Shuchkin\SimpleXLSXGen::fromArray( $excel );
+	$xlsx->saveAs('BUA-Fragen.xlsx'); 
 
 	//return 'aaaa';
 	return $echo;
@@ -246,7 +286,7 @@ function duplicate_time($dauer) {
 		return $minutes .':'. (60 * $seconds);
 	} 
 	 
-    return '';
+	return '';
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -389,16 +429,16 @@ include("footer.php");
 
 <script>
 	  $(".form-control").on("change", function() {
-	  	$("#savebtn").addClass("btn-danger");
-	  	$("#savebtn2").addClass("btn-danger");
+		  $("#savebtn").addClass("btn-danger");
+		  $("#savebtn2").addClass("btn-danger");
 	  });
 	  $("#savebtn2").on("click", function() {
-	  	$("#back").val(1);
+		  $("#back").val(1);
 	  });
 	  
 	$(document).ready(function(){
-  		$('[data-toggle="tooltip"]').tooltip();
-  	});
+		  $('[data-toggle="tooltip"]').tooltip();
+	  });
 
 
 
@@ -408,40 +448,40 @@ include("footer.php");
   var btx='';
 
 function ende()
-    {
-    var btn = document.getElementById(bt);
-    btn.value = '>';
-    }
+	{
+	var btn = document.getElementById(bt);
+	btn.value = '>';
+	}
 
  function abspielen()
-  	{
-  	 var pl = document.getElementById(af);
-  	 var btn = document.getElementById(bt);
-  	 if (afx !== '')
-  	   {
-  	     if (afx !== af)
-  	       {
-  	       var plx = document.getElementById(afx);
-  	       var btnx  = document.getElementById(btx);
-  	       plx.pause();
-  	       btnx.value = '>';
-  	       }
-  	   }
+	  {
+	   var pl = document.getElementById(af);
+	   var btn = document.getElementById(bt);
+	   if (afx !== '')
+		 {
+		   if (afx !== af)
+			 {
+			 var plx = document.getElementById(afx);
+			 var btnx  = document.getElementById(btx);
+			 plx.pause();
+			 btnx.value = '>';
+			 }
+		 }
 
-      if (pl.paused)
-  	    {
-  	     pl.currentTime = 0;
-  	     pl.play();
-  	     btn.value = '||';
-  	     afx = af;
-             btx = bt;
-             pl.addEventListener('ended',function(){ende();});
-             }
-  	     else
-  	     {
-  	     pl.pause();
-  	     btn.value = '>';
-  	     }
-  	 }
+	  if (pl.paused)
+		  {
+		   pl.currentTime = 0;
+		   pl.play();
+		   btn.value = '||';
+		   afx = af;
+			 btx = bt;
+			 pl.addEventListener('ended',function(){ende();});
+			 }
+		   else
+		   {
+		   pl.pause();
+		   btn.value = '>';
+		   }
+	   }
 
 </script>

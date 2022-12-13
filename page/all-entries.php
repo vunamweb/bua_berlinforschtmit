@@ -9,6 +9,7 @@
 # # # # # # # # # # # # # # # # # # # # # # # # # # #
 
 require_once 'morpheus/getid3/getid3.php';
+include_once('morpheus/SimpleXLSXGen.php');
 
 global $arr_form, $table, $tid, $filter, $nameField, $js, $morpheus, $dir;
 
@@ -129,6 +130,17 @@ function liste()
 	$ord = "$tid DESC";
 	$anz = $nameField;
 	
+	$cols = array();
+	$cols[]='ID';
+	$cols[]='Beschreibung';
+	$cols[]='Datum';
+	$cols[]='Name';
+	$cols[]='E-Mail';
+	$cols[]='Übersetzung';
+	$cols[]='Online Version';
+	$excel = array(); 
+	$excel[] = $cols;
+	
 	$sstring = isset($_GET["sstring"]) ? $_GET["sstring"] : '';
 	////////////////////
 	$where = $sstring ? "( `mdesc` LIKE '%$sstring%' OR `text` LIKE '%$sstring%' OR `textonline` LIKE '%$sstring%' OR `name` LIKE '%$sstring%' OR `email` LIKE '%$sstring%' ) " : 1;
@@ -136,10 +148,13 @@ function liste()
 	$echo .= '
 	
 	<div class="row">
-	<div class="col-md-6">
+	<div class="col-md-4">
 		<p><a href="?neu=1" class="btn btn-success"><i class="fa fa-plus"></i> &nbsp; Neue Nachricht hinzufügen</a></p>
 	</div>
-	<div class="col-md-6">
+	<div class="col-md-3">
+		<a href="/berlinforschtmit/xls/BUA-Fragen.xlsx" class="btn btn-info"><i class="fa fa-download"></i> XLSX</a>
+	</div>
+	<div class="col-md-5">
 		<form method="get">
 			<input type="text" class="form-control" value="'.$sstring.'" style="width:250px;float:left" placeholder="suche" name="sstring"> &nbsp; 
 			<button type="submit" class="btn"><i class="fa fa-search"></i></button>
@@ -267,9 +282,24 @@ function liste()
 			</td>
 		</tr>
 ';
+
+		$cols = array();
+		$cols[]=$row->$tid;
+		$cols[]=$row->mdesc;
+		$cols[]=euro_dat($row->mdate);
+		$cols[]=$row->name;
+		$cols[]=$row->email;
+		$cols[]=$row->text;
+		$cols[]=$row->textonline;
+		$excel[] = $cols;
 	}
 
 	$echo .= '</table><p>&nbsp;</p>';
+	
+	unlink('xls/BUA-Fragen.xlsx'); 
+	$xlsx = Shuchkin\SimpleXLSXGen::fromArray( $excel );
+	$xlsx->saveAs('xls/BUA-Fragen.xlsx'); 
+	
 
 	//return 'aaaa';
 	return $echo;
