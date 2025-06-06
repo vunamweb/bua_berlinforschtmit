@@ -1,6 +1,8 @@
-# Laravel list and manage images
+# Laravel
 
 A modern and scalable web application built with [Laravel](https://laravel.com/), the PHP framework for web artisans. This project is structured for clean development, extensibility, and high performance.
+
+The website knowledge-exchange.berlin-university-alliance.de serves as a platform for the Berlin University Alliance's initiative to promote multidirectional knowledge exchange between academia and society. It focuses on integrating societal perspectives into research to address pressing urban and global challenges.
 
 ## 🚀 Features
 
@@ -28,7 +30,7 @@ A modern and scalable web application built with [Laravel](https://laravel.com/)
 
 ---
 
-[Visit my website](https://bilddatenbank.kinderbuero-frankfurt.de/)
+[Visit my website](https://knowledge-exchange.berlin-university-alliance.de/berlinforschtmit/)
 
 ## 📸 Screenshot
 
@@ -42,7 +44,7 @@ A modern and scalable web application built with [Laravel](https://laravel.com/)
 
 ```bash
 # Clone the repository
-git clone https://github.com/vunamweb/bilddatenbank
+git clone https://github.com/vunamweb/bua_berlinforschtmit
 cd project-name
 
 # Install dependencies
