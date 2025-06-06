@@ -1,7 +1,0 @@
-body { background-color: #ffffff; }
-p, h1, h2, h3, td, a	{ font-family: 	Arial, Verdana; font-size:	14px; line-height: 	16px; color: #414042; margin: 0 0 1px 0; padding: 0; }
-td { padding:0;	margin:0;}
-h1, h2  { font-weight: 	bold; margin: 0 0 10px 0; }
-h1  { font-size: 18px; font-weight: bold; line-height: 20px; margin: 0 0 12px 0; }
-a:link, a:visited, a:hover	{ font-weight: normal; text-decoration: underline; }
-a:hover	{ color: #312783; }
